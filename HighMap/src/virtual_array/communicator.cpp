@@ -17,8 +17,8 @@
 #include "highmap/array.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -69,7 +69,7 @@ int SingleArrayComm::size() const
 }
 
 void SingleArrayComm::sync_overlap_buffers(Array & /*local_tile*/,
-                                           const TileRegion & /*region*/,
+                                           const UvTile & /*region*/,
                                            SyncOperation /*op*/)
 {
   // Standalone single array has no neighboring tiles or overlap seams
@@ -394,9 +394,9 @@ int SequentialTileComm::size() const
   return this->total_tiles;
 }
 
-void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
-                                              const TileRegion &region,
-                                              SyncOperation     op)
+void SequentialTileComm::sync_overlap_buffers(Array        &local_tile,
+                                              const UvTile &region,
+                                              SyncOperation op)
 {
   if (this->halo <= 0) return;
 
@@ -619,7 +619,7 @@ void SequentialTileComm::sync_overlap_buffers(Array            &local_tile,
 }
 
 void SequentialTileComm::run_cooperative_tiles(
-    const std::function<void(const TileRegion &, ICommunicator &)> &dispatcher)
+    const std::function<void(const UvTile &, ICommunicator &)> &dispatcher)
 {
   if (!this->p_ref_va) return;
 
@@ -633,7 +633,7 @@ void SequentialTileComm::run_cooperative_tiles(
   if (n_tiles == 1)
   {
     this->next_tile(0);
-    TileRegion region = ref_va.tile_region_from_tile_coords(0, 0);
+    UvTile region = ref_va.tile_region_from_tile_coords(0, 0);
     dispatcher(region, *this);
     return;
   }
@@ -643,8 +643,8 @@ void SequentialTileComm::run_cooperative_tiles(
   SequentialThreadScheduler sched(n_tiles);
   this->p_thread_scheduler = &sched;
 
-  std::vector<TileRegion> regions(n_tiles);
-  int                     idx = 0;
+  std::vector<UvTile> regions(n_tiles);
+  int                 idx = 0;
   for (int ty = 0; ty < ny; ++ty)
     for (int tx = 0; tx < nx; ++tx)
     {
@@ -794,9 +794,9 @@ int ThreadedCollectiveState::get_total_threads() const
   return this->total_threads;
 }
 
-void ThreadedCollectiveState::register_tile(int               tile_idx,
-                                            Array            *tile,
-                                            const TileRegion &region)
+void ThreadedCollectiveState::register_tile(int           tile_idx,
+                                            Array        *tile,
+                                            const UvTile &region)
 {
   std::unique_lock<std::mutex> lock(this->mtx);
   this->registered_tiles[tile_idx] = tile;
@@ -813,8 +813,7 @@ Array *ThreadedCollectiveState::get_registered_tile(int tile_idx) const
   return nullptr;
 }
 
-const TileRegion *ThreadedCollectiveState::get_registered_region(
-    int tile_idx) const
+const UvTile *ThreadedCollectiveState::get_registered_region(int tile_idx) const
 {
   auto it = this->registered_regions.find(tile_idx);
   if (it != this->registered_regions.end())
@@ -877,9 +876,9 @@ int ThreadedTileComm::size() const
   return this->total_size;
 }
 
-void ThreadedTileComm::sync_overlap_buffers(Array            &local_tile,
-                                            const TileRegion &region,
-                                            SyncOperation     op)
+void ThreadedTileComm::sync_overlap_buffers(Array        &local_tile,
+                                            const UvTile &region,
+                                            SyncOperation op)
 {
   if (!this->state) return;
 
@@ -1275,9 +1274,9 @@ void SequentialTileComm::TileProxyComm::barrier()
 }
 
 void SequentialTileComm::TileProxyComm::sync_overlap_buffers(
-    Array            &local_tile,
-    const TileRegion &region,
-    SyncOperation     op)
+    Array        &local_tile,
+    const UvTile &region,
+    SyncOperation op)
 {
   if (this->parent.halo <= 0) return;
 

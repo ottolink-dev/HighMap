@@ -18,7 +18,7 @@
 #include "highmap/array.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/scatter/scatter_item.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -415,7 +415,7 @@ public:
                        float                   sigma = 0.0f,
                        std::optional<uint32_t> class_id = std::nullopt,
                        bool                    weighted_by_area = false,
-                       const TileRegion       &region = TileRegion::dummy(),
+                       const UvTile           &region = UvTile::dummy(),
                        ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**

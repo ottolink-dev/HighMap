@@ -11,6 +11,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 #include <unordered_map>
 
@@ -30,17 +31,7 @@ class TerrainTriMesh
 {
 public:
   /** @brief Axis-aligned 2D bounding box. */
-  struct BoundingBox
-  {
-    glm::vec2 min;
-    glm::vec2 max;
-
-    /** @brief Check whether a point lies inside the box. */
-    bool contains(const glm::vec2 &p) const;
-
-    /** @brief Clamp a point to the box. */
-    glm::vec2 clamp(const glm::vec2 &p) const;
-  };
+  using BoundingBox = BBox2D;
 
   /** @brief Undirected edge between two vertices. */
   struct Edge

@@ -11,8 +11,8 @@
 #include "highmap/array.hpp"
 #include "highmap/geometry/cloud.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -99,10 +99,10 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
       {},
       [&](std::vector<const hmap::Array *> p_arrays_in,
           std::vector<hmap::Array *>,
-          const hmap::TileRegion &region)
+          const hmap::UvTile &region)
       {
         auto [pa_z] = unpack<1>(p_arrays_in);
-        cloud.set_values_from_array(*pa_z, region.bbox);
+        cloud.set_values_from_array(*pa_z, region.uv_rect.to_vec4());
       },
       cm_sampling);
 

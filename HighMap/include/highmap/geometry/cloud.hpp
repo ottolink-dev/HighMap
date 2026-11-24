@@ -652,7 +652,7 @@ public:
   void to_png(const std::string &fname,
               int                cmap,
               glm::vec4          bbox = {0.f, 1.f, 0.f, 1.f},
-              int                depth = CV_8U,
+              int                depth = 0,
               glm::ivec2         shape = {512, 512}) const;
 
   /**

@@ -14,6 +14,7 @@
  * @copyright Copyright (c) 2023
  */
 #pragma once
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <functional>

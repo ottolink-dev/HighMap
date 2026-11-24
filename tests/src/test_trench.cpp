@@ -184,7 +184,7 @@ TEST(TrenchCarving, VirtualArrayVsArrayComparisonSingleTile)
 
   hmap::for_each_tile(
       z_va,
-      [&](hmap::Array &tile, const hmap::TileRegion &region)
+      [&](hmap::Array &tile, const hmap::UvTile &region)
       {
         hmap::trench(tile,
                      path,
@@ -206,7 +206,7 @@ TEST(TrenchCarving, VirtualArrayVsArrayComparisonSingleTile)
                      nullptr,
                      nullptr,
                      /* tile_size */ 32,
-                     region.bbox);
+                     region.uv_rect.to_vec4());
       },
       cm);
 
@@ -268,7 +268,7 @@ TEST(TrenchCarving, VirtualArrayVsArrayComparisonMultiTile)
 
   hmap::for_each_tile(
       z_va,
-      [&](hmap::Array &tile, const hmap::TileRegion &region)
+      [&](hmap::Array &tile, const hmap::UvTile &region)
       {
         hmap::trench(tile,
                      path,
@@ -290,7 +290,7 @@ TEST(TrenchCarving, VirtualArrayVsArrayComparisonMultiTile)
                      nullptr,
                      nullptr,
                      /* tile_size */ 32,
-                     region.bbox);
+                     region.uv_rect.to_vec4());
       },
       cm);
 

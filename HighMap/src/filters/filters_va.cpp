@@ -6,7 +6,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/filters.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap::va
@@ -22,7 +22,7 @@ void smooth_cpulse(VirtualArray       &array,
       {&array},
       [&ir](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion &)
+            const hmap::UvTile &)
       {
         const auto [pa_mask] = unpack<1>(p_arrays_in);
         auto [pa_out] = unpack<1>(p_arrays_out);
@@ -47,7 +47,7 @@ VirtualArray smooth_cpulse(const VirtualArray &array,
       {&out},
       [&ir](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion &)
+            const hmap::UvTile &)
       {
         const auto [pa_in, pa_mask] = unpack<2>(p_arrays_in);
         auto [pa_out] = unpack<1>(p_arrays_out);

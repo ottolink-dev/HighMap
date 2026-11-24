@@ -9,15 +9,16 @@
 #include <opencv2/core.hpp>
 #include <opencv2/core/utility.hpp>
 
+#include "highmap/adapters/opencv.hpp"
 #include "highmap/array.hpp"
 #include "highmap/range.hpp"
 
 namespace hmap
 {
 
-cv::Mat Array::to_cv_mat()
+cv::Mat to_cv_mat(Array &array)
 {
-  return cv::Mat(this->shape.y, this->shape.x, CV_32FC1, this->vector.data());
+  return cv::Mat(array.shape.y, array.shape.x, CV_32FC1, array.vector.data());
 }
 
 // Helper function to convert OpenCV matrix to Array

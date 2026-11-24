@@ -32,20 +32,6 @@ namespace hmap
 {
 
 // ------------------------------------------------------------
-// BoundingBox
-// ------------------------------------------------------------
-
-bool TerrainTriMesh::BoundingBox::contains(const glm::vec2 &p) const
-{
-  return (p.x >= this->min.x && p.x <= this->max.x && p.y >= this->min.y &&
-          p.y <= this->max.y);
-}
-
-glm::vec2 TerrainTriMesh::BoundingBox::clamp(const glm::vec2 &p) const
-{
-  return {std::clamp(p.x, this->min.x, this->max.x),
-          std::clamp(p.y, this->min.y, this->max.y)};
-}
 
 // ------------------------------------------------------------
 // TerrainTriMesh

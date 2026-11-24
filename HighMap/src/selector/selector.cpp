@@ -500,10 +500,10 @@ Array select_valley(const Array   &z,
   return out;
 }
 
-Array smooth_mask_preserve_frontier(const Array      &mask,
-                                    float             feather_width,
-                                    const TileRegion &region,
-                                    ICommunicator    &comm)
+Array smooth_mask_preserve_frontier(const Array   &mask,
+                                    float          feather_width,
+                                    const UvTile  &region,
+                                    ICommunicator &comm)
 {
   if (!validate_non_empty(mask)) return Array();
 

@@ -36,7 +36,7 @@ TEST(VirtualArrayTest, SingleTileGeometry)
   VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
 
   EXPECT_EQ(va.get_ntiles(), 1);
-  TileRegion region = va.tile_region_from_tile_coords(0, 0);
+  UvTile region = va.tile_region_from_tile_coords(0, 0);
   EXPECT_EQ(region.shape.x, 16);
   EXPECT_EQ(region.shape.y, 16);
   // halos at outer boundaries are 0
@@ -53,7 +53,7 @@ TEST(VirtualArrayTest, TileCoordinateMapping)
   int          halo = 4;
   VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
 
-  TileRegion r00 = va.tile_region_from_tile_coords(0, 0);
+  UvTile r00 = va.tile_region_from_tile_coords(0, 0);
   EXPECT_EQ(r00.halo.x, 0);
   EXPECT_EQ(r00.halo.y, 4);
   EXPECT_EQ(r00.halo.z, 0);
@@ -61,13 +61,13 @@ TEST(VirtualArrayTest, TileCoordinateMapping)
   EXPECT_EQ(r00.shape.x, 36);
   EXPECT_EQ(r00.shape.y, 36);
 
-  TileRegion r11 = va.tile_region_from_tile_coords(1, 1);
+  UvTile r11 = va.tile_region_from_tile_coords(1, 1);
   EXPECT_EQ(r11.halo.x, 4);
   EXPECT_EQ(r11.halo.y, 0);
   EXPECT_EQ(r11.halo.z, 4);
   EXPECT_EQ(r11.halo.w, 0);
 
-  TileRegion r_at = va.tile_region_from_global_index(40, 10);
+  UvTile r_at = va.tile_region_from_global_index(40, 10);
   EXPECT_EQ(r_at.key.tx, 1);
   EXPECT_EQ(r_at.key.ty, 0);
 }
@@ -81,20 +81,20 @@ TEST(VirtualArrayTest, TileRegionInnerBbox)
   VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
 
   // Tile (0, 0): inner x in [0, 32], inner y in [0, 32]
-  TileRegion r00 = va.tile_region_from_tile_coords(0, 0);
-  glm::vec4  inner00 = r00.inner_bbox();
-  EXPECT_NEAR(inner00.x, 0.f, 1e-5f);
-  EXPECT_NEAR(inner00.y, 32.f, 1e-5f);
-  EXPECT_NEAR(inner00.z, 0.f, 1e-5f);
-  EXPECT_NEAR(inner00.w, 32.f, 1e-5f);
+  UvTile r00 = va.tile_region_from_tile_coords(0, 0);
+  UvRect inner00 = r00.core_uv_rect();
+  EXPECT_NEAR(inner00.u_min, 0.f, 1e-5f);
+  EXPECT_NEAR(inner00.u_max, 32.f, 1e-5f);
+  EXPECT_NEAR(inner00.v_min, 0.f, 1e-5f);
+  EXPECT_NEAR(inner00.v_max, 32.f, 1e-5f);
 
   // Tile (1, 1): inner x in [32, 64], inner y in [32, 64]
-  TileRegion r11 = va.tile_region_from_tile_coords(1, 1);
-  glm::vec4  inner11 = r11.inner_bbox();
-  EXPECT_NEAR(inner11.x, 32.f, 1e-5f);
-  EXPECT_NEAR(inner11.y, 64.f, 1e-5f);
-  EXPECT_NEAR(inner11.z, 32.f, 1e-5f);
-  EXPECT_NEAR(inner11.w, 64.f, 1e-5f);
+  UvTile r11 = va.tile_region_from_tile_coords(1, 1);
+  UvRect inner11 = r11.core_uv_rect();
+  EXPECT_NEAR(inner11.u_min, 32.f, 1e-5f);
+  EXPECT_NEAR(inner11.u_max, 64.f, 1e-5f);
+  EXPECT_NEAR(inner11.v_min, 32.f, 1e-5f);
+  EXPECT_NEAR(inner11.v_max, 64.f, 1e-5f);
 }
 
 TEST(VirtualArrayTest, CellGetSet)
@@ -183,7 +183,7 @@ TEST(VirtualArrayTest, RemapAndInverse)
   // set gradient
   for_each_tile(
       va,
-      [](Array &tile, const TileRegion &region)
+      [](Array &tile, const UvTile &region)
       {
         for (int j = 0; j < region.shape.y; ++j)
           for (int i = 0; i < region.shape.x; ++i)
@@ -286,7 +286,7 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region)
+        [](Array &tile, const UvTile &region)
         {
           float base_val = float(region.key.tx + region.key.ty * 10);
           tile = base_val;
@@ -301,10 +301,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(op);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 0.5f);
@@ -319,10 +319,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::CopyFirst);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 0.f);
@@ -337,10 +337,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::CopySecond);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 1.f);
@@ -355,10 +355,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::Min);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 0.f);
@@ -373,10 +373,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::Max);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 1.f);
@@ -391,10 +391,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::SmoothBlend);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), t1(0, 0));
@@ -413,10 +413,10 @@ TEST(VirtualArrayTest, SyncOverlapBuffersOperations)
     VirtualArray va = setup_va();
     va.sync_overlap_buffers(SyncOperation::Sum);
 
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int pbuf = t0.shape.x - 2 * halo;
     EXPECT_FLOAT_EQ(t0(pbuf, 0), 1.f); // 0 + 1
@@ -532,7 +532,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     for_each_tile(
         va,
-        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        [&](const Array &tile, const UvTile &, ICommunicator &comm)
         {
           va_min = tile.min(comm);
           va_max = tile.max(comm);
@@ -589,7 +589,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     std::vector<float> va_unique;
     for_each_tile(
         va_labels,
-        [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+        [&](const Array &tile, const UvTile &, ICommunicator &comm)
         { va_unique = tile.unique_values(comm); },
         cm_seq);
 
@@ -606,7 +606,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
     // Fill each tile with a value corresponding to its tile index
     for_each_tile(
         va_sync,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         {
           float tile_val = static_cast<float>(region.key.tx +
                                               region.key.ty * 10);
@@ -620,7 +620,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     // Verify west-to-east neighbor halo on tile (1, 0) received tile (0, 0)'s
     // value
-    TileRegion   r10 = va_sync.tile_region_from_tile_coords(1, 0);
+    UvTile       r10 = va_sync.tile_region_from_tile_coords(1, 0);
     const Array &tile10 = va_sync.storage->get_tile(r10);
     // Western halo is at x in [0, va_halo)
     EXPECT_FLOAT_EQ(tile10(0, tile10.shape.y / 2),
@@ -648,8 +648,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     for_each_tile(
         va_post,
-        [&](Array &tile, const TileRegion &)
-        { smooth_cpulse(tile, smooth_ir); },
+        [&](Array &tile, const UvTile &) { smooth_cpulse(tile, smooth_ir); },
         cm_dist);
     va_post.sync_overlap_buffers();
     Array res_post = va_post.to_array(cm_dist);
@@ -660,7 +659,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     for_each_tile(
         va_comm,
-        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [&](Array &tile, const UvTile &region, ICommunicator &comm)
         { gpu::smooth_cpulse(tile, smooth_ir, nullptr, region, comm); },
         cm_dist);
     Array res_comm = va_comm.to_array(cm_dist);
@@ -699,7 +698,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     for_each_tile(
         va_remap,
-        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        [](Array &tile, const UvTile &, ICommunicator &comm)
         { remap(tile, 0.f, 1.f, comm); },
         cm_dist);
 
@@ -712,7 +711,7 @@ TEST(VirtualArrayTest, MPICollectiveMinTiledVsNonTiled)
 
     for_each_tile(
         va_norm,
-        [](Array &tile, const TileRegion &, ICommunicator &comm)
+        [](Array &tile, const UvTile &, ICommunicator &comm)
         { normalize_and_clip(tile, 2.0f, true, false, comm); },
         cm_dist);
 
@@ -757,8 +756,7 @@ TEST(VirtualArrayTest, SchedulerCooperativeExceptionPropagation)
   ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
 
   // One tile throws an exception inside collective operation
-  auto faulty_lambda =
-      [](Array &, const TileRegion &region, ICommunicator &comm)
+  auto faulty_lambda = [](Array &, const UvTile &region, ICommunicator &comm)
   {
     if (region.key.tx == 1 && region.key.ty == 1)
     {

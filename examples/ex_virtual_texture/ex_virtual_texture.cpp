@@ -40,7 +40,7 @@ int main()
   hmap::VirtualTexture tex(shape, bbox, tile_shape, halo, 3, storage_mode);
 
   const auto fill_channels =
-      [](std::vector<hmap::Array *> &tiles, const hmap::TileRegion &region)
+      [](std::vector<hmap::Array *> &tiles, const hmap::UvTile &region)
   {
     auto &R = *tiles[0];
     auto &G = *tiles[1];
@@ -82,7 +82,7 @@ int main()
   hmap::VirtualTexture tex_px(shape, bbox, tile_shape, halo, 4, storage_mode);
 
   const auto fill_pixel =
-      [](std::vector<float> &px, int i, int j, const hmap::TileRegion &region)
+      [](std::vector<float> &px, int i, int j, const hmap::UvTile &region)
   {
     glm::vec2 pos = region.cell_center(i, j);
     px[0] = pos.x;
@@ -111,7 +111,7 @@ int main()
 
   hmap::VirtualArray level(shape, bbox, tile_shape, halo, storage_mode);
 
-  const auto gen_noise = [](hmap::Array &tile, const hmap::TileRegion &region)
+  const auto gen_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {
     tile = hmap::noise(hmap::NoiseType::PERLIN,
                        region.shape,
@@ -119,7 +119,7 @@ int main()
                        0,
                        nullptr,
                        nullptr,
-                       region.bbox);
+                       region.uv_rect.to_vec4());
   };
 
   hmap::for_each_tile(level, gen_noise, cm);

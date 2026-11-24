@@ -15,35 +15,35 @@
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
-void aeolian_erosion(Array            &z,
-                     int               steps,
-                     std::uint32_t     seed,
-                     glm::vec2         wind,
-                     const Array      *p_bedrock,
-                     const Array      *p_vegetation,
-                     const Array      *p_abrasion_mask,
-                     Array            *p_sediment_map,
-                     Array            *p_bedrock_map,
-                     float             cell_size,
-                     float             matter_to_move,
-                     int               samples_per_step,
-                     float             sand_repose_angle,
-                     float             shadow_angle_min,
-                     float             shadow_angle_max,
-                     float             max_shadow_dist,
-                     float             abrasion_rate,
-                     float             repose_rate,
-                     int               sync_interval,
-                     const TileRegion &region,
-                     ICommunicator    &comm,
-                     int               shadow_map_interval,
-                     int               repose_interval)
+void aeolian_erosion(Array         &z,
+                     int            steps,
+                     std::uint32_t  seed,
+                     glm::vec2      wind,
+                     const Array   *p_bedrock,
+                     const Array   *p_vegetation,
+                     const Array   *p_abrasion_mask,
+                     Array         *p_sediment_map,
+                     Array         *p_bedrock_map,
+                     float          cell_size,
+                     float          matter_to_move,
+                     int            samples_per_step,
+                     float          sand_repose_angle,
+                     float          shadow_angle_min,
+                     float          shadow_angle_max,
+                     float          max_shadow_dist,
+                     float          abrasion_rate,
+                     float          repose_rate,
+                     int            sync_interval,
+                     const UvTile  &region,
+                     ICommunicator &comm,
+                     int            shadow_map_interval,
+                     int            repose_interval)
 {
   if (!validate_non_empty(z)) return;
   if (p_bedrock && !validate_same_shape(z, *p_bedrock)) return;

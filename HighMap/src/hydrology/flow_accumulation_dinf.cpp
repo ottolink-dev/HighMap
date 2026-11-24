@@ -20,17 +20,17 @@
 #include "highmap/primitives/coherent_noise.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
-Array flow_accumulation_dinf(const Array      &z,
-                             float             talus_ref,
-                             int               iterations,
-                             const TileRegion &region,
-                             ICommunicator    &comm)
+Array flow_accumulation_dinf(const Array   &z,
+                             float          talus_ref,
+                             int            iterations,
+                             const UvTile  &region,
+                             ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -258,17 +258,17 @@ Array flow_accumulation_dinf(const Array      &z,
   return facc;
 }
 
-Array flow_accumulation_dinf_perturbed(const Array      &z,
-                                       float             talus_ref,
-                                       int               nsamples,
-                                       glm::vec2         kw,
-                                       std::uint32_t     seed,
-                                       float             amp,
-                                       const Array      *p_perturb_scaling,
-                                       glm::vec4         bbox,
-                                       int               iterations,
-                                       const TileRegion &region,
-                                       ICommunicator    &comm)
+Array flow_accumulation_dinf_perturbed(const Array   &z,
+                                       float          talus_ref,
+                                       int            nsamples,
+                                       glm::vec2      kw,
+                                       std::uint32_t  seed,
+                                       float          amp,
+                                       const Array   *p_perturb_scaling,
+                                       glm::vec4      bbox,
+                                       int            iterations,
+                                       const UvTile  &region,
+                                       ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_perturb_scaling && !validate_same_shape(z, *p_perturb_scaling))
@@ -280,7 +280,7 @@ Array flow_accumulation_dinf_perturbed(const Array      &z,
   // If a valid region bbox is provided, prefer it for coherent noise across
   // tiles
   glm::vec4 noise_bbox = (region.shape.x > 0 && region.shape.y > 0)
-                             ? region.bbox
+                             ? region.uv_rect.to_vec4()
                              : bbox;
 
   for (int n = 0; n < nsamples; ++n)

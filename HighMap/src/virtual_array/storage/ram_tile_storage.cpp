@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 
 #include <unordered_map>
@@ -27,7 +27,7 @@ std::unique_ptr<TileStorage> RamTileStorage::clone() const
   return std::make_unique<RamTileStorage>(*this);
 }
 
-Array &RamTileStorage::get_tile(const TileRegion &region)
+Array &RamTileStorage::get_tile(const UvTile &region)
 {
   std::lock_guard<std::mutex> lock(this->mtx);
   auto                        it = tiles.find(region.key);
@@ -49,7 +49,7 @@ size_t RamTileStorage::max_live_tiles() const
   return std::numeric_limits<size_t>::max();
 }
 
-void RamTileStorage::release_tile(const TileRegion & /* region */)
+void RamTileStorage::release_tile(const UvTile & /* region */)
 {
   // nothing for RAM
 }

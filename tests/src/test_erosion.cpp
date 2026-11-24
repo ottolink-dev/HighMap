@@ -1,3 +1,4 @@
+#include "highmap/colormaps.hpp"
 #include "highmap/erosion.hpp"
 #include "highmap/export/image.hpp"
 #include "highmap/hydrology/hydrology.hpp"
@@ -724,7 +725,7 @@ TEST(AeolianErosionGPU, TiledDistributedExecution)
         {&z_out},
         [&](std::vector<const Array *> p_arrays_in,
             std::vector<Array *>       p_arrays_out,
-            const TileRegion          &region,
+            const UvTile              &region,
             ICommunicator             &comm)
         {
           auto [pa_z] = unpack<1>(p_arrays_in);

@@ -1211,17 +1211,18 @@ Array ScatterField::to_density_map(glm::ivec2              shape,
                                    float                   sigma,
                                    std::optional<uint32_t> class_id,
                                    bool                    weighted_by_area,
-                                   const TileRegion       &region,
+                                   const UvTile           &region,
                                    ICommunicator          &comm) const
 {
   if (!validate_shape(shape)) return Array();
 
-  const glm::vec4 bbox = (region.bbox.y - region.bbox.x > 1e-9f &&
-                          region.bbox.w - region.bbox.z > 1e-9f)
-                             ? region.bbox
-                             : glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
-  float           dx = bbox.y - bbox.x;
-  float           dy = bbox.w - bbox.z;
+  const glm::vec4 bbox =
+      (region.uv_rect.to_vec4().y - region.uv_rect.to_vec4().x > 1e-9f &&
+       region.uv_rect.to_vec4().w - region.uv_rect.to_vec4().z > 1e-9f)
+          ? region.uv_rect.to_vec4()
+          : glm::vec4(0.0f, 1.0f, 0.0f, 1.0f);
+  float dx = bbox.y - bbox.x;
+  float dy = bbox.w - bbox.z;
   if (std::abs(dx) < 1e-9f || std::abs(dy) < 1e-9f) return Array(shape, 0.0f);
 
   // --- Determine effective Gaussian sigma (in world coordinates)

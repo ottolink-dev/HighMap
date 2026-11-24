@@ -52,8 +52,7 @@ int main()
   // Tile operations
   // ===========================================================================
 
-  const auto generate_noise =
-      [](hmap::Array &tile, const hmap::TileRegion &region)
+  const auto generate_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {
     tile = hmap::noise_fbm(hmap::NoiseType::PERLIN,
                            region.shape,
@@ -66,13 +65,13 @@ int main()
                            nullptr,
                            nullptr,
                            nullptr,
-                           region.bbox);
+                           region.uv_rect.to_vec4());
   };
 
-  const auto apply_gamma = [](hmap::Array &tile, const hmap::TileRegion &)
+  const auto apply_gamma = [](hmap::Array &tile, const hmap::UvTile &)
   { hmap::gamma_correction(tile, 2.f); };
 
-  const auto smooth = [](hmap::Array &tile, const hmap::TileRegion &)
+  const auto smooth = [](hmap::Array &tile, const hmap::UvTile &)
   { hmap::smooth_cpulse(tile, 64); };
 
   hmap::for_each_tile(varray, generate_noise, cm);
@@ -90,7 +89,7 @@ int main()
 
   const auto binarize_copy = [](const std::vector<const hmap::Array *> &in,
                                 std::vector<hmap::Array *>             &out,
-                                const hmap::TileRegion &)
+                                const hmap::UvTile &)
   {
     auto &src = *in[0];
     auto &dst = *out[0];

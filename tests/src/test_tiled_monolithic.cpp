@@ -35,7 +35,7 @@ TEST(DepressionFilling_Communicator, TiledMatchesMonolithic)
 
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         {
           depression_filling(tile,
                              200,
@@ -91,7 +91,7 @@ TEST(DepressionFillingPriorityFlood_Communicator, TiledMatchesMonolithic)
 
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         {
           depression_filling_priority_flood(tile,
                                             false,
@@ -144,7 +144,7 @@ TEST(FloodingLakeSystem_VirtualArray, SingleTileMatchesArray)
 
   hmap::for_each_tile(
       va_water,
-      [](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [](Array &tile, const UvTile &region, ICommunicator &comm)
       { tile = flooding_lake_system(tile, 0.f, region, comm); },
       cm);
 
@@ -174,7 +174,7 @@ TEST(FloodingLakeSystem_VirtualArray, MultiTileWithSurfaceThreshold)
 
   hmap::for_each_tile(
       va_water,
-      [](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [](Array &tile, const UvTile &region, ICommunicator &comm)
       { tile = flooding_lake_system(tile, 10.f, region, comm); },
       cm);
 
@@ -216,9 +216,9 @@ TEST(FloodingFromPoint_Communicator, TiledMatchesMonolithicSingleSeed)
 
   hmap::for_each_tile(
       va_water,
-      [seed_x, seed_y, depth_min](Array            &tile,
-                                  const TileRegion &region,
-                                  ICommunicator    &comm)
+      [seed_x, seed_y, depth_min](Array         &tile,
+                                  const UvTile  &region,
+                                  ICommunicator &comm)
       {
         tile = flooding_from_point(tile,
                                    seed_x,
@@ -263,9 +263,9 @@ TEST(FloodingFromPoint_Communicator, TiledMatchesMonolithicBoundarySeed)
 
   hmap::for_each_tile(
       va_water,
-      [seed_x, seed_y, depth_min](Array            &tile,
-                                  const TileRegion &region,
-                                  ICommunicator    &comm)
+      [seed_x, seed_y, depth_min](Array         &tile,
+                                  const UvTile  &region,
+                                  ICommunicator &comm)
       {
         tile = flooding_from_point(tile,
                                    seed_x,
@@ -309,9 +309,9 @@ TEST(FloodingFromPoint_Communicator, TiledMatchesMonolithicMultiSeed)
 
   hmap::for_each_tile(
       va_water,
-      [&seeds_x, &seeds_y, depth_min](Array            &tile,
-                                      const TileRegion &region,
-                                      ICommunicator    &comm)
+      [&seeds_x, &seeds_y, depth_min](Array         &tile,
+                                      const UvTile  &region,
+                                      ICommunicator &comm)
       {
         tile = flooding_from_point(tile,
                                    seeds_x,
@@ -359,7 +359,7 @@ TEST(FloodingFromBoundaries_Communicator, TiledMatchesMonolithicAllBoundaries)
 
   hmap::for_each_tile(
       va_water,
-      [zref](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [zref](Array &tile, const UvTile &region, ICommunicator &comm)
       {
         tile = flooding_from_boundaries(tile,
                                         zref,
@@ -409,7 +409,7 @@ TEST(FloodingFromBoundaries_Communicator,
 
   hmap::for_each_tile(
       va_water,
-      [zref](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [zref](Array &tile, const UvTile &region, ICommunicator &comm)
       {
         tile = flooding_from_boundaries(tile,
                                         zref,

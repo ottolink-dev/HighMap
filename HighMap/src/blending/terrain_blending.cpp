@@ -444,7 +444,7 @@ void blend_terrains(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region)
+      [&](Array &tile, const UvTile &region)
       {
         const glm::ivec2 offset = region.global_offset();
 
@@ -549,7 +549,7 @@ void blend_terrains_height(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region)
+      [&](Array &tile, const UvTile &region)
       {
         const glm::ivec2 offset = region.global_offset();
 
@@ -766,7 +766,7 @@ void blend_terrains_multiscale(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [&](Array &tile, const UvTile &region, ICommunicator &comm)
       {
         const glm::ivec2 offset = region.global_offset();
         const int        tx = tile.shape.x;
@@ -1004,7 +1004,7 @@ void blend_terrains_poisson(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [&](Array &tile, const UvTile &region, ICommunicator &comm)
       {
         const glm::ivec2 offset = region.global_offset();
         const int        tx = tile.shape.x;
@@ -1192,7 +1192,7 @@ void blend_terrains_seamless(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region)
+      [&](Array &tile, const UvTile &region)
       {
         const glm::ivec2 offset = region.global_offset();
 
@@ -1324,7 +1324,7 @@ void blend_terrains_slope(VirtualArray       &lower,
 
   for_each_tile(
       lower,
-      [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+      [&](Array &tile, const UvTile &region, ICommunicator &comm)
       {
         const glm::ivec2 offset = region.global_offset();
         const int        tx = tile.shape.x;

@@ -15,7 +15,7 @@
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/profiling.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
@@ -105,7 +105,7 @@ void VirtualArray::fill(float value, const ComputeMode &cm)
 {
   for_each_tile(
       *this,
-      [value](Array &tile, const TileRegion &) { tile = value; },
+      [value](Array &tile, const UvTile &) { tile = value; },
       cm);
 }
 
@@ -114,7 +114,7 @@ void VirtualArray::from_array(const Array &array, const ComputeMode &cm)
   HMAP_PROFILE_ZONE("HighMap::VirtualArray::from_array");
   if (!validate_non_empty(array)) return;
 
-  auto lambda = [&array, this](Array &tile, const TileRegion &region)
+  auto lambda = [&array, this](Array &tile, const UvTile &region)
   {
     const float rx = float(array.shape.x - 1) / float(this->shape.x - 1);
     const float ry = float(array.shape.y - 1) / float(this->shape.y - 1);
@@ -149,7 +149,7 @@ void VirtualArray::from_array_bilinear(const Array       &array,
   HMAP_PROFILE_ZONE("HighMap::VirtualArray::from_array_bilinear");
   if (!validate_non_empty(array)) return;
 
-  auto lambda = [&array, this](Array &tile, const TileRegion &region)
+  auto lambda = [&array, this](Array &tile, const UvTile &region)
   {
     const float rx = float(array.shape.x - 1) / float(this->shape.x - 1);
     const float ry = float(array.shape.y - 1) / float(this->shape.y - 1);
@@ -191,7 +191,7 @@ void VirtualArray::from_array_bicubic(const Array &array, const ComputeMode &cm)
   HMAP_PROFILE_ZONE("HighMap::VirtualArray::from_array_bicubic");
   if (!validate_non_empty(array)) return;
 
-  auto lambda = [&array, this](Array &tile, const TileRegion &region)
+  auto lambda = [&array, this](Array &tile, const UvTile &region)
   {
     const float rx = float(array.shape.x - 1) / float(this->shape.x - 1);
     const float ry = float(array.shape.y - 1) / float(this->shape.y - 1);
@@ -231,7 +231,7 @@ void VirtualArray::from_array_bicubic(const Array &array, const ComputeMode &cm)
 // Access individual cells (slower)
 float VirtualArray::get(int global_i, int global_j) const
 {
-  TileRegion   region = tile_region_from_global_index(global_i, global_j);
+  UvTile       region = tile_region_from_global_index(global_i, global_j);
   const Array &tile = this->storage.get()->get_tile(region);
   glm::ivec2   local = local_indices(region, global_i, global_j);
 
@@ -343,24 +343,24 @@ std::string VirtualArray::info_string(const ComputeMode &cm, int indent) const
   return oss.str();
 }
 
-glm::ivec2 VirtualArray::local_indices(const TileRegion &region,
-                                       int               global_i,
-                                       int               global_j) const
+glm::ivec2 VirtualArray::local_indices(const UvTile &region,
+                                       int           global_i,
+                                       int           global_j) const
 {
   return region.global_to_local(global_i, global_j);
 }
 
 void VirtualArray::set(int global_i, int global_j, float v)
 {
-  TileRegion region = tile_region_from_global_index(global_i, global_j);
+  UvTile     region = tile_region_from_global_index(global_i, global_j);
   Array     &tile = this->storage->get_tile(region);
   glm::ivec2 local = local_indices(region, global_i, global_j);
   tile(local) = v;
   this->storage->release_tile(region);
 }
 
-TileRegion VirtualArray::tile_region_from_global_index(int global_i,
-                                                       int global_j) const
+UvTile VirtualArray::tile_region_from_global_index(int global_i,
+                                                   int global_j) const
 {
   // belonging tile indices
   int tx = int(global_i / this->tile_shape.x);
@@ -369,8 +369,7 @@ TileRegion VirtualArray::tile_region_from_global_index(int global_i,
   return this->tile_region_from_tile_coords(tx, ty);
 }
 
-TileRegion VirtualArray::tile_region_from_tile_coords(int tile_x,
-                                                      int tile_y) const
+UvTile VirtualArray::tile_region_from_tile_coords(int tile_x, int tile_y) const
 {
   // actual tile shape
   int w = std::min(this->tile_shape.x,
@@ -407,27 +406,25 @@ TileRegion VirtualArray::tile_region_from_tile_coords(int tile_x,
 
   TileKey key = {.tx = tile_x, .ty = tile_y};
 
-  return TileRegion(key,
-                    glm::vec4(fx1, fx2, fy1, fy2),
-                    glm::ivec2(w + halo4.x + halo4.y, h + halo4.z + halo4.w),
-                    halo4,
-                    this->shape,
-                    this->tile_shape,
-                    glm::ivec2(nx, ny));
+  return UvTile(key,
+                UvRect{fx1, fx2, fy1, fy2},
+                glm::ivec2(w + halo4.x + halo4.y, h + halo4.z + halo4.w),
+                halo4,
+                this->shape,
+                this->tile_shape,
+                glm::ivec2(nx, ny));
 }
 
-glm::vec2 VirtualArray::tile_region_global_position(
-    const TileRegion &region) const
+glm::vec2 VirtualArray::tile_region_global_position(const UvTile &region) const
 {
   // tile relative position
   glm::vec2 size = {this->bbox.y - this->bbox.x, this->bbox.w - this->bbox.z};
-  glm::vec2 pos = {(region.bbox.x - this->bbox.x) / size.x,
-                   (region.bbox.z - this->bbox.z) / size.y};
+  glm::vec2 pos = {(region.uv_rect.u_min - this->bbox.x) / size.x,
+                   (region.uv_rect.v_min - this->bbox.z) / size.y};
   return pos;
 }
 
-glm::ivec2 VirtualArray::tile_region_global_indices(
-    const TileRegion &region) const
+glm::ivec2 VirtualArray::tile_region_global_indices(const UvTile &region) const
 {
   return region.global_offset();
 }
@@ -442,7 +439,7 @@ Array VirtualArray::to_array(const glm::ivec2  &array_shape,
 
   if (array_shape == this->shape)
   {
-    auto lambda = [&array, this](const Array &tile, const TileRegion &region)
+    auto lambda = [&array, this](const Array &tile, const UvTile &region)
     {
       const glm::ivec2  ij0 = this->tile_region_global_indices(region);
       const glm::ivec4 &b = region.halo;
@@ -457,7 +454,7 @@ Array VirtualArray::to_array(const glm::ivec2  &array_shape,
     return array;
   }
 
-  auto lambda = [&array, this](const Array &tile, const TileRegion &region)
+  auto lambda = [&array, this](const Array &tile, const UvTile &region)
   {
     const glm::ivec2  ij0 = this->tile_region_global_indices(region);
     const glm::ivec4 &b = region.halo;
@@ -567,7 +564,7 @@ void copy_data(const VirtualArray &src,
       {&dst},
       [](std::vector<const Array *> p_arrays_in,
          std::vector<Array *>       p_arrays_out,
-         const TileRegion &) { *p_arrays_out[0] = *p_arrays_in[0]; },
+         const UvTile &) { *p_arrays_out[0] = *p_arrays_in[0]; },
       cm);
 }
 
@@ -624,7 +621,7 @@ void sum_per_tile(const VirtualArray &va,
       {},
       [&](const std::vector<const Array *> &p_arrays_in,
           std::vector<Array *> &,
-          const TileRegion &region)
+          const UvTile &region)
       {
         const auto [p_tile, p_excl_tile] = unpack<2>(p_arrays_in);
 

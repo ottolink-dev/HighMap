@@ -470,7 +470,7 @@ TEST(FlowSimulation, TiledDistributedExecution)
         {&water_out},
         [&](std::vector<const Array *> p_arrays_in,
             std::vector<Array *>       p_arrays_out,
-            const TileRegion          &region,
+            const UvTile              &region,
             ICommunicator             &comm)
         {
           auto [pa_z, pa_depth] = unpack<2>(p_arrays_in);
@@ -547,7 +547,7 @@ TEST(FlowSimulationViscous, TiledDistributedExecution)
         {&water_out},
         [&](std::vector<const Array *> p_arrays_in,
             std::vector<Array *>       p_arrays_out,
-            const TileRegion          &region,
+            const UvTile              &region,
             ICommunicator             &comm)
         {
           auto [pa_z, pa_depth] = unpack<2>(p_arrays_in);

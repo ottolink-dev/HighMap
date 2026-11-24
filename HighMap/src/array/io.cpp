@@ -13,6 +13,7 @@
 
 #include "npy.hpp"
 
+#include "highmap/adapters/opencv.hpp"
 #include "highmap/array.hpp"
 #include "highmap/colorize.hpp"
 #include "highmap/export/asset.hpp"
@@ -96,7 +97,7 @@ void Array::to_exr(const std::string &fname) const
 {
   Array array_copy = *this;
 
-  cv::Mat mat = array_copy.to_cv_mat();
+  cv::Mat mat = to_cv_mat(array_copy);
 
   std::vector<int> codec_params = {cv::IMWRITE_EXR_TYPE,
                                    cv::IMWRITE_EXR_TYPE_FLOAT,
@@ -154,7 +155,7 @@ void Array::to_png_grayscale(const std::string &fname,
   else
     remap(array_copy, 0.f, 1.f, vmin, vmax);
 
-  cv::Mat mat = array_copy.to_cv_mat();
+  cv::Mat mat = to_cv_mat(array_copy);
   int     scale_factor = (depth == CV_8U) ? 255 : 65535;
   mat.convertTo(mat, depth, scale_factor);
   cv::flip(mat, mat, 0); // flipud
@@ -171,7 +172,7 @@ void Array::to_tiff(const std::string &fname) const
   Array array_copy = *this;
   remap(array_copy);
 
-  cv::Mat mat = array_copy.to_cv_mat();
+  cv::Mat mat = to_cv_mat(array_copy);
 
   // set compression to cv::IMWRITE_TIFF_COMPRESSION_LZW (apparently
   // not available in openCV public header?)

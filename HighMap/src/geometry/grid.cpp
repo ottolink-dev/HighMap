@@ -111,7 +111,7 @@ void expand_points_domain_corners(std::vector<float> &x,
 void grid_xy_vector(std::vector<float> &x,
                     std::vector<float> &y,
                     glm::ivec2          shape,
-                    glm::vec4           bbox,
+                    const UvRect       &uv_rect,
                     bool                endpoint)
 {
   if (!validate_shape(shape))
@@ -121,16 +121,17 @@ void grid_xy_vector(std::vector<float> &x,
     return;
   }
 
-  x = linspace(bbox.x, bbox.y, shape.x, endpoint);
-  y = linspace(bbox.z, bbox.w, shape.y, endpoint);
+  x = linspace(uv_rect.u_min, uv_rect.u_max, shape.x, endpoint);
+  y = linspace(uv_rect.v_min, uv_rect.v_max, shape.y, endpoint);
 }
 
 void rescale_grid_from_unit_square_to_bbox(std::vector<float> &x,
                                            std::vector<float> &y,
-                                           glm::vec4           bbox)
+                                           const UvRect       &uv_rect)
 {
-  size_t nx = x.size();
-  size_t ny = y.size();
+  const glm::vec4 bbox = uv_rect.to_vec4();
+  size_t          nx = x.size();
+  size_t          ny = y.size();
 
   if (nx == 1)
   {

@@ -259,7 +259,7 @@ TEST(FlowAccumulationDinf, StandaloneVsTiledCommunicator)
       {&facc_va},
       [&](std::vector<const hmap::Array *> p_arrays_in,
           std::vector<hmap::Array *>       p_arrays_out,
-          const hmap::TileRegion          &region,
+          const hmap::UvTile              &region,
           hmap::ICommunicator             &comm)
       {
         auto [pa_z] = hmap::unpack<1>(p_arrays_in);

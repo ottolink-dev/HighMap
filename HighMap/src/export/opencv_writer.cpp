@@ -222,12 +222,12 @@ bool OpenCVWriter::write_chunk(int                       offset_x,
   return true;
 }
 
-bool OpenCVWriter::write_tile(const TileRegion &region, const Array &data)
+bool OpenCVWriter::write_tile(const UvTile &region, const Array &data)
 {
   return ImageWriter::write_tile(region, data);
 }
 
-bool OpenCVWriter::write_tile(const TileRegion         &region,
+bool OpenCVWriter::write_tile(const UvTile             &region,
                               const std::vector<Array> &channels)
 {
   return ImageWriter::write_tile(region, channels);

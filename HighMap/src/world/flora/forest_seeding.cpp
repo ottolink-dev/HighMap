@@ -578,13 +578,13 @@ Forest seed_forest_clusters(size_t                      species_count,
       {},
       [&](const std::vector<const Array *> &p_arrays_in,
           std::vector<Array *> &,
-          const TileRegion &region)
+          const UvTile &region)
       {
         const auto [p_density_tile, p_exclusion_tile] = unpack<2>(p_arrays_in);
 
         int tile_index = region.key.ty * num_tiles.x + region.key.tx;
 
-        tile_bboxs[tile_index] = region.bbox;
+        tile_bboxs[tile_index] = region.uv_rect.to_vec4();
 
         float  tile_sum = tile_full_sums[tile_index];
         size_t tile_tree_count = static_cast<size_t>(std::round(
@@ -596,7 +596,7 @@ Forest seed_forest_clusters(size_t                      species_count,
         }
 
         ForestSeedingOptions tile_options = options;
-        tile_options.bbox = region.bbox;
+        tile_options.bbox = region.uv_rect.to_vec4();
         tile_options.seed = options.seed +
                             static_cast<uint32_t>(tile_index) * 1999u + 17u;
 

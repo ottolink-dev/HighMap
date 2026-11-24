@@ -6,6 +6,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/imgcodecs.hpp>
 
+#include "highmap/adapters/opencv.hpp"
 #include "highmap/array.hpp"
 #include "highmap/logger.hpp"
 

@@ -11,7 +11,7 @@ int main(void)
 
   z.infos();
 
-  cv::Mat mat = z.to_cv_mat();
+  cv::Mat mat = hmap::to_cv_mat(z);
 
   // accepts various matrix CV types and if multiple channels are
   // available, only the first one is used

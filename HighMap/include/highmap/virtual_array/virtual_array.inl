@@ -80,7 +80,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
       std::is_invocable_v<Func,
                           const std::vector<const Array *> &,
                           std::vector<Array *> &,
-                          const TileRegion &,
+                          const UvTile &,
                           ICommunicator &>;
 
   if (effective_mode == ForEachMode::VA_SEQUENTIAL && uses_comm && n_tiles > 1)
@@ -98,7 +98,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
     std::vector<std::vector<Array *>> out_tiles_per_rank(
         n_tiles,
         std::vector<Array *>(access.outputs.size(), nullptr));
-    std::vector<TileRegion> regions_per_rank(n_tiles);
+    std::vector<UvTile> regions_per_rank(n_tiles);
 
     for (size_t r = 0; r < n_tiles; ++r)
     {
@@ -109,7 +109,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
         if (access.outputs[i]) out_tiles_per_rank[r][i] = &out_tiles_val[r][i];
     }
 
-    auto acquire_rank = [&](int rank, const TileRegion &region)
+    auto acquire_rank = [&](int rank, const UvTile &region)
     {
       HMAP_PROFILE_ZONE("HighMap::tile.acquire");
       regions_per_rank[rank] = region;
@@ -136,7 +136,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
     auto release_rank = [&](int rank)
     {
       HMAP_PROFILE_ZONE("HighMap::tile.release");
-      const TileRegion &region = regions_per_rank[rank];
+      const UvTile &region = regions_per_rank[rank];
 
       for (size_t i = 0; i < access.inputs.size(); ++i)
       {
@@ -167,7 +167,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
     SequentialTileComm comm(*ref_va, on_suspend, on_resume);
 
     comm.run_cooperative_tiles(
-        [&](const TileRegion &region, ICommunicator &c)
+        [&](const UvTile &region, ICommunicator &c)
         {
           HMAP_PROFILE_ZONE("HighMap::tile");
           const int rank = c.rank();
@@ -185,7 +185,7 @@ void for_each_tile(const TileAccess &access, Func &&func, const ComputeMode &cm)
   {
     // --- region dispatcher for tiled computations
 
-    auto region_dispatcher = [&](const TileRegion &region, ICommunicator &comm)
+    auto region_dispatcher = [&](const UvTile &region, ICommunicator &comm)
     {
       HMAP_PROFILE_ZONE("HighMap::tile");
       std::vector<const Array *> in_tiles;
@@ -259,7 +259,7 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
   acc.outputs = {&mutable_va};
 
   constexpr bool uses_comm =
-      std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &> ||
+      std::is_invocable_v<Func, Array &, const UvTile &, ICommunicator &> ||
       std::is_invocable_v<Func, Array &, ICommunicator &>;
 
   if constexpr (uses_comm)
@@ -268,12 +268,12 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region,
+            const UvTile         &region,
             ICommunicator        &comm)
         {
           if constexpr (std::is_invocable_v<Func,
                                             Array &,
-                                            const TileRegion &,
+                                            const UvTile &,
                                             ICommunicator &>)
           {
             func(*out[0], region, comm);
@@ -291,7 +291,7 @@ void for_each_tile(const VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region) { func(*out[0], region); },
+            const UvTile         &region) { func(*out[0], region); },
         cm);
   }
 }
@@ -304,7 +304,7 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
   acc.outputs = {&va};
 
   constexpr bool uses_comm =
-      std::is_invocable_v<Func, Array &, const TileRegion &, ICommunicator &> ||
+      std::is_invocable_v<Func, Array &, const UvTile &, ICommunicator &> ||
       std::is_invocable_v<Func, Array &, ICommunicator &>;
 
   if constexpr (uses_comm)
@@ -313,12 +313,12 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region,
+            const UvTile         &region,
             ICommunicator        &comm)
         {
           if constexpr (std::is_invocable_v<Func,
                                             Array &,
-                                            const TileRegion &,
+                                            const UvTile &,
                                             ICommunicator &>)
           {
             func(*out[0], region, comm);
@@ -336,7 +336,7 @@ void for_each_tile(VirtualArray &va, Func &&func, const ComputeMode &cm)
         acc,
         [&](const std::vector<const Array *> &,
             std::vector<Array *> &out,
-            const TileRegion     &region) { func(*out[0], region); },
+            const UvTile         &region) { func(*out[0], region); },
         cm);
   }
 }
@@ -355,7 +355,7 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
       std::is_invocable_v<Func,
                           const std::vector<const Array *> &,
                           std::vector<Array *> &,
-                          const TileRegion &,
+                          const UvTile &,
                           ICommunicator &>;
 
   if constexpr (uses_comm)
@@ -364,7 +364,7 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
         acc,
         [&](const std::vector<const Array *> &in,
             std::vector<Array *>             &out,
-            const TileRegion                 &region,
+            const UvTile                     &region,
             ICommunicator &comm) { func(in, out, region, comm); },
         cm);
   }
@@ -374,7 +374,7 @@ void for_each_tile(const std::vector<const VirtualArray *> &inputs,
         acc,
         [&](const std::vector<const Array *> &in,
             std::vector<Array *>             &out,
-            const TileRegion &region) { func(in, out, region); },
+            const UvTile &region) { func(in, out, region); },
         cm);
   }
 }
@@ -396,7 +396,7 @@ void sequential_tile_loop(const VirtualArray &ref_va,
     for (int tx = 0; tx < nx; ++tx)
     {
       comm.next_tile(tile_idx++);
-      TileRegion region = ref_va.tile_region_from_tile_coords(tx, ty);
+      UvTile region = ref_va.tile_region_from_tile_coords(tx, ty);
       dispatcher(region, comm);
     }
 }
@@ -427,7 +427,7 @@ void distributed_tile_loop(const VirtualArray &ref_va,
     const int ty = thread_id / nx;
     const int tx = thread_id % nx;
 
-    TileRegion region = ref_va.tile_region_from_tile_coords(tx, ty);
+    UvTile region = ref_va.tile_region_from_tile_coords(tx, ty);
     dispatcher(region, comm);
   };
 
@@ -504,20 +504,20 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
     out_tiles.push_back(access.outputs[i] ? &arrays_out[i] : nullptr);
 
   // call user operation
-  const TileRegion va_region = TileRegion(TileKey(),
-                                          ref_va->bbox,
-                                          shape_wrk,
-                                          {0, 0, 0, 0},
-                                          ref_va->shape,
-                                          ref_va->shape,
-                                          {1, 1});
+  const UvTile va_region = UvTile(TileKey(),
+                                  UvRect::from_vec4(ref_va->bbox),
+                                  shape_wrk,
+                                  {0, 0, 0, 0},
+                                  ref_va->shape,
+                                  ref_va->shape,
+                                  {1, 1});
 
   {
     HMAP_PROFILE_ZONE("HighMap::single_array.algorithm");
     if constexpr (std::is_invocable_v<Func,
                                       const std::vector<const Array *> &,
                                       std::vector<Array *> &,
-                                      const TileRegion &,
+                                      const UvTile &,
                                       ICommunicator &>)
     {
       func(in_tiles, out_tiles, va_region, SingleArrayComm::instance());
@@ -548,7 +548,7 @@ void for_each_cell(VirtualArray &va, Func &&func, const ComputeMode &cm)
 {
   for_each_tile(
       va,
-      [&](Array &tile, const TileRegion &region)
+      [&](Array &tile, const UvTile &region)
       {
         for (int j = 0; j < region.shape.y; ++j)
           for (int i = 0; i < region.shape.x; ++i)

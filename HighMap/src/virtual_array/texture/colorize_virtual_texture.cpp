@@ -15,8 +15,8 @@
 #include "highmap/interpolate/interpolate1d.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/operator.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/texture.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
 
@@ -87,7 +87,7 @@ void colorize(VirtualTexture               &out,
   // colorize fct
   auto lambda = [&](std::vector<const Array *> p_arrays_in,
                     std::vector<Array *>       p_arrays_out,
-                    const TileRegion          &region)
+                    const UvTile              &region)
   {
     const Array &z = *p_arrays_in[0];
     const Array *pa_noise = p_arrays_in[1];
@@ -255,7 +255,7 @@ void colorize_bivariate(VirtualTexture               &out,
 
   auto lambda = [&](std::vector<const Array *> p_arrays_in,
                     std::vector<Array *>       p_arrays_out,
-                    const TileRegion          &region)
+                    const UvTile              &region)
   {
     const Array &za1 = *p_arrays_in[0];
     const Array &za2 = *p_arrays_in[1];
@@ -311,7 +311,7 @@ void luminance(VirtualArray &out, VirtualTexture &tex, const ComputeMode &cm)
 
   auto lambda = [](std::vector<const Array *> p_arrays_in,
                    std::vector<Array *>       p_arrays_out,
-                   const TileRegion &)
+                   const UvTile &)
   {
     hmap::Array       &lum = *p_arrays_out[0];
     const hmap::Array &r = *p_arrays_in[0];
@@ -349,7 +349,7 @@ void mix(VirtualTexture    &out,
 
   auto lambda = [method](std::vector<const Array *> p_arrays_in,
                          std::vector<Array *>       p_arrays_out,
-                         const TileRegion &)
+                         const UvTile &)
   {
     // tex1: in 0..3
     // tex2: in 4..7
@@ -415,7 +415,7 @@ void mix_normal_map(VirtualTexture         &out,
   auto lambda =
       [detail_scaling, blending_method](std::vector<const Array *> p_arrays_in,
                                         std::vector<Array *>       p_arrays_out,
-                                        const TileRegion          &region)
+                                        const UvTile              &region)
   {
     Array *pa_r1 = p_arrays_out[0];
     Array *pa_g1 = p_arrays_out[1];

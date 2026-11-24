@@ -155,18 +155,18 @@ int convert_length_to_pixel(float x,
 void grid_xy_vector(std::vector<float> &x,
                     std::vector<float> &y,
                     glm::ivec2          shape,
-                    glm::vec4           bbox = {0.f, 1.f, 0.f, 1.f},
+                    const UvRect       &uv_rect = UvRect::unit(),
                     bool                endpoint = false);
 
 /**
- * @brief Rescale 1D grid vectors from unit square [0, 1] to target bounding
- * box.
+ * @brief Rescale 1D grid vectors from unit square [0, 1] to target UV
+ * rectangle.
  * @param x[in, out] Vector x.
  * @param y[in, out] Vector y.
- * @param bbox       Target bounding box.
+ * @param uv_rect    Target UV rectangle.
  */
 void rescale_grid_from_unit_square_to_bbox(std::vector<float> &x,
                                            std::vector<float> &y,
-                                           glm::vec4           bbox);
+                                           const UvRect       &uv_rect);
 
 } // namespace hmap

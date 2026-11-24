@@ -19,7 +19,7 @@
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -1958,11 +1958,11 @@ void smooth_cone(Array &array, int ir, const Array *p_mask);
  *
  * See unit tests: @ref test_smooth_cpulse.cpp
  */
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask = nullptr,
-                   const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator    &comm = SingleArrayComm::instance());
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask = nullptr,
+                   const UvTile  &region = UvTile::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.
@@ -2764,29 +2764,29 @@ Array project_talus_along_direction(const Array &array,
  * **Result**
  * @image html ex_recast_cliff.png
  */
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  float             gain = 2.f,
-                  int               iterations = 500,
-                  Array            *p_cliff_mask = nullptr,
-                  int               sync_interval = 0,
-                  const TileRegion &region = TileRegion::dummy(),
-                  ICommunicator    &comm = SingleArrayComm::instance());
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  float          gain = 2.f,
+                  int            iterations = 500,
+                  Array         *p_cliff_mask = nullptr,
+                  int            sync_interval = 0,
+                  const UvTile  &region = UvTile::dummy(),
+                  ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  const Array      *p_mask,
-                  float             gain = 2.f,
-                  int               iterations = 500,
-                  Array            *p_cliff_mask = nullptr,
-                  int               sync_interval = 0,
-                  const TileRegion &region = TileRegion::dummy(),
-                  ICommunicator    &comm = SingleArrayComm::instance());
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  const Array   *p_mask,
+                  float          gain = 2.f,
+                  int            iterations = 500,
+                  Array         *p_cliff_mask = nullptr,
+                  int            sync_interval = 0,
+                  const UvTile  &region = UvTile::dummy(),
+                  ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Transform heightmap to add directional cliffs where gradients are
@@ -2817,61 +2817,61 @@ void recast_cliff(Array            &array,
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    float             angle,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    float          angle,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    float             angle,
-    const Array      *p_mask,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    float          angle,
+    const Array   *p_mask,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    const Array      &angle,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    const Array   &angle,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    const Array      &angle,
-    const Array      *p_mask,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    const Array   &angle,
+    const Array   *p_mask,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
@@ -2902,11 +2902,11 @@ void shrink(Array       &array,
             int          iterations = 1);
 
 /*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask = nullptr,
-                   const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator    &comm = SingleArrayComm::instance());
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask = nullptr,
+                   const UvTile  &region = UvTile::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::smooth_cpulse_edge_removing */
 void smooth_cpulse_edge_removing(Array &array,

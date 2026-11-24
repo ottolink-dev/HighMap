@@ -15,8 +15,8 @@
 #include "highmap/array.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -486,10 +486,10 @@ Array select_valley(const Array   &z,
  *                       1s.
  */
 Array smooth_mask_preserve_frontier(
-    const Array      &mask,
-    float             feather_width,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    const Array   &mask,
+    float          feather_width,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap
 
@@ -663,12 +663,12 @@ Array select_soil_weathered(const Array &z,
  * @param  comm        Communicator for collective normalization.
  * @return             Array Output slope array.
  */
-Array select_slope(const Array      &z,
-                   int               ir = 0,
-                   bool              normalize = false,
-                   MinMaxKernel      kernel_type = MinMaxKernel::OCTAGON,
-                   const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator    &comm = SingleArrayComm::instance());
+Array select_slope(const Array   &z,
+                   int            ir = 0,
+                   bool           normalize = false,
+                   MinMaxKernel   kernel_type = MinMaxKernel::OCTAGON,
+                   const UvTile  &region = UvTile::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::select_valley */
 Array select_valley(const Array   &z,

@@ -21,8 +21,8 @@
 #include "highmap/array.hpp"
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -191,10 +191,10 @@ Array dilation_expand_min_value_border_only(const Array &array);
  *
  * See unit tests: @ref test_distance_transform.cpp
  */
-Array distance_transform(const Array      &array,
-                         bool              return_squared_distance = false,
-                         const TileRegion &region = TileRegion::dummy(),
-                         ICommunicator    &comm = SingleArrayComm::instance());
+Array distance_transform(const Array   &array,
+                         bool           return_squared_distance = false,
+                         const UvTile  &region = UvTile::dummy(),
+                         ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Calculates an approximate distance transform of the input array.
@@ -640,9 +640,9 @@ enum MorphologyOperation : int
  * @param  operation Morphological operation to apply.
  * @return           Array Resulting array after applying the operation.
  */
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
                               MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap
@@ -814,15 +814,9 @@ enum MorphologyOperation : int
  * @param  operation Morphological operation to apply.
  * @return           Array Resulting array after applying the operation.
  */
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
-                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
-
-/*! @brief See hmap::morphological_operators */
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
                               MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap::gpu

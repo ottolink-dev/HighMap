@@ -42,8 +42,7 @@ int main()
   // Tile operations
   // ===========================================================================
 
-  const auto generate_noise =
-      [](hmap::Array &tile, const hmap::TileRegion &region)
+  const auto generate_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {
     tile = hmap::noise_fbm(hmap::NoiseType::PERLIN,
                            region.shape,
@@ -56,10 +55,10 @@ int main()
                            nullptr,
                            nullptr,
                            nullptr,
-                           region.bbox);
+                           region.uv_rect.to_vec4());
   };
 
-  const auto apply_gamma = [](hmap::Array &tile, const hmap::TileRegion &)
+  const auto apply_gamma = [](hmap::Array &tile, const hmap::UvTile &)
   { hmap::gamma_correction(tile, 2.f); };
 
   hmap::for_each_tile(varray, generate_noise, compute_mode);
@@ -67,7 +66,7 @@ int main()
 
   // specific
   {
-    const auto erosion = [](hmap::Array &tile, const hmap::TileRegion &)
+    const auto erosion = [](hmap::Array &tile, const hmap::UvTile &)
     { hmap::gpu::hydraulic_stream_log(tile, 0.2f, 1e0f); };
 
     hmap::ComputeMode cm_dwn = {.mode = hmap::ForEachMode::VA_SINGLE_ARRAY,

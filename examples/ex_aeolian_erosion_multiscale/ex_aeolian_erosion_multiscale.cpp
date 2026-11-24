@@ -59,7 +59,7 @@ int main(int argc, char **argv)
                             0.f,
                             0.35f,
                             0,
-                            hmap::TileRegion::dummy(),
+                            hmap::UvTile::dummy(),
                             hmap::SingleArrayComm::instance(),
                             shadow_map_interval,
                             repose_interval);

@@ -305,7 +305,6 @@ Array zoom(const Array &array,
            const Array *p_noise_y = nullptr,
            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
 
-
 } // namespace hmap
 
 namespace hmap::gpu

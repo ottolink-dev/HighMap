@@ -87,7 +87,7 @@ TEST_F(ComputeModeMatrixTest, ArrayMethodsWithCommMatrix)
 
         for_each_tile(
             va,
-            [&](const Array &tile, const TileRegion &, ICommunicator &comm)
+            [&](const Array &tile, const UvTile &, ICommunicator &comm)
             {
               float              t_min = tile.min(comm);
               float              t_max = tile.max(comm);
@@ -147,7 +147,7 @@ TEST_F(ComputeModeMatrixTest, ArrayMethodsWithCommMatrix)
 
         for_each_tile(
             va_norm,
-            [](Array &tile, const TileRegion &, ICommunicator &comm)
+            [](Array &tile, const UvTile &, ICommunicator &comm)
             { tile.normalize(comm); },
             cm);
 
@@ -189,7 +189,7 @@ TEST_F(ComputeModeMatrixTest, RemapMatrix)
 
         for_each_tile(
             va,
-            [](Array &tile, const TileRegion &, ICommunicator &comm)
+            [](Array &tile, const UvTile &, ICommunicator &comm)
             { remap(tile, 0.f, 1.f, comm); },
             cm);
 
@@ -218,11 +218,7 @@ TEST_F(ComputeModeMatrixTest, SmoothCPulseMatrix)
 
   // Reference single-array result with comm
   Array ref = input;
-  smooth_cpulse(ref,
-                ir,
-                nullptr,
-                TileRegion::dummy(),
-                SingleArrayComm::instance());
+  smooth_cpulse(ref, ir, nullptr, UvTile::dummy(), SingleArrayComm::instance());
 
   for (auto mode : k_compute_modes)
   {
@@ -237,7 +233,7 @@ TEST_F(ComputeModeMatrixTest, SmoothCPulseMatrix)
 
         for_each_tile(
             va,
-            [ir](Array &tile, const TileRegion &region, ICommunicator &comm)
+            [ir](Array &tile, const UvTile &region, ICommunicator &comm)
             { smooth_cpulse(tile, ir, nullptr, region, comm); },
             cm);
 
@@ -265,7 +261,7 @@ TEST_F(ComputeModeMatrixTest, DistanceTransformMatrix)
   // Reference monolithic result
   Array ref = distance_transform(mask,
                                  false,
-                                 TileRegion::dummy(),
+                                 UvTile::dummy(),
                                  SingleArrayComm::instance());
 
   for (auto mode : k_compute_modes)
@@ -281,7 +277,7 @@ TEST_F(ComputeModeMatrixTest, DistanceTransformMatrix)
 
         for_each_tile(
             va,
-            [](Array &tile, const TileRegion &region, ICommunicator &comm)
+            [](Array &tile, const UvTile &region, ICommunicator &comm)
             { tile = distance_transform(tile, false, region, comm); },
             cm);
 
@@ -335,7 +331,7 @@ TEST_F(ComputeModeMatrixTest, SnowSimulationMatrix)
             {&snow_depth_out},
             [](std::vector<const Array *> p_arrays_in,
                std::vector<Array *>       p_arrays_out,
-               const TileRegion          &region,
+               const UvTile              &region,
                ICommunicator             &comm)
             {
               auto [pa_z, pa_fall, pa_melt, pa_talus] = unpack<4>(p_arrays_in);
@@ -446,7 +442,7 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
   for_each_tile(
       {},
       {&va_z},
-      [](auto, auto out, const TileRegion &region, auto &)
+      [](auto, auto out, const UvTile &region, auto &)
       {
         *out[0] = gpu::noise_fbm(NoiseType::SIMPLEX2,
                                  out[0]->shape,
@@ -459,7 +455,7 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
                                  nullptr,
                                  nullptr,
                                  nullptr,
-                                 region.bbox);
+                                 region.uv_rect.to_vec4());
       },
       cm);
 
@@ -481,7 +477,7 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
       {&va_snow},
       [&](std::vector<const Array *> p_arrays_in,
           std::vector<Array *>       p_arrays_out,
-          const TileRegion          &region,
+          const UvTile              &region,
           ICommunicator             &comm)
       {
         std::cout << "In tile (" << region.key.tx << ", " << region.key.ty
