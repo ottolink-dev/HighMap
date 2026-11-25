@@ -783,26 +783,6 @@ Array skeleton(const Array &array, bool zero_at_borders = true);
 // ==========================================================================
 
 /**
- * \brief Types of base morphology operators.
- */
-// clang-format off
-enum MorphologyOperation : int
-{
-	MO_BORDER,    //!< Extract border of structures.
-	MO_CLOSING,   //!< Dilation followed by erosion (fills small holes).
-	MO_DILATION,  //!< Expand structures (local maximum).
-	MO_EROSION,   //!< Shrink structures (local minimum).
-	MO_OPENING,   //!< Erosion followed by dilation (removes small objects).
-	MO_BLACK_HAT, //!< Difference between closing and input (dark features).
-	MO_TOP_HAT,   //!< Difference between input and opening (bright features).
-	MO_GRADIENT,  //!< Difference between dilation and erosion (edge magnitude).
-	MO_LAPLACIAN, //!< Second-order operator highlighting ridges and valleys.
-	MO_CLOSING_BY_RECONSTRUCTION,
-	MO_OPENING_BY_RECONSTRUCTION,
-};
-// clang-format on
-
-/**
  * @brief Apply a morphological operation to the input array using a square
  * kernel.
  *

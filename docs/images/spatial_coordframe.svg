@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 260" width="420" height="260" font-family="sans-serif" font-size="12">
+  <rect x="0" y="0" width="420" height="260" fill="#ffffff"/>
+  <text x="210" y="22" text-anchor="middle" font-weight="bold" fill="#222">CoordFrame (Oriented Local Frame)</text>
+
+  <!-- Global axes -->
+  <line x1="50" y1="220" x2="380" y2="220" stroke="#888" stroke-width="1.5"/>
+  <line x1="50" y1="220" x2="50" y2="35" stroke="#888" stroke-width="1.5"/>
+  <text x="386" y="224" fill="#555">+X</text>
+  <text x="46" y="28" text-anchor="middle" fill="#555">+Y</text>
+
+  <!-- Horizontal reference at origin -->
+  <line x1="130" y1="185" x2="310" y2="185" stroke="#bbb" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <!-- Rotated frame: origin=(130, 185), angle=-25 deg (CCW in Y-up) -->
+  <g transform="translate(130, 185) rotate(-25)">
+    <rect x="0" y="-100" width="160" height="100" fill="#fff4e6" stroke="#d95f02" stroke-width="2"/>
+    <text x="80" y="-46" text-anchor="middle" font-weight="bold" fill="#a64400">CoordFrame</text>
+    <text x="80" y="-8" text-anchor="middle" fill="#a64400" font-size="11">size.x</text>
+    <text x="-10" y="-50" text-anchor="middle" fill="#a64400" font-size="11" transform="rotate(-90, -10, -50)">size.y</text>
+    <circle cx="0" cy="0" r="4" fill="#d95f02"/>
+    <circle cx="160" cy="0" r="3" fill="#d95f02"/>
+    <circle cx="0" cy="-100" r="3" fill="#d95f02"/>
+    <circle cx="160" cy="-100" r="3" fill="#d95f02"/>
+  </g>
+
+  <!-- Angle arc -->
+  <path d="M 185 185 A 55 55 0 0 0 180 162" fill="none" stroke="#d95f02" stroke-width="1.5"/>
+  <text x="195" y="176" fill="#d95f02" font-size="11">θ (rotation_angle)</text>
+
+  <!-- Origin & corner labels -->
+  <text x="122" y="202" text-anchor="end" fill="#a64400" font-weight="bold">origin (0, 0)</text>
+  <text x="282" y="120" text-anchor="start" fill="#666" font-size="11">(rx=1, ry=0)</text>
+  <text x="238" y="34" text-anchor="start" fill="#666" font-size="11">(rx=1, ry=1)</text>
+  <text x="82" y="92" text-anchor="end" fill="#666" font-size="11">(rx=0, ry=1)</text>
+</svg>
