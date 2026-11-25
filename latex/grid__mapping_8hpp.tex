@@ -1,0 +1,40 @@
+\doxysection{High\+Map/include/highmap/spatial/grid\+\_\+mapping.hpp File Reference}
+\hypertarget{grid__mapping_8hpp}{}\label{grid__mapping_8hpp}\index{HighMap/include/highmap/spatial/grid\_mapping.hpp@{HighMap/include/highmap/spatial/grid\_mapping.hpp}}
+
+
+Canonical index \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} UV \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} tile coordinate mapping helpers.  
+
+
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacehmap}{hmap}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{hmap\+::\+Grid\+Registration}} \{ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{hmap\+::\+Cell\+Center}}
+, \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a8f35cfd7a7a4765b86005378ad92575b}{hmap\+::\+Cell\+Corner}}
+, \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a6c3a6944a808a7c0bbb6788dbec54a9f}{hmap\+::\+Node}}
+ \}
+\begin{DoxyCompactList}\small\item\em Grid registration policy for mapping discrete indices to \mbox{[}0, 1\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{namespacehmap_a2724913d967401f6880cdb42b41a8618}{hmap\+::index\+\_\+to\+\_\+uv}} (int i, int n, \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{Grid\+Registration}} reg=\mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{Grid\+Registration\+::\+Cell\+Center}})
+\begin{DoxyCompactList}\small\item\em Maps a discrete index i in \mbox{[}0, n) to a UV coordinate in \mbox{[}0, 1\mbox{]}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{namespacehmap_a93683bbcdf41adddba55c3fef4451cc2}{hmap\+::uv\+\_\+to\+\_\+continuous\+\_\+index}} (float u, int n, \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{Grid\+Registration}} reg=\mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{Grid\+Registration\+::\+Cell\+Center}})
+\begin{DoxyCompactList}\small\item\em Maps a UV coordinate in \mbox{[}0, 1\mbox{]} to a continuous index in \mbox{[}0, n -\/ 1\mbox{]}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structhmap_1_1UvRect}{Uv\+Rect}} \mbox{\hyperlink{namespacehmap_a83a525d1d454c6fa94f4bf5527c0efac}{hmap\+::tile\+\_\+uv\+\_\+rect}} (const glm\+::ivec2 \&global\+\_\+offset, const glm\+::ivec2 \&tile\+\_\+shape\+\_\+with\+\_\+halo, const glm\+::ivec2 \&global\+\_\+shape, const \mbox{\hyperlink{structhmap_1_1UvRect}{Uv\+Rect}} \&domain\+\_\+uv=\mbox{\hyperlink{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28}{Uv\+Rect\+::unit}}())
+\begin{DoxyCompactList}\small\item\em Computes the exact UV rectangle of a tile (including halo) within a domain of global\+\_\+shape. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Canonical index \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} UV \texorpdfstring{$<$}{<}-\/\texorpdfstring{$>$}{>} tile coordinate mapping helpers. 
+
+\begin{DoxyAuthor}{Author}
+Otto Link (\href{mailto:otto.link.bv@gmail.com}{\texttt{otto.\+link.\+bv@gmail.\+com}}) 
+\end{DoxyAuthor}
+\begin{DoxyCopyright}{Copyright}
+Copyright (c) 2026 
+\end{DoxyCopyright}

@@ -77,7 +77,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_image_writer.cpp" line="128" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="128" bodyend="162"/>
+        <location file="tests/src/test_image_writer.cpp" line="128" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="128" bodyend="158"/>
       </memberdef>
       <memberdef kind="function" id="test__image__writer_8cpp_1a05b55d6d6ce56f09b0a388f27372888c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type></type>
@@ -96,7 +96,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="tests/src/test_image_writer.cpp" line="164" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="164" bodyend="192"/>
+        <location file="tests/src/test_image_writer.cpp" line="160" column="1" bodyfile="tests/src/test_image_writer.cpp" bodystart="160" bodyend="183"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -242,60 +242,51 @@
 <codeline lineno="136"><highlight class="normal"></highlight></codeline>
 <codeline lineno="137"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>src(shape,<sp/>42.5f);</highlight></codeline>
 <codeline lineno="138"><highlight class="normal"></highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>(shape,</highlight></codeline>
-<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{-1.f,<sp/>1.f,<sp/>-1.f,<sp/>1.f},</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_shape,</highlight></codeline>
-<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo,</highlight></codeline>
-<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
-<codeline lineno="144"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/>cm.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.fill(42.5f,<sp/>cm);</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>cfg;</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/>cfg.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/><ref refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2" kindref="member">ImageDataType::FLOAT32</ref>;</highlight></codeline>
-<codeline lineno="151"><highlight class="normal"></highlight></codeline>
-<codeline lineno="152"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(<ref refid="namespacehmap_1_1va" kindref="compound">va</ref>,<sp/>fname,<sp/>cfg,<sp/>cm));</highlight></codeline>
-<codeline lineno="153"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
-<codeline lineno="154"><highlight class="normal"></highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>loaded(fname,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.x,<sp/>shape.x);</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.y,<sp/>shape.y);</highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(0,<sp/>0),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(100,<sp/>100),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>ExportImageVirtualTexture)</highlight></codeline>
-<codeline lineno="165"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="166"><highlight class="normal"><sp/><sp/>std::string<sp/>fname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;test_export_vt.exr&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(fname))<sp/>std::filesystem::remove(fname);</highlight></codeline>
-<codeline lineno="168"><highlight class="normal"></highlight></codeline>
-<codeline lineno="169"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>channels<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">VirtualArray</ref><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>(shape,<sp/>tile_shape,<sp/>halo,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/>cm;</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/>cm.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1va" kindref="compound">va</ref>.fill(42.5f,<sp/>cm);</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>cfg;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>cfg.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/><ref refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2" kindref="member">ImageDataType::FLOAT32</ref>;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(<ref refid="namespacehmap_1_1va" kindref="compound">va</ref>,<sp/>fname,<sp/>cfg,<sp/>cm));</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>loaded(fname,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.x,<sp/>shape.x);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/>EXPECT_EQ(loaded.shape.y,<sp/>shape.y);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(0,<sp/>0),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(loaded(100,<sp/>100),<sp/>42.5f,<sp/>1e-4f);</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"></highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><ref refid="test__image__writer_8cpp_1a3e806faba173bf5b2ab90f60ccabce30" kindref="member">TEST</ref>(ImageWriterTest,<sp/>ExportImageVirtualTexture)</highlight></codeline>
+<codeline lineno="161"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/>std::string<sp/>fname<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;test_export_vt.exr&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(std::filesystem::exists(fname))<sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{128,<sp/>128};</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>tile_shape<sp/>=<sp/>{64,<sp/>64};</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>channels<sp/>=<sp/>3;</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"></highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>vt(shape,<sp/>tile_shape,<sp/>halo,<sp/>channels,<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm;</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/>cm.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
 <codeline lineno="173"><highlight class="normal"></highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1VirtualTexture" kindref="compound">VirtualTexture</ref><sp/>vt(shape,</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{-1.f,<sp/>1.f,<sp/>-1.f,<sp/>1.f},</highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_shape,</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>halo,</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>channels,</highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6eae10df7db812e0abe9bc94fc28ae907ce" kindref="member">StorageMode::VA_RAM</ref>);</highlight></codeline>
-<codeline lineno="180"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">ComputeMode</ref><sp/><sp/><sp/><sp/>cm;</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"><sp/><sp/>cm.<ref refid="structhmap_1_1ComputeMode_1a88f263de26dea2af6e22e2d4f5f02cab" kindref="member">mode</ref><sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
-<codeline lineno="182"><highlight class="normal"></highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/>vt.fill(10.0f,<sp/>cm);</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"></highlight></codeline>
-<codeline lineno="185"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>cfg;</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/>cfg.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/><ref refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2" kindref="member">ImageDataType::FLOAT32</ref>;</highlight></codeline>
-<codeline lineno="187"><highlight class="normal"></highlight></codeline>
-<codeline lineno="188"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(vt,<sp/>fname,<sp/>cfg,<sp/>cm));</highlight></codeline>
-<codeline lineno="189"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"></highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
-<codeline lineno="192"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/>vt.fill(10.0f,<sp/>cm);</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1ImageWriterConfig" kindref="compound">ImageWriterConfig</ref><sp/>cfg;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/>cfg.<ref refid="structhmap_1_1ImageWriterConfig_1a481586b28e6d78db02843fcb819e0583" kindref="member">data_type</ref><sp/>=<sp/><ref refid="namespacehmap_1a451ad02eb796f23b2f68e062e8de9875a967d280b5c16d95f2947647dd2ca6cc2" kindref="member">ImageDataType::FLOAT32</ref>;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae45c9c8f938fb4f94a3a3816d16bcc36" kindref="member">export_image</ref>(vt,<sp/>fname,<sp/>cfg,<sp/>cm));</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/>ASSERT_TRUE(std::filesystem::exists(fname));</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"></highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/>std::filesystem::remove(fname);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal">}</highlight></codeline>
     </programlisting>
     <location file="tests/src/test_image_writer.cpp"/>
   </compounddef>

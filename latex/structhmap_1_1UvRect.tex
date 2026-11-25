@@ -1,0 +1,157 @@
+\doxysection{hmap\+::Uv\+Rect Struct Reference}
+\hypertarget{structhmap_1_1UvRect}{}\label{structhmap_1_1UvRect}\index{hmap::UvRect@{hmap::UvRect}}
+
+
+Axis-\/aligned rectangle in normalized \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2 domain/\+UV space.  
+
+
+
+
+{\ttfamily \#include $<$uv\+\_\+rect.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+constexpr \mbox{\hyperlink{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}{Uv\+Rect}} ()=default
+\item 
+constexpr \mbox{\hyperlink{structhmap_1_1UvRect_a4847874f20644f34f14dc204bfc1ab01}{Uv\+Rect}} (float u0, float u1, float v0, float v1)
+\item 
+constexpr \mbox{\hyperlink{structhmap_1_1UvRect_aa1af9e8fb962459d3d91186290b60527}{Uv\+Rect}} (const glm\+::vec4 \&v)
+\item 
+constexpr glm\+::vec4 \mbox{\hyperlink{structhmap_1_1UvRect_a01e940c7389509f7f803f7808e1d2f9d}{to\+\_\+vec4}} () const
+\item 
+constexpr glm\+::vec2 \mbox{\hyperlink{structhmap_1_1UvRect_ae121db94beda0dc565b4a3fc92122142}{size}} () const
+\item 
+constexpr bool \mbox{\hyperlink{structhmap_1_1UvRect_a1afb85faf0308058824f138822fd6e5e}{contains}} (float u, float v) const
+\item 
+constexpr glm\+::vec2 \mbox{\hyperlink{structhmap_1_1UvRect_a420931baad33874ef7ee8b482f27410f}{lerp}} (float rx, float ry) const
+\item 
+constexpr glm\+::vec2 \mbox{\hyperlink{structhmap_1_1UvRect_a1099c7073e06fd5342ca64a50df35e6e}{normalize}} (float u, float v) const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr \mbox{\hyperlink{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}{Uv\+Rect}} \mbox{\hyperlink{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28}{unit}} ()
+\item 
+static constexpr \mbox{\hyperlink{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}{Uv\+Rect}} \mbox{\hyperlink{structhmap_1_1UvRect_adccbf5e5a7010795e2ccd7a036520b79}{from\+\_\+vec4}} (const glm\+::vec4 \&v)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \mbox{\hyperlink{structhmap_1_1UvRect_adb9a056372d073436246475913156e4f}{u\+\_\+min}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1UvRect_a0bbe4d1c5a752c17181b70aceb93b163}{u\+\_\+max}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1UvRect_adf8360c4f8676845a0343f9dce4f478b}{v\+\_\+min}} = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\item 
+float \mbox{\hyperlink{structhmap_1_1UvRect_a8e2b2929bbeeaf4a9905bd046f5b993e}{v\+\_\+max}} = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Axis-\/aligned rectangle in normalized \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2 domain/\+UV space. 
+
+Represents the parametric sub-\/region of a tile or \doxylink{classhmap_1_1Array}{Array} within the unit terrain domain. (Halo cells may extend slightly outside \mbox{[}0, 1\mbox{]}.) 
+
+\label{doc-constructors}
+\Hypertarget{structhmap_1_1UvRect_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}\index{hmap::UvRect@{hmap::UvRect}!UvRect@{UvRect}}
+\index{UvRect@{UvRect}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{UvRect()}{UvRect()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817} 
+hmap\+::\+Uv\+Rect\+::\+Uv\+Rect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}, {\ttfamily [default]}}
+
+\Hypertarget{structhmap_1_1UvRect_a4847874f20644f34f14dc204bfc1ab01}\index{hmap::UvRect@{hmap::UvRect}!UvRect@{UvRect}}
+\index{UvRect@{UvRect}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{UvRect()}{UvRect()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a4847874f20644f34f14dc204bfc1ab01} 
+hmap\+::\+Uv\+Rect\+::\+Uv\+Rect (\begin{DoxyParamCaption}\item[{float}]{u0}{, }\item[{float}]{u1}{, }\item[{float}]{v0}{, }\item[{float}]{v1}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_aa1af9e8fb962459d3d91186290b60527}\index{hmap::UvRect@{hmap::UvRect}!UvRect@{UvRect}}
+\index{UvRect@{UvRect}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{UvRect()}{UvRect()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_aa1af9e8fb962459d3d91186290b60527} 
+hmap\+::\+Uv\+Rect\+::\+Uv\+Rect (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{structhmap_1_1UvRect_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28}\index{hmap::UvRect@{hmap::UvRect}!unit@{unit}}
+\index{unit@{unit}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{unit()}{unit()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28} 
+constexpr \mbox{\hyperlink{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}{Uv\+Rect}} hmap\+::\+Uv\+Rect\+::unit (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_adccbf5e5a7010795e2ccd7a036520b79}\index{hmap::UvRect@{hmap::UvRect}!from\_vec4@{from\_vec4}}
+\index{from\_vec4@{from\_vec4}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{from\_vec4()}{from\_vec4()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_adccbf5e5a7010795e2ccd7a036520b79} 
+constexpr \mbox{\hyperlink{structhmap_1_1UvRect_acf24e94bdff9a71e4e5f6c513e32b817}{Uv\+Rect}} hmap\+::\+Uv\+Rect\+::from\+\_\+vec4 (\begin{DoxyParamCaption}\item[{const glm\+::vec4 \&}]{v}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_a01e940c7389509f7f803f7808e1d2f9d}\index{hmap::UvRect@{hmap::UvRect}!to\_vec4@{to\_vec4}}
+\index{to\_vec4@{to\_vec4}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{to\_vec4()}{to\_vec4()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a01e940c7389509f7f803f7808e1d2f9d} 
+glm\+::vec4 hmap\+::\+Uv\+Rect\+::to\+\_\+vec4 (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_ae121db94beda0dc565b4a3fc92122142}\index{hmap::UvRect@{hmap::UvRect}!size@{size}}
+\index{size@{size}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_ae121db94beda0dc565b4a3fc92122142} 
+glm\+::vec2 hmap\+::\+Uv\+Rect\+::size (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_a1afb85faf0308058824f138822fd6e5e}\index{hmap::UvRect@{hmap::UvRect}!contains@{contains}}
+\index{contains@{contains}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{contains()}{contains()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a1afb85faf0308058824f138822fd6e5e} 
+bool hmap\+::\+Uv\+Rect\+::contains (\begin{DoxyParamCaption}\item[{float}]{u}{, }\item[{float}]{v}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_a420931baad33874ef7ee8b482f27410f}\index{hmap::UvRect@{hmap::UvRect}!lerp@{lerp}}
+\index{lerp@{lerp}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{lerp()}{lerp()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a420931baad33874ef7ee8b482f27410f} 
+glm\+::vec2 hmap\+::\+Uv\+Rect\+::lerp (\begin{DoxyParamCaption}\item[{float}]{rx}{, }\item[{float}]{ry}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+\Hypertarget{structhmap_1_1UvRect_a1099c7073e06fd5342ca64a50df35e6e}\index{hmap::UvRect@{hmap::UvRect}!normalize@{normalize}}
+\index{normalize@{normalize}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{normalize()}{normalize()}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a1099c7073e06fd5342ca64a50df35e6e} 
+glm\+::vec2 hmap\+::\+Uv\+Rect\+::normalize (\begin{DoxyParamCaption}\item[{float}]{u}{, }\item[{float}]{v}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [constexpr]}}
+
+
+
+\label{doc-variable-members}
+\Hypertarget{structhmap_1_1UvRect_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structhmap_1_1UvRect_adb9a056372d073436246475913156e4f}\index{hmap::UvRect@{hmap::UvRect}!u\_min@{u\_min}}
+\index{u\_min@{u\_min}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{u\_min}{u\_min}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_adb9a056372d073436246475913156e4f} 
+float hmap\+::\+Uv\+Rect\+::u\+\_\+min = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1UvRect_a0bbe4d1c5a752c17181b70aceb93b163}\index{hmap::UvRect@{hmap::UvRect}!u\_max@{u\_max}}
+\index{u\_max@{u\_max}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{u\_max}{u\_max}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a0bbe4d1c5a752c17181b70aceb93b163} 
+float hmap\+::\+Uv\+Rect\+::u\+\_\+max = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1UvRect_adf8360c4f8676845a0343f9dce4f478b}\index{hmap::UvRect@{hmap::UvRect}!v\_min@{v\_min}}
+\index{v\_min@{v\_min}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{v\_min}{v\_min}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_adf8360c4f8676845a0343f9dce4f478b} 
+float hmap\+::\+Uv\+Rect\+::v\+\_\+min = 0.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+\Hypertarget{structhmap_1_1UvRect_a8e2b2929bbeeaf4a9905bd046f5b993e}\index{hmap::UvRect@{hmap::UvRect}!v\_max@{v\_max}}
+\index{v\_max@{v\_max}!hmap::UvRect@{hmap::UvRect}}
+\doxysubsubsection{\texorpdfstring{v\_max}{v\_max}}
+{\footnotesize\ttfamily \label{structhmap_1_1UvRect_a8e2b2929bbeeaf4a9905bd046f5b993e} 
+float hmap\+::\+Uv\+Rect\+::v\+\_\+max = 1.\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+High\+Map/include/highmap/spatial/\mbox{\hyperlink{uv__rect_8hpp}{uv\+\_\+rect.\+hpp}}\end{DoxyCompactItemize}

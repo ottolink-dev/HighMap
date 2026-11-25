@@ -544,7 +544,7 @@
 <codeline lineno="187"><highlight class="normal"><ref refid="test__flora_8cpp_1aa9e221b4ce35b3fbcfd64834a3eff358" kindref="member">TEST</ref>(ForestTest,<sp/>GetBbox)</highlight></codeline>
 <codeline lineno="188"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="189"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Forest" kindref="compound">Forest</ref><sp/><sp/><sp/><sp/>empty_forest;</highlight></codeline>
-<codeline lineno="190"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox_empty<sp/>=<sp/>empty_forest.<ref refid="classhmap_1_1ScatterField_1a87cfb3f7413a9b375e51ce9a3bb02834" kindref="member">get_bbox</ref>();</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox_empty<sp/>=<sp/>empty_forest.<ref refid="classhmap_1_1ScatterField_1ab9165b03396269d72dad33f14e19b740" kindref="member">get_bbox</ref>().<ref refid="structhmap_1_1BBox2D_1a53e413896be53bee48fac56acfa0da5d" kindref="member">to_vec4</ref>();</highlight></codeline>
 <codeline lineno="191"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(bbox_empty.x,<sp/>0.f));</highlight></codeline>
 <codeline lineno="192"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(bbox_empty.y,<sp/>1.f));</highlight></codeline>
 <codeline lineno="193"><highlight class="normal"></highlight></codeline>
@@ -553,7 +553,7 @@
 <codeline lineno="196"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="namespacehmap_1a527656b2ec2ff9bbc343a996ea62070e" kindref="member">Tree</ref>(50.f,<sp/>5.f,<sp/>0.f));</highlight></codeline>
 <codeline lineno="197"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="namespacehmap_1a527656b2ec2ff9bbc343a996ea62070e" kindref="member">Tree</ref>(30.f,<sp/>60.f,<sp/>0.f));</highlight></codeline>
 <codeline lineno="198"><highlight class="normal"></highlight></codeline>
-<codeline lineno="199"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>forest.<ref refid="classhmap_1_1ScatterField_1a87cfb3f7413a9b375e51ce9a3bb02834" kindref="member">get_bbox</ref>();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>forest.<ref refid="classhmap_1_1ScatterField_1ab9165b03396269d72dad33f14e19b740" kindref="member">get_bbox</ref>().<ref refid="structhmap_1_1BBox2D_1a53e413896be53bee48fac56acfa0da5d" kindref="member">to_vec4</ref>();</highlight></codeline>
 <codeline lineno="200"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(bbox.x,<sp/>10.f));</highlight></codeline>
 <codeline lineno="201"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(bbox.y,<sp/>50.f));</highlight></codeline>
 <codeline lineno="202"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(bbox.z,<sp/>5.f));</highlight></codeline>
@@ -580,7 +580,7 @@
 <codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a527656b2ec2ff9bbc343a996ea62070e" kindref="member">Tree</ref>(5.f,<sp/>5.f,<sp/>0.f));<sp/></highlight><highlight class="comment">//<sp/>at<sp/>x<sp/>=<sp/>5<sp/>(midpoint)<sp/>-&gt;<sp/>elevation<sp/>=<sp/>100</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="namespacehmap_1a527656b2ec2ff9bbc343a996ea62070e" kindref="member">Tree</ref>(10.f,<sp/>5.f,<sp/>0.f));<sp/></highlight><highlight class="comment">//<sp/>at<sp/>x<sp/>=<sp/>10<sp/>-&gt;<sp/>elevation<sp/>=<sp/>200</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="225"><highlight class="normal"></highlight></codeline>
-<codeline lineno="226"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" kindref="member">set_elevation_from_terrain</ref>(elevation,<sp/>bbox);</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1a41a62413c3434cc46136aef56c810144" kindref="member">set_elevation_from_terrain</ref>(elevation,<sp/>bbox);</highlight></codeline>
 <codeline lineno="227"><highlight class="normal"></highlight></codeline>
 <codeline lineno="228"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(forest[0].position.z,<sp/>0.f));</highlight></codeline>
 <codeline lineno="229"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(float_eq(forest[1].position.z,<sp/>100.f));</highlight></codeline>
@@ -619,7 +619,7 @@
 <codeline lineno="262"><highlight class="normal"></highlight></codeline>
 <codeline lineno="263"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ratio<sp/>0.0<sp/>-&gt;<sp/>all<sp/>pruned</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="264"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>mask({10,<sp/>10},<sp/>0.5f);</highlight></codeline>
-<codeline lineno="265"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" kindref="member">prune_density</ref>(mask,<sp/>0.0f,<sp/>42);</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1af00e4a2949e873ecd7cfcd2f30b4db76" kindref="member">prune_density</ref>(mask,<sp/>0.0f,<sp/>42);</highlight></codeline>
 <codeline lineno="266"><highlight class="normal"><sp/><sp/>EXPECT_EQ(forest.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>0u);</highlight></codeline>
 <codeline lineno="267"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(forest.<ref refid="classhmap_1_1ScatterField_1ade407dc456f3f8df88e8127489c76301" kindref="member">empty</ref>());</highlight></codeline>
 <codeline lineno="268"><highlight class="normal"></highlight></codeline>
@@ -627,11 +627,11 @@
 <codeline lineno="270"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>100;<sp/>++i)</highlight></codeline>
 <codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" kindref="member">push_back</ref>(<ref refid="namespacehmap_1a527656b2ec2ff9bbc343a996ea62070e" kindref="member">Tree</ref>(0.5f,<sp/>0.5f,<sp/>0.f,<sp/>0u,<sp/>1.0f));</highlight></codeline>
 <codeline lineno="272"><highlight class="normal"></highlight></codeline>
-<codeline lineno="273"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" kindref="member">prune_density</ref>(mask,<sp/>1.0f,<sp/>42);</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1af00e4a2949e873ecd7cfcd2f30b4db76" kindref="member">prune_density</ref>(mask,<sp/>1.0f,<sp/>42);</highlight></codeline>
 <codeline lineno="274"><highlight class="normal"><sp/><sp/>EXPECT_EQ(forest.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>100u);</highlight></codeline>
 <codeline lineno="275"><highlight class="normal"></highlight></codeline>
 <codeline lineno="276"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>ratio<sp/>0.5<sp/>-&gt;<sp/>~50%<sp/>kept<sp/>with<sp/>density<sp/>modulation</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="277"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" kindref="member">prune_density</ref>(mask,<sp/>0.5f,<sp/>42);</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1af00e4a2949e873ecd7cfcd2f30b4db76" kindref="member">prune_density</ref>(mask,<sp/>0.5f,<sp/>42);</highlight></codeline>
 <codeline lineno="278"><highlight class="normal"><sp/><sp/>EXPECT_GT(forest.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>35u);</highlight></codeline>
 <codeline lineno="279"><highlight class="normal"><sp/><sp/>EXPECT_LT(forest.<ref refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" kindref="member">size</ref>(),<sp/>65u);</highlight></codeline>
 <codeline lineno="280"><highlight class="normal">}</highlight></codeline>
@@ -645,7 +645,7 @@
 <codeline lineno="288"><highlight class="normal"></highlight></codeline>
 <codeline lineno="289"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>without<sp/>background</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="290"><highlight class="normal"><sp/><sp/>std::string<sp/>png_no_bg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;test_forest_no_bg.png&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="291"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" kindref="member">to_png</ref>(png_no_bg,<sp/>{256,<sp/>256});</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1adc438b2d177210003d39f86989b2e6e6" kindref="member">to_png</ref>(png_no_bg,<sp/>{256,<sp/>256});</highlight></codeline>
 <codeline lineno="292"><highlight class="normal"></highlight></codeline>
 <codeline lineno="293"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>f1(png_no_bg,<sp/>std::ios::binary);</highlight></codeline>
 <codeline lineno="294"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(f1.is_open());</highlight></codeline>
@@ -654,7 +654,7 @@
 <codeline lineno="297"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>with<sp/>background<sp/>array</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="298"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bg({128,<sp/>128},<sp/>0.5f);</highlight></codeline>
 <codeline lineno="299"><highlight class="normal"><sp/><sp/>std::string<sp/>png_with_bg<sp/>=<sp/></highlight><highlight class="stringliteral">&quot;test_forest_with_bg.png&quot;</highlight><highlight class="normal">;</highlight></codeline>
-<codeline lineno="300"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" kindref="member">to_png</ref>(png_with_bg,<sp/>{256,<sp/>256},<sp/>bg);</highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>forest.<ref refid="classhmap_1_1ScatterField_1adc438b2d177210003d39f86989b2e6e6" kindref="member">to_png</ref>(png_with_bg,<sp/>{256,<sp/>256},<sp/>bg);</highlight></codeline>
 <codeline lineno="301"><highlight class="normal"></highlight></codeline>
 <codeline lineno="302"><highlight class="normal"><sp/><sp/>std::ifstream<sp/>f2(png_with_bg,<sp/>std::ios::binary);</highlight></codeline>
 <codeline lineno="303"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(f2.is_open());</highlight></codeline>

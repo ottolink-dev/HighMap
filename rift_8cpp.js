@@ -1,4 +1,4 @@
 var rift_8cpp =
 [
-    [ "hmap::rift", "namespacehmap.html#a0da433ef9eb80cc11084bd3adbe75051", null ]
+    [ "hmap::rift", "namespacehmap.html#a1cf36655b0807f0565385cdd23f4f232", null ]
 ];

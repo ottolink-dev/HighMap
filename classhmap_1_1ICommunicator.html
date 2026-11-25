@@ -99,16 +99,16 @@ $(function(){initNavTree('classhmap_1_1ICommunicator.html','','classhmap_1_1ICom
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract communicator interface providing MPI-style collective directives.  
+<p>Abstract communicator interface providing MPI-style collective directives for single-source SPMD <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> algorithms.  
  <a href="#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="communicator_8hpp_source.html">communicator.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="communicator__interface_8hpp_source.html">communicator_interface.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for hmap::ICommunicator:</div>
 <div class="dyncontent">
 <div class="center"><img src="classhmap_1_1ICommunicator__inherit__graph.png" border="0" usemap="#ahmap_1_1ICommunicator_inherit__map" loading="lazy" alt="Inheritance graph"/></div>
 <map name="ahmap_1_1ICommunicator_inherit__map" id="ahmap_1_1ICommunicator_inherit__map">
-<area shape="rect" title="Abstract communicator interface providing MPI&#45;style collective directives." alt="" coords="5,96,172,124"/>
+<area shape="rect" title="Abstract communicator interface providing MPI&#45;style collective directives for single&#45;source SPMD Arra..." alt="" coords="5,96,172,124"/>
 <area shape="rect" href="classhmap_1_1SequentialTileComm.html" title="Communicator for single&#45;threaded sequential tile traversal. Supports cooperative fiber suspension (Op..." alt="" coords="220,5,422,33"/>
 <area shape="poly" title=" " alt="" coords="126,86,170,63,219,42,256,32,252,35,221,47,172,68,129,90"/>
 <area shape="rect" href="classhmap_1_1SequentialTileComm_1_1TileProxyComm.html" title=" " alt="" coords="220,57,422,102"/>
@@ -128,10 +128,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5206083416314f55fed96d1584a20c64" id="r_a5206083416314f55fed96d1584a20c64"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5206083416314f55fed96d1584a20c64">barrier</a> ()=0</td></tr>
 <tr class="memitem:a79f3d5872fcfd5d05f117ac4f97c4544" id="r_a79f3d5872fcfd5d05f117ac4f97c4544"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a79f3d5872fcfd5d05f117ac4f97c4544">rank</a> () const =0</td></tr>
 <tr class="memitem:a9b01f0bca5a0d7a08e07742828e22dd3" id="r_a9b01f0bca5a0d7a08e07742828e22dd3"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b01f0bca5a0d7a08e07742828e22dd3">size</a> () const =0</td></tr>
-<tr class="memitem:a9070e5952f201f9b59bfc712e23a117c" id="r_a9070e5952f201f9b59bfc712e23a117c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9070e5952f201f9b59bfc712e23a117c">sync_overlap_buffers</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;local_tile, const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;region, <a class="el" href="namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8">SyncOperation</a> op=<a class="el" href="namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d">SyncOperation::SmoothBlend</a>)=0</td></tr>
+<tr class="memitem:a413bb241c720069ba454c79ea65ccbb1" id="r_a413bb241c720069ba454c79ea65ccbb1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a413bb241c720069ba454c79ea65ccbb1">sync_overlap_buffers</a> (<a class="el" href="classhmap_1_1Array.html">Array</a> &amp;local_tile, const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;tile, <a class="el" href="namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8">SyncOperation</a> op=<a class="el" href="namespacehmap.html#a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d">SyncOperation::SmoothBlend</a>)=0</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract communicator interface providing MPI-style collective directives. </p>
+<div class="textblock"><p>Abstract communicator interface providing MPI-style collective directives for single-source SPMD <a class="el" href="classhmap_1_1Array.html" title="Array class, helper to manipulate 2D float array with &quot;(i, j)&quot; indexing.">Array</a> algorithms. </p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa439b2a629e41691622ee478a44043b7" name="aa439b2a629e41691622ee478a44043b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa439b2a629e41691622ee478a44043b7">&#9670;&#160;</a></span>~ICommunicator()</h2>
@@ -298,8 +298,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a9070e5952f201f9b59bfc712e23a117c" name="a9070e5952f201f9b59bfc712e23a117c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9070e5952f201f9b59bfc712e23a117c">&#9670;&#160;</a></span>sync_overlap_buffers()</h2>
+<a id="a413bb241c720069ba454c79ea65ccbb1" name="a413bb241c720069ba454c79ea65ccbb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a413bb241c720069ba454c79ea65ccbb1">&#9670;&#160;</a></span>sync_overlap_buffers()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +315,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1TileRegion.html">TileRegion</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span>, </td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>tile</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -330,12 +330,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classhmap_1_1SequentialTileComm.html#accafe86e232aea3d662238caa8dbdfb7">hmap::SequentialTileComm</a>, <a class="el" href="classhmap_1_1SequentialTileComm_1_1TileProxyComm.html#a0f9f5343f9e1a6f33eb26f7e3cfacb47">hmap::SequentialTileComm::TileProxyComm</a>, <a class="el" href="classhmap_1_1SingleArrayComm.html#a11afd290007a8fd5a97715ca11cb11f0">hmap::SingleArrayComm</a>, and <a class="el" href="classhmap_1_1ThreadedTileComm.html#aaf40ff9df9f3eb1e46a8822e4c3cb0c8">hmap::ThreadedTileComm</a>.</p>
+<p>Implemented in <a class="el" href="classhmap_1_1SequentialTileComm.html#a983f430a97b5bfac3d924f376c96893c">hmap::SequentialTileComm</a>, <a class="el" href="classhmap_1_1SequentialTileComm_1_1TileProxyComm.html#ab01dff9d177c3da88a40f6631115a32a">hmap::SequentialTileComm::TileProxyComm</a>, <a class="el" href="classhmap_1_1SingleArrayComm.html#a4ac7ddc997537868044bbdc5e7f865e8">hmap::SingleArrayComm</a>, and <a class="el" href="classhmap_1_1ThreadedTileComm.html#a5610ceb98c5dc0ff6cfa50914620a4a2">hmap::ThreadedTileComm</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>HighMap/include/highmap/virtual_array/<a class="el" href="communicator_8hpp_source.html">communicator.hpp</a></li>
+<li>HighMap/include/highmap/core/<a class="el" href="communicator__interface_8hpp_source.html">communicator_interface.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

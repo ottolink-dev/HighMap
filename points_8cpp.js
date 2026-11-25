@@ -13,9 +13,9 @@ var points_8cpp =
     [ "hmap::interp_bspline", "namespacehmap.html#af148c924b422baa2e359e0788b7392d0", null ],
     [ "hmap::interp_catmullrom", "namespacehmap.html#ac7a93fe9501041332e1ff7a128742c6f", null ],
     [ "hmap::interp_decasteljau", "namespacehmap.html#aab4ce9b01f013efdc3dd817da4177737", null ],
-    [ "hmap::intersect_bounding_boxes", "namespacehmap.html#a62068967763814bfbf05a505993c544a", null ],
-    [ "hmap::is_point_within_bounding_box", "namespacehmap.html#ada80d13d395d9c4d2c5457a21b932602", null ],
-    [ "hmap::is_point_within_bounding_box", "namespacehmap.html#a4b995657b3aee276fc4209d37f3f4f25", null ],
+    [ "hmap::intersect_bounding_boxes", "namespacehmap.html#a2a5f48139d9b848a69795131fb04002d", null ],
+    [ "hmap::is_point_within_bounding_box", "namespacehmap.html#a0f9a2d56ba169ed71a30d8c07a940a80", null ],
+    [ "hmap::is_point_within_bounding_box", "namespacehmap.html#a81b40e7a75da8e5143b1666c41bc200b", null ],
     [ "hmap::lerp", "namespacehmap.html#ac14815cf025b7430d31d08125a5c6f0d", null ],
     [ "hmap::midpoint", "namespacehmap.html#a520a1e42c4e492e81b334914807abc22", null ],
     [ "hmap::scale", "namespacehmap.html#ae02fef88d73c4db09d0c152226e180c0", null ],
@@ -25,5 +25,5 @@ var points_8cpp =
     [ "hmap::sort_points", "namespacehmap.html#a69877ef43645c767daa0735fde59821c", null ],
     [ "hmap::triangle_area", "namespacehmap.html#a9249226d73f4396157c1c6415ebf3a7c", null ],
     [ "hmap::triangle_area_signed", "namespacehmap.html#a5dc01b8ec213bc19fc4800e1286b0975", null ],
-    [ "hmap::unit_square_bbox", "namespacehmap.html#aef71b544e3f4e5321cb3d41a7366e0f3", null ]
+    [ "hmap::unit_square_bbox", "namespacehmap.html#ac3f4c4c024cb75a48d155f38eec6ff56", null ]
 ];

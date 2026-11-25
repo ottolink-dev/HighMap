@@ -1,6 +1,6 @@
 var sdf__2d__polyline__bezier_8cpp =
 [
-    [ "hmap::sdf_2d_polyline_bezier", "namespacehmap.html#a7fc8217efe7ab32d2e1e025bdd632936", null ],
-    [ "hmap::sdf_2d_polyline_bezier_brute_force", "namespacehmap.html#a3f2d0f789995b087fee958951a87d36c", null ],
-    [ "hmap::sdf_2d_polyline_bezier_bvh", "namespacehmap.html#a309a2e9dba17dfafd471faed90741e69", null ]
+    [ "hmap::sdf_2d_polyline_bezier", "namespacehmap.html#a1ea35988a3eba00e07e8d6a5d429e868", null ],
+    [ "hmap::sdf_2d_polyline_bezier_brute_force", "namespacehmap.html#a468472f60775bbdb01280f0759decdf1", null ],
+    [ "hmap::sdf_2d_polyline_bezier_bvh", "namespacehmap.html#ad9bbd73f816dc1d2be53245cffd29dc3", null ]
 ];

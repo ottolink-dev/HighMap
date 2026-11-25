@@ -116,13 +116,13 @@
 <title>4. API Design and Integration</title><para>The functionality is structured to preserve backward compatibility while providing the brute-force implementation for reference and validation:</para>
 <para><orderedlist>
 <listitem><para><bold>Explicit Implementations</bold>:<itemizedlist>
-<listitem><para><computeroutput><ref refid="namespacehmap_1aee7ff7068cdfd831c2ad4891a38a817c" kindref="member">hmap::sdf_2d_polyline_bvh</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1a970cf834f81736d64b053de48d9bf6bf" kindref="member">hmap::path_sdf_to_array_bvh</ref></computeroutput></para>
-</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1af0904ff813387d7e848a33ed5cd99eef" kindref="member">hmap::sdf_2d_polyline_brute_force</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1aca95a27cb4796288e6ac2e7bd265c611" kindref="member">hmap::path_sdf_to_array_brute_force</ref></computeroutput></para>
+<listitem><para><computeroutput><ref refid="namespacehmap_1ac87e0e41a975e71bab172f61b7980a28" kindref="member">hmap::sdf_2d_polyline_bvh</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1a409bc160fd48844f19a16ae4d476f453" kindref="member">hmap::path_sdf_to_array_bvh</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1ab4c36b89bbb81df63083c7c984b45378" kindref="member">hmap::sdf_2d_polyline_brute_force</ref></computeroutput> and <computeroutput><ref refid="namespacehmap_1a47fc9d4e63024e4f5240965108f73f0d" kindref="member">hmap::path_sdf_to_array_brute_force</ref></computeroutput></para>
 </listitem></itemizedlist>
 </para>
 </listitem><listitem><para><bold>Default Wrapper Functions</bold>:<itemizedlist>
-<listitem><para><computeroutput><ref refid="namespacehmap_1a255117d00b312165d82d2f65584ab14a" kindref="member">hmap::sdf_2d_polyline</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
-</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1aa309f6eee87b7e83c78afeff1adb3eaf" kindref="member">hmap::path_sdf_to_array</ref>(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+<listitem><para><computeroutput><ref refid="namespacehmap_1a536f3a29bebd2515afaf2e7aab5bffd4" kindref="member">hmap::sdf_2d_polyline</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a3ce5cf9668610d03ae978255d9e08e65" kindref="member">hmap::path_sdf_to_array</ref>(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
 </listitem></itemizedlist>
 </para>
 </listitem></orderedlist>
@@ -145,9 +145,9 @@
 <title>BVH2D Acceleration for Bézier Curves</title><para>Since quadratic Bézier curves satisfy the convex hull property: $$B(t) \in \text{ConvexHull}(P_0, P_1, P_2) \quad \forall t \in [0, 1]$$ A tight and conservative bounding box for each quadratic curve is simply: $$\text{AABB} = [\min(P_0, P_1, P_2), \max(P_0, P_1, P_2)]$$</para>
 <para>A specialized <computeroutput>BVH2DBezier</computeroutput> tree was implemented using this bounding box representation. Per-pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.</para>
 <para>The API was structured consistently with linear polyline SDF:<itemizedlist>
-<listitem><para><computeroutput><ref refid="namespacehmap_1a309a2e9dba17dfafd471faed90741e69" kindref="member">hmap::sdf_2d_polyline_bezier_bvh</ref></computeroutput></para>
-</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a3f2d0f789995b087fee958951a87d36c" kindref="member">hmap::sdf_2d_polyline_bezier_brute_force</ref></computeroutput></para>
-</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a7fc8217efe7ab32d2e1e025bdd632936" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
+<listitem><para><computeroutput><ref refid="namespacehmap_1ad9bbd73f816dc1d2be53245cffd29dc3" kindref="member">hmap::sdf_2d_polyline_bezier_bvh</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a468472f60775bbdb01280f0759decdf1" kindref="member">hmap::sdf_2d_polyline_bezier_brute_force</ref></computeroutput></para>
+</listitem><listitem><para><computeroutput><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</computeroutput></para>
 </listitem></itemizedlist>
 </para>
 </sect2>

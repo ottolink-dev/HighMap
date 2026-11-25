@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rock_0',['Rock',['../namespacehmap.html#a39fd8a623d40207a29565cdc3ea898a6',1,'hmap']]]
+  ['boundingbox_0',['BoundingBox',['../classhmap_1_1TerrainTriMesh.html#ac07550ae5586ec1d79cdbd29d3a6514f',1,'hmap::TerrainTriMesh']]]
 ];

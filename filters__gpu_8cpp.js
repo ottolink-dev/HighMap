@@ -25,7 +25,7 @@ var filters__gpu_8cpp =
     [ "hmap::gpu::shrink", "namespacehmap_1_1gpu.html#a551b9d1203331ed95e472c57a6e439c4", null ],
     [ "hmap::gpu::shrink", "namespacehmap_1_1gpu.html#a95377c44e7202205d867d42fe4cfa93d", null ],
     [ "hmap::gpu::shrink", "namespacehmap_1_1gpu.html#a11bc9aa25f858fb2587a8b6118570fa0", null ],
-    [ "hmap::gpu::smooth_cpulse", "namespacehmap_1_1gpu.html#a5308a7a11f7c65d0ed2218f11c8a315a", null ],
+    [ "hmap::gpu::smooth_cpulse", "namespacehmap_1_1gpu.html#aabdca5cdda030f3c6edaa82841fdaff6", null ],
     [ "hmap::gpu::smooth_cpulse_edge_removing", "namespacehmap_1_1gpu.html#a4744808e10a1dfaf752cd68366824ee9", null ],
     [ "hmap::gpu::smooth_fill", "namespacehmap_1_1gpu.html#ab10a6dc3d92519c7bd3244571bcd6429", null ],
     [ "hmap::gpu::smooth_fill", "namespacehmap_1_1gpu.html#adc6356d5b5690f553d33810380417805", null ],

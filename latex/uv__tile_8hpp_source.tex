@@ -1,0 +1,108 @@
+\doxysection{uv\+\_\+tile.\+hpp}
+\hypertarget{uv__tile_8hpp_source}{}\label{uv__tile_8hpp_source}\index{HighMap/include/highmap/spatial/uv\_tile.hpp@{HighMap/include/highmap/spatial/uv\_tile.hpp}}
+\mbox{\hyperlink{uv__tile_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2025\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <glm/vec2.hpp>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <glm/vec4.hpp>}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{algebra_8hpp}{highmap/algebra.hpp}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uv__rect_8hpp}{highmap/spatial/uv\_rect.hpp}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}}
+\DoxyCodeLine{00026\ \{}
+\DoxyCodeLine{00027\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhmap_1_1TileKey_aa1b61a92a4562444455e7461cd65d642}{tx}}\ =\ 0;}
+\DoxyCodeLine{00028\ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhmap_1_1TileKey_a0c2bad93215283eb8baedc5cbc2fa2f1}{ty}}\ =\ 0;}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1TileKey_a40d424bd1194dae00a214f663e8412a0}{operator==}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \&other)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00031\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1TileKey_aa1b61a92a4562444455e7461cd65d642}{tx}}\ ==\ other.\mbox{\hyperlink{structhmap_1_1TileKey_aa1b61a92a4562444455e7461cd65d642}{tx}}\ \&\&\ \mbox{\hyperlink{structhmap_1_1TileKey_a0c2bad93215283eb8baedc5cbc2fa2f1}{ty}}\ ==\ other.\mbox{\hyperlink{structhmap_1_1TileKey_a0c2bad93215283eb8baedc5cbc2fa2f1}{ty}};}
+\DoxyCodeLine{00033\ \ \ \}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhmap_1_1TileKey_a63fda351a89fbde9e8d6c03061466bbe}{hash}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00036\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}uint64\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1TileKey_aa1b61a92a4562444455e7461cd65d642}{tx}})\ <<\ 32)\ |\ (\textcolor{keyword}{static\_cast<}uint32\_t\textcolor{keyword}{>}(\mbox{\hyperlink{structhmap_1_1TileKey_a0c2bad93215283eb8baedc5cbc2fa2f1}{ty}}));}
+\DoxyCodeLine{00038\ \ \ \}}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00045\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1UvTile_a38b25db94d87393d2a3f9d0e34fe4d0b}{UvTile}}}
+\DoxyCodeLine{00046\ \{}
+\DoxyCodeLine{00047\ \ \ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_aafae658ee780575d411fcd4a7c7b8ef9}{key}};\ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00048\ \ \ \mbox{\hyperlink{structhmap_1_1UvRect}{UvRect}}\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a38af59e7cc83a6cefa585a250981fe40}{uv\_rect}};\ \ \ \ \ \ }
+\DoxyCodeLine{00049\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}};\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00050\ \ \ glm::ivec4\ \mbox{\hyperlink{structhmap_1_1UvTile_adb05dab3a03abfa5af4167d827a3e05a}{halo}};\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00051\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1UvTile_a6f755077f5128ef7536659bd964cec8e}{global\_shape}};\ }
+\DoxyCodeLine{00052\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1UvTile_af1655075d5dffdf270e4f0f61b472b32}{tile\_shape}};\ \ \ }
+\DoxyCodeLine{00053\ \ \ glm::ivec2\ \mbox{\hyperlink{structhmap_1_1UvTile_a2907df04cb3a03b0f6b626cc0542d865}{tile\_grid}};\ \ \ \ }
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \ \ \mbox{\hyperlink{namespacehmap_a939a44b504dcf8ce96e7624ff45dfa5c}{UvTile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1TileKey}{TileKey}}\ \ \ \ \&\mbox{\hyperlink{structhmap_1_1UvTile_aafae658ee780575d411fcd4a7c7b8ef9}{key}}\ =\ \{\},}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvRect}{UvRect}}\ \ \ \ \ \&\mbox{\hyperlink{structhmap_1_1UvTile_a38af59e7cc83a6cefa585a250981fe40}{uv\_rect}}\ =\ \mbox{\hyperlink{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28}{UvRect::unit}}(),}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&\mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}\ =\ \{0,\ 0\},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec4\ \&\mbox{\hyperlink{structhmap_1_1UvTile_adb05dab3a03abfa5af4167d827a3e05a}{halo}}\ =\ \{0,\ 0,\ 0,\ 0\},}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&\mbox{\hyperlink{structhmap_1_1UvTile_a6f755077f5128ef7536659bd964cec8e}{global\_shape}}\ =\ \{0,\ 0\},}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&\mbox{\hyperlink{structhmap_1_1UvTile_af1655075d5dffdf270e4f0f61b472b32}{tile\_shape}}\ =\ \{0,\ 0\},}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&\mbox{\hyperlink{structhmap_1_1UvTile_a2907df04cb3a03b0f6b626cc0542d865}{tile\_grid}}\ =\ \{1,\ 1\});}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a1c677c4c29b4a1f941f5c1cd91cd00aa}{UvTile}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvRect}{UvRect}}\ \&uv)}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ :\ \mbox{\hyperlink{structhmap_1_1UvTile_a38af59e7cc83a6cefa585a250981fe40}{uv\_rect}}(uv),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}(\{0,\ 0\}),}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_adb05dab3a03abfa5af4167d827a3e05a}{halo}}(\{0,\ 0,\ 0,\ 0\}),}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a6f755077f5128ef7536659bd964cec8e}{global\_shape}}(\{0,\ 0\}),}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_af1655075d5dffdf270e4f0f61b472b32}{tile\_shape}}(\{0,\ 0\}),}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a2907df04cb3a03b0f6b626cc0542d865}{tile\_grid}}(\{1,\ 1\})}
+\DoxyCodeLine{00070\ \ \ \{}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvTile_a38b25db94d87393d2a3f9d0e34fe4d0b}{UvTile}}\ \&\mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{unit}}();}
+\DoxyCodeLine{00074\ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvTile_a38b25db94d87393d2a3f9d0e34fe4d0b}{UvTile}}\ \&\mbox{\hyperlink{structhmap_1_1UvTile_a3a8878fea7b8e8885ab62c31fcc0d4ac}{dummy}}();\ }
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ UvRect\ \mbox{\hyperlink{structhmap_1_1UvTile_ab7204e97217e9208c6f000025aefd69b}{core\_uv\_rect}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ glm::vec2\ \mbox{\hyperlink{structhmap_1_1UvTile_adfaff2c57db63271c3c4a9545e8d6559}{cell\_uv\_center}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00079\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1UvTile_a1df08f52d9449485b9bbb2970002ac00}{cell\_center}}(i,\ j);}
+\DoxyCodeLine{00081\ \ \ \}}
+\DoxyCodeLine{00082\ \ \ glm::vec2\ \mbox{\hyperlink{structhmap_1_1UvTile_a5641d1bffaf5b6c3f7f8a7c3348738d5}{cell\_uv\_corner}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00083\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1UvTile_a8a159e2a73698e0093e1b7d383584ba4}{cell\_corner}}(i,\ j);}
+\DoxyCodeLine{00085\ \ \ \}}
+\DoxyCodeLine{00086\ \ \ glm::vec2\ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a1df08f52d9449485b9bbb2970002ac00}{cell\_center}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00087\ \ \ glm::vec2\ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a8a159e2a73698e0093e1b7d383584ba4}{cell\_corner}}(\textcolor{keywordtype}{int}\ i,\ \textcolor{keywordtype}{int}\ j)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a3eb55f1fd8d18e930385e1750cd8efe9}{contains\_global}}(\textcolor{keywordtype}{int}\ gx,\ \textcolor{keywordtype}{int}\ gy)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a564749c34224c0990318e90d890718da}{contains\_global\_core}}(\textcolor{keywordtype}{int}\ gx,\ \textcolor{keywordtype}{int}\ gy)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00090\ \ \ glm::ivec2\ \ \mbox{\hyperlink{structhmap_1_1UvTile_aa028371e7dd28aa73bd92256c71bfcf6}{global\_offset}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00091\ \ \ glm::ivec2\ \ \mbox{\hyperlink{structhmap_1_1UvTile_a2537e0e07f6b3ec1ffb2f97295200c0d}{global\_to\_local}}(\textcolor{keywordtype}{int}\ gx,\ \textcolor{keywordtype}{int}\ gy)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00092\ \ \ std::string\ \mbox{\hyperlink{structhmap_1_1UvTile_ae01d06101740534086fdf522962f9f0e}{info\_string}}(\textcolor{keywordtype}{int}\ indent\ =\ 0)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1UvTile_a1f0312243128fb859270fc8779875400}{is\_valid}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00095\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}.x\ >\ 0\ \&\&\ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}.y\ >\ 0;}
+\DoxyCodeLine{00097\ \ \ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1UvTile_a40cc0962aa33c244253ad6d68ea282e2}{is\_empty}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00100\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}.x\ <=\ 0\ ||\ \mbox{\hyperlink{structhmap_1_1UvTile_a0f28afd8f393ffdf1449825cef5670fc}{shape}}.y\ <=\ 0;}
+\DoxyCodeLine{00102\ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_ab55c8b97474724b4697012143dbe358a}{is\_bottom\_border}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00105\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a4fd2abc5cc36c7d4a6888e0a82c0417a}{is\_left\_border}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00106\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_aa27e7b1c4e40b4761644b71c0be0377f}{is\_right\_border}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00107\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_ab6cd14a63efd073507c8b145cb2fb5fa}{is\_top\_border}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00108\ \ \ std::string\ \mbox{\hyperlink{structhmap_1_1UvTile_a676dd1630e7266cc9dc919bcf2f0da69}{key\_as\_string}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00109\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1UvTile_a86ff2c1d3f3e89da0a7a98bcfa638ca4}{linear\_index}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00110\ \ \ glm::ivec2\ \ \mbox{\hyperlink{structhmap_1_1UvTile_ac27fd89c69e2dbbcb6fb15b595c1c3b5}{local\_to\_global}}(\textcolor{keywordtype}{int}\ lx,\ \textcolor{keywordtype}{int}\ ly)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

@@ -12,7 +12,7 @@ var selector_8hpp =
     [ "hmap::select_gradient_inv", "namespacehmap.html#a60843740c9f6153042e0466b696239fd", null ],
     [ "hmap::select_gt", "namespacehmap.html#a5c54b11ce530d2b0cfc75de360e25ebf", null ],
     [ "hmap::select_interval", "namespacehmap.html#a849d37221d492c5d96d945dc64b02754", null ],
-    [ "hmap::select_inward_outward_slope", "namespacehmap.html#a9fdc6086f5eb14b779b6351b2b49471a", null ],
+    [ "hmap::select_inward_outward_slope", "namespacehmap.html#ae74f1a1b019a0577da58a3f509d5b2f2", null ],
     [ "hmap::select_lt", "namespacehmap.html#a01db711d188b71bc0ff2118364f3d60b", null ],
     [ "hmap::select_midrange", "namespacehmap.html#a7b42d7b9a8dfdf8b67a1a482974ee33f", null ],
     [ "hmap::select_midrange", "namespacehmap.html#a565788418282bab28d9d3384622abd9d", null ],
@@ -23,12 +23,12 @@ var selector_8hpp =
     [ "hmap::select_rivers", "namespacehmap.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "hmap::select_transitions", "namespacehmap.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
     [ "hmap::select_valley", "namespacehmap.html#ac472278880526ccb0609d818b741929d", null ],
-    [ "hmap::smooth_mask_preserve_frontier", "namespacehmap.html#ad6fe0af5cc79ba757c476dfe19601cb6", null ],
+    [ "hmap::smooth_mask_preserve_frontier", "namespacehmap.html#a35320b952b62280454244d95f9949105", null ],
     [ "hmap::gpu::select_cavities", "namespacehmap_1_1gpu.html#a0be57bd51c2e2559d5415d1200e1b69d", null ],
     [ "hmap::gpu::select_soil_flow", "namespacehmap_1_1gpu.html#a0d02efe8bcec37bd7556747b2f9dafb8", null ],
     [ "hmap::gpu::select_soil_rocks", "namespacehmap_1_1gpu.html#a28e454a987e0ad5d10821c91cc11136c", null ],
     [ "hmap::gpu::select_soil_weathered", "namespacehmap_1_1gpu.html#a86f721abab35358a360195c559d18976", null ],
     [ "hmap::gpu::select_soil_weathered", "namespacehmap_1_1gpu.html#a86fde62cf532ddd03545e8d227444786", null ],
-    [ "hmap::gpu::select_slope", "namespacehmap_1_1gpu.html#ae0b22391c4e9fc7e39067ee535b7f8ac", null ],
+    [ "hmap::gpu::select_slope", "namespacehmap_1_1gpu.html#a85ef1a82313495abe5fbd891f0aabafb", null ],
     [ "hmap::gpu::select_valley", "namespacehmap_1_1gpu.html#af90e7fbc49413268d88ff8339556aa5e", null ]
 ];

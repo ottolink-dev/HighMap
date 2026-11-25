@@ -6,7 +6,7 @@
     <derivedcompoundref refid="classhmap_1_1SequentialTileComm_1_1TileProxyComm" prot="public" virt="non-virtual">hmap::SequentialTileComm::TileProxyComm</derivedcompoundref>
     <derivedcompoundref refid="classhmap_1_1SingleArrayComm" prot="public" virt="non-virtual">hmap::SingleArrayComm</derivedcompoundref>
     <derivedcompoundref refid="classhmap_1_1ThreadedTileComm" prot="public" virt="non-virtual">hmap::ThreadedTileComm</derivedcompoundref>
-    <includes refid="communicator_8hpp" local="no">communicator.hpp</includes>
+    <includes refid="communicator__interface_8hpp" local="no">communicator_interface.hpp</includes>
     <sectiondef kind="public-func">
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1aa439b2a629e41691622ee478a44043b7" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
         <type></type>
@@ -20,7 +20,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="66" column="11"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="62" column="11"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1a4443ebbbdd4ace883125829842c047d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>float</type>
@@ -46,7 +46,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="68" column="30"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="64" column="30"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1a7f020409ae9f8b25c37b0b003251fc26" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>std::vector&lt; float &gt;</type>
@@ -68,7 +68,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="69" column="23"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="65" column="23"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1a5206083416314f55fed96d1584a20c64" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
@@ -86,7 +86,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="71" column="16"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="67" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1a79f3d5872fcfd5d05f117ac4f97c4544" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -104,7 +104,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="72" column="16"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="68" column="16"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ICommunicator_1a9b01f0bca5a0d7a08e07742828e22dd3" prot="public" static="no" const="yes" explicit="no" inline="no" virt="pure-virtual">
         <type>int</type>
@@ -122,25 +122,25 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="73" column="16"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="69" column="16"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ICommunicator_1a9070e5952f201f9b59bfc712e23a117c" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+      <memberdef kind="function" id="classhmap_1_1ICommunicator_1a413bb241c720069ba454c79ea65ccbb1" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
         <type>void</type>
         <definition>virtual void hmap::ICommunicator::sync_overlap_buffers</definition>
-        <argsstring>(Array &amp;local_tile, const TileRegion &amp;region, SyncOperation op=SyncOperation::SmoothBlend)=0</argsstring>
+        <argsstring>(Array &amp;local_tile, const UvTile &amp;tile, SyncOperation op=SyncOperation::SmoothBlend)=0</argsstring>
         <name>sync_overlap_buffers</name>
         <qualifiedname>hmap::ICommunicator::sync_overlap_buffers</qualifiedname>
-        <reimplementedby refid="classhmap_1_1SequentialTileComm_1accafe86e232aea3d662238caa8dbdfb7">sync_overlap_buffers</reimplementedby>
-        <reimplementedby refid="classhmap_1_1SequentialTileComm_1_1TileProxyComm_1a0f9f5343f9e1a6f33eb26f7e3cfacb47">sync_overlap_buffers</reimplementedby>
-        <reimplementedby refid="classhmap_1_1SingleArrayComm_1a11afd290007a8fd5a97715ca11cb11f0">sync_overlap_buffers</reimplementedby>
-        <reimplementedby refid="classhmap_1_1ThreadedTileComm_1aaf40ff9df9f3eb1e46a8822e4c3cb0c8">sync_overlap_buffers</reimplementedby>
+        <reimplementedby refid="classhmap_1_1SequentialTileComm_1a983f430a97b5bfac3d924f376c96893c">sync_overlap_buffers</reimplementedby>
+        <reimplementedby refid="classhmap_1_1SequentialTileComm_1_1TileProxyComm_1ab01dff9d177c3da88a40f6631115a32a">sync_overlap_buffers</reimplementedby>
+        <reimplementedby refid="classhmap_1_1SingleArrayComm_1a4ac7ddc997537868044bbdc5e7f865e8">sync_overlap_buffers</reimplementedby>
+        <reimplementedby refid="classhmap_1_1ThreadedTileComm_1a5610ceb98c5dc0ff6cfa50914620a4a2">sync_overlap_buffers</reimplementedby>
         <param>
           <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
           <declname>local_tile</declname>
         </param>
         <param>
-          <type>const <ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref> &amp;</type>
-          <declname>region</declname>
+          <type>const <ref refid="structhmap_1_1UvTile" kindref="compound">UvTile</ref> &amp;</type>
+          <declname>tile</declname>
         </param>
         <param>
           <type><ref refid="namespacehmap_1a2ebe9b34048adbbb55abe1182603a1f8" kindref="member">SyncOperation</ref></type>
@@ -153,11 +153,11 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="74" column="16"/>
+        <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="70" column="16"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
-<para>Abstract communicator interface providing MPI-style collective directives. </para>
+<para>Abstract communicator interface providing MPI-style collective directives for single-source SPMD <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> algorithms. </para>
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
@@ -191,14 +191,14 @@
         </childnode>
       </node>
     </inheritancegraph>
-    <location file="HighMap/include/highmap/virtual_array/communicator.hpp" line="63" column="1" bodyfile="HighMap/include/highmap/virtual_array/communicator.hpp" bodystart="64" bodyend="78"/>
+    <location file="HighMap/include/highmap/core/communicator_interface.hpp" line="59" column="1" bodyfile="HighMap/include/highmap/core/communicator_interface.hpp" bodystart="60" bodyend="74"/>
     <listofallmembers>
       <member refid="classhmap_1_1ICommunicator_1a4443ebbbdd4ace883125829842c047d2" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>all_reduce</name></member>
       <member refid="classhmap_1_1ICommunicator_1a7f020409ae9f8b25c37b0b003251fc26" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>all_union</name></member>
       <member refid="classhmap_1_1ICommunicator_1a5206083416314f55fed96d1584a20c64" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>barrier</name></member>
       <member refid="classhmap_1_1ICommunicator_1a79f3d5872fcfd5d05f117ac4f97c4544" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>rank</name></member>
       <member refid="classhmap_1_1ICommunicator_1a9b01f0bca5a0d7a08e07742828e22dd3" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>size</name></member>
-      <member refid="classhmap_1_1ICommunicator_1a9070e5952f201f9b59bfc712e23a117c" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>sync_overlap_buffers</name></member>
+      <member refid="classhmap_1_1ICommunicator_1a413bb241c720069ba454c79ea65ccbb1" prot="public" virt="pure-virtual"><scope>hmap::ICommunicator</scope><name>sync_overlap_buffers</name></member>
       <member refid="classhmap_1_1ICommunicator_1aa439b2a629e41691622ee478a44043b7" prot="public" virt="virtual"><scope>hmap::ICommunicator</scope><name>~ICommunicator</name></member>
     </listofallmembers>
   </compounddef>

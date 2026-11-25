@@ -1,8 +1,7 @@
 var classhmap_1_1VirtualTexture =
 [
     [ "VirtualTexture", "classhmap_1_1VirtualTexture.html#a595d89efb147f4a5af4d6cb1ccb54189", null ],
-    [ "VirtualTexture", "classhmap_1_1VirtualTexture.html#a0a6dc1842e4a8b5f90fe444d9ccc3f8d", null ],
-    [ "VirtualTexture", "classhmap_1_1VirtualTexture.html#a3c495d8345eeaf7b043484e18f554766", null ],
+    [ "VirtualTexture", "classhmap_1_1VirtualTexture.html#abd48eb0f9290fe1902666fae998b92ab", null ],
     [ "VirtualTexture", "classhmap_1_1VirtualTexture.html#add23ab327f5d8f8951c619575c9cb93b", null ],
     [ "copy_from", "classhmap_1_1VirtualTexture.html#a27fe173d52fad2b3246dbcec8974d291", null ],
     [ "channels", "classhmap_1_1VirtualTexture.html#a3cde7b31158124e72d7fb81847b9f565", null ],
@@ -23,7 +22,6 @@ var classhmap_1_1VirtualTexture =
     [ "trim_storage", "classhmap_1_1VirtualTexture.html#aad6dfcfe623e7e7cfc9958fe9c97db72", null ],
     [ "live_memory_bytes", "classhmap_1_1VirtualTexture.html#a3ba43f6ebd853a54fe8987689013a81b", null ],
     [ "shape", "classhmap_1_1VirtualTexture.html#ae999f1abfe76819639a319ce795924b7", null ],
-    [ "bbox", "classhmap_1_1VirtualTexture.html#a9502a27aecf9f89a52e8939bcc7d6a6f", null ],
     [ "tile_shape", "classhmap_1_1VirtualTexture.html#a5715cc1c46c0d01c6d12648c49c7c3ba", null ],
     [ "halo", "classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c", null ]
 ];

@@ -166,13 +166,13 @@ Execution Time Comparison ($256 \times 256$ Grid)</h2>
 <p>The functionality is structured to preserve backward compatibility while providing the brute-force implementation for reference and validation:</p>
 <ol type="1">
 <li><b>Explicit Implementations</b>:<ul>
-<li><span class="tt"><a class="el" href="namespacehmap.html#aee7ff7068cdfd831c2ad4891a38a817c">hmap::sdf_2d_polyline_bvh</a></span> and <span class="tt"><a class="el" href="namespacehmap.html#a970cf834f81736d64b053de48d9bf6bf">hmap::path_sdf_to_array_bvh</a></span></li>
-<li><span class="tt"><a class="el" href="namespacehmap.html#af0904ff813387d7e848a33ed5cd99eef">hmap::sdf_2d_polyline_brute_force</a></span> and <span class="tt"><a class="el" href="namespacehmap.html#aca95a27cb4796288e6ac2e7bd265c611">hmap::path_sdf_to_array_brute_force</a></span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#ac87e0e41a975e71bab172f61b7980a28">hmap::sdf_2d_polyline_bvh</a></span> and <span class="tt"><a class="el" href="namespacehmap.html#a409bc160fd48844f19a16ae4d476f453">hmap::path_sdf_to_array_bvh</a></span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#ab4c36b89bbb81df63083c7c984b45378">hmap::sdf_2d_polyline_brute_force</a></span> and <span class="tt"><a class="el" href="namespacehmap.html#a47fc9d4e63024e4f5240965108f73f0d">hmap::path_sdf_to_array_brute_force</a></span></li>
 </ul>
 </li>
 <li><b>Default Wrapper Functions</b>:<ul>
-<li><span class="tt"><a class="el" href="namespacehmap.html#a255117d00b312165d82d2f65584ab14a" title="Computes the signed distance field (SDF) of a 2D polyline.">hmap::sdf_2d_polyline</a>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</span></li>
-<li><span class="tt"><a class="el" href="namespacehmap.html#aa309f6eee87b7e83c78afeff1adb3eaf" title="Compute a distance field from a point path.">hmap::path_sdf_to_array</a>(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)</span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#a536f3a29bebd2515afaf2e7aab5bffd4" title="Computes the signed distance field (SDF) of a 2D polyline.">hmap::sdf_2d_polyline</a>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#a3ce5cf9668610d03ae978255d9e08e65" title="Compute a distance field from a point path.">hmap::path_sdf_to_array</a>(path, shape, bbox_array, p_noise_x, p_noise_y, use_bvh = true)</span></li>
 </ul>
 </li>
 </ol>
@@ -194,9 +194,9 @@ BVH2D Acceleration for Bézier Curves</h2>
 <p>Since quadratic Bézier curves satisfy the convex hull property: $$B(t) \in \text{ConvexHull}(P_0, P_1, P_2) \quad \forall t \in [0, 1]$$ A tight and conservative bounding box for each quadratic curve is simply: $$\text{AABB} = [\min(P_0, P_1, P_2), \max(P_0, P_1, P_2)]$$</p>
 <p>A specialized <span class="tt">BVH2DBezier</span> tree was implemented using this bounding box representation. Per-pixel queries prune subtrees whose bounding box distance exceeds the current closest squared distance.</p>
 <p>The API was structured consistently with linear polyline SDF:</p><ul>
-<li><span class="tt"><a class="el" href="namespacehmap.html#a309a2e9dba17dfafd471faed90741e69">hmap::sdf_2d_polyline_bezier_bvh</a></span></li>
-<li><span class="tt"><a class="el" href="namespacehmap.html#a3f2d0f789995b087fee958951a87d36c">hmap::sdf_2d_polyline_bezier_brute_force</a></span></li>
-<li><span class="tt"><a class="el" href="namespacehmap.html#a7fc8217efe7ab32d2e1e025bdd632936" title="See hmap::sdf_2d_polyline, with a Bezier approximation of the path.">hmap::sdf_2d_polyline_bezier</a>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#ad9bbd73f816dc1d2be53245cffd29dc3">hmap::sdf_2d_polyline_bezier_bvh</a></span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#a468472f60775bbdb01280f0759decdf1">hmap::sdf_2d_polyline_bezier_brute_force</a></span></li>
+<li><span class="tt"><a class="el" href="namespacehmap.html#a1ea35988a3eba00e07e8d6a5d429e868" title="See hmap::sdf_2d_polyline, with a Bezier approximation of the path.">hmap::sdf_2d_polyline_bezier</a>(path, shape, bbox, p_noise_x, p_noise_y, use_bvh = true)</span></li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md73"></a>
 6. GPU (OpenCL) Assessment and Validation</h1>

@@ -13,7 +13,7 @@ var range_8cpp =
     [ "hmap::clamp_min_smooth", "namespacehmap.html#a374c6a8ff3d27e854a254139435c5d8d", null ],
     [ "hmap::clamp_min_smooth", "namespacehmap.html#ae5d25f542f8033210b1744c281235220", null ],
     [ "hmap::clamp_min_smooth", "namespacehmap.html#ab0307c51c15ac3d4162974c970bc9ea9", null ],
-    [ "hmap::clamp_oblique_plane", "namespacehmap.html#aac14c59482d141532cc055fff18c5975", null ],
+    [ "hmap::clamp_oblique_plane", "namespacehmap.html#afce073164534837e7f3dbf9897d331da", null ],
     [ "hmap::clamp_smooth", "namespacehmap.html#a55574a9d91e2e7e20de954956402ba1b", null ],
     [ "hmap::maximum", "namespacehmap.html#aa52f3e1fcb1cad464a512c09a0c8eb54", null ],
     [ "hmap::maximum", "namespacehmap.html#a68ddaa8e59767bb244a8b6b54519ab01", null ],

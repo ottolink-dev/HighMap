@@ -6,5 +6,5 @@ var classhmap_1_1ICommunicator =
     [ "barrier", "classhmap_1_1ICommunicator.html#a5206083416314f55fed96d1584a20c64", null ],
     [ "rank", "classhmap_1_1ICommunicator.html#a79f3d5872fcfd5d05f117ac4f97c4544", null ],
     [ "size", "classhmap_1_1ICommunicator.html#a9b01f0bca5a0d7a08e07742828e22dd3", null ],
-    [ "sync_overlap_buffers", "classhmap_1_1ICommunicator.html#a9070e5952f201f9b59bfc712e23a117c", null ]
+    [ "sync_overlap_buffers", "classhmap_1_1ICommunicator.html#a413bb241c720069ba454c79ea65ccbb1", null ]
 ];

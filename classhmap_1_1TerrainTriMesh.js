@@ -1,6 +1,5 @@
 var classhmap_1_1TerrainTriMesh =
 [
-    [ "BoundingBox", "structhmap_1_1TerrainTriMesh_1_1BoundingBox.html", "structhmap_1_1TerrainTriMesh_1_1BoundingBox" ],
     [ "Edge", "structhmap_1_1TerrainTriMesh_1_1Edge.html", "structhmap_1_1TerrainTriMesh_1_1Edge" ],
     [ "EdgeHash", "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html", "structhmap_1_1TerrainTriMesh_1_1EdgeHash" ],
     [ "Triangle", "structhmap_1_1TerrainTriMesh_1_1Triangle.html", "structhmap_1_1TerrainTriMesh_1_1Triangle" ],
@@ -8,6 +7,7 @@ var classhmap_1_1TerrainTriMesh =
     [ "NeighborData", "structhmap_1_1TerrainTriMesh_1_1NeighborData.html", "structhmap_1_1TerrainTriMesh_1_1NeighborData" ],
     [ "ShortestPathResult", "structhmap_1_1TerrainTriMesh_1_1ShortestPathResult.html", "structhmap_1_1TerrainTriMesh_1_1ShortestPathResult" ],
     [ "MeshPathCostConfig", "structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html", "structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig" ],
+    [ "BoundingBox", "classhmap_1_1TerrainTriMesh.html#ac07550ae5586ec1d79cdbd29d3a6514f", null ],
     [ "TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html#aae004ef70561e4d1e601f214ff109a1f", null ],
     [ "TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html#a37612085ed993e68df599c7917cdae80", null ],
     [ "TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html#af20e8dd9d33a54d67734a892dbd0dcb9", null ],

@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['quad_5fsurface_0',['quad_surface',['../namespacehmap.html#a96d1e72b568ef5f418db70b81ea42ffe',1,'hmap']]],
+  ['quad_5fsurface_0',['quad_surface',['../namespacehmap.html#ae72abb22a290a5fe160ac3fefaa98ecd',1,'hmap']]],
   ['quadsurfacefunction_1',['QuadSurfaceFunction',['../classhmap_1_1QuadSurfaceFunction.html',1,'hmap::QuadSurfaceFunction'],['../classhmap_1_1QuadSurfaceFunction.html#a2dd16865514e3936681a02dbde3afe89',1,'hmap::QuadSurfaceFunction::QuadSurfaceFunction()']]],
   ['qualitative_20characteristics_2',['2. Qualitative Characteristics',['../md_docs_2content_2dev_2hydraulic__comparison.html#autotoc_md19',1,'']]],
   ['quantize_3',['quantize',['../namespacehmap.html#a826ce248be96455e59c2caa582836eb2',1,'hmap::quantize(const Array &amp;array, int nlevels, float vmin, float vmax)'],['../namespacehmap.html#acfacd1af8f909589d58808bb13f7e462',1,'hmap::quantize(const Array &amp;array, int nlevels)']]],

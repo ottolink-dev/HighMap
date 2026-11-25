@@ -25,7 +25,7 @@ var gradient_8hpp =
     [ "hmap::gpu::gradient_angle_circular_smoothing", "namespacehmap_1_1gpu.html#ab4b68e1b48d16193615105656680ced8", null ],
     [ "hmap::gpu::laplacian_fract", "namespacehmap_1_1gpu.html#a64d64a2cdc264ab75ace5be6f4bc8972", null ],
     [ "hmap::gpu::phase_averaging", "namespacehmap_1_1gpu.html#a8a89eb3b3dcbdd39e57abc1770420bf1", null ],
-    [ "hmap::gpu::phase_field", "namespacehmap_1_1gpu.html#ad29529eaab868b87bfa7047dbe4bba5d", null ],
-    [ "hmap::gpu::phase_field", "namespacehmap_1_1gpu.html#ae48f61cbb9bf94ccc5418bf2f81da966", null ],
-    [ "hmap::gpu::phase_field_angle", "namespacehmap_1_1gpu.html#ac5795e7d509f085076f5aaa851fff025", null ]
+    [ "hmap::gpu::phase_field", "namespacehmap_1_1gpu.html#a1de2a0ad86db184ec0e93da0855a9e3e", null ],
+    [ "hmap::gpu::phase_field", "namespacehmap_1_1gpu.html#ab3b6baf9efb82aac0b5626944e75e5ca", null ],
+    [ "hmap::gpu::phase_field_angle", "namespacehmap_1_1gpu.html#a0a3bd0f05f710648c39bc7a8cae1adc0", null ]
 ];

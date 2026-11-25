@@ -603,9 +603,9 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="196" column="16" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="222" bodyend="230"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1a87cfb3f7413a9b375e51ce9a3bb02834" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>glm::vec4</type>
-        <definition>glm::vec4 hmap::ScatterField::get_bbox</definition>
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1ab9165b03396269d72dad33f14e19b740" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="structhmap_1_1BBox2D" kindref="compound">BBox2D</ref></type>
+        <definition>BBox2D hmap::ScatterField::get_bbox</definition>
         <argsstring>() const</argsstring>
         <name>get_bbox</name>
         <qualifiedname>hmap::ScatterField::get_bbox</qualifiedname>
@@ -619,7 +619,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="202" column="13" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="232" bodyend="250"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="202" column="10" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="232" bodyend="250"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a6986cbcbb06270fb702291c5831bda03" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; uint32_t &gt;</type>
@@ -766,10 +766,10 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="242" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="297" bodyend="307"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1ab98ae7bf2cf224d16b591c7113edf95a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::ScatterField::pack_interstitial</definition>
-        <argsstring>(size_t count, const Array &amp;density={}, float r_min=5e-4f, float r_max=2e-3f, uint32_t class_id=0, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(size_t count, const Array &amp;density={}, float r_min=5e-4f, float r_max=2e-3f, uint32_t class_id=0, uint32_t seed=0, const UvRect &amp;uv_rect={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>pack_interstitial</name>
         <qualifiedname>hmap::ScatterField::pack_interstitial</qualifiedname>
         <param>
@@ -802,8 +802,8 @@
           <defval>0</defval>
         </param>
         <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
         </param>
         <briefdescription>
@@ -918,10 +918,10 @@ This is an overloaded member function, provided for convenience. It differs from
         </inbodydescription>
         <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="282" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="520" bodyend="603"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1af00e4a2949e873ecd7cfcd2f30b4db76" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::ScatterField::prune_density</definition>
-        <argsstring>(const Array &amp;density_mask, float target_ratio=0.8f, uint32_t seed=0, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;density_mask, float target_ratio=0.8f, uint32_t seed=0, const UvRect &amp;uv_rect={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>prune_density</name>
         <qualifiedname>hmap::ScatterField::prune_density</qualifiedname>
         <param>
@@ -939,8 +939,8 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>0</defval>
         </param>
         <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
         </param>
         <briefdescription>
@@ -984,7 +984,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="294" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="605" bodyend="729"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="294" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="605" bodyend="730"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a86565a4632900420e6a22762bab7b597" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1041,7 +1041,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="310" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="731" bodyend="751"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="310" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="732" bodyend="752"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1aa97bb7dc10919eebaa875018068ebbe4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1097,7 +1097,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="323" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="753" bodyend="820"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="323" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="754" bodyend="821"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1acbd1ac9b264b98e5ebbc25d9b2c104b6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1167,7 +1167,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="341" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="822" bodyend="942"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="341" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="823" bodyend="943"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1ab9b5e791fc1e17881072ea8253216bc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1249,12 +1249,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="362" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="944" bodyend="1093"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="362" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="945" bodyend="1094"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1a41a62413c3434cc46136aef56c810144" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::ScatterField::set_elevation_from_terrain</definition>
-        <argsstring>(const Array &amp;elevation, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(const Array &amp;elevation, const UvRect &amp;uv_rect={0.f, 1.f, 0.f, 1.f})</argsstring>
         <name>set_elevation_from_terrain</name>
         <qualifiedname>hmap::ScatterField::set_elevation_from_terrain</qualifiedname>
         <param>
@@ -1262,8 +1262,8 @@ This is an overloaded member function, provided for convenience. It differs from
           <declname>elevation</declname>
         </param>
         <param>
-          <type>const glm::vec4 &amp;</type>
-          <declname>bbox</declname>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
           <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
         </param>
         <briefdescription>
@@ -1291,7 +1291,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="375" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1095" bodyend="1125"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="375" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1096" bodyend="1126"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1aea3394fe15e737f15f1cca806009f19c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1347,7 +1347,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="386" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1127" bodyend="1184"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="386" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1128" bodyend="1185"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a2c0c29725aed25aacb9fd51466e5f637" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref></type>
@@ -1365,12 +1365,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="395" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1186" bodyend="1193"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="395" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1187" bodyend="1194"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1a8e78c0eb6553b3b54b3e12d610194dcf" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1ad2aa04d19b9d6af9ee17af9c832f5607" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::ScatterField::to_density_map</definition>
-        <argsstring>(glm::ivec2 shape, float sigma=0.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, bool weighted_by_area=false, const TileRegion &amp;region=TileRegion::dummy(), ICommunicator &amp;comm=SingleArrayComm::instance()) const</argsstring>
+        <argsstring>(glm::ivec2 shape, float sigma=0.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, bool weighted_by_area=false, const UvTile &amp;region=UvTile::dummy(), ICommunicator &amp;comm=SingleArrayComm::instance()) const</argsstring>
         <name>to_density_map</name>
         <qualifiedname>hmap::ScatterField::to_density_map</qualifiedname>
         <param>
@@ -1393,9 +1393,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>false</defval>
         </param>
         <param>
-          <type>const <ref refid="structhmap_1_1TileRegion" kindref="compound">TileRegion</ref> &amp;</type>
+          <type>const <ref refid="structhmap_1_1UvTile" kindref="compound">UvTile</ref> &amp;</type>
           <declname>region</declname>
-          <defval><ref refid="structhmap_1_1TileRegion_1af2c439296397945553d847df0ecc1899" kindref="member">TileRegion::dummy</ref>()</defval>
+          <defval><ref refid="structhmap_1_1UvTile_1a3a8878fea7b8e8885ab62c31fcc0d4ac" kindref="member">UvTile::dummy</ref>()</defval>
         </param>
         <param>
           <type><ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> &amp;</type>
@@ -1461,12 +1461,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="414" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1210" bodyend="1311"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="414" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1211" bodyend="1313"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1ac8d50ec2113700c1dda1cba253de00fe" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1a39ff256c690a2119d656fc2e38fb1875" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::ScatterField::to_heightmap</definition>
-        <argsstring>(glm::ivec2 shape, ScatterShape shape_type=SCATTER_SHAPE_DISK, float height_radius_ratio=1.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, Array *p_rock_map=nullptr, uint32_t seed=0, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}) const</argsstring>
+        <argsstring>(glm::ivec2 shape, ScatterShape shape_type=SCATTER_SHAPE_DISK, float height_radius_ratio=1.0f, std::optional&lt; uint32_t &gt; class_id=std::nullopt, Array *p_rock_map=nullptr, uint32_t seed=0, const UvRect &amp;uv_rect=UvRect::unit()) const</argsstring>
         <name>to_heightmap</name>
         <qualifiedname>hmap::ScatterField::to_heightmap</qualifiedname>
         <param>
@@ -1499,9 +1499,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>0</defval>
         </param>
         <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
+          <defval><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">UvRect::unit</ref>()</defval>
         </param>
         <briefdescription>
 <para>Converts the scatter field into a heightmap by representing each scattered object as a local elevation increase on GPU. </para>
@@ -1570,7 +1570,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="439" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1313" bodyend="1576"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="439" column="9" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1315" bodyend="1578"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a4cf0ddf4c16900b485b580643cceb3d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1599,12 +1599,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="451" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1195" bodyend="1208"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="451" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1196" bodyend="1209"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1a79024c8f5ab3fa6a8a1dbb70d70b9425" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1ad80802daca8c3fae41b4b59ab5db9eca" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>std::vector&lt; uint8_t &gt;</type>
         <definition>std::vector&lt; uint8_t &gt; hmap::ScatterField::to_img_8bit</definition>
-        <argsstring>(glm::ivec2 shape, const Array &amp;background={}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}, bool flip_y=false) const</argsstring>
+        <argsstring>(glm::ivec2 shape, const Array &amp;background={}, const UvRect &amp;uv_rect=UvRect::unit(), bool flip_y=false) const</argsstring>
         <name>to_img_8bit</name>
         <qualifiedname>hmap::ScatterField::to_img_8bit</qualifiedname>
         <param>
@@ -1617,9 +1617,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>{}</defval>
         </param>
         <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
+          <defval><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">UvRect::unit</ref>()</defval>
         </param>
         <param>
           <type>bool</type>
@@ -1669,7 +1669,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="464" column="15" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1670" bodyend="1691"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="464" column="15" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1672" bodyend="1693"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1a82f35fac538be48ff677c97099234b7f" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -1698,12 +1698,12 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="474" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1693" bodyend="1724"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="474" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1695" bodyend="1726"/>
       </memberdef>
-      <memberdef kind="function" id="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="classhmap_1_1ScatterField_1adc438b2d177210003d39f86989b2e6e6" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void hmap::ScatterField::to_png</definition>
-        <argsstring>(const std::string &amp;fname, glm::ivec2 shape, const Array &amp;background={}, glm::vec4 bbox={0.f, 1.f, 0.f, 1.f}) const</argsstring>
+        <argsstring>(const std::string &amp;fname, glm::ivec2 shape, const Array &amp;background={}, const UvRect &amp;uv_rect=UvRect::unit()) const</argsstring>
         <name>to_png</name>
         <qualifiedname>hmap::ScatterField::to_png</qualifiedname>
         <param>
@@ -1720,9 +1720,9 @@ This is an overloaded member function, provided for convenience. It differs from
           <defval>{}</defval>
         </param>
         <param>
-          <type>glm::vec4</type>
-          <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+          <type>const <ref refid="structhmap_1_1UvRect" kindref="compound">UvRect</ref> &amp;</type>
+          <declname>uv_rect</declname>
+          <defval><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">UvRect::unit</ref>()</defval>
         </param>
         <briefdescription>
 <para>Exports a visual representation of the scatter field as a PNG image. </para>
@@ -1765,7 +1765,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="484" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1726" bodyend="1734"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="484" column="8" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1728" bodyend="1736"/>
       </memberdef>
       <memberdef kind="function" id="classhmap_1_1ScatterField_1aece4b7ce3a6d09279928b0468fb55efb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="virtual">
         <type>std::string</type>
@@ -1785,7 +1785,7 @@ This is an overloaded member function, provided for convenience. It differs from
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="493" column="23" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1736" bodyend="1775"/>
+        <location file="HighMap/include/highmap/scatter/scatter_field.hpp" line="493" column="23" bodyfile="HighMap/src/scatter/scatter_field.cpp" bodystart="1738" bodyend="1777"/>
       </memberdef>
     </sectiondef>
     <briefdescription>
@@ -1852,7 +1852,7 @@ This is an overloaded member function, provided for convenience. It differs from
       <member refid="classhmap_1_1ScatterField_1a84622401a1cac4c1f37c8b7c7705004c" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>filter_by_class</name></member>
       <member refid="classhmap_1_1ScatterField_1ae3eaa626c3d98a542059589c785bed98" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>front</name></member>
       <member refid="classhmap_1_1ScatterField_1a6c14d17b251be666bbb20a797210894a" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>front</name></member>
-      <member refid="classhmap_1_1ScatterField_1a87cfb3f7413a9b375e51ce9a3bb02834" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>get_bbox</name></member>
+      <member refid="classhmap_1_1ScatterField_1ab9165b03396269d72dad33f14e19b740" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>get_bbox</name></member>
       <member refid="classhmap_1_1ScatterField_1a6986cbcbb06270fb702291c5831bda03" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>get_class_ids</name></member>
       <member refid="classhmap_1_1ScatterField_1a6eca82a69151dfaba15ef895918bf7dc" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>get_radius</name></member>
       <member refid="classhmap_1_1ScatterField_1ac41168040f8d2d54d29e27b8fd9c3b3d" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>get_x</name></member>
@@ -1861,11 +1861,11 @@ This is an overloaded member function, provided for convenience. It differs from
       <member refid="classhmap_1_1ScatterField_1aeb89e13a2a22fc06a08bc02e0fdcaa61" prot="protected" virt="non-virtual"><scope>hmap::ScatterField</scope><name>items</name></member>
       <member refid="classhmap_1_1ScatterField_1a45a0d931bdd6b41c8460710a473b5b6a" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>operator[]</name></member>
       <member refid="classhmap_1_1ScatterField_1aba0c37d045d2414ba58e3f1a70bfe2ea" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>operator[]</name></member>
-      <member refid="classhmap_1_1ScatterField_1add5cb2d398e0c6b5b69d6946439436dc" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>pack_interstitial</name></member>
+      <member refid="classhmap_1_1ScatterField_1ab98ae7bf2cf224d16b591c7113edf95a" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>pack_interstitial</name></member>
       <member refid="classhmap_1_1ScatterField_1a8b4d33715bbae66a08b9581bd93e0903" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>perturb_positions</name></member>
       <member refid="classhmap_1_1ScatterField_1a2c5b4cc3f66be3ac58dbbb4d0fc9ffdd" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>prune_collisions</name></member>
       <member refid="classhmap_1_1ScatterField_1ae2eb863c4cd700836a85b4cf09f04a35" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>prune_collisions</name></member>
-      <member refid="classhmap_1_1ScatterField_1afc5177c65e51e710c80d2e367a7888c5" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>prune_density</name></member>
+      <member refid="classhmap_1_1ScatterField_1af00e4a2949e873ecd7cfcd2f30b4db76" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>prune_density</name></member>
       <member refid="classhmap_1_1ScatterField_1aff098f62a339deb2a51854d081f96af9" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>push_back</name></member>
       <member refid="classhmap_1_1ScatterField_1a9e68b639b48f05831094a0742450e863" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>push_back</name></member>
       <member refid="classhmap_1_1ScatterField_1a86565a4632900420e6a22762bab7b597" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>regularize_positions</name></member>
@@ -1877,16 +1877,16 @@ This is an overloaded member function, provided for convenience. It differs from
       <member refid="classhmap_1_1ScatterField_1afc9a8bc4033c871a56dea328bba35db1" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1a8a4727edd5fc3072d5cc16d5f6290505" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
       <member refid="classhmap_1_1ScatterField_1a170394cfa16a33a357cf5eb1d2c91c11" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>ScatterField</name></member>
-      <member refid="classhmap_1_1ScatterField_1a6097c8940ee25ec5b5364faf0ad7c9b5" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>set_elevation_from_terrain</name></member>
+      <member refid="classhmap_1_1ScatterField_1a41a62413c3434cc46136aef56c810144" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>set_elevation_from_terrain</name></member>
       <member refid="classhmap_1_1ScatterField_1aea3394fe15e737f15f1cca806009f19c" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>shuffle_classes</name></member>
       <member refid="classhmap_1_1ScatterField_1aa80bb3a0f7545eb41a468b6ac4d1f84e" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>size</name></member>
       <member refid="classhmap_1_1ScatterField_1a2c0c29725aed25aacb9fd51466e5f637" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_cloud</name></member>
       <member refid="classhmap_1_1ScatterField_1a4cf0ddf4c16900b485b580643cceb3d7" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_csv</name></member>
-      <member refid="classhmap_1_1ScatterField_1a8e78c0eb6553b3b54b3e12d610194dcf" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_density_map</name></member>
-      <member refid="classhmap_1_1ScatterField_1ac8d50ec2113700c1dda1cba253de00fe" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_heightmap</name></member>
-      <member refid="classhmap_1_1ScatterField_1a79024c8f5ab3fa6a8a1dbb70d70b9425" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_img_8bit</name></member>
+      <member refid="classhmap_1_1ScatterField_1ad2aa04d19b9d6af9ee17af9c832f5607" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_density_map</name></member>
+      <member refid="classhmap_1_1ScatterField_1a39ff256c690a2119d656fc2e38fb1875" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_heightmap</name></member>
+      <member refid="classhmap_1_1ScatterField_1ad80802daca8c3fae41b4b59ab5db9eca" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_img_8bit</name></member>
       <member refid="classhmap_1_1ScatterField_1a82f35fac538be48ff677c97099234b7f" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_ply</name></member>
-      <member refid="classhmap_1_1ScatterField_1a4e1e40d95eaecfff34f524bb44e2cb74" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_png</name></member>
+      <member refid="classhmap_1_1ScatterField_1adc438b2d177210003d39f86989b2e6e6" prot="public" virt="non-virtual"><scope>hmap::ScatterField</scope><name>to_png</name></member>
       <member refid="classhmap_1_1ScatterField_1aece4b7ce3a6d09279928b0468fb55efb" prot="public" virt="virtual"><scope>hmap::ScatterField</scope><name>to_string</name></member>
       <member refid="classhmap_1_1ScatterField_1a8f1783e7c61d4b691146a219371fb337" prot="public" virt="virtual"><scope>hmap::ScatterField</scope><name>~ScatterField</name></member>
     </listofallmembers>

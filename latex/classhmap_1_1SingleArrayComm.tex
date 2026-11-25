@@ -7,7 +7,7 @@ Default standalone communicator for single-\/array computation. All collective c
 
 
 
-{\ttfamily \#include $<$communicator.\+hpp$>$}
+{\ttfamily \#include $<$communicator\+\_\+interface.\+hpp$>$}
 
 
 
@@ -42,7 +42,7 @@ int \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a6bfce55e7447ae82be7d37487177d
 \item 
 int \mbox{\hyperlink{classhmap_1_1SingleArrayComm_ac2dedc3083535895ca1b37657ae39df6}{size}} () const override
 \item 
-void \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0}{sync\+\_\+overlap\+\_\+buffers}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&local\+\_\+tile, const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&region, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}} op=\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}}) override
+void \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4ac7ddc997537868044bbdc5e7f865e8}{sync\+\_\+overlap\+\_\+buffers}} (\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&local\+\_\+tile, const \mbox{\hyperlink{structhmap_1_1UvTile}{Uv\+Tile}} \&tile, \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}} op=\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}}) override
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{classhmap_1_1ICommunicator}{hmap\+::\+ICommunicator}}}
 \begin{DoxyCompactItemize}
@@ -112,15 +112,15 @@ int hmap\+::\+Single\+Array\+Comm\+::size (\begin{DoxyParamCaption}{}{}\end{Doxy
 
 Implements \mbox{\hyperlink{classhmap_1_1ICommunicator_a9b01f0bca5a0d7a08e07742828e22dd3}{hmap\+::\+ICommunicator}}.
 
-\Hypertarget{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0}\index{hmap::SingleArrayComm@{hmap::SingleArrayComm}!sync\_overlap\_buffers@{sync\_overlap\_buffers}}
+\Hypertarget{classhmap_1_1SingleArrayComm_a4ac7ddc997537868044bbdc5e7f865e8}\index{hmap::SingleArrayComm@{hmap::SingleArrayComm}!sync\_overlap\_buffers@{sync\_overlap\_buffers}}
 \index{sync\_overlap\_buffers@{sync\_overlap\_buffers}!hmap::SingleArrayComm@{hmap::SingleArrayComm}}
 \doxysubsubsection{\texorpdfstring{sync\_overlap\_buffers()}{sync\_overlap\_buffers()}}
-{\footnotesize\ttfamily \label{classhmap_1_1SingleArrayComm_a11afd290007a8fd5a97715ca11cb11f0} 
-void hmap\+::\+Single\+Array\+Comm\+::sync\+\_\+overlap\+\_\+buffers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{local\+\_\+tile}{, }\item[{const \mbox{\hyperlink{structhmap_1_1TileRegion}{Tile\+Region}} \&}]{region}{, }\item[{\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}}}]{op}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+{\footnotesize\ttfamily \label{classhmap_1_1SingleArrayComm_a4ac7ddc997537868044bbdc5e7f865e8} 
+void hmap\+::\+Single\+Array\+Comm\+::sync\+\_\+overlap\+\_\+buffers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{local\+\_\+tile}{, }\item[{const \mbox{\hyperlink{structhmap_1_1UvTile}{Uv\+Tile}} \&}]{tile}{, }\item[{\mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8}{Sync\+Operation}}}]{op}{ = {\ttfamily \mbox{\hyperlink{namespacehmap_a2ebe9b34048adbbb55abe1182603a1f8a2b685c1a23d5fc1b88ff8776f1fa075d}{Sync\+Operation\+::\+Smooth\+Blend}}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
 
 
 
-Implements \mbox{\hyperlink{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712e23a117c}{hmap\+::\+ICommunicator}}.
+Implements \mbox{\hyperlink{classhmap_1_1ICommunicator_a413bb241c720069ba454c79ea65ccbb1}{hmap\+::\+ICommunicator}}.
 
 \Hypertarget{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}\index{hmap::SingleArrayComm@{hmap::SingleArrayComm}!instance@{instance}}
 \index{instance@{instance}!hmap::SingleArrayComm@{hmap::SingleArrayComm}}
@@ -132,5 +132,5 @@ Implements \mbox{\hyperlink{classhmap_1_1ICommunicator_a9070e5952f201f9b59bfc712
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-High\+Map/include/highmap/virtual\+\_\+array/\mbox{\hyperlink{communicator_8hpp}{communicator.\+hpp}}\item 
+High\+Map/include/highmap/core/\mbox{\hyperlink{communicator__interface_8hpp}{communicator\+\_\+interface.\+hpp}}\item 
 High\+Map/src/virtual\+\_\+array/\mbox{\hyperlink{communicator_8cpp}{communicator.\+cpp}}\end{DoxyCompactItemize}

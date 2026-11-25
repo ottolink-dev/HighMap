@@ -4,13 +4,13 @@
     <compoundname>hmap::ForestSeedingOptions</compoundname>
     <includes refid="forest__seeding_8hpp" local="no">forest_seeding.hpp</includes>
     <sectiondef kind="public-attrib">
-      <memberdef kind="variable" id="structhmap_1_1ForestSeedingOptions_1a6e96115e7582dda22e666b5f16925c4c" prot="public" static="no" mutable="no">
-        <type>glm::vec4</type>
-        <definition>glm::vec4 hmap::ForestSeedingOptions::bbox</definition>
+      <memberdef kind="variable" id="structhmap_1_1ForestSeedingOptions_1abf1652f1c022ef02d031c72d75098206" prot="public" static="no" mutable="no">
+        <type><ref refid="structhmap_1_1BBox2D" kindref="compound">BBox2D</ref></type>
+        <definition>BBox2D hmap::ForestSeedingOptions::bbox</definition>
         <argsstring></argsstring>
         <name>bbox</name>
         <qualifiedname>hmap::ForestSeedingOptions::bbox</qualifiedname>
-        <initializer>= {0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</initializer>
+        <initializer>= <ref refid="structhmap_1_1BBox2D" kindref="compound">BBox2D</ref>{}</initializer>
         <briefdescription>
 <para>Bounding box {xmin, xmax, ymin, ymax}. </para>
         </briefdescription>
@@ -18,7 +18,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/world/flora/forest_seeding.hpp" line="31" column="13" bodyfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" bodystart="31" bodyend="31"/>
+        <location file="HighMap/include/highmap/world/flora/forest_seeding.hpp" line="31" column="10" bodyfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" bodystart="31" bodyend="31"/>
       </memberdef>
       <memberdef kind="variable" id="structhmap_1_1ForestSeedingOptions_1ab808daf58fd66d7c297ba65efd2f84d6" prot="public" static="no" mutable="no">
         <type>uint32_t</type>
@@ -75,38 +75,45 @@
     <detaileddescription>
     </detaileddescription>
     <collaborationgraph>
+      <node id="2">
+        <label>hmap::BBox2D</label>
+        <link refid="structhmap_1_1BBox2D"/>
+      </node>
       <node id="1">
         <label>hmap::ForestSeedingOptions</label>
         <link refid="structhmap_1_1ForestSeedingOptions"/>
         <childnode refid="2" relation="usage">
+          <edgelabel>bbox</edgelabel>
+        </childnode>
+        <childnode refid="3" relation="usage">
           <edgelabel>species</edgelabel>
         </childnode>
       </node>
-      <node id="3">
+      <node id="4">
         <label>hmap::Species</label>
         <link refid="structhmap_1_1Species"/>
-        <childnode refid="4" relation="usage">
+        <childnode refid="5" relation="usage">
           <edgelabel>name</edgelabel>
         </childnode>
       </node>
-      <node id="5">
+      <node id="6">
         <label>std::basic_string&lt; Char &gt;</label>
       </node>
-      <node id="4">
+      <node id="5">
         <label>std::string</label>
-        <childnode refid="5" relation="public-inheritance">
+        <childnode refid="6" relation="public-inheritance">
         </childnode>
       </node>
-      <node id="2">
+      <node id="3">
         <label>std::vector&lt; hmap::Species &gt;</label>
-        <childnode refid="3" relation="usage">
+        <childnode refid="4" relation="usage">
           <edgelabel>elements</edgelabel>
         </childnode>
       </node>
     </collaborationgraph>
     <location file="HighMap/include/highmap/world/flora/forest_seeding.hpp" line="29" column="1" bodyfile="HighMap/include/highmap/world/flora/forest_seeding.hpp" bodystart="30" bodyend="35"/>
     <listofallmembers>
-      <member refid="structhmap_1_1ForestSeedingOptions_1a6e96115e7582dda22e666b5f16925c4c" prot="public" virt="non-virtual"><scope>hmap::ForestSeedingOptions</scope><name>bbox</name></member>
+      <member refid="structhmap_1_1ForestSeedingOptions_1abf1652f1c022ef02d031c72d75098206" prot="public" virt="non-virtual"><scope>hmap::ForestSeedingOptions</scope><name>bbox</name></member>
       <member refid="structhmap_1_1ForestSeedingOptions_1ad57213b7687a249a870f63a80157f016" prot="public" virt="non-virtual"><scope>hmap::ForestSeedingOptions</scope><name>exclusion_threshold</name></member>
       <member refid="structhmap_1_1ForestSeedingOptions_1ab808daf58fd66d7c297ba65efd2f84d6" prot="public" virt="non-virtual"><scope>hmap::ForestSeedingOptions</scope><name>seed</name></member>
       <member refid="structhmap_1_1ForestSeedingOptions_1a9e4336ae1f61873d1126197bbe081c9b" prot="public" virt="non-virtual"><scope>hmap::ForestSeedingOptions</scope><name>species</name></member>

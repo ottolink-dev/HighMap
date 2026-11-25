@@ -415,11 +415,11 @@
 <codeline lineno="404"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(array))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="405"><highlight class="normal"></highlight></codeline>
 <codeline lineno="406"><highlight class="normal"><sp/><sp/>Array<sp/>smoothed<sp/>=<sp/>array;</highlight></codeline>
-<codeline lineno="407"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(smoothed,<sp/>ir);</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(smoothed,<sp/>ir);</highlight></codeline>
 <codeline lineno="408"><highlight class="normal"><sp/><sp/>Array<sp/>out<sp/>=<sp/><ref refid="namespacehmap_1a527cfdcf7f7e2ca0e270875526c9b1ee" kindref="member">abs</ref>(array<sp/>-<sp/>smoothed);</highlight></codeline>
 <codeline lineno="409"><highlight class="normal"></highlight></codeline>
 <codeline lineno="410"><highlight class="normal"><sp/><sp/>out<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a72341578d241e21b4c31d7497287cfc3" kindref="member">gpu::local_mean</ref>(out,<sp/>ir);</highlight></codeline>
-<codeline lineno="411"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(out,<sp/>ir);</highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(out,<sp/>ir);</highlight></codeline>
 <codeline lineno="412"><highlight class="normal"></highlight></codeline>
 <codeline lineno="413"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1e4edcaea744a4a364839905693ee9e3" kindref="member">extrapolate_borders</ref>(out,<sp/>ir<sp/>/<sp/>2,<sp/></highlight><highlight class="comment">/*<sp/>sigma<sp/>*/</highlight><highlight class="normal"><sp/>0.f,<sp/></highlight><highlight class="comment">/*<sp/>vmin<sp/>*/</highlight><highlight class="normal"><sp/>0.f);</highlight></codeline>
 <codeline lineno="414"><highlight class="normal"></highlight></codeline>
@@ -456,12 +456,12 @@
 <codeline lineno="445"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tol<sp/>=<sp/>1e-30f;</highlight></codeline>
 <codeline lineno="446"><highlight class="normal"></highlight></codeline>
 <codeline lineno="447"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>use<sp/>a<sp/>kernels<sp/>only<sp/>for<sp/>filtering</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="448"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(zf,<sp/>2<sp/>*<sp/>ir);</highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(zf,<sp/>2<sp/>*<sp/>ir);</highlight></codeline>
 <codeline lineno="449"><highlight class="normal"><sp/><sp/>zf<sp/>=<sp/>z<sp/>-<sp/>zf;</highlight></codeline>
 <codeline lineno="450"><highlight class="normal"><sp/><sp/>z_avg<sp/>=<sp/>zf;</highlight></codeline>
-<codeline lineno="451"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(z_avg,<sp/>ir);</highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(z_avg,<sp/>ir);</highlight></codeline>
 <codeline lineno="452"><highlight class="normal"><sp/><sp/>z_std<sp/>=<sp/>(zf<sp/>-<sp/>z_avg)<sp/>*<sp/>(zf<sp/>-<sp/>z_avg);</highlight></codeline>
-<codeline lineno="453"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(z_std,<sp/>ir);</highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(z_std,<sp/>ir);</highlight></codeline>
 <codeline lineno="454"><highlight class="normal"><sp/><sp/>z_skw<sp/>=<sp/>(zf<sp/>-<sp/>z_avg)<sp/>*<sp/>(zf<sp/>-<sp/>z_avg)<sp/>*<sp/>(zf<sp/>-<sp/>z_avg);</highlight></codeline>
 <codeline lineno="455"><highlight class="normal"></highlight></codeline>
 <codeline lineno="456"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>last<sp/>part<sp/>with<sp/>dedicated<sp/>kernel</highlight><highlight class="normal"></highlight></codeline>
@@ -506,7 +506,7 @@
 <codeline lineno="495"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="namespacehmap_1ada207723c327adabe73af8554e48e5bd" kindref="member">validate_non_empty</ref>(z))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>Array();</highlight></codeline>
 <codeline lineno="496"><highlight class="normal"></highlight></codeline>
 <codeline lineno="497"><highlight class="normal"><sp/><sp/>Array<sp/>b<sp/>=<sp/>z;</highlight></codeline>
-<codeline lineno="498"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a5308a7a11f7c65d0ed2218f11c8a315a" kindref="member">gpu::smooth_cpulse</ref>(b,<sp/>std::max(1,<sp/>ir));</highlight></codeline>
+<codeline lineno="498"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1aabdca5cdda030f3c6edaa82841fdaff6" kindref="member">gpu::smooth_cpulse</ref>(b,<sp/>std::max(1,<sp/>ir));</highlight></codeline>
 <codeline lineno="499"><highlight class="normal"></highlight></codeline>
 <codeline lineno="500"><highlight class="normal"><sp/><sp/>Array<sp/>residual<sp/>=<sp/>z<sp/>-<sp/>b;</highlight></codeline>
 <codeline lineno="501"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(normalize_output)<sp/><ref refid="namespacehmap_1ad0b236f6ba6c79e39064dc55cceaa33e" kindref="member">normalize_and_clip</ref>(residual);</highlight></codeline>

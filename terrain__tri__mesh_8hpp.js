@@ -1,7 +1,6 @@
 var terrain__tri__mesh_8hpp =
 [
     [ "hmap::TerrainTriMesh", "classhmap_1_1TerrainTriMesh.html", "classhmap_1_1TerrainTriMesh" ],
-    [ "hmap::TerrainTriMesh::BoundingBox", "structhmap_1_1TerrainTriMesh_1_1BoundingBox.html", "structhmap_1_1TerrainTriMesh_1_1BoundingBox" ],
     [ "hmap::TerrainTriMesh::Edge", "structhmap_1_1TerrainTriMesh_1_1Edge.html", "structhmap_1_1TerrainTriMesh_1_1Edge" ],
     [ "hmap::TerrainTriMesh::EdgeHash", "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html", "structhmap_1_1TerrainTriMesh_1_1EdgeHash" ],
     [ "hmap::TerrainTriMesh::Triangle", "structhmap_1_1TerrainTriMesh_1_1Triangle.html", "structhmap_1_1TerrainTriMesh_1_1Triangle" ],

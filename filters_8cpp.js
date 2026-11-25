@@ -50,7 +50,7 @@ var filters_8cpp =
     [ "hmap::shrink_directional", "namespacehmap.html#a5cfbd685a2042726fdcd7faa460273a3", null ],
     [ "hmap::smooth_cone", "namespacehmap.html#abeab23d26e0e9cb4563b221193ca6041", null ],
     [ "hmap::smooth_cone", "namespacehmap.html#a9d8b2a9245ce9b774f4fe0cb06460b13", null ],
-    [ "hmap::smooth_cpulse", "namespacehmap.html#a70d7d11ede46bbb4a57af38493ed5308", null ],
+    [ "hmap::smooth_cpulse", "namespacehmap.html#a0deafd4fd8bfb59cb848201e4d41fce2", null ],
     [ "hmap::smooth_cpulse_edge_removing", "namespacehmap.html#aa2de65aa233324cf294faf2421ccec2a", null ],
     [ "hmap::smooth_flat", "namespacehmap.html#a81647bbf7183fed5cbfc468c8fa75b62", null ],
     [ "hmap::smooth_gaussian", "namespacehmap.html#a4e3cbe9e4b43341148c170f34bd462fd", null ],

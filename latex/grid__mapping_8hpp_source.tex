@@ -1,0 +1,86 @@
+\doxysection{grid\+\_\+mapping.\+hpp}
+\hypertarget{grid__mapping_8hpp_source}{}\label{grid__mapping_8hpp_source}\index{HighMap/include/highmap/spatial/grid\_mapping.hpp@{HighMap/include/highmap/spatial/grid\_mapping.hpp}}
+\mbox{\hyperlink{grid__mapping_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2026\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <glm/vec2.hpp>}}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uv__rect_8hpp}{highmap/spatial/uv\_rect.hpp}}"{}}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00021\ \{}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{GridRegistration}}}
+\DoxyCodeLine{00027\ \{}
+\DoxyCodeLine{00028\ \ \ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{CellCenter}},\ }
+\DoxyCodeLine{00029\ \ \ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a8f35cfd7a7a4765b86005378ad92575b}{CellCorner}},\ }
+\DoxyCodeLine{00030\ \ \ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a6c3a6944a808a7c0bbb6788dbec54a9f}{Node}}\ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00036\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a2724913d967401f6880cdb42b41a8618}{index\_to\_uv}}(\textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ i,}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ n,}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{GridRegistration}}\ reg\ =\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{GridRegistration::CellCenter}})}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \textcolor{keywordflow}{if}\ (n\ <=\ 0)\ \textcolor{keywordflow}{return}\ 0.f;}
+\DoxyCodeLine{00041\ \ \ \textcolor{keywordflow}{switch}\ (reg)}
+\DoxyCodeLine{00042\ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{GridRegistration::CellCenter}}:}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i)\ +\ 0.5f)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n);}
+\DoxyCodeLine{00045\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a8f35cfd7a7a4765b86005378ad92575b}{GridRegistration::CellCorner}}:}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n);}
+\DoxyCodeLine{00047\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a6c3a6944a808a7c0bbb6788dbec54a9f}{GridRegistration::Node}}:}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{return}\ (n\ >\ 1)\ ?\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(i)\ /\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n\ -\/\ 1)\ :\ 0.f;}
+\DoxyCodeLine{00049\ \ \ \}}
+\DoxyCodeLine{00050\ \ \ \textcolor{keywordflow}{return}\ 0.f;}
+\DoxyCodeLine{00051\ \}}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a93683bbcdf41adddba55c3fef4451cc2}{uv\_to\_continuous\_index}}(}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ u,}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \ \ \ n,}
+\DoxyCodeLine{00059\ \ \ \ \ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9}{GridRegistration}}\ reg\ =\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{GridRegistration::CellCenter}})}
+\DoxyCodeLine{00060\ \{}
+\DoxyCodeLine{00061\ \ \ \textcolor{keywordflow}{if}\ (n\ <=\ 1)\ \textcolor{keywordflow}{return}\ 0.f;}
+\DoxyCodeLine{00062\ \ \ \textcolor{keywordtype}{float}\ idx\ =\ 0.f;}
+\DoxyCodeLine{00063\ \ \ \textcolor{keywordflow}{switch}\ (reg)}
+\DoxyCodeLine{00064\ \ \ \{}
+\DoxyCodeLine{00065\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9af5c101b5f19e97166e7531ffa1c706c4}{GridRegistration::CellCenter}}:}
+\DoxyCodeLine{00066\ \ \ \ \ idx\ =\ u\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n)\ -\/\ 0.5f;}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00068\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a8f35cfd7a7a4765b86005378ad92575b}{GridRegistration::CellCorner}}:\ idx\ =\ u\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n);\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordflow}{case}\ \mbox{\hyperlink{namespacehmap_a32c2e2ff6a390e122d56d7e635c4d5a9a6c3a6944a808a7c0bbb6788dbec54a9f}{GridRegistration::Node}}:\ idx\ =\ u\ *\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n\ -\/\ 1);\ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00070\ \ \ \}}
+\DoxyCodeLine{00071\ \ \ \textcolor{keywordflow}{return}\ std::clamp(idx,\ 0.f,\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(n\ -\/\ 1));}
+\DoxyCodeLine{00072\ \}}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{inline}\ \mbox{\hyperlink{structhmap_1_1UvRect}{UvRect}}\ \mbox{\hyperlink{namespacehmap_a83a525d1d454c6fa94f4bf5527c0efac}{tile\_uv\_rect}}(\textcolor{keyword}{const}\ glm::ivec2\ \&global\_offset,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&tile\_shape\_with\_halo,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ glm::ivec2\ \&global\_shape,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvRect}{UvRect}}\ \ \ \ \ \&domain\_uv\ =\ \mbox{\hyperlink{structhmap_1_1UvRect_a031dbc2efbe88f08444b62fd0d841a28}{UvRect::unit}}())}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ du\ =\ (global\_shape.x\ >\ 0)\ ?\ (domain\_uv.u\_max\ -\/\ domain\_uv.u\_min)\ /}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_shape.x)}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 0.f;}
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{const}\ \textcolor{keywordtype}{float}\ dv\ =\ (global\_shape.y\ >\ 0)\ ?\ (domain\_uv.v\_max\ -\/\ domain\_uv.v\_min)\ /}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_shape.y)}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ :\ 0.f;}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordflow}{return}\ \{domain\_uv.u\_min\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_offset.x)\ *\ du,}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ domain\_uv.u\_min\ +}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_offset.x\ +\ tile\_shape\_with\_halo.x)\ *\ du,}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ domain\_uv.v\_min\ +\ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_offset.y)\ *\ dv,}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \ \ \ \ domain\_uv.v\_min\ +}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{float}\textcolor{keyword}{>}(global\_offset.y\ +\ tile\_shape\_with\_halo.y)\ *}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ dv\};}
+\DoxyCodeLine{00097\ \}}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00099\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}

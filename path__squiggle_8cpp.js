@@ -1,5 +1,5 @@
 var path__squiggle_8cpp =
 [
-    [ "hmap::squiggle", "namespacehmap.html#a23b54b32669c529a26f86b884ffca28b", null ],
-    [ "hmap::squiggle_branches", "namespacehmap.html#a65e5e7e89af68f858de5181d86a42d9a", null ]
+    [ "hmap::squiggle", "namespacehmap.html#a4a5c1d584459e9b41f1dbeefc5802754", null ],
+    [ "hmap::squiggle_branches", "namespacehmap.html#a59a5368bfb13a6fc42c9b335cb6c1e0e", null ]
 ];

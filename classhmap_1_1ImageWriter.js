@@ -6,8 +6,8 @@ var classhmap_1_1ImageWriter =
     [ "is_open", "classhmap_1_1ImageWriter.html#a5881e0ad5c4022d064bd5a3e0247e0b3", null ],
     [ "write_chunk", "classhmap_1_1ImageWriter.html#abac1c1837ab63ef5adefde2b9f140341", null ],
     [ "write_chunk", "classhmap_1_1ImageWriter.html#af52835d3a85ae22dbac7721cec209ea7", null ],
-    [ "write_tile", "classhmap_1_1ImageWriter.html#aa336190df6cc93ebec25255ddd116578", null ],
-    [ "write_tile", "classhmap_1_1ImageWriter.html#a25c0fc484639d5446fe0e3923d9dc96a", null ],
+    [ "write_tile", "classhmap_1_1ImageWriter.html#af7a0b33573a909598e053c7988247b94", null ],
+    [ "write_tile", "classhmap_1_1ImageWriter.html#a30539db777865173beee0895a682541f", null ],
     [ "config", "classhmap_1_1ImageWriter.html#a878923af3c99d236d90dfc1e7eeffdf0", null ],
     [ "filepath", "classhmap_1_1ImageWriter.html#a9149ee485668dd3fae101b062e1554e6", null ]
 ];

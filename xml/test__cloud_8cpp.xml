@@ -839,7 +839,7 @@
 <codeline lineno="114"><highlight class="normal">{</highlight></codeline>
 <codeline lineno="115"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud(std::vector&lt;Point&gt;{{-1.f,<sp/>2.f,<sp/>0.f},<sp/>{3.f,<sp/>4.f,<sp/>0.f}});</highlight></codeline>
 <codeline lineno="116"><highlight class="normal"></highlight></codeline>
-<codeline lineno="117"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1ae5ba6ffbe371603545c312e51601615f" kindref="member">get_bbox</ref>();</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>cloud.<ref refid="classhmap_1_1Cloud_1a83cdd672de32fa1b364ade65b9ede6df" kindref="member">get_bbox</ref>().<ref refid="structhmap_1_1BBox2D_1a53e413896be53bee48fac56acfa0da5d" kindref="member">to_vec4</ref>();</highlight></codeline>
 <codeline lineno="118"><highlight class="normal"></highlight></codeline>
 <codeline lineno="119"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.x,<sp/>-1.f));</highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="test__cloud_8cpp_1a83dc342efadda75314b178158e96ebb1" kindref="member">floatEq</ref>(bbox.y,<sp/>3.f));</highlight></codeline>
@@ -943,7 +943,7 @@
 <codeline lineno="218"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>c1(std::vector&lt;Point&gt;{{0,<sp/>0,<sp/>0},<sp/>{1,<sp/>1,<sp/>1}});</highlight></codeline>
 <codeline lineno="219"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>c2<sp/>=<sp/>c1;</highlight></codeline>
 <codeline lineno="220"><highlight class="normal"></highlight></codeline>
-<codeline lineno="221"><highlight class="normal"><sp/><sp/>c1.<ref refid="classhmap_1_1Cloud_1aa6f1b0089949fc2e8ed6e7e3ce465448" kindref="member">randomize</ref>(42);</highlight></codeline>
+<codeline lineno="221"><highlight class="normal"><sp/><sp/>c1.<ref refid="classhmap_1_1Cloud_1aa9ac7836506e56240ec482dd16380db1" kindref="member">randomize</ref>(42);</highlight></codeline>
 <codeline lineno="222"><highlight class="normal"><sp/><sp/>c2.randomize(42);</highlight></codeline>
 <codeline lineno="223"><highlight class="normal"></highlight></codeline>
 <codeline lineno="224"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>c1.size();<sp/>++i)</highlight></codeline>
@@ -1144,7 +1144,7 @@
 <codeline lineno="419"><highlight class="normal"></highlight></codeline>
 <codeline lineno="420"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Mask<sp/>where<sp/>density<sp/>is<sp/>0<sp/>everywhere<sp/>-&gt;<sp/>all<sp/>points<sp/>should<sp/>be<sp/>removed</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="421"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>zero_mask({10,<sp/>10},<sp/>0.f);</highlight></codeline>
-<codeline lineno="422"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1aa01ff551bebcd0540dbac8b91732c0b1" kindref="member">rejection_filter_density</ref>(cloud,<sp/>zero_mask,<sp/>42);</highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1adc2dddf3dbeb30eeed881a4e8249ef12" kindref="member">rejection_filter_density</ref>(cloud,<sp/>zero_mask,<sp/>42);</highlight></codeline>
 <codeline lineno="423"><highlight class="normal"></highlight></codeline>
 <codeline lineno="424"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.size(),<sp/>0u);</highlight></codeline>
 <codeline lineno="425"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(cloud.empty());</highlight></codeline>
@@ -1171,7 +1171,7 @@
 <codeline lineno="446"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>array({10,<sp/>10},<sp/>0.f);</highlight></codeline>
 <codeline lineno="447"><highlight class="normal"></highlight></codeline>
 <codeline lineno="448"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Degenerate<sp/>bbox<sp/>(width<sp/>=<sp/>0,<sp/>height<sp/>=<sp/>0)</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="449"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW(cloud.to_array(array,<sp/>{0.f,<sp/>0.f,<sp/>0.f,<sp/>0.f}));</highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/>EXPECT_NO_THROW(cloud.to_array(array,<sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">BBox2D</ref>({0.f,<sp/>0.f,<sp/>0.f,<sp/>0.f})));</highlight></codeline>
 <codeline lineno="450"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="451"><highlight class="normal"></highlight></codeline>
 <codeline lineno="452"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>InverseSamplingPointsAndCloud)</highlight></codeline>
@@ -1185,10 +1185,10 @@
 <codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>density(x,<sp/>y)<sp/>=<sp/>1.f;</highlight></codeline>
 <codeline lineno="461"><highlight class="normal"></highlight></codeline>
 <codeline lineno="462"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>count<sp/>=<sp/>500;</highlight></codeline>
-<codeline lineno="463"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/>pts<sp/>=<sp/><ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(count,</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/>pts<sp/>=<sp/><ref refid="namespacehmap_1a9eb90ba089a7e8345614f20b8e3b8f26" kindref="member">random_points_inverse_sampling</ref>(count,</highlight></codeline>
 <codeline lineno="464"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
 <codeline lineno="465"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123,</highlight></codeline>
-<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
+<codeline lineno="466"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" kindref="member">BBox2D::unit</ref>());</highlight></codeline>
 <codeline lineno="467"><highlight class="normal"></highlight></codeline>
 <codeline lineno="468"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[0].size(),<sp/>count);</highlight></codeline>
 <codeline lineno="469"><highlight class="normal"><sp/><sp/>EXPECT_EQ(pts[1].size(),<sp/>count);</highlight></codeline>
@@ -1201,16 +1201,16 @@
 <codeline lineno="476"><highlight class="normal"><sp/><sp/><sp/><sp/>EXPECT_LE(pts[1][k],<sp/>1.f);</highlight></codeline>
 <codeline lineno="477"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="478"><highlight class="normal"></highlight></codeline>
-<codeline lineno="479"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(count,</highlight></codeline>
+<codeline lineno="479"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="namespacehmap_1a5d3c4add5e7c03856b5970baa44e9e57" kindref="member">random_cloud_inverse_sampling</ref>(count,</highlight></codeline>
 <codeline lineno="480"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>density,</highlight></codeline>
 <codeline lineno="481"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>123,</highlight></codeline>
-<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
+<codeline lineno="482"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" kindref="member">BBox2D::unit</ref>());</highlight></codeline>
 <codeline lineno="483"><highlight class="normal"><sp/><sp/>EXPECT_EQ(cloud.<ref refid="classhmap_1_1Cloud_1adc675e8b2769a94b4c23bf7e69348f84" kindref="member">size</ref>(),<sp/>count);</highlight></codeline>
 <codeline lineno="484"><highlight class="normal"></highlight></codeline>
 <codeline lineno="485"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Empty<sp/>array<sp/>case</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="486"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>empty_arr;</highlight></codeline>
-<codeline lineno="487"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1ae12837cb378af86d9842f43cf248b7d3" kindref="member">random_points_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123)[0].empty());</highlight></codeline>
-<codeline lineno="488"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a388bc10e3be92ca51045709f8715c3cc" kindref="member">random_cloud_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123).empty());</highlight></codeline>
+<codeline lineno="487"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a9eb90ba089a7e8345614f20b8e3b8f26" kindref="member">random_points_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123)[0].empty());</highlight></codeline>
+<codeline lineno="488"><highlight class="normal"><sp/><sp/>EXPECT_TRUE(<ref refid="namespacehmap_1a5d3c4add5e7c03856b5970baa44e9e57" kindref="member">random_cloud_inverse_sampling</ref>(count,<sp/>empty_arr,<sp/>123).empty());</highlight></codeline>
 <codeline lineno="489"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="490"><highlight class="normal"></highlight></codeline>
 <codeline lineno="491"><highlight class="normal"><ref refid="test__cloud_8cpp_1ad2fb29c6c499be88712ced2359b13832" kindref="member">TEST</ref>(CloudTest,<sp/>InverseSampler2DSequentialAndRegionUpdate)</highlight></codeline>
@@ -1218,7 +1218,7 @@
 <codeline lineno="493"><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{32,<sp/>32};</highlight></codeline>
 <codeline lineno="494"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/><sp/><sp/><sp/>density(shape,<sp/>1.f);</highlight></codeline>
 <codeline lineno="495"><highlight class="normal"></highlight></codeline>
-<codeline lineno="496"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">InverseSampler2D</ref><sp/>sampler(density,<sp/>42,<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f});</highlight></codeline>
+<codeline lineno="496"><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1InverseSampler2D" kindref="compound">InverseSampler2D</ref><sp/>sampler(density,<sp/>42,<sp/><ref refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" kindref="member">BBox2D::unit</ref>());</highlight></codeline>
 <codeline lineno="497"><highlight class="normal"><sp/><sp/>EXPECT_GT(sampler.get_total_weight(),<sp/>0.f);</highlight></codeline>
 <codeline lineno="498"><highlight class="normal"></highlight></codeline>
 <codeline lineno="499"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Single<sp/>sample</highlight><highlight class="normal"></highlight></codeline>
@@ -1279,13 +1279,13 @@
 <codeline lineno="554"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af8a784f76736b7ec459fbfa1bf7618d7" kindref="member">emplace_back</ref>(0.5f,<sp/>0.5f,<sp/>-1.f);</highlight></codeline>
 <codeline lineno="555"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1af8a784f76736b7ec459fbfa1bf7618d7" kindref="member">emplace_back</ref>(2.f,<sp/>2.f,<sp/>-1.f);</highlight></codeline>
 <codeline lineno="556"><highlight class="normal"></highlight></codeline>
-<codeline lineno="557"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" kindref="member">hmap::ArraySampling::AS_MAX</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="557"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ae19372edb8b516f64baf28db3f8be338" kindref="member">hmap::ArraySampling::AS_MAX</ref>,<sp/>0.15f);</highlight></codeline>
 <codeline lineno="558"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cloud[0].v,<sp/>5.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="559"><highlight class="normal"></highlight></codeline>
-<codeline lineno="560"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" kindref="member">hmap::ArraySampling::AS_MIN</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="560"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670ade783ba3bcee865456df9537ea63b8e0" kindref="member">hmap::ArraySampling::AS_MIN</ref>,<sp/>0.15f);</highlight></codeline>
 <codeline lineno="561"><highlight class="normal"><sp/><sp/>EXPECT_NEAR(cloud[0].v,<sp/>1.f,<sp/>1e-5f);</highlight></codeline>
 <codeline lineno="562"><highlight class="normal"></highlight></codeline>
-<codeline lineno="563"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1a5ac84550aceffbb9053c3b58490e7126" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" kindref="member">hmap::ArraySampling::AS_MEAN</ref>,<sp/>0.15f);</highlight></codeline>
+<codeline lineno="563"><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(z,<sp/><ref refid="namespacehmap_1a45c97713b7e5ebf3235a3b3e886d2670a35b7b1e0a176f1576070081a51d562e5" kindref="member">hmap::ArraySampling::AS_MEAN</ref>,<sp/>0.15f);</highlight></codeline>
 <codeline lineno="564"><highlight class="normal"><sp/><sp/>EXPECT_GT(cloud[0].v,<sp/>1.f);</highlight></codeline>
 <codeline lineno="565"><highlight class="normal"><sp/><sp/>EXPECT_LT(cloud[0].v,<sp/>5.f);</highlight></codeline>
 <codeline lineno="566"><highlight class="normal"></highlight></codeline>

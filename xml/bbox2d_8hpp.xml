@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="bbox2d_8hpp" kind="file" language="C++">
+    <compoundname>bbox2d.hpp</compoundname>
+    <innerclass refid="structhmap_1_1BBox2D" prot="public">hmap::BBox2D</innerclass>
+    <innernamespace refid="namespacehmap">hmap</innernamespace>
+    <briefdescription>
+<para>Axis-aligned 2D bounding box in world coordinates. </para>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Otto Link (<ulink url="mailto:otto.link.bv@gmail.com">otto.link.bv@gmail.com</ulink>) </para>
+</simplesect>
+<simplesect kind="copyright"><para>Copyright (c) 2026 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Copyright<sp/>(c)<sp/>2026<sp/>Otto<sp/>Link.<sp/>Distributed<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/><sp/><sp/>Public<sp/>License.<sp/>The<sp/>full<sp/>license<sp/>is<sp/>in<sp/>the<sp/>file<sp/>LICENSE,<sp/>distributed<sp/>with</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/><sp/><sp/>this<sp/>software.<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>once</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/vec2.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/vec4.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="19"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="24" refid="structhmap_1_1BBox2D" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" kindref="member">BBox2D</ref></highlight></codeline>
+<codeline lineno="25"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="26" refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" refkind="member"><highlight class="normal"><sp/><sp/>glm::vec2<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>{0.f,<sp/>0.f};</highlight></codeline>
+<codeline lineno="27" refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" refkind="member"><highlight class="normal"><sp/><sp/>glm::vec2<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>{1.f,<sp/>1.f};</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight></codeline>
+<codeline lineno="29" refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" kindref="member">BBox2D</ref>()<sp/>=<sp/></highlight><highlight class="keywordflow">default</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30" refid="structhmap_1_1BBox2D_1ad348059d0e9e2f0a8684252bfa65d777" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1ad348059d0e9e2f0a8684252bfa65d777" kindref="member">BBox2D</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/>&amp;min_p,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/>&amp;max_p)</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>(min_p),<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>(max_p)</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="34" refid="structhmap_1_1BBox2D_1aa654a81c3adbf19576a34a492bec7733" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1aa654a81c3adbf19576a34a492bec7733" kindref="member">BBox2D</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/>&amp;v)<sp/>:<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>(v.x,<sp/>v.z),<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>(v.y,<sp/>v.w)</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" kindref="member">BBox2D</ref><sp/><ref refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" kindref="member">unit</ref>()</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" kindref="member">BBox2D</ref>(glm::vec2(0.f,<sp/>0.f),<sp/>glm::vec2(1.f,<sp/>1.f));</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43" refid="structhmap_1_1BBox2D_1ace3b42ea3540f48d33784f8fca5f5ed0" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1ace3b42ea3540f48d33784f8fca5f5ed0" kindref="member">contains</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="44"><highlight class="keyword"><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>p.x<sp/>&gt;=<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.x<sp/>&amp;&amp;<sp/>p.x<sp/>&lt;=<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.x<sp/>&amp;&amp;<sp/>p.y<sp/>&gt;=<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.y<sp/>&amp;&amp;<sp/>p.y<sp/>&lt;=<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.y;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="structhmap_1_1BBox2D_1aecbf733a061b56a199e1067299aae6ea" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>glm::vec2<sp/><ref refid="structhmap_1_1BBox2D_1aecbf733a061b56a199e1067299aae6ea" kindref="member">clamp</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec2<sp/>&amp;p)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="49"><highlight class="keyword"><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{std::clamp(p.x,<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.x,<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.x),<sp/>std::clamp(p.y,<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.y,<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.y)};</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="structhmap_1_1BBox2D_1ad07d18b8e548ddf2b662c8e9ba515785" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>glm::vec2<sp/><ref refid="structhmap_1_1BBox2D_1ad07d18b8e548ddf2b662c8e9ba515785" kindref="member">size</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="54"><highlight class="keyword"><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref><sp/>-<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58" refid="structhmap_1_1BBox2D_1a7017a789231ade2639d1a3f880434d7a" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>glm::vec2<sp/><ref refid="structhmap_1_1BBox2D_1a7017a789231ade2639d1a3f880434d7a" kindref="member">center</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="59"><highlight class="keyword"><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0.5f<sp/>*<sp/>(<ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref><sp/>+<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63" refid="structhmap_1_1BBox2D_1a53e413896be53bee48fac56acfa0da5d" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/>glm::vec4<sp/><ref refid="structhmap_1_1BBox2D_1a53e413896be53bee48fac56acfa0da5d" kindref="member">to_vec4</ref>()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="64"><highlight class="keyword"><sp/><sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{<ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.x,<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.x,<sp/><ref refid="structhmap_1_1BBox2D_1a6dd17e2fe5d53c1fd281b0d8c5dcb222" kindref="member">min</ref>.y,<sp/><ref refid="structhmap_1_1BBox2D_1ab3dcdc0361f06887176b194706ce9e9c" kindref="member">max</ref>.y};</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68" refid="structhmap_1_1BBox2D_1ad8cc48d4dab37bb2b1f908d3ea3c64b1" refkind="member"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1BBox2D_1aa31d4b912d8f630d0f19f754dcf735f6" kindref="member">BBox2D</ref><sp/><ref refid="structhmap_1_1BBox2D_1ad8cc48d4dab37bb2b1f908d3ea3c64b1" kindref="member">from_vec4</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/>&amp;v)</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>{{v.x,<sp/>v.z},<sp/>{v.y,<sp/>v.w}};</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="72"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"></highlight></codeline>
+<codeline lineno="74"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="HighMap/include/highmap/spatial/bbox2d.hpp"/>
+  </compounddef>
+</doxygen>

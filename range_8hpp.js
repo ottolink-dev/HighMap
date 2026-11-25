@@ -19,7 +19,7 @@ var range_8hpp =
     [ "hmap::clamp_max", "namespacehmap.html#ad912c32892e0e80b92a54d7692b75c6a", null ],
     [ "hmap::clamp_max_smooth", "namespacehmap.html#a936453b67a394c5da8b48473540c9459", null ],
     [ "hmap::clamp_max_smooth", "namespacehmap.html#abd5e3daeb692506c7b6350516fccb3d3", null ],
-    [ "hmap::clamp_oblique_plane", "namespacehmap.html#aac14c59482d141532cc055fff18c5975", null ],
+    [ "hmap::clamp_oblique_plane", "namespacehmap.html#afce073164534837e7f3dbf9897d331da", null ],
     [ "hmap::clamp_smooth", "namespacehmap.html#a55574a9d91e2e7e20de954956402ba1b", null ],
     [ "hmap::maximum", "namespacehmap.html#aa52f3e1fcb1cad464a512c09a0c8eb54", null ],
     [ "hmap::maximum", "namespacehmap.html#a68ddaa8e59767bb244a8b6b54519ab01", null ],

@@ -10,8 +10,7 @@ var searchData=
   ['tilekey_7',['TileKey',['../structhmap_1_1TileKey.html',1,'hmap']]],
   ['tilekeyhash_8',['TileKeyHash',['../structhmap_1_1TileKeyHash.html',1,'hmap']]],
   ['tileproxycomm_9',['TileProxyComm',['../classhmap_1_1SequentialTileComm_1_1TileProxyComm.html',1,'hmap::SequentialTileComm']]],
-  ['tileregion_10',['TileRegion',['../structhmap_1_1TileRegion.html',1,'hmap']]],
-  ['tilestorage_11',['TileStorage',['../classhmap_1_1TileStorage.html',1,'hmap']]],
-  ['timer_12',['Timer',['../classhmap_1_1Timer.html',1,'hmap']]],
-  ['triangle_13',['Triangle',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html',1,'hmap::TerrainTriMesh']]]
+  ['tilestorage_10',['TileStorage',['../classhmap_1_1TileStorage.html',1,'hmap']]],
+  ['timer_11',['Timer',['../classhmap_1_1Timer.html',1,'hmap']]],
+  ['triangle_12',['Triangle',['../structhmap_1_1TerrainTriMesh_1_1Triangle.html',1,'hmap::TerrainTriMesh']]]
 ];

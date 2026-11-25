@@ -11,7 +11,7 @@ var selector_8cpp =
     [ "hmap::select_gradient_exp", "namespacehmap.html#a4c42905cbb910cb4017ef3e026a31d59", null ],
     [ "hmap::select_gradient_inv", "namespacehmap.html#a60843740c9f6153042e0466b696239fd", null ],
     [ "hmap::select_interval", "namespacehmap.html#a849d37221d492c5d96d945dc64b02754", null ],
-    [ "hmap::select_inward_outward_slope", "namespacehmap.html#a9fdc6086f5eb14b779b6351b2b49471a", null ],
+    [ "hmap::select_inward_outward_slope", "namespacehmap.html#ae74f1a1b019a0577da58a3f509d5b2f2", null ],
     [ "hmap::select_lt", "namespacehmap.html#a01db711d188b71bc0ff2118364f3d60b", null ],
     [ "hmap::select_midrange", "namespacehmap.html#a7b42d7b9a8dfdf8b67a1a482974ee33f", null ],
     [ "hmap::select_midrange", "namespacehmap.html#a565788418282bab28d9d3384622abd9d", null ],
@@ -22,5 +22,5 @@ var selector_8cpp =
     [ "hmap::select_rivers", "namespacehmap.html#a1f35e2238ee222ab2aa87304f6692ce6", null ],
     [ "hmap::select_transitions", "namespacehmap.html#ac6dcaa05c7c34302fa2560ddedbb9931", null ],
     [ "hmap::select_valley", "namespacehmap.html#ac472278880526ccb0609d818b741929d", null ],
-    [ "hmap::smooth_mask_preserve_frontier", "namespacehmap.html#ad6fe0af5cc79ba757c476dfe19601cb6", null ]
+    [ "hmap::smooth_mask_preserve_frontier", "namespacehmap.html#a35320b952b62280454244d95f9949105", null ]
 ];

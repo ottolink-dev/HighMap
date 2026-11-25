@@ -8,7 +8,7 @@ var classhmap_1_1RockField =
     [ "RockField", "classhmap_1_1RockField.html#a73a8fc7a0f44e1b074b20bd4c3d8ead3", null ],
     [ "apply_power_law_distribution", "classhmap_1_1RockField.html#a78e864f7a4907e3e3766fc6d4571a880", null ],
     [ "apply_power_law_distribution", "classhmap_1_1RockField.html#abb9120a9ba5a3185602732a31966b748", null ],
-    [ "apply_slope_sorting", "classhmap_1_1RockField.html#ad169e4acbe84618e48fdd741e6f764d6", null ],
+    [ "apply_slope_sorting", "classhmap_1_1RockField.html#ab5c7c48700dcb80a86857c36c2b43463", null ],
     [ "simulate_physics", "classhmap_1_1RockField.html#ac16a000a470cd7e8cffb007eee3afc68", null ],
     [ "to_string", "classhmap_1_1RockField.html#ab05996c590e4e7037dd3583da7c9359a", null ]
 ];

@@ -9,5 +9,5 @@ var structhmap_1_1PoiGenerationOptions =
     [ "seed", "structhmap_1_1PoiGenerationOptions.html#afbd6a278dd2b261653676ee7fd35e8a4", null ],
     [ "jitter", "structhmap_1_1PoiGenerationOptions.html#aa488292ec1d131cfc8f12eabde6bfab1", null ],
     [ "p_mask", "structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e", null ],
-    [ "bbox", "structhmap_1_1PoiGenerationOptions.html#affb1fa86633ea1d324e9a571bc04edeb", null ]
+    [ "bbox", "structhmap_1_1PoiGenerationOptions.html#a8707c8878629d5b15773374a76ced6c1", null ]
 ];

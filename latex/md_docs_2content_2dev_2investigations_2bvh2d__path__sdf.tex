@@ -58,13 +58,13 @@ The functionality is structured to preserve backward compatibility while providi
 \begin{DoxyEnumerate}
 \item {\bfseries{Explicit Implementations}}\+:
 \begin{DoxyItemize}
-\item {\ttfamily \doxylink{namespacehmap_aee7ff7068cdfd831c2ad4891a38a817c}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bvh}} and {\ttfamily \doxylink{namespacehmap_a970cf834f81736d64b053de48d9bf6bf}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+bvh}}
-\item {\ttfamily \doxylink{namespacehmap_af0904ff813387d7e848a33ed5cd99eef}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+brute\+\_\+force}} and {\ttfamily \doxylink{namespacehmap_aca95a27cb4796288e6ac2e7bd265c611}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+brute\+\_\+force}}
+\item {\ttfamily \doxylink{namespacehmap_ac87e0e41a975e71bab172f61b7980a28}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bvh}} and {\ttfamily \doxylink{namespacehmap_a409bc160fd48844f19a16ae4d476f453}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+bvh}}
+\item {\ttfamily \doxylink{namespacehmap_ab4c36b89bbb81df63083c7c984b45378}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+brute\+\_\+force}} and {\ttfamily \doxylink{namespacehmap_a47fc9d4e63024e4f5240965108f73f0d}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array\+\_\+brute\+\_\+force}}
 \end{DoxyItemize}
 \item {\bfseries{Default Wrapper Functions}}\+:
 \begin{DoxyItemize}
-\item {\ttfamily \doxylink{namespacehmap_a255117d00b312165d82d2f65584ab14a}{hmap\+::sdf\+\_\+2d\+\_\+polyline}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
-\item {\ttfamily \doxylink{namespacehmap_aa309f6eee87b7e83c78afeff1adb3eaf}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array}(path, shape, bbox\+\_\+array, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\item {\ttfamily \doxylink{namespacehmap_a536f3a29bebd2515afaf2e7aab5bffd4}{hmap\+::sdf\+\_\+2d\+\_\+polyline}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\item {\ttfamily \doxylink{namespacehmap_a3ce5cf9668610d03ae978255d9e08e65}{hmap\+::path\+\_\+sdf\+\_\+to\+\_\+array}(path, shape, bbox\+\_\+array, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
 \end{DoxyItemize}
 \end{DoxyEnumerate}
 
@@ -92,9 +92,9 @@ A specialized {\ttfamily BVH2\+DBezier} tree was implemented using this bounding
 
 The API was structured consistently with linear polyline SDF\+:
 \begin{DoxyItemize}
-\item {\ttfamily \doxylink{namespacehmap_a309a2e9dba17dfafd471faed90741e69}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+bvh}}
-\item {\ttfamily \doxylink{namespacehmap_a3f2d0f789995b087fee958951a87d36c}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+brute\+\_\+force}}
-\item {\ttfamily \doxylink{namespacehmap_a7fc8217efe7ab32d2e1e025bdd632936}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
+\item {\ttfamily \doxylink{namespacehmap_ad9bbd73f816dc1d2be53245cffd29dc3}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+bvh}}
+\item {\ttfamily \doxylink{namespacehmap_a468472f60775bbdb01280f0759decdf1}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier\+\_\+brute\+\_\+force}}
+\item {\ttfamily \doxylink{namespacehmap_a1ea35988a3eba00e07e8d6a5d429e868}{hmap\+::sdf\+\_\+2d\+\_\+polyline\+\_\+bezier}(path, shape, bbox, p\+\_\+noise\+\_\+x, p\+\_\+noise\+\_\+y, use\+\_\+bvh = true)}
 \end{DoxyItemize}\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md73}{}\doxysection{\texorpdfstring{6. GPU (Open\+CL) Assessment and Validation}{6. GPU (Open\+CL) Assessment and Validation}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md73}
 The GPU polyline SDF implementation was analyzed to determine whether introducing a BVH2D spatial index in Open\+CL kernels would yield benefits.\hypertarget{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md74}{}\doxysubsection{\texorpdfstring{Performance Analysis\+: GPU Brute Force vs CPU BVH2D}{Performance Analysis\+: GPU Brute Force vs CPU BVH2D}}\label{md_docs_2content_2dev_2investigations_2bvh2d__path__sdf_autotoc_md74}
 Comparative benchmark timings on an NVIDIA Ge\+Force GTX 1650 Max-\/Q across \$512 \textbackslash{}times 512\$ grids\+:

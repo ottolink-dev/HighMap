@@ -18,13 +18,13 @@ var authoring_8hpp =
     ] ],
     [ "hmap::alter_elevation", "namespacehmap.html#a6123c18788ae302332416d5d7585fd9f", null ],
     [ "hmap::apply_gaussian_pushes", "namespacehmap.html#a127e7abc79d661d10705158a312c550c", null ],
-    [ "hmap::base_elevation", "namespacehmap.html#ad0679d167a3129dc403e3ca7082579f8", null ],
-    [ "hmap::elevation_from_contours", "namespacehmap.html#a1cd0f776fce02a28d7a58af8c40cb7aa", null ],
+    [ "hmap::base_elevation", "namespacehmap.html#a0f97384ee6031cde4994ddcc69480fea", null ],
+    [ "hmap::elevation_from_contours", "namespacehmap.html#a3a1a5f34b1ba7240c1c81d5384822094", null ],
     [ "hmap::elevation_from_contours", "namespacehmap.html#ab2537bdacf8200eeeb381c4b4825bf1b", null ],
     [ "hmap::elevation_from_sparse_constraints", "namespacehmap.html#a77df59a73e83bc371eceae7793c690dc", null ],
     [ "hmap::reverse_midpoint", "namespacehmap.html#a6f7e6e0cffaf7d03cfe1eef62b1c3575", null ],
-    [ "hmap::ridgelines", "namespacehmap.html#a74f6ef0464e0ec67df5179f49e14e35a", null ],
-    [ "hmap::ridgelines_bezier", "namespacehmap.html#a4e7db58b8b58def3b862476f18b6005e", null ],
+    [ "hmap::ridgelines", "namespacehmap.html#acd1f463874289d1007776db056c840aa", null ],
+    [ "hmap::ridgelines_bezier", "namespacehmap.html#a8da09a2b1d6875569a3529284c3eb54d", null ],
     [ "hmap::sls_deformation", "namespacehmap.html#abec90e80c5d42318a7aadf6dd1016fec", null ],
-    [ "hmap::stamping", "namespacehmap.html#ae7ea4f9f968fc3a4aa706ea3b9cc1f0a", null ]
+    [ "hmap::stamping", "namespacehmap.html#acc4c533d7c94c671801d3ea4358c7cc9", null ]
 ];

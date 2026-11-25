@@ -10,8 +10,8 @@ var recast_8cpp =
     [ "hmap::recast_escarpment", "namespacehmap.html#a6fa21b8b4797ae017025d891f9704848", null ],
     [ "hmap::recast_peak", "namespacehmap.html#ac2a2b604d4c167dcaddfbd1c66df3e4c", null ],
     [ "hmap::recast_peak", "namespacehmap.html#a4ca9ddaa140548937a12022e79823401", null ],
-    [ "hmap::recast_rocky_slopes", "namespacehmap.html#a112edf2e70dc1c7a48b158d991d268f7", null ],
-    [ "hmap::recast_rocky_slopes", "namespacehmap.html#a0b0df569ee039a70cd406e8320bcc0c3", null ],
+    [ "hmap::recast_rocky_slopes", "namespacehmap.html#a1fd43ab03066f9cea69e78eb7a0471d5", null ],
+    [ "hmap::recast_rocky_slopes", "namespacehmap.html#a33252ccf55f004b183c33fbd622b2efb", null ],
     [ "hmap::recast_sag", "namespacehmap.html#abf3c7485f0f6f9e56b2cec58e085dc23", null ],
     [ "hmap::recast_sag", "namespacehmap.html#a86963a517ac96c442272bdf6fd967f60", null ]
 ];

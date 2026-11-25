@@ -31,9 +31,9 @@ var classhmap_1_1Graph =
     [ "remove_orphan_points", "classhmap_1_1Graph.html#a9342d61be778e7fd8525334b5e3b4e00", null ],
     [ "set_edge_weight", "classhmap_1_1Graph.html#af9dd5d2b3ff699e1e064f4d189d74d55", null ],
     [ "set_edge_weight", "classhmap_1_1Graph.html#a531127f7513c688936bd83e852f1c741", null ],
-    [ "to_array", "classhmap_1_1Graph.html#a5d27935b935d6d788a934bc0e4f4082f", null ],
-    [ "to_array_fractalize", "classhmap_1_1Graph.html#a72b12f0c404bb6e1cb22790b5f4fb44b", null ],
-    [ "to_array_sdf", "classhmap_1_1Graph.html#ab107e8c114939acd9fdd55ab427d5d51", null ],
+    [ "to_array", "classhmap_1_1Graph.html#a20244f878e3779ea165b43ad8f0e0dfe", null ],
+    [ "to_array_fractalize", "classhmap_1_1Graph.html#a9e4efadbbec941e251263cf749b14b34", null ],
+    [ "to_array_sdf", "classhmap_1_1Graph.html#ab22496c1c4fd0f49660614ad1fe6151a", null ],
     [ "to_csv", "classhmap_1_1Graph.html#a7b092be3bef180b012ab3d68bbe793e1", null ],
     [ "to_png", "classhmap_1_1Graph.html#a10acc9e91285887d95ab12a42f2d1869", null ]
 ];
