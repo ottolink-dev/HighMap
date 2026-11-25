@@ -162,20 +162,25 @@ var NAVTREE =
         [ "Slope (Metric Surface Gradient)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md132", null ],
         [ "Relationship: talus = slope / nx", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md133", null ]
       ] ],
-      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134", null ]
+      [ "5. Scattering", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134", null ],
+      [ "6. Spatial Coordinates: UV, BBox, and CoordFrame", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md135", [
+        [ "UV (<span class=\"tt\">[0, 1]^2</span> Normalized Domain)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md136", null ],
+        [ "BBox (<span class=\"tt\">BBox2D</span> Axis-Aligned Bounding Box)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md137", null ],
+        [ "CoordFrame (<span class=\"tt\">CoordFrame</span> Oriented Local Frame)", "md_docs_2content_2getting__started_2core__concepts.html#autotoc_md138", null ]
+      ] ]
     ] ],
     [ "Quickstart", "md_docs_2content_2getting__started_2quickstart.html", [
-      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md136", null ],
-      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md137", null ],
-      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md138", null ],
-      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md139", null ]
+      [ "1. Example", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md140", null ],
+      [ "2. CMake Integration", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md141", null ],
+      [ "3. Basic Operations", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md142", null ],
+      [ "4. Next Steps", "md_docs_2content_2getting__started_2quickstart.html#autotoc_md143", null ]
     ] ],
     [ "HighMap Documentation", "md_docs_2index.html", [
-      [ "Documentation", "md_docs_2index.html#autotoc_md141", [
-        [ "Getting Started", "md_docs_2index.html#autotoc_md142", null ],
-        [ "Developer Documentation", "md_docs_2index.html#autotoc_md143", null ]
+      [ "Documentation", "md_docs_2index.html#autotoc_md145", [
+        [ "Getting Started", "md_docs_2index.html#autotoc_md146", null ],
+        [ "Developer Documentation", "md_docs_2index.html#autotoc_md147", null ]
       ] ],
-      [ "Installation", "md_docs_2index.html#autotoc_md144", null ]
+      [ "Installation", "md_docs_2index.html#autotoc_md148", null ]
     ] ],
     [ "Optional Tracy CPU profiling", "md_docs_2profiling.html", null ],
     [ "Bibliography", "citelist.html", null ],
@@ -228,21 +233,21 @@ var NAVTREEINDEX =
 "deposition__fill__holes_8cpp.html",
 "functions_vars_h.html",
 "md_docs_2content_2dev_2tiled__communication.html#autotoc_md120",
-"namespacehmap.html#a2e0228ee67d8c47cd32a3c9d9c6cb9d4",
-"namespacehmap.html#a56f425774168f76ab81c2c8a06145761",
-"namespacehmap.html#a98feadac2cf9a77dbaa715d5aee4803f",
-"namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a744ead0b170889e33126895264f1af2c",
-"namespacehmap.html#afb9a43596fc6c1ac725b503904a82623",
-"namespacehmap_1_1gpu.html#ab4b68e1b48d16193615105656680ced8",
-"point_8hpp_source.html",
-"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907",
-"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b",
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1561cc505f3a15c4b819bb1a13f0bd83",
-"structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a4fba36ac507bf1be4d121dd1d617fb56",
-"test__distance__shaper_8cpp.html",
-"test__interpolate__array__empty__source_8cpp.html#a05735fd625de98e9cbc38bebf2170764",
-"test__range_8cpp.html#a33779b46ea02294de819a69275c5f216",
-"test__validation_8cpp.html#aeef7cae77c12435009bcad0008ce39da"
+"namespacehmap.html#a2d1ef54ca8c981d95eb5a990c5d6fa23",
+"namespacehmap.html#a565d90964be3bdc0d95aedb80288ce57",
+"namespacehmap.html#a9648a23e61a84a702d89159d516dd4ec",
+"namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a4eb53d94f58e93c3bdb554d8cca7f306",
+"namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479",
+"namespacehmap_1_1gpu.html#ab10a6dc3d92519c7bd3244571bcd6429",
+"poi_8cpp.html",
+"structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139",
+"structhmap_1_1PoiGenerationOptions.html#affb1fa86633ea1d324e9a571bc04edeb",
+"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html",
+"structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a4a58f6aa57d4f9bfa0fbaccbec73ed3e",
+"test__decimate__vw_8cpp.html#a8b48ea5895c2947cf9cf565bd2b3f924",
+"test__interpolate1d_8cpp.html#a9683de8c0d8b56e0168815feee563d05",
+"test__range_8cpp.html#a12af8bfcdc9e8da74154a6ab1e1a3a1f",
+"test__validation_8cpp.html#a801157cbe9e3da0454958d5763191a40"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

@@ -1,5 +1,9 @@
 var NAVTREEINDEX20 =
 {
+"structhmap_1_1PoiGenerationOptions.html#affb1fa86633ea1d324e9a571bc04edeb":[16,0,0,22,9],
+"structhmap_1_1PointOfInterest.html":[15,0,0,23],
+"structhmap_1_1PointOfInterest.html":[16,0,0,21],
+"structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[15,0,0,23,5],
 "structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b":[16,0,0,21,5],
 "structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[15,0,0,23,4],
 "structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc":[16,0,0,21,4],
@@ -245,9 +249,5 @@ var NAVTREEINDEX20 =
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html":[16,0,0,89,2],
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html#a2e1e1c6cab60e06b91a62200367cbff9":[15,0,0,91,2,0],
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html#a2e1e1c6cab60e06b91a62200367cbff9":[16,0,0,89,2,0],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html":[15,0,0,91,7],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html":[16,0,0,89,7],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1232bf5b364db44d55bf012e29066c3d":[15,0,0,91,7,5],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1232bf5b364db44d55bf012e29066c3d":[16,0,0,89,7,5],
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a1561cc505f3a15c4b819bb1a13f0bd83":[15,0,0,91,7,7]
+"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html":[15,0,0,91,7]
 };

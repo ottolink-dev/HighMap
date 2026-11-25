@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['6_20c_20api_20reference_0',['6. C++ API Reference',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md47',1,'']]],
-  ['6_20gpu_20opencl_20assessment_20and_20validation_1',['6. GPU (OpenCL) Assessment and Validation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md73',1,'']]],
-  ['6_20integration_20and_20usage_20example_2',['6. Integration and Usage Example',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md121',1,'']]],
-  ['6_20thermal_20flatten_20thermal_5fflatten_3',['6. Thermal Flatten (&lt;span class=&quot;tt&quot;&gt;thermal_flatten&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md105',1,'']]]
+  ['5_20c_20api_20reference_0',['5 C API Reference',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md33',1,'5. C++ API Reference'],['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md59',1,'5. C++ API Reference'],['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md108',1,'5. C++ API Reference']]],
+  ['5_20investigations_20and_20benchmarks_1',['5. Investigations and Benchmarks',['../md_docs_2content_2dev_2architecture.html#autotoc_md15',1,'']]],
+  ['5_20iteration_20batching_20in_20domain_20algorithms_2',['5. Iteration Batching in Domain Algorithms',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md119',1,'']]],
+  ['5_20multi_20pass_20and_20multi_20scale_20architectures_3',['5. Multi-Pass and Multi-Scale Architectures',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md44',1,'']]],
+  ['5_20scattering_4',['5. Scattering',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md134',1,'']]],
+  ['5_20thermal_20ridge_20thermal_5fridge_5',['5. Thermal Ridge (&lt;span class=&quot;tt&quot;&gt;thermal_ridge&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md104',1,'']]],
+  ['5_20verification_20of_20bézier_20polyline_20sdf_20sdf_5f2d_5fpolyline_5fbezier_6',['5. Verification of Bézier Polyline SDF (&lt;span class=&quot;tt&quot;&gt;sdf_2d_polyline_bezier&lt;/span&gt;)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md70',1,'']]],
+  ['512_24_20grid_7',['Execution Time Comparison ($512 \\times 512$ Grid)',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md67',1,'']]]
 ];

@@ -1,15 +1,16 @@
 var searchData=
 [
-  ['4_20api_20design_20and_20integration_0',['4. API Design and Integration',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md69',1,'']]],
-  ['4_20bank_20collapse_20and_20thermal_20relaxation_1',['4. Bank Collapse and Thermal Relaxation',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md43',1,'']]],
-  ['4_20converting_20to_20raster_20fields_2',['4. Converting to Raster Fields',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md93',1,'']]],
-  ['4_20how_20overlap_20buffering_20works_3',['4. How Overlap Buffering Works',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md118',1,'']]],
-  ['4_20model_20selection_20matrix_4',['4. Model Selection Matrix',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md107',1,'']]],
-  ['4_20multiscale_20architecture_20and_20scheduling_5',['4. Multiscale Architecture and Scheduling',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md31',1,'']]],
-  ['4_20multiscale_20architecture_20hydraulic_5fstream_5flog_5fmultiscale_6',['4. Multiscale Architecture (&lt;span class=&quot;tt&quot;&gt;hydraulic_stream_log_multiscale&lt;/span&gt;)',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md57',1,'']]],
-  ['4_20next_20steps_7',['4. Next Steps',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md139',1,'']]],
-  ['4_20olsen_20redistribution_20model_20thermal_5folsen_8',['4. Olsen Redistribution Model (&lt;span class=&quot;tt&quot;&gt;thermal_olsen&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md103',1,'']]],
-  ['4_20overall_20decision_9',['4. Overall Decision',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md83',1,'']]],
-  ['4_20subsystem_20deep_20dives_10',['4. Subsystem Deep Dives',['../md_docs_2content_2dev_2architecture.html#autotoc_md14',1,'']]],
-  ['4_20talus_20vs_20slope_11',['4. Talus vs. Slope',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md130',1,'']]]
+  ['3_20algorithm_20deep_20dives_0',['3. Algorithm Deep Dives',['../md_docs_2content_2dev_2hydraulic__comparison.html#autotoc_md20',1,'']]],
+  ['3_20algorithm_20details_20and_20equations_1',['3. Algorithm Details and Equations',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md99',1,'']]],
+  ['3_20basic_20operations_2',['3. Basic Operations',['../md_docs_2content_2getting__started_2quickstart.html#autotoc_md142',1,'']]],
+  ['3_20benchmark_20measurements_3',['3. Benchmark Measurements',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md66',1,'']]],
+  ['3_20deposition_20mechanics_4',['3. Deposition Mechanics',['../md_docs_2content_2dev_2hydraulic__stream__log.html#autotoc_md56',1,'']]],
+  ['3_20design_20principles_5',['3. Design Principles',['../md_docs_2content_2dev_2architecture.html#autotoc_md9',1,'']]],
+  ['3_20execution_20engines_6',['3. Execution Engines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md114',1,'']]],
+  ['3_20experiment_202_3a_20morphological_20expansion_7',['3. Experiment 2: Morphological Expansion',['..//home/runner/work/HighMap/HighMap/docs/content/dev/investigations/fft_convolution_and_morphology.md#autotoc_md81',1,'']]],
+  ['3_20geometric_20primitives_8',['3. Geometric Primitives',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md129',1,'']]],
+  ['3_20schott_20model_20thermal_5fschott_9',['3. Schott Model (&lt;span class=&quot;tt&quot;&gt;thermal_schott&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md102',1,'']]],
+  ['3_20sediment_20transport_20and_20deposition_10',['3. Sediment Transport and Deposition',['..//home/runner/work/HighMap/HighMap/docs/content/dev/hydraulic_mise.md#autotoc_md27',1,'']]],
+  ['3_20sediment_20transport_20dynamics_11',['3. Sediment Transport Dynamics',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md40',1,'']]],
+  ['3_20subsystem_20connections_12',['3. Subsystem Connections',['../md_docs_2content_2dev_2scatter__field.html#autotoc_md90',1,'']]]
 ];

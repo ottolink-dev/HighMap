@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['7_20bedrock_20constraints_20thermal_5fauto_5fbedrock_0',['7. Bedrock Constraints (&lt;span class=&quot;tt&quot;&gt;thermal_auto_bedrock&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md106',1,'']]],
-  ['7_20buffer_20shape_20invariance_20and_20nested_20multiscale_20pipelines_1',['7. Buffer Shape Invariance and Nested Multiscale Pipelines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md122',1,'']]]
+  ['6_20c_20api_20reference_0',['6. C++ API Reference',['../md_docs_2content_2dev_2hydraulic__particle.html#autotoc_md47',1,'']]],
+  ['6_20gpu_20opencl_20assessment_20and_20validation_1',['6. GPU (OpenCL) Assessment and Validation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html#autotoc_md73',1,'']]],
+  ['6_20integration_20and_20usage_20example_2',['6. Integration and Usage Example',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md121',1,'']]],
+  ['6_20spatial_20coordinates_3a_20uv_20bbox_20and_20coordframe_3',['6. Spatial Coordinates: UV, BBox, and CoordFrame',['../md_docs_2content_2getting__started_2core__concepts.html#autotoc_md135',1,'']]],
+  ['6_20thermal_20flatten_20thermal_5fflatten_4',['6. Thermal Flatten (&lt;span class=&quot;tt&quot;&gt;thermal_flatten&lt;/span&gt;)',['..//home/runner/work/HighMap/HighMap/docs/content/dev/thermal_erosion.md#autotoc_md105',1,'']]]
 ];

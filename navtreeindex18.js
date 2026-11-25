@@ -1,5 +1,9 @@
 var NAVTREEINDEX18 =
 {
+"poi_8cpp.html":[17,0,1,1,13,3],
+"poi_8hpp.html":[17,0,1,0,0,3,0],
+"poi_8hpp_source.html":[17,0,1,0,0,3,0],
+"point_8hpp.html":[17,0,1,0,0,5,8],
 "point_8hpp_source.html":[17,0,1,0,0,5,8],
 "point__sampling_8cpp.html":[17,0,1,1,16,12],
 "point__sampling_8hpp.html":[17,0,1,0,0,5,9],
@@ -245,9 +249,5 @@ var NAVTREEINDEX18 =
 "structhmap_1_1Edge.html#a47ef0094cf5374e9e613a9d0035e5c72":[16,0,0,66,0],
 "structhmap_1_1Edge.html#a736107901733cccc302516a0890641f1":[15,0,0,68,2],
 "structhmap_1_1Edge.html#a736107901733cccc302516a0890641f1":[16,0,0,66,2],
-"structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139":[15,0,0,68,1],
-"structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139":[16,0,0,66,1],
-"structhmap_1_1ForestScaleSampler.html":[15,0,0,112],
-"structhmap_1_1ForestScaleSampler.html":[16,0,0,110],
-"structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907":[15,0,0,112,4]
+"structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139":[15,0,0,68,1]
 };

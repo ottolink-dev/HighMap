@@ -99,5 +99,24 @@ The scattering system handles the distribution of discrete objects over a terrai
 \item {\ttfamily \doxylink{classhmap_1_1ScatterItem}{hmap\+::\+Scatter\+Item}}\+: Basic element storing a 3D position, an integer class identifier, and a radius.
 \item {\ttfamily \doxylink{classhmap_1_1ScatterField}{hmap\+::\+Scatter\+Field}}\+: Container providing spatial operations (collision pruning, density maps, elevation projection).
 \item {\ttfamily \doxylink{classhmap_1_1Forest}{hmap\+::\+Forest}}\+: Scattering container for vegetation and growth models.
-\item {\ttfamily \doxylink{classhmap_1_1RockField}{hmap\+::\+Rock\+Field}}\+: Scattering container for rock and debris placement. 
-\end{DoxyItemize}
+\item {\ttfamily \doxylink{classhmap_1_1RockField}{hmap\+::\+Rock\+Field}}\+: Scattering container for rock and debris placement.
+\end{DoxyItemize}\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md135}{}\doxysection{\texorpdfstring{6. Spatial Coordinates\+: UV, BBox, and Coord\+Frame}{6. Spatial Coordinates\+: UV, BBox, and Coord\+Frame}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md135}
+High\+Map distinguishes three complementary 2D spatial representations depending on whether coordinates are normalized, axis-\/aligned in world space, or oriented\+:
+
+
+\begin{DoxyTable}{5}{}{}{1}
+\SetCell{bg=\tableheadbgcolor,font=\bfseries}Concept  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Type  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Coordinate Space  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Rotation  &\SetCell{bg=\tableheadbgcolor,font=\bfseries}Primary Use  \\
+{\bfseries{UV}}  &{\ttfamily hmap\+::\+Uv\+Rect}  &Normalized \$\mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2\$  &No  &Tiling ({\ttfamily Virtual\+Array}, {\ttfamily Virtual\+Texture}), texture/\+UV slicing  \\
+{\bfseries{BBox}}  &{\ttfamily hmap\+::\+BBox2D}  &World / domain space  &No  &Axis-\/aligned bounds ({\ttfamily Cloud}, {\ttfamily Path}, {\ttfamily Graph}, function domains)  \\
+{\bfseries{Coord\+Frame}}  &{\ttfamily \doxylink{classhmap_1_1CoordFrame}{hmap\+::\+Coord\+Frame}}  &World + local \$\mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2\$  &Yes  &Oriented regions, stamps, and local-\/to-\/global transforms  \\
+\end{DoxyTable}
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md136}{}\doxysubsection{\texorpdfstring{UV ({\ttfamily \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2} Normalized Domain)}{UV ({\ttfamily \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2} Normalized Domain)}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md136}
+UV coordinates \$(u, v) \textbackslash{}in \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2\$ represent a normalized, resolution-\/independent unit square. {\ttfamily Virtual\+Array} and {\ttfamily Virtual\+Texture} canonically span \$\mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2\$ in UV space, and each tile carries its own {\ttfamily Uv\+Rect} slice.
+
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md137}{}\doxysubsection{\texorpdfstring{BBox ({\ttfamily BBox2D} Axis-\/\+Aligned Bounding Box)}{BBox ({\ttfamily BBox2D} Axis-\/\+Aligned Bounding Box)}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md137}
+A bounding box defines an axis-\/aligned rectangular region in world or domain coordinates using {\ttfamily (xmin, xmax, ymin, ymax)}. It is used for spatial extents of geometric primitives ({\ttfamily Cloud}, {\ttfamily Path}, {\ttfamily Graph}), evaluation domains, and fast overlap checks.
+
+\hypertarget{md_docs_2content_2getting__started_2core__concepts_autotoc_md138}{}\doxysubsection{\texorpdfstring{Coord\+Frame ({\ttfamily Coord\+Frame} Oriented Local Frame)}{Coord\+Frame ({\ttfamily Coord\+Frame} Oriented Local Frame)}}\label{md_docs_2content_2getting__started_2core__concepts_autotoc_md138}
+{\ttfamily \doxylink{classhmap_1_1CoordFrame}{hmap\+::\+Coord\+Frame}} defines an oriented 2D coordinate frame with an {\ttfamily origin}, {\ttfamily size}, and {\ttfamily rotation\+\_\+angle}. It maps between local unit coordinates \$(r\+\_\+x, r\+\_\+y) \textbackslash{}in \mbox{[}0, 1\mbox{]}\texorpdfstring{$^\wedge$}{\string^}2\$ ({\ttfamily map\+\_\+to\+\_\+global\+\_\+coords}) and global world coordinates \$(g\+\_\+x, g\+\_\+y)\$ ({\ttfamily map\+\_\+to\+\_\+relative\+\_\+coords}), and can compute its enclosing axis-\/aligned bounding box via {\ttfamily compute\+\_\+bounding\+\_\+box()}.
+
+ 

@@ -103,6 +103,34 @@
 <codeline><highlight class="normal">-<sp/>`hmap::ScatterField`:<sp/>Container<sp/>providing<sp/>spatial<sp/>operations<sp/>(collision<sp/>pruning,<sp/>density<sp/>maps,<sp/>elevation<sp/>projection).</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>`hmap::Forest`:<sp/>Scattering<sp/>container<sp/>for<sp/>vegetation<sp/>and<sp/>growth<sp/>models.</highlight></codeline>
 <codeline><highlight class="normal">-<sp/>`hmap::RockField`:<sp/>Scattering<sp/>container<sp/>for<sp/>rock<sp/>and<sp/>debris<sp/>placement.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>6.<sp/>Spatial<sp/>Coordinates:<sp/>UV,<sp/>BBox,<sp/>and<sp/>CoordFrame</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">HighMap<sp/>distinguishes<sp/>three<sp/>complementary<sp/>2D<sp/>spatial<sp/>representations<sp/>depending<sp/>on<sp/>whether<sp/>coordinates<sp/>are<sp/>normalized,<sp/>axis-aligned<sp/>in<sp/>world<sp/>space,<sp/>or<sp/>oriented:</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">|<sp/>Concept<sp/>|<sp/>Type<sp/>|<sp/>Coordinate<sp/>Space<sp/>|<sp/>Rotation<sp/>|<sp/>Primary<sp/>Use<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|<sp/>:---<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**UV**<sp/>|<sp/>`hmap::UvRect`<sp/>|<sp/>Normalized<sp/>$[0,<sp/>1]^2$<sp/>|<sp/>No<sp/>|<sp/>Tiling<sp/>(`VirtualArray`,<sp/>`VirtualTexture`),<sp/>texture/UV<sp/>slicing<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**BBox**<sp/>|<sp/>`hmap::BBox2D`<sp/>|<sp/>World<sp/>/<sp/>domain<sp/>space<sp/>|<sp/>No<sp/>|<sp/>Axis-aligned<sp/>bounds<sp/>(`Cloud`,<sp/>`Path`,<sp/>`Graph`,<sp/>function<sp/>domains)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>**CoordFrame**<sp/>|<sp/>`hmap::CoordFrame`<sp/>|<sp/>World<sp/>+<sp/>local<sp/>$[0,<sp/>1]^2$<sp/>|<sp/>Yes<sp/>|<sp/>Oriented<sp/>regions,<sp/>stamps,<sp/>and<sp/>local-to-global<sp/>transforms<sp/>|</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>UV<sp/>(`[0,<sp/>1]^2`<sp/>Normalized<sp/>Domain)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">UV<sp/>coordinates<sp/>$(u,<sp/>v)<sp/>\in<sp/>[0,<sp/>1]^2$<sp/>represent<sp/>a<sp/>normalized,<sp/>resolution-independent<sp/>unit<sp/>square.<sp/>`VirtualArray`<sp/>and<sp/>`VirtualTexture`<sp/>canonically<sp/>span<sp/>$[0,<sp/>1]^2$<sp/>in<sp/>UV<sp/>space,<sp/>and<sp/>each<sp/>tile<sp/>carries<sp/>its<sp/>own<sp/>`UvRect`<sp/>slice.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![UV<sp/>Space<sp/>[0,<sp/>1]^2](../../images/spatial_uv.svg)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>BBox<sp/>(`BBox2D`<sp/>Axis-Aligned<sp/>Bounding<sp/>Box)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">A<sp/>bounding<sp/>box<sp/>defines<sp/>an<sp/>axis-aligned<sp/>rectangular<sp/>region<sp/>in<sp/>world<sp/>or<sp/>domain<sp/>coordinates<sp/>using<sp/>`(xmin,<sp/>xmax,<sp/>ymin,<sp/>ymax)`.<sp/>It<sp/>is<sp/>used<sp/>for<sp/>spatial<sp/>extents<sp/>of<sp/>geometric<sp/>primitives<sp/>(`Cloud`,<sp/>`Path`,<sp/>`Graph`),<sp/>evaluation<sp/>domains,<sp/>and<sp/>fast<sp/>overlap<sp/>checks.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![BBox2D<sp/>Axis-Aligned<sp/>Bounding<sp/>Box](../../images/spatial_bbox.svg)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>CoordFrame<sp/>(`CoordFrame`<sp/>Oriented<sp/>Local<sp/>Frame)</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">`hmap::CoordFrame`<sp/>defines<sp/>an<sp/>oriented<sp/>2D<sp/>coordinate<sp/>frame<sp/>with<sp/>an<sp/>`origin`,<sp/>`size`,<sp/>and<sp/>`rotation_angle`.<sp/>It<sp/>maps<sp/>between<sp/>local<sp/>unit<sp/>coordinates<sp/>$(r_x,<sp/>r_y)<sp/>\in<sp/>[0,<sp/>1]^2$<sp/>(`map_to_global_coords`)<sp/>and<sp/>global<sp/>world<sp/>coordinates<sp/>$(g_x,<sp/>g_y)$<sp/>(`map_to_relative_coords`),<sp/>and<sp/>can<sp/>compute<sp/>its<sp/>enclosing<sp/>axis-aligned<sp/>bounding<sp/>box<sp/>via<sp/>`compute_bounding_box()`.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">![CoordFrame<sp/>Oriented<sp/>Local<sp/>Frame](../../images/spatial_coordframe.svg)</highlight></codeline>
     </programlisting>
     <location file="docs/content/getting_started/core_concepts.md"/>
   </compounddef>

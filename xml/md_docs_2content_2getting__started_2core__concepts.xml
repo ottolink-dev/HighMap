@@ -104,9 +104,57 @@
 <listitem><para><computeroutput><ref refid="classhmap_1_1ScatterItem" kindref="compound">hmap::ScatterItem</ref></computeroutput>: Basic element storing a 3D position, an integer class identifier, and a radius.</para>
 </listitem><listitem><para><computeroutput><ref refid="classhmap_1_1ScatterField" kindref="compound">hmap::ScatterField</ref></computeroutput>: Container providing spatial operations (collision pruning, density maps, elevation projection).</para>
 </listitem><listitem><para><computeroutput><ref refid="classhmap_1_1Forest" kindref="compound">hmap::Forest</ref></computeroutput>: Scattering container for vegetation and growth models.</para>
-</listitem><listitem><para><computeroutput><ref refid="classhmap_1_1RockField" kindref="compound">hmap::RockField</ref></computeroutput>: Scattering container for rock and debris placement. </para>
+</listitem><listitem><para><computeroutput><ref refid="classhmap_1_1RockField" kindref="compound">hmap::RockField</ref></computeroutput>: Scattering container for rock and debris placement.</para>
 </listitem></itemizedlist>
 </para>
+</sect1>
+<sect1 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md135">
+<title>6. Spatial Coordinates: UV, BBox, and CoordFrame</title><para>HighMap distinguishes three complementary 2D spatial representations depending on whether coordinates are normalized, axis-aligned in world space, or oriented:</para>
+<para><table rows="4" cols="5"><row>
+<entry thead="yes" align='left'><para>Concept  </para>
+</entry><entry thead="yes" align='left'><para>Type  </para>
+</entry><entry thead="yes" align='left'><para>Coordinate Space  </para>
+</entry><entry thead="yes" align='left'><para>Rotation  </para>
+</entry><entry thead="yes" align='left'><para>Primary Use  </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>UV</bold>  </para>
+</entry><entry thead="no" align='left'><para><computeroutput>hmap::UvRect</computeroutput>  </para>
+</entry><entry thead="no" align='left'><para>Normalized $[0, 1]^2$  </para>
+</entry><entry thead="no" align='left'><para>No  </para>
+</entry><entry thead="no" align='left'><para>Tiling (<computeroutput>VirtualArray</computeroutput>, <computeroutput>VirtualTexture</computeroutput>), texture/UV slicing  </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>BBox</bold>  </para>
+</entry><entry thead="no" align='left'><para><computeroutput>hmap::BBox2D</computeroutput>  </para>
+</entry><entry thead="no" align='left'><para>World / domain space  </para>
+</entry><entry thead="no" align='left'><para>No  </para>
+</entry><entry thead="no" align='left'><para>Axis-aligned bounds (<computeroutput>Cloud</computeroutput>, <computeroutput>Path</computeroutput>, <computeroutput>Graph</computeroutput>, function domains)  </para>
+</entry></row>
+<row>
+<entry thead="no" align='left'><para><bold>CoordFrame</bold>  </para>
+</entry><entry thead="no" align='left'><para><computeroutput><ref refid="classhmap_1_1CoordFrame" kindref="compound">hmap::CoordFrame</ref></computeroutput>  </para>
+</entry><entry thead="no" align='left'><para>World + local $[0, 1]^2$  </para>
+</entry><entry thead="no" align='left'><para>Yes  </para>
+</entry><entry thead="no" align='left'><para>Oriented regions, stamps, and local-to-global transforms  </para>
+</entry></row>
+</table>
+</para>
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md136">
+<title>UV (<computeroutput>[0, 1]^2</computeroutput> Normalized Domain)</title><para>UV coordinates $(u, v) \in [0, 1]^2$ represent a normalized, resolution-independent unit square. <computeroutput>VirtualArray</computeroutput> and <computeroutput>VirtualTexture</computeroutput> canonically span $[0, 1]^2$ in UV space, and each tile carries its own <computeroutput>UvRect</computeroutput> slice.</para>
+<para><image type="html" name="../../images/spatial_uv.svg" alt="UV Space [0, 1]^2" inline="yes"></image>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md137">
+<title>BBox (<computeroutput>BBox2D</computeroutput> Axis-Aligned Bounding Box)</title><para>A bounding box defines an axis-aligned rectangular region in world or domain coordinates using <computeroutput>(xmin, xmax, ymin, ymax)</computeroutput>. It is used for spatial extents of geometric primitives (<computeroutput>Cloud</computeroutput>, <computeroutput>Path</computeroutput>, <computeroutput>Graph</computeroutput>), evaluation domains, and fast overlap checks.</para>
+<para><image type="html" name="../../images/spatial_bbox.svg" alt="BBox2D Axis-Aligned Bounding Box" inline="yes"></image>
+</para>
+</sect2>
+<sect2 id="md_docs_2content_2getting__started_2core__concepts_1autotoc_md138">
+<title>CoordFrame (<computeroutput>CoordFrame</computeroutput> Oriented Local Frame)</title><para><computeroutput><ref refid="classhmap_1_1CoordFrame" kindref="compound">hmap::CoordFrame</ref></computeroutput> defines an oriented 2D coordinate frame with an <computeroutput>origin</computeroutput>, <computeroutput>size</computeroutput>, and <computeroutput>rotation_angle</computeroutput>. It maps between local unit coordinates $(r_x, r_y) \in [0, 1]^2$ (<computeroutput>map_to_global_coords</computeroutput>) and global world coordinates $(g_x, g_y)$ (<computeroutput>map_to_relative_coords</computeroutput>), and can compute its enclosing axis-aligned bounding box via <computeroutput>compute_bounding_box()</computeroutput>.</para>
+<para><image type="html" name="../../images/spatial_coordframe.svg" alt="CoordFrame Oriented Local Frame" inline="yes"></image>
+ </para>
+</sect2>
 </sect1>
     </detaileddescription>
     <location file="docs/content/getting_started/core_concepts.md"/>
