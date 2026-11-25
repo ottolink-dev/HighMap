@@ -23,19 +23,6 @@ var namespacehmap_1_1gpu =
       [ "LM_RUGOSITY_CONVEX", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895fac1321c034ba09831f5b5a040058f9477", null ],
       [ "LM_TOPOGRAPHIC_RESIDUAL", "namespacehmap_1_1gpu.html#ab0737b29664736928a86f0755493895faec1bb414a9d061b9446fe34fc55ca56d", null ]
     ] ],
-    [ "MorphologyOperation", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524", [
-      [ "MO_BORDER", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a85974c420302511f55e4508faf24b0e0", null ],
-      [ "MO_CLOSING", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524af933afdfc99c4f8e5e84358523213569", null ],
-      [ "MO_DILATION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524af70471053657b11e98215522c43d5d88", null ],
-      [ "MO_EROSION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524aca82576382d7a0cfbb45d565df648fdb", null ],
-      [ "MO_OPENING", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a58b48009144fcbb385c9e810856d11ed", null ],
-      [ "MO_BLACK_HAT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a7b1e3164a00ba334e24481cbfde31656", null ],
-      [ "MO_TOP_HAT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a0f05410be8b31c8f9b33a866983e1133", null ],
-      [ "MO_GRADIENT", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a4f9039194ac974b7b868a2f09576ca2f", null ],
-      [ "MO_LAPLACIAN", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524a52615d07ce734b27abf913fd568b3b5f", null ],
-      [ "MO_CLOSING_BY_RECONSTRUCTION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524ae3ea7435d6983bfaad057a6d2b4b2cbd", null ],
-      [ "MO_OPENING_BY_RECONSTRUCTION", "namespacehmap_1_1gpu.html#a52a5313f04d6f478ca97c601722c8524abedc792af6bf0d76c43487cb47e47992", null ]
-    ] ],
     [ "blend_gradients", "namespacehmap_1_1gpu.html#a3a43696b1d6b8f0d966f9f05e5085edf", null ],
     [ "blend_poisson_bf", "namespacehmap_1_1gpu.html#a65a176508b404f80e5f5abd31456712e", null ],
     [ "blend_poisson_bf", "namespacehmap_1_1gpu.html#a11510c63a1d13a6107720f6e220f13de", null ],

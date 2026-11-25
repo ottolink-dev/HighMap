@@ -238,16 +238,16 @@ var NAVTREEINDEX =
 "namespacehmap.html#a9648a23e61a84a702d89159d516dd4ec",
 "namespacehmap.html#ac70fe3cbb32e0340d5dd3e15cdcf9369a4eb53d94f58e93c3bdb554d8cca7f306",
 "namespacehmap.html#afaefd4e8848d0155162b24a1a67f9479",
-"namespacehmap_1_1gpu.html#ab10a6dc3d92519c7bd3244571bcd6429",
-"poi_8cpp.html",
-"structhmap_1_1Edge.html#a98358a23447279dde010430f00e4d139",
-"structhmap_1_1PoiGenerationOptions.html#affb1fa86633ea1d324e9a571bc04edeb",
-"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html",
-"structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a4a58f6aa57d4f9bfa0fbaccbec73ed3e",
-"test__decimate__vw_8cpp.html#a8b48ea5895c2947cf9cf565bd2b3f924",
-"test__interpolate1d_8cpp.html#a9683de8c0d8b56e0168815feee563d05",
-"test__range_8cpp.html#a12af8bfcdc9e8da74154a6ab1e1a3a1f",
-"test__validation_8cpp.html#a801157cbe9e3da0454958d5763191a40"
+"namespacehmap_1_1gpu.html#abe223a120cbca1cedc1eb8b8392a93b8",
+"primitives_2random_8hpp.html",
+"structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4",
+"structhmap_1_1PointOfInterest.html#aec44c1484804a70b37aafa3581a65b9f",
+"structhmap_1_1TerrainTriMesh_1_1MeshPathCostConfig.html#a273ae8b085bc1309827cb47afdc2ea9aab372763954316f3e914ee39ce92124ef",
+"structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a9d7d3bf7812591411cbb92a28f30f540",
+"test__distance__transform_8cpp.html#a0851541028fba7d5d52e677b41d0f920",
+"test__interpolate__array__empty__source_8cpp.html#ae8ade7097d19dc83f99134ebc0b38f2e",
+"test__range_8cpp.html#a83800fe321e3ee89fc5891f1b405b727",
+"test__valley__head_8cpp.html#a49e99ae0e5b6b1c83eb89a8cfaf06db6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
