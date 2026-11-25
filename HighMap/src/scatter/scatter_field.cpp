@@ -229,9 +229,9 @@ ScatterField ScatterField::filter_by_class(uint32_t class_id) const
   return filtered;
 }
 
-glm::vec4 ScatterField::get_bbox() const
+BBox2D ScatterField::get_bbox() const
 {
-  if (items.empty()) return {0.f, 1.f, 0.f, 1.f};
+  if (items.empty()) return BBox2D::unit();
 
   float xmin = items[0].position.x;
   float xmax = items[0].position.x;
@@ -246,7 +246,7 @@ glm::vec4 ScatterField::get_bbox() const
     ymax = std::max(ymax, item.position.y);
   }
 
-  return {xmin, xmax, ymin, ymax};
+  return BBox2D({xmin, xmax, ymin, ymax});
 }
 
 std::vector<uint32_t> ScatterField::get_class_ids() const
@@ -319,7 +319,7 @@ void ScatterField::pack_interstitial(size_t        count,
   glm::vec4 effective_bbox = uv_rect.to_vec4();
   if (std::abs(effective_bbox.y - effective_bbox.x) < 1e-6f)
   {
-    effective_bbox = get_bbox();
+    effective_bbox = get_bbox().to_vec4();
   }
 
   float width = effective_bbox.y - effective_bbox.x;
@@ -1740,7 +1740,7 @@ std::string ScatterField::to_string() const
   std::ostringstream ss;
   ss.imbue(std::locale("C"));
 
-  const UvRect &uv_rect = get_bbox();
+  const UvRect uv_rect = UvRect::from_vec4(get_bbox().to_vec4());
 
   std::map<uint32_t, size_t> class_counts;
   std::map<uint32_t, float>  class_radii_sum;

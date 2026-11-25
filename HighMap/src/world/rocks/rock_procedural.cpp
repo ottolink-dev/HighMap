@@ -224,9 +224,10 @@ RockField place_rocks_procedural(size_t       rock_count,
 
   for (auto &rock : rock_field)
   {
-    const float e = z_norm.get_value_bilinear(rock.position.x,
-                                              rock.position.y,
-                                              options.bbox);
+    const float e = z_norm.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
 
     const float t = std::clamp(size_elevation_gain *
                                    std::pow(1.f - e, size_elevation_exponent),
@@ -234,9 +235,10 @@ RockField place_rocks_procedural(size_t       rock_count,
                                1.f);
 
     // steep slopes reduce the maximum rock size
-    const float s = slope.get_value_bilinear(rock.position.x,
-                                             rock.position.y,
-                                             options.bbox);
+    const float s = slope.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
 
     const float slope_factor = 1.f -
                                std::clamp(size_slope_weight, 0.f, 1.f) * s;
@@ -253,9 +255,10 @@ RockField place_rocks_procedural(size_t       rock_count,
 
     rock.radius = std::clamp(radius, radius_min, local_radius_max);
     rock.class_id = options.distribution.class_id;
-    rock.position.z = elevation.get_value_bilinear(rock.position.x,
-                                                   rock.position.y,
-                                                   options.bbox);
+    rock.position.z = elevation.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
   }
 
   return rock_field;
@@ -422,7 +425,7 @@ RockField place_rocks_procedural(size_t              rock_count,
         }
 
         RockSeedingOptions tile_options = options;
-        tile_options.bbox = region.uv_rect.to_vec4();
+        tile_options.bbox = BBox2D(region.uv_rect.to_vec4());
         tile_options.seed = options.seed +
                             static_cast<uint32_t>(tile_index) * 1999u + 17u;
 

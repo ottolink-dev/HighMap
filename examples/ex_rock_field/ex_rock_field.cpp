@@ -35,7 +35,7 @@ int main(void)
 
   hmap::RockSeedingOptions options;
   options.seed = static_cast<uint32_t>(seed);
-  options.bbox = {0.f, 1.f, 0.f, 1.f};
+  options.bbox = hmap::BBox2D::unit();
   options.distribution = hmap::RockDistribution(0u,
                                                 0.001f,
                                                 0.005f,
@@ -65,7 +65,7 @@ int main(void)
                           0.0015f,
                           1u,
                           1337,
-                          options.bbox);
+                          hmap::UvRect::from_vec4(options.bbox.to_vec4()));
 
   // --- 6. Prune Collisions and Project Elevation
 

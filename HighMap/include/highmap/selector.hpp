@@ -262,7 +262,7 @@ Array select_interval(const Array &array, float value1, float value2);
  */
 Array select_inward_outward_slope(const Array &array,
                                   glm::vec2    center = {0.5f, 0.5f},
-                                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                                  const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @brief Return an array with elements equal to 1 where input elements are

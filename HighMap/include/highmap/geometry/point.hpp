@@ -518,6 +518,6 @@ float triangle_area_signed(const Point &p1, const Point &p2, const Point &p3);
  *
  * @return glm::vec4 Unit square bounding box.
  */
-glm::vec4 unit_square_bbox();
+BBox2D unit_square_bbox();
 
 } // namespace hmap

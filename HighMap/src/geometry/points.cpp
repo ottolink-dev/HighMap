@@ -376,7 +376,7 @@ float triangle_area_signed(const Point &p1, const Point &p2, const Point &p3)
          (p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y));
 }
 
-glm::vec4 unit_square_bbox()
+BBox2D unit_square_bbox()
 {
   return glm::vec4(0.f, 1.f, 0.f, 1.f);
 }

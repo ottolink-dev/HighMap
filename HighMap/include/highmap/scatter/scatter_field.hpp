@@ -199,7 +199,7 @@ public:
    * @brief Computes the 2D bounding box enclosing all item positions.
    * @return glm::vec4 Bounding box as {xmin, xmax, ymin, ymax}.
    */
-  glm::vec4 get_bbox() const;
+  BBox2D get_bbox() const;
 
   /**
    * @brief Returns a sorted list of unique class identifiers present in the

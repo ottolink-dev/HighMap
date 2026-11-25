@@ -187,7 +187,7 @@ TEST(ForestTest, FilterByClassAndClassIds)
 TEST(ForestTest, GetBbox)
 {
   Forest    empty_forest;
-  glm::vec4 bbox_empty = empty_forest.get_bbox();
+  glm::vec4 bbox_empty = empty_forest.get_bbox().to_vec4();
   EXPECT_TRUE(float_eq(bbox_empty.x, 0.f));
   EXPECT_TRUE(float_eq(bbox_empty.y, 1.f));
 
@@ -196,7 +196,7 @@ TEST(ForestTest, GetBbox)
   forest.push_back(Tree(50.f, 5.f, 0.f));
   forest.push_back(Tree(30.f, 60.f, 0.f));
 
-  glm::vec4 bbox = forest.get_bbox();
+  glm::vec4 bbox = forest.get_bbox().to_vec4();
   EXPECT_TRUE(float_eq(bbox.x, 10.f));
   EXPECT_TRUE(float_eq(bbox.y, 50.f));
   EXPECT_TRUE(float_eq(bbox.z, 5.f));

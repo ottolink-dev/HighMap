@@ -28,7 +28,7 @@ class RockField;
  */
 struct RockSimulationOptions
 {
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
+  BBox2D bbox = BBox2D::unit(); ///< Domain bounding box.
   float time_step = 0.005f;              ///< Simulation time step dt in seconds.
   int   max_steps = 1500;                ///< Maximum total simulation steps.
   float gravity = 9.81f;                 ///< Gravitational acceleration.

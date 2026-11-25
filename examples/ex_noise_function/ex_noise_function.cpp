@@ -8,7 +8,7 @@ int main(void)
   std::uint32_t seed = 1;
 
   hmap::Array z = hmap::Array(shape);
-  glm::vec4   bbox = hmap::unit_square_bbox();
+  hmap::BBox2D bbox = hmap::unit_square_bbox();
 
   float mu = 1.02f;
 
@@ -16,7 +16,13 @@ int main(void)
 
   hmap::FbmFunction f(p, 8, 0.7f, 0.5f, 2.f);
 
-  fill_array_using_xy_function(z, bbox, nullptr, nullptr, nullptr, nullptr, f);
+  fill_array_using_xy_function(z,
+                               hmap::UvRect::from_vec4(bbox.to_vec4()),
+                               nullptr,
+                               nullptr,
+                               nullptr,
+                               nullptr,
+                               f);
 
   z.to_png("out.png", hmap::Cmap::TERRAIN, true);
   z.infos();
