@@ -57,4 +57,3 @@
 #include "highmap/world/flora.hpp"
 #include "highmap/world/roads.hpp"
 #include "highmap/world/rocks.hpp"
-#include "highmap/world/terrain_layer.hpp"
