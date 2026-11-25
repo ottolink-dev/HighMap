@@ -130,7 +130,7 @@ TEST(RockFieldTest, VirtualArraySeeding)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
 
-  VirtualArray density(shape, bbox, tile_shape, halo);
+  VirtualArray density(shape, tile_shape, halo);
   ComputeMode  cm;
   density.fill(1.0f, cm);
 
@@ -170,8 +170,8 @@ TEST(RockFieldTest, VirtualArrayExclusionMask)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
 
-  VirtualArray density(shape, bbox, tile_shape, halo);
-  VirtualArray exclusion(shape, bbox, tile_shape, halo);
+  VirtualArray density(shape, tile_shape, halo);
+  VirtualArray exclusion(shape, tile_shape, halo);
   ComputeMode  cm;
   density.fill(1.0f, cm);
   exclusion.fill(0.0f, cm);
@@ -216,7 +216,7 @@ TEST(RockFieldTest, VirtualArrayEmptyAndZeroDensity)
 
   glm::ivec2   shape = {32, 32};
   glm::ivec2   tile_shape = {16, 16};
-  VirtualArray zero_density(shape, {0.f, 1.f, 0.f, 1.f}, tile_shape, 2);
+  VirtualArray zero_density(shape, tile_shape, 2);
   zero_density.fill(0.0f, cm);
 
   RockField f2 = hmap::va::seed_rock_field(50, zero_density);
@@ -680,7 +680,7 @@ TEST(RockProceduralTest, VirtualArrayBasicExecution)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
 
-  VirtualArray elevation(shape, bbox, tile_shape, halo);
+  VirtualArray elevation(shape, tile_shape, halo);
   ComputeMode  cm;
   elevation.fill(0.5f, cm);
 
@@ -728,8 +728,8 @@ TEST(RockProceduralTest, VirtualArrayExclusionMask)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
 
-  VirtualArray elevation(shape, bbox, tile_shape, halo);
-  VirtualArray exclusion(shape, bbox, tile_shape, halo);
+  VirtualArray elevation(shape, tile_shape, halo);
+  VirtualArray exclusion(shape, tile_shape, halo);
   ComputeMode  cm;
   elevation.fill(0.3f, cm);
   exclusion.fill(0.0f, cm);
@@ -781,10 +781,10 @@ TEST(RockProceduralTest, VirtualArrayEmptyAndZeroDensity)
 
   glm::ivec2   shape = {32, 32};
   glm::ivec2   tile_shape = {16, 16};
-  VirtualArray elevation(shape, {0.f, 1.f, 0.f, 1.f}, tile_shape, 2);
+  VirtualArray elevation(shape, tile_shape, 2);
   elevation.fill(0.5f, cm);
 
-  VirtualArray zero_density(shape, {0.f, 1.f, 0.f, 1.f}, tile_shape, 2);
+  VirtualArray zero_density(shape, tile_shape, 2);
   zero_density.fill(0.0f, cm);
 
   RockField f2 = hmap::va::place_rocks_procedural(50,
@@ -820,7 +820,7 @@ TEST(RockDensityTest, TiledBoundingBox)
                                      1.0f,
                                      {},
                                      0.f,
-                                     {0.f, 0.5f, 0.f, 0.5f});
+                                     BBox2D({0.f, 0.5f, 0.f, 0.5f}));
 
   Array d_tile2 = build_rock_density(hmap,
                                      0.05f,
@@ -834,7 +834,7 @@ TEST(RockDensityTest, TiledBoundingBox)
                                      1.0f,
                                      {},
                                      0.f,
-                                     {0.5f, 1.f, 0.5f, 1.f});
+                                     BBox2D({0.5f, 1.f, 0.5f, 1.f}));
 
   EXPECT_EQ(d_tile1.shape.x, 32);
   EXPECT_EQ(d_tile2.shape.x, 32);

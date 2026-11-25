@@ -240,13 +240,8 @@ TEST(FlowAccumulationDinf, StandaloneVsTiledCommunicator)
 
   // 2. Distributed execution across tiles using for_each_tile with
   // ICommunicator
-  hmap::VirtualArray z_va(shape,
-                          bbox,
-                          tile_shape,
-                          halo,
-                          hmap::StorageMode::VA_RAM);
+  hmap::VirtualArray z_va(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
   hmap::VirtualArray facc_va(shape,
-                             bbox,
                              tile_shape,
                              halo,
                              hmap::StorageMode::VA_RAM);

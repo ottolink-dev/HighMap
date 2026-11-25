@@ -15,7 +15,7 @@ TEST(VirtualArrayTest, ConstructionAndProperties)
   glm::ivec2 tile_shape{32, 32};
   int        halo = 4;
 
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
 
   EXPECT_EQ(va.shape, shape);
   EXPECT_EQ(va.tile_shape, tile_shape);
@@ -77,7 +77,7 @@ TEST(VirtualArrayTest, TileRegionInnerBbox)
   glm::vec4    bbox{0.f, 64.f, 0.f, 64.f};
   glm::ivec2   tile_shape{32, 32};
   int          halo = 4;
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
 
   // Tile (0, 0): inner x in [0, 32], inner y in [0, 32]
   UvTile r00 = va.tile_region_from_tile_coords(0, 0);

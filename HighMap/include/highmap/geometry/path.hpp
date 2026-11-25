@@ -758,7 +758,7 @@ Path meanderize(
  */
 Array path_sdf_bezier_to_array(const Path  &path,
                                glm::ivec2   shape,
-                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+                               const BBox2D &bbox_array = BBox2D::unit(),
                                const Array *p_noise_x = nullptr,
                                const Array *p_noise_y = nullptr,
                                bool         use_bvh = true);
@@ -766,13 +766,13 @@ Array path_sdf_bezier_to_array(const Path  &path,
 Array path_sdf_bezier_to_array_brute_force(
     const Path  &path,
     glm::ivec2   shape,
-    glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
+    const BBox2D &bbox_array = BBox2D::unit(),
     const Array *p_noise_x = nullptr,
     const Array *p_noise_y = nullptr);
 
 Array path_sdf_bezier_to_array_bvh(const Path &path,
                                    glm::ivec2  shape,
-                                   glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f},
+                                   const BBox2D &bbox_array = BBox2D::unit(),
                                    const Array *p_noise_x = nullptr,
                                    const Array *p_noise_y = nullptr);
 
@@ -790,41 +790,43 @@ Array path_sdf_bezier_to_array_bvh(const Path &path,
  * @param  use_bvh    Whether to use BVH acceleration (default: true).
  * @return            Array of distances to the nearest point.
  */
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                        const Array *p_noise_x = nullptr,
-                        const Array *p_noise_y = nullptr,
-                        bool         use_bvh = true);
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const BBox2D &bbox_array = BBox2D::unit(),
+                        const Array  *p_noise_x = nullptr,
+                        const Array  *p_noise_y = nullptr,
+                        bool          use_bvh = true);
 
-Array path_sdf_to_array_brute_force(const Path &path,
-                                    glm::ivec2  shape,
-                                    glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f},
-                                    const Array *p_noise_x = nullptr,
-                                    const Array *p_noise_y = nullptr);
+Array path_sdf_to_array_brute_force(
+    const Path   &path,
+    glm::ivec2    shape,
+    const BBox2D &bbox_array = BBox2D::unit(),
+    const Array  *p_noise_x = nullptr,
+    const Array  *p_noise_y = nullptr);
 
-Array path_sdf_to_array_bvh(const Path  &path,
-                            glm::ivec2   shape,
-                            glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                            const Array *p_noise_x = nullptr,
-                            const Array *p_noise_y = nullptr);
+Array path_sdf_to_array_bvh(
+    const Path   &path,
+    glm::ivec2    shape,
+    const BBox2D &bbox_array = BBox2D::unit(),
+    const Array  *p_noise_x = nullptr,
+    const Array  *p_noise_y = nullptr);
 
 namespace gpu
 {
 
 /*! @brief See hmap::path_sdf_bezier_to_array */
-Array path_sdf_bezier_to_array(const Path  &path,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                               const Array *p_noise_x = nullptr,
-                               const Array *p_noise_y = nullptr);
+Array path_sdf_bezier_to_array(const Path   &path,
+                               glm::ivec2    shape,
+                               const UvRect &uv_rect_array = UvRect::unit(),
+                               const Array  *p_noise_x = nullptr,
+                               const Array  *p_noise_y = nullptr);
 
 /*! @brief See hmap::path_sdf_to_array */
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                        const Array *p_noise_x = nullptr,
-                        const Array *p_noise_y = nullptr);
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect_array = UvRect::unit(),
+                        const Array  *p_noise_x = nullptr,
+                        const Array  *p_noise_y = nullptr);
 
 } // namespace gpu
 

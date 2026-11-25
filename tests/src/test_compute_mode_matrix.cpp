@@ -408,28 +408,20 @@ TEST_F(ComputeModeMatrixTest, SnowSimulation4KMinimalMemory)
   glm::ivec2 tile_shape = {1024, 1024}; // 4x4 = 16 tiles
   int        halo = 32;
 
-  VirtualArray va_z(shape,
-                    {-1.f, 1.f, -1.f, 1.f},
-                    tile_shape,
-                    halo,
-                    StorageMode::VA_DISK_LRU_STREAM);
+  VirtualArray va_z(shape, tile_shape, halo, StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_snow(shape,
-                       {-1.f, 1.f, -1.f, 1.f},
                        tile_shape,
                        halo,
                        StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_depth(shape,
-                        {-1.f, 1.f, -1.f, 1.f},
                         tile_shape,
                         halo,
                         StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_talus(shape,
-                        {-1.f, 1.f, -1.f, 1.f},
                         tile_shape,
                         halo,
                         StorageMode::VA_DISK_LRU_STREAM);
   VirtualArray va_melting(shape,
-                          {-1.f, 1.f, -1.f, 1.f},
                           tile_shape,
                           halo,
                           StorageMode::VA_DISK_LRU_STREAM);

@@ -454,7 +454,7 @@ TEST(HydraulicMise, VirtualArrayComparison)
       .stride = 1,
   };
 
-  VirtualArray z_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray z_va(shape, tile_shape, halo, StorageMode::VA_RAM);
   z_va.from_array(z0, cm);
 
   // Cut-off resolution set to 64 so that tileable computation path is triggered

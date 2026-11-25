@@ -42,7 +42,7 @@ Array ridgelines(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, uv_rect);
+  rescale_points_to_unit_square(xrs, yrs, BBox2D(uv_rect.to_vec4()));
 
   // define noise function
   std::function<float(float, float, float)> lambda;
@@ -132,7 +132,7 @@ Array ridgelines_bezier(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, uv_rect);
+  rescale_points_to_unit_square(xrs, yrs, BBox2D(uv_rect.to_vec4()));
 
   // define noise function
   std::function<float(float, float, float)> lambda;

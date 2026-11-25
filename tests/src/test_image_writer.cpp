@@ -136,11 +136,7 @@ TEST(ImageWriterTest, VirtualArrayExportImage)
 
   Array src(shape, 42.5f);
 
-  VirtualArray va(shape,
-                  {-1.f, 1.f, -1.f, 1.f},
-                  tile_shape,
-                  halo,
-                  StorageMode::VA_RAM);
+  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
   ComputeMode  cm;
   cm.mode = ForEachMode::VA_DISTRIBUTED;
 
@@ -171,12 +167,7 @@ TEST(ImageWriterTest, ExportImageVirtualTexture)
   int        halo = 4;
   int        channels = 3;
 
-  VirtualTexture vt(shape,
-                    {-1.f, 1.f, -1.f, 1.f},
-                    tile_shape,
-                    halo,
-                    channels,
-                    StorageMode::VA_RAM);
+  VirtualTexture vt(shape, tile_shape, halo, channels, StorageMode::VA_RAM);
   ComputeMode    cm;
   cm.mode = ForEachMode::VA_DISTRIBUTED;
 

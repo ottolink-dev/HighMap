@@ -37,7 +37,7 @@ int main()
   // Channel-based VirtualTexture
   // ===========================================================================
 
-  hmap::VirtualTexture tex(shape, bbox, tile_shape, halo, 3, storage_mode);
+  hmap::VirtualTexture tex(shape, tile_shape, halo, 3, storage_mode);
 
   const auto fill_channels =
       [](std::vector<hmap::Array *> &tiles, const hmap::UvTile &region)
@@ -79,7 +79,7 @@ int main()
   // Per-pixel VirtualTexture
   // ===========================================================================
 
-  hmap::VirtualTexture tex_px(shape, bbox, tile_shape, halo, 4, storage_mode);
+  hmap::VirtualTexture tex_px(shape, tile_shape, halo, 4, storage_mode);
 
   const auto fill_pixel =
       [](std::vector<float> &px, int i, int j, const hmap::UvTile &region)
@@ -109,7 +109,7 @@ int main()
   // Colorize test
   // ===========================================================================
 
-  hmap::VirtualArray level(shape, bbox, tile_shape, halo, storage_mode);
+  hmap::VirtualArray level(shape, tile_shape, halo, storage_mode);
 
   const auto gen_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {
@@ -125,12 +125,7 @@ int main()
   hmap::for_each_tile(level, gen_noise, cm);
   level.remap(0.f, 1.f, cm);
 
-  hmap::VirtualTexture tex_color(shape,
-                                 bbox,
-                                 tile_shape,
-                                 halo,
-                                 4,
-                                 storage_mode);
+  hmap::VirtualTexture tex_color(shape, tile_shape, halo, 4, storage_mode);
 
   tex_color.fill(3, 1.f, cm);
 
@@ -164,7 +159,7 @@ int main()
   // Mix test
   // ===========================================================================
 
-  hmap::VirtualTexture tex_mix(shape, bbox, tile_shape, halo, 4, storage_mode);
+  hmap::VirtualTexture tex_mix(shape, tile_shape, halo, 4, storage_mode);
 
   hmap::mix(tex_mix, tex_px, tex_color, cm);
   tex_mix.to_png("out3.png", cm);
@@ -189,7 +184,6 @@ int main()
     const size_t     big_halo = 7;
 
     hmap::VirtualTexture tex_small(shape,
-                                   bbox,
                                    small_tile,
                                    big_halo,
                                    3,

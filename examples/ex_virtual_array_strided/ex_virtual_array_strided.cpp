@@ -36,7 +36,7 @@ int main()
   // Virtual arrays
   // ===========================================================================
 
-  hmap::VirtualArray varray(shape, bbox, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray(shape, tile_shape, halo, storage_mode);
 
   // ===========================================================================
   // Tile operations

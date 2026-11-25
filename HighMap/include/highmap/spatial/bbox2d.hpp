@@ -35,6 +35,11 @@ struct BBox2D
   {
   }
 
+  static constexpr BBox2D unit()
+  {
+    return BBox2D(glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f));
+  }
+
   constexpr bool contains(const glm::vec2 &p) const
   {
     return p.x >= min.x && p.x <= max.x && p.y >= min.y && p.y <= max.y;

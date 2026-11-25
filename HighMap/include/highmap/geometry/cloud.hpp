@@ -679,11 +679,11 @@ protected:
  * @param  p_noise_y  Optional y-direction noise (domain warp).
  * @return            Array of distances to the nearest point.
  */
-Array cloud_sdf_to_array(const Cloud &cloud,
-                         glm::ivec2   shape,
-                         glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                         const Array *p_noise_x = nullptr,
-                         const Array *p_noise_y = nullptr);
+Array cloud_sdf_to_array(const Cloud  &cloud,
+                         glm::ivec2    shape,
+                         const BBox2D &bbox_array = BBox2D::unit(),
+                         const Array  *p_noise_x = nullptr,
+                         const Array  *p_noise_y = nullptr);
 
 /**
  * @brief Checks whether the point cloud contains duplicate points.

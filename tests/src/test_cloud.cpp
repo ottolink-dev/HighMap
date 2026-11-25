@@ -114,7 +114,7 @@ TEST(CloudTest, GetBBoxCorrect)
 {
   Cloud cloud(std::vector<Point>{{-1.f, 2.f, 0.f}, {3.f, 4.f, 0.f}});
 
-  glm::vec4 bbox = cloud.get_bbox();
+  glm::vec4 bbox = cloud.get_bbox().to_vec4();
 
   EXPECT_TRUE(floatEq(bbox.x, -1.f));
   EXPECT_TRUE(floatEq(bbox.y, 3.f));
@@ -446,7 +446,7 @@ TEST(CloudTest, ToArrayDegenerateBBoxSafe)
   Array array({10, 10}, 0.f);
 
   // Degenerate bbox (width = 0, height = 0)
-  EXPECT_NO_THROW(cloud.to_array(array, {0.f, 0.f, 0.f, 0.f}));
+  EXPECT_NO_THROW(cloud.to_array(array, BBox2D({0.f, 0.f, 0.f, 0.f})));
 }
 
 TEST(CloudTest, InverseSamplingPointsAndCloud)
@@ -463,7 +463,7 @@ TEST(CloudTest, InverseSamplingPointsAndCloud)
   auto   pts = random_points_inverse_sampling(count,
                                             density,
                                             123,
-                                              {0.f, 1.f, 0.f, 1.f});
+                                            BBox2D::unit());
 
   EXPECT_EQ(pts[0].size(), count);
   EXPECT_EQ(pts[1].size(), count);
@@ -479,7 +479,7 @@ TEST(CloudTest, InverseSamplingPointsAndCloud)
   Cloud cloud = random_cloud_inverse_sampling(count,
                                               density,
                                               123,
-                                              {0.f, 1.f, 0.f, 1.f});
+                                              BBox2D::unit());
   EXPECT_EQ(cloud.size(), count);
 
   // Empty array case
@@ -493,7 +493,7 @@ TEST(CloudTest, InverseSampler2DSequentialAndRegionUpdate)
   glm::ivec2 shape = {32, 32};
   Array      density(shape, 1.f);
 
-  InverseSampler2D sampler(density, 42, {0.f, 1.f, 0.f, 1.f});
+  InverseSampler2D sampler(density, 42, BBox2D::unit());
   EXPECT_GT(sampler.get_total_weight(), 0.f);
 
   // Single sample

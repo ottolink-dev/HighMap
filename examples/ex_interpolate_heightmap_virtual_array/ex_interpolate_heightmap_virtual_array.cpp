@@ -16,8 +16,8 @@ int main(void)
 
   // --- data
 
-  hmap::VirtualArray varray1(shape, bbox, tile_shape, halo, storage_mode);
-  hmap::VirtualArray varray2(shape, bbox, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray1(shape, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray2(shape, tile_shape, halo, storage_mode);
 
   auto lambda_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {

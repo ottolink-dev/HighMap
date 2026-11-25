@@ -328,6 +328,6 @@ void remove_points_outside_bbox(std::vector<float> &x,
  */
 void rescale_points_to_unit_square(std::vector<float> &x,
                                    std::vector<float> &y,
-                                   const UvRect       &uv_rect);
+                                   const BBox2D       &bbox);
 
 } // namespace hmap

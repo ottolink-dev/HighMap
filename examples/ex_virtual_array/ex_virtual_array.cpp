@@ -45,8 +45,8 @@ int main()
   // Virtual arrays
   // ===========================================================================
 
-  hmap::VirtualArray varray(shape, bbox, tile_shape, halo, storage_mode);
-  hmap::VirtualArray varray_binary(shape, bbox, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray(shape, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray_binary(shape, tile_shape, halo, storage_mode);
 
   // ===========================================================================
   // Tile operations
@@ -192,7 +192,7 @@ int main()
                                       {2.f, 2.f},
                                       0);
 
-    hmap::VirtualArray v(shape, bbox, tile_shape, halo, storage_mode);
+    hmap::VirtualArray v(shape, tile_shape, halo, storage_mode);
     v.from_array(src, cm);
 
     auto dst = v.to_array(cm);
@@ -223,7 +223,7 @@ int main()
     const glm::ivec2 small_tile{8, 8};
     const size_t     big_halo = 7;
 
-    hmap::VirtualArray v_small(shape, bbox, small_tile, big_halo, storage_mode);
+    hmap::VirtualArray v_small(shape, small_tile, big_halo, storage_mode);
 
     hmap::for_each_tile(v_small, generate_noise, cm);
     v_small.sync_overlap_buffers();

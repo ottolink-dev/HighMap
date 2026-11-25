@@ -467,15 +467,11 @@ Array path_sdf_to_array(const Path   &path,
                         bool          use_bvh)
 {
   if (use_bvh)
-    return path_sdf_to_array_bvh(path,
-                                 shape,
-                                 bbox_array.to_vec4(),
-                                 p_noise_x,
-                                 p_noise_y);
+    return path_sdf_to_array_bvh(path, shape, bbox_array, p_noise_x, p_noise_y);
 
   return path_sdf_to_array_brute_force(path,
                                        shape,
-                                       bbox_array.to_vec4(),
+                                       bbox_array,
                                        p_noise_x,
                                        p_noise_y);
 }

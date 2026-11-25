@@ -500,7 +500,7 @@ void hydraulic_procedural(
     const Array   *p_noise_x = nullptr,
     const Array   *p_noise_y = nullptr,
     Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect  &uv_rect = UvRect{});
 
 /**
  * @brief Multi-octave (fBm) variant of hydraulic_procedural().
@@ -536,7 +536,7 @@ void hydraulic_procedural_fbm(
     const Array   *p_noise_x = nullptr,
     const Array   *p_noise_y = nullptr,
     Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect  &uv_rect = UvRect{});
 
 void hydraulic_procedural_fbm(
     Array         &z,
@@ -564,7 +564,7 @@ void hydraulic_procedural_fbm(
     const Array   *p_noise_x = nullptr,
     const Array   *p_noise_y = nullptr,
     Array         *p_ridge_mask = nullptr, // ouptput
-    glm::vec4      bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect  &uv_rect = UvRect{});
 
 /**
  * @brief Simulates hydraulic erosion and deposition on a heightmap using Schott

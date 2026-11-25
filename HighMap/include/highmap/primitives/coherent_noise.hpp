@@ -1070,7 +1070,7 @@ Array vorolines(glm::ivec2        shape,
                 const Array      *p_noise_x = nullptr,
                 const Array      *p_noise_y = nullptr,
                 const UvRect &uv_rect = UvRect::unit(),
-                glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect_points = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi-based pattern using distances to lines defined by
@@ -1143,7 +1143,7 @@ Array vorolines_fbm(
     const Array      *p_noise_x = nullptr,
     const Array      *p_noise_y = nullptr,
     const UvRect &uv_rect = UvRect::unit(),
-    glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+    const UvRect     &uv_rect_points = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi diagram in a 2D array with configurable
@@ -1446,7 +1446,7 @@ Array vororand(glm::ivec2        shape,
                const Array      *p_noise_x = nullptr,
                const Array      *p_noise_y = nullptr,
                const UvRect &uv_rect = UvRect::unit(),
-               glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+               const UvRect     &uv_rect_points = UvRect::unit());
 
 Array vororand(glm::ivec2                shape,
                const std::vector<float> &xp,

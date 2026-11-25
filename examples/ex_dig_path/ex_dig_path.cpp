@@ -9,7 +9,9 @@ int main(void)
   hmap::remap(z);
 
   glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(5, seed, {1.1f, 1.9f, -0.4, 0.4f});
+  hmap::Path path = hmap::Path(5,
+                               seed,
+                               hmap::BBox2D({1.1f, 1.9f, -0.4f, 0.4f}));
   path.set_closed(false);
   path.reorder_nns();
 
