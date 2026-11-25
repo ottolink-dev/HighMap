@@ -7,7 +7,7 @@ int main(void)
   glm::vec2     kw = {2.f, 2.f};
   std::uint32_t seed = 1;
 
-  hmap::Array z = hmap::Array(shape);
+  hmap::Array  z = hmap::Array(shape);
   hmap::BBox2D bbox = hmap::unit_square_bbox();
 
   float mu = 1.02f;
