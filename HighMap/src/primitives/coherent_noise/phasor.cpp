@@ -27,7 +27,7 @@ Array phasor(PhasorProfile   phasor_profile,
              const Array    *p_angle,
              const Array    *p_noise_x,
              const Array    *p_noise_y,
-             glm::vec4       bbox)
+             const UvRect   &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_angle && !validate_same_shape(shape, *p_angle)) return Array(shape);
@@ -55,7 +55,7 @@ Array phasor(PhasorProfile   phasor_profile,
                                   p_noise_y,
                                   &modulus,
                                   /* p_angle_jump_mask */ nullptr,
-                                  bbox);
+                                  uv_rect);
 
   // apply phase function
   float profile_avg = 0.f;
@@ -92,7 +92,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                  const Array    *p_angle,
                  const Array    *p_noise_x,
                  const Array    *p_noise_y,
-                 glm::vec4       bbox)
+                 const UvRect   &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_angle && !validate_same_shape(shape, *p_angle)) return Array(shape);
@@ -116,7 +116,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                          p_angle,
                          p_noise_x,
                          p_noise_y,
-                         bbox);
+                         uv_rect);
 
     sum += value * amp;
     amp *= (1.f - weight) + weight * minimum(value + 1.f, 2.f) * 0.5f;

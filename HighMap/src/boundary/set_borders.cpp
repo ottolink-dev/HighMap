@@ -56,15 +56,21 @@ void set_borders(Array &array, glm::vec4 border_values, glm::ivec4 buffer_sizes)
     }
 }
 
-void set_borders(Array    &array,
-                 glm::vec4 border_values,
-                 glm::vec4 buffer_sizes,
-                 glm::vec4 bbox)
+void set_borders(Array        &array,
+                 glm::vec4     border_values,
+                 glm::vec4     buffer_sizes,
+                 const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return;
 
-  std::vector<float> x = linspace(bbox.x, bbox.y, array.shape.x, false);
-  std::vector<float> y = linspace(bbox.z, bbox.w, array.shape.y, false);
+  std::vector<float> x = linspace(uv_rect.u_min,
+                                  uv_rect.u_max,
+                                  array.shape.x,
+                                  false);
+  std::vector<float> y = linspace(uv_rect.v_min,
+                                  uv_rect.v_max,
+                                  array.shape.y,
+                                  false);
 
   // west
   if (buffer_sizes.x > 0.f)
@@ -140,10 +146,10 @@ void set_borders(Array &array, float border_values, int buffer_sizes)
   set_borders(array, bv, bs);
 }
 
-void set_borders(Array    &array,
-                 float     border_values,
-                 float     buffer_sizes,
-                 glm::vec4 bbox)
+void set_borders(Array        &array,
+                 float         border_values,
+                 float         buffer_sizes,
+                 const UvRect &uv_rect)
 {
   glm::vec4 bv = glm::vec4(border_values,
                            border_values,
@@ -153,7 +159,7 @@ void set_borders(Array    &array,
                            buffer_sizes,
                            buffer_sizes,
                            buffer_sizes);
-  set_borders(array, bv, bs, bbox);
+  set_borders(array, bv, bs, uv_rect);
 }
 
 } // namespace hmap

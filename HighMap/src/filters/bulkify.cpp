@@ -14,7 +14,7 @@ Array bulkify(const Array         &z,
               const Array         *p_noise_x,
               const Array         *p_noise_y,
               glm::vec2            center,
-              glm::vec4            bbox)
+              const UvRect        &uv_rect)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return Array(z.shape);
@@ -25,7 +25,7 @@ Array bulkify(const Array         &z,
                                       p_noise_x,
                                       p_noise_y,
                                       center,
-                                      bbox);
+                                      uv_rect);
 }
 
 } // namespace hmap

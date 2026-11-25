@@ -237,7 +237,7 @@ void recast_rocky_slopes(Array        &array,
                          float         kw,
                          float         gamma,
                          const Array  *p_noise,
-                         glm::vec4     bbox)
+                         const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return;
   if (p_noise && !validate_same_shape(array, *p_noise)) return;
@@ -259,7 +259,7 @@ void recast_rocky_slopes(Array        &array,
                             nullptr,
                             nullptr,
                             nullptr,
-                            bbox);
+                            uv_rect);
     gamma_correction_local(noise, gamma, ir, 0.1f);
     {
       int ir2 = (int)(ir / 4.f);
@@ -280,7 +280,7 @@ void recast_rocky_slopes(Array        &array,
                          const Array  *p_mask,
                          float         gamma,
                          const Array  *p_noise,
-                         glm::vec4     bbox)
+                         const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return;
   if (p_noise && !validate_same_shape(array, *p_noise)) return;
@@ -298,7 +298,7 @@ void recast_rocky_slopes(Array        &array,
                                         kw,
                                         gamma,
                                         p_noise,
-                                        bbox);
+                                        uv_rect);
                   });
 }
 

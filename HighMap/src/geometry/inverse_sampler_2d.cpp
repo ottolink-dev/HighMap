@@ -19,15 +19,15 @@
 namespace hmap
 {
 
-InverseSampler2D::InverseSampler2D(const Array     &density,
-                                   std::uint32_t    seed,
-                                   const glm::vec4 &bbox)
+InverseSampler2D::InverseSampler2D(const Array  &density,
+                                   std::uint32_t seed,
+                                   const BBox2D &bbox)
     : density_(density), bbox_(bbox), rng_(seed)
 {
   this->rebuild_cdf();
 }
 
-const glm::vec4 &InverseSampler2D::get_bbox() const
+const BBox2D &InverseSampler2D::get_bbox() const
 {
   return this->bbox_;
 }
@@ -70,9 +70,9 @@ void InverseSampler2D::rebuild_cdf()
   }
 }
 
-void InverseSampler2D::reset(const Array     &density,
-                             std::uint32_t    seed,
-                             const glm::vec4 &bbox)
+void InverseSampler2D::reset(const Array  &density,
+                             std::uint32_t seed,
+                             const BBox2D &bbox)
 {
   this->density_ = density;
   this->bbox_ = bbox;
@@ -91,16 +91,16 @@ glm::vec2 InverseSampler2D::sample(float u_in, float u2_in)
   const int ny = this->density_.shape.y;
 
   if (nx <= 0 || ny <= 0)
-    return glm::vec2(0.5f * (this->bbox_.x + this->bbox_.y),
-                     0.5f * (this->bbox_.z + this->bbox_.w));
+    return glm::vec2(0.5f * (this->bbox_.min.x + this->bbox_.max.x),
+                     0.5f * (this->bbox_.min.y + this->bbox_.max.y));
 
   if (nx == 1 && ny == 1)
-    return glm::vec2(0.5f * (this->bbox_.x + this->bbox_.y),
-                     0.5f * (this->bbox_.z + this->bbox_.w));
+    return glm::vec2(0.5f * (this->bbox_.min.x + this->bbox_.max.x),
+                     0.5f * (this->bbox_.min.y + this->bbox_.max.y));
 
   const float total_weight = this->get_total_weight();
-  const float bbox_dx = this->bbox_.y - this->bbox_.x;
-  const float bbox_dy = this->bbox_.w - this->bbox_.z;
+  const float bbox_dx = this->bbox_.max.x - this->bbox_.min.x;
+  const float bbox_dy = this->bbox_.max.y - this->bbox_.min.y;
   const float denom_y = (ny > 1) ? static_cast<float>(ny - 1) : 1.f;
   const float denom_x = (nx > 1) ? static_cast<float>(nx - 1) : 1.f;
 
@@ -108,8 +108,8 @@ glm::vec2 InverseSampler2D::sample(float u_in, float u2_in)
   {
     float norm_x = std::clamp(u_in, 0.f, 1.f);
     float norm_y = std::clamp(u2_in, 0.f, 1.f);
-    return glm::vec2(this->bbox_.x + norm_x * bbox_dx,
-                     this->bbox_.z + norm_y * bbox_dy);
+    return glm::vec2(this->bbox_.min.x + norm_x * bbox_dx,
+                     this->bbox_.min.y + norm_y * bbox_dy);
   }
 
   // Row sampling
@@ -162,8 +162,8 @@ glm::vec2 InverseSampler2D::sample(float u_in, float u2_in)
   float norm_x = (nx > 1) ? std::clamp(x0 / denom_x, 0.f, 1.f) : 0.5f;
   float norm_y = (ny > 1) ? std::clamp(y0 / denom_y, 0.f, 1.f) : 0.5f;
 
-  return glm::vec2(this->bbox_.x + norm_x * bbox_dx,
-                   this->bbox_.z + norm_y * bbox_dy);
+  return glm::vec2(this->bbox_.min.x + norm_x * bbox_dx,
+                   this->bbox_.min.y + norm_y * bbox_dy);
 }
 
 std::array<std::vector<float>, 2> InverseSampler2D::sample(size_t count)
@@ -199,35 +199,35 @@ glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox,
     return glm::vec2(0.5f * (restricted_bbox.x + restricted_bbox.y),
                      0.5f * (restricted_bbox.z + restricted_bbox.w));
 
-  const float bbox_dx = this->bbox_.y - this->bbox_.x;
-  const float bbox_dy = this->bbox_.w - this->bbox_.z;
+  const float bbox_dx = this->bbox_.max.x - this->bbox_.min.x;
+  const float bbox_dy = this->bbox_.max.y - this->bbox_.min.y;
 
   if (bbox_dx <= 1e-7f || bbox_dy <= 1e-7f)
-    return glm::vec2(this->bbox_.x, this->bbox_.z);
+    return glm::vec2(this->bbox_.min.x, this->bbox_.min.y);
 
   // clamp restricted bbox to the sampler domain
   float xmin = std::clamp(std::min(restricted_bbox.x, restricted_bbox.y),
-                          this->bbox_.x,
-                          this->bbox_.y);
+                          this->bbox_.min.x,
+                          this->bbox_.max.x);
   float xmax = std::clamp(std::max(restricted_bbox.x, restricted_bbox.y),
-                          this->bbox_.x,
-                          this->bbox_.y);
+                          this->bbox_.min.x,
+                          this->bbox_.max.x);
   float ymin = std::clamp(std::min(restricted_bbox.z, restricted_bbox.w),
-                          this->bbox_.z,
-                          this->bbox_.w);
+                          this->bbox_.min.y,
+                          this->bbox_.max.y);
   float ymax = std::clamp(std::max(restricted_bbox.z, restricted_bbox.w),
-                          this->bbox_.z,
-                          this->bbox_.w);
+                          this->bbox_.min.y,
+                          this->bbox_.max.y);
 
   if (xmax <= xmin || ymax <= ymin) return glm::vec2(xmin, ymin);
 
   const float denom_x = (nx > 1) ? static_cast<float>(nx - 1) : 1.f;
   const float denom_y = (ny > 1) ? static_cast<float>(ny - 1) : 1.f;
 
-  float norm_xmin = (xmin - this->bbox_.x) / bbox_dx;
-  float norm_xmax = (xmax - this->bbox_.x) / bbox_dx;
-  float norm_ymin = (ymin - this->bbox_.z) / bbox_dy;
-  float norm_ymax = (ymax - this->bbox_.z) / bbox_dy;
+  float norm_xmin = (xmin - this->bbox_.min.x) / bbox_dx;
+  float norm_xmax = (xmax - this->bbox_.min.x) / bbox_dx;
+  float norm_ymin = (ymin - this->bbox_.min.y) / bbox_dy;
+  float norm_ymax = (ymax - this->bbox_.min.y) / bbox_dy;
 
   float x0_min = norm_xmin * denom_x;
   float x0_max = norm_xmax * denom_x;
@@ -325,11 +325,11 @@ glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox,
   float norm_x = (nx > 1) ? std::clamp(x0 / denom_x, 0.f, 1.f) : 0.5f;
   float norm_y = (ny > 1) ? std::clamp(y0 / denom_y, 0.f, 1.f) : 0.5f;
 
-  return glm::vec2(this->bbox_.x + norm_x * bbox_dx,
-                   this->bbox_.z + norm_y * bbox_dy);
+  return glm::vec2(this->bbox_.min.x + norm_x * bbox_dx,
+                   this->bbox_.min.y + norm_y * bbox_dy);
 }
 
-void InverseSampler2D::set_bbox(const glm::vec4 &bbox)
+void InverseSampler2D::set_bbox(const BBox2D &bbox)
 {
   this->bbox_ = bbox;
 }

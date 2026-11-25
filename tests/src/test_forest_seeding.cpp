@@ -164,7 +164,7 @@ TEST(ForestSeedingTest, BasicClusterSeeding)
 
   ForestSeedingOptions options;
   options.seed = 42;
-  options.bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  options.bbox = BBox2D({0.0f, 100.0f, 0.0f, 100.0f});
 
   size_t species_count = 3;
   size_t tree_count = 60;
@@ -199,7 +199,7 @@ TEST(ForestSeedingTest, BasicKMeansSeeding)
 
   ForestSeedingOptions options;
   options.seed = 42;
-  options.bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  options.bbox = BBox2D({0.0f, 100.0f, 0.0f, 100.0f});
   options.species = {Species(0, 0.5f), Species(1, 1.0f), Species(2, 1.5f)};
 
   size_t species_count = 3;
@@ -286,7 +286,7 @@ TEST(ForestSeedingTest, DensityAdherence)
 
   ForestSeedingOptions options;
   options.seed = 123;
-  options.bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  options.bbox = BBox2D::unit();
 
   Forest forest =
       seed_forest_clusters(2, 40, density, exclusion, 0.03f, 8, options);
@@ -315,7 +315,7 @@ TEST(ForestSeedingTest, ExclusionMapMasking)
 
   ForestSeedingOptions options;
   options.seed = 999;
-  options.bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  options.bbox = BBox2D::unit();
   options.exclusion_threshold = 0.5f;
 
   Forest forest =
@@ -345,7 +345,7 @@ TEST(ForestSeedingTest, SpeciesWeights)
 
   ForestSeedingOptions options;
   options.seed = 777;
-  options.bbox = {0.0f, 10.0f, 0.0f, 10.0f};
+  options.bbox = BBox2D({0.0f, 10.0f, 0.0f, 10.0f});
   // 90% species 0, 10% species 1
   options.species = {Species(0, 0.001f, 9.0f), Species(1, 0.001f, 1.0f)};
 
@@ -384,7 +384,7 @@ TEST(ForestGrowthTest, SoftCoreGrowth)
                                          {},
                                          1.0f,
                                          42,
-                                         {0.f, 10.f, 0.f, 10.f});
+                                         BBox2D({0.f, 10.f, 0.f, 10.f}));
 
   // Since all 20 trees are within 0.2 units of each other and repulsion
   // distance is 0.5 with strength 1.0, thinning should significantly reduce the
@@ -1074,7 +1074,7 @@ TEST(ForestSeedingTest, VirtualArrayBasicClusterSeeding)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
 
-  VirtualArray density(shape, bbox, tile_shape, halo);
+  VirtualArray density(shape, tile_shape, halo);
   ComputeMode  cm;
   density.fill(1.0f, cm);
 
@@ -1121,8 +1121,8 @@ TEST(ForestSeedingTest, VirtualArrayExclusionMask)
   int        halo = 4;
   glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
 
-  VirtualArray density(shape, bbox, tile_shape, halo);
-  VirtualArray exclusion(shape, bbox, tile_shape, halo);
+  VirtualArray density(shape, tile_shape, halo);
+  VirtualArray exclusion(shape, tile_shape, halo);
   ComputeMode  cm;
   density.fill(1.0f, cm);
   exclusion.fill(0.0f, cm);
@@ -1170,7 +1170,7 @@ TEST(ForestSeedingTest, VirtualArrayEmptyAndZeroDensity)
 
   glm::ivec2   shape = {32, 32};
   glm::ivec2   tile_shape = {16, 16};
-  VirtualArray zero_density(shape, {0.f, 1.f, 0.f, 1.f}, tile_shape, 2);
+  VirtualArray zero_density(shape, tile_shape, 2);
   zero_density.fill(0.0f, cm);
 
   Forest f2 = hmap::va::seed_forest_clusters(2, 50, zero_density);

@@ -297,12 +297,12 @@ bool BigTiffWriter::write_chunk(int                       offset_x,
   return false;
 }
 
-bool BigTiffWriter::write_tile(const TileRegion &region, const Array &data)
+bool BigTiffWriter::write_tile(const UvTile &region, const Array &data)
 {
   return ImageWriter::write_tile(region, data);
 }
 
-bool BigTiffWriter::write_tile(const TileRegion         &region,
+bool BigTiffWriter::write_tile(const UvTile             &region,
                                const std::vector<Array> &channels)
 {
   return ImageWriter::write_tile(region, channels);

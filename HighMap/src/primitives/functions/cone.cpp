@@ -15,14 +15,14 @@
 namespace hmap
 {
 
-Array cone(glm::ivec2   shape,
-           float        slope,
-           float        apex_elevation,
-           bool         smooth_profile,
-           glm::vec2    center,
-           const Array *p_noise_x,
-           const Array *p_noise_y,
-           glm::vec4    bbox)
+Array cone(glm::ivec2    shape,
+           float         slope,
+           float         apex_elevation,
+           bool          smooth_profile,
+           glm::vec2     center,
+           const Array  *p_noise_x,
+           const Array  *p_noise_y,
+           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -51,7 +51,7 @@ Array cone(glm::ivec2   shape,
   if (smooth_profile)
   {
     fill_array_using_xy_function(array,
-                                 bbox,
+                                 uv_rect,
                                  nullptr,
                                  p_noise_x,
                                  p_noise_y,
@@ -61,7 +61,7 @@ Array cone(glm::ivec2   shape,
   else
   {
     fill_array_using_xy_function(array,
-                                 bbox,
+                                 uv_rect,
                                  nullptr,
                                  p_noise_x,
                                  p_noise_y,
@@ -91,7 +91,7 @@ Array cone_complex(glm::ivec2            shape,
                    const Array          *p_ctrl_param,
                    const Array          *p_noise_x,
                    const Array          *p_noise_y,
-                   glm::vec4             bbox)
+                   const UvRect         &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -149,7 +149,7 @@ Array cone_complex(glm::ivec2            shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -159,13 +159,13 @@ Array cone_complex(glm::ivec2            shape,
   return array;
 }
 
-Array cone_sigmoid(glm::ivec2   shape,
-                   float        alpha,
-                   float        radius,
-                   glm::vec2    center,
-                   const Array *p_noise_x,
-                   const Array *p_noise_y,
-                   glm::vec4    bbox)
+Array cone_sigmoid(glm::ivec2    shape,
+                   float         alpha,
+                   float         radius,
+                   glm::vec2     center,
+                   const Array  *p_noise_x,
+                   const Array  *p_noise_y,
+                   const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -183,7 +183,7 @@ Array cone_sigmoid(glm::ivec2   shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,

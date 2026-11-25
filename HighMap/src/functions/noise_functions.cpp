@@ -386,11 +386,11 @@ void ValueDelaunayNoiseFunction::update_interpolation_function()
   auto xy = random_points(n,
                           this->seed,
                           PointSamplingMethod::RND_LHS,
-                          {0.f, 1.f, 0.f, 1.f});
+                          BBox2D{});
   x = xy[0];
   y = xy[1];
 
-  expand_points_domain(x, y, value, {0.f, 1.f, 0.f, 1.f});
+  expand_points_domain(x, y, value, BBox2D{});
 
   // --- interpolation function
 

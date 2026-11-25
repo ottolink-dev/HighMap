@@ -250,16 +250,12 @@ float Array::get_value_bilinear_at(int i, int j, float u, float v) const
   return (*this)(i, j) + a10 * u + a01 * v + a11 * u * v;
 }
 
-float Array::get_value_bilinear(float x, float y, glm::vec4 bbox) const
+float Array::get_value_bilinear(float x, float y, const UvRect &uv_rect) const
 {
-  float dx = bbox.y - bbox.x;
-  float dy = bbox.w - bbox.z;
+  const glm::vec2 uv = uv_rect.normalize(x, y);
 
-  float u_norm = (dx != 0.f) ? (x - bbox.x) / dx : 0.f;
-  float v_norm = (dy != 0.f) ? (y - bbox.z) / dy : 0.f;
-
-  float x_scaled = std::clamp(u_norm, 0.f, 1.f) * (this->shape.x - 1);
-  float y_scaled = std::clamp(v_norm, 0.f, 1.f) * (this->shape.y - 1);
+  float x_scaled = std::clamp(uv.x, 0.f, 1.f) * (this->shape.x - 1);
+  float y_scaled = std::clamp(uv.y, 0.f, 1.f) * (this->shape.y - 1);
 
   int i = static_cast<int>(x_scaled);
   int j = static_cast<int>(y_scaled);
@@ -273,12 +269,11 @@ float Array::get_value_bilinear(float x, float y, glm::vec4 bbox) const
   return this->get_value_bilinear_at(i, j, u, v);
 }
 
-float Array::get_value_nearest(float x, float y, glm::vec4 bbox) const
+float Array::get_value_nearest(float x, float y, const UvRect &uv_rect) const
 {
-  int i = (int)(std::clamp((x - bbox.x) / (bbox.y - bbox.x), 0.f, 1.f) *
-                (this->shape.x - 1));
-  int j = (int)(std::clamp((y - bbox.z) / (bbox.w - bbox.z), 0.f, 1.f) *
-                (this->shape.y - 1));
+  const glm::vec2 uv = uv_rect.normalize(x, y);
+  int i = static_cast<int>(std::clamp(uv.x, 0.f, 1.f) * (this->shape.x - 1));
+  int j = static_cast<int>(std::clamp(uv.y, 0.f, 1.f) * (this->shape.y - 1));
   return (*this)(i, j);
 }
 

@@ -33,7 +33,7 @@ void rifts(Array           &z,
            const Array     *p_noise_y,
            const Array     *p_mask,
            const glm::vec2 &center,
-           const glm::vec4 &bbox)
+           const UvRect    &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return;
@@ -68,7 +68,7 @@ void rifts(Array           &z,
                      p_noise_y ? 1 : 0,
                      p_mask ? 1 : 0,
                      center,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("z");
   run.execute({z.shape.x, z.shape.y});

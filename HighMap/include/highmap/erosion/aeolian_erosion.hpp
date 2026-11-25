@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -84,29 +84,29 @@ class ICommunicator;
  * **Result**
  * @image html ex_aeolian_erosion.png
  */
-void aeolian_erosion(Array            &z,
-                     int               steps = 300,
-                     std::uint32_t     seed = 1337u,
-                     glm::vec2         wind = {3.f, 0.f},
-                     const Array      *p_bedrock = nullptr,
-                     const Array      *p_vegetation = nullptr,
-                     const Array      *p_abrasion_mask = nullptr,
-                     Array            *p_sediment_map = nullptr,
-                     Array            *p_bedrock_map = nullptr,
-                     float             cell_size = -1.f,
-                     float             matter_to_move = 0.001f,
-                     int               samples_per_step = 0,
-                     float             sand_repose_angle = 33.f,
-                     float             shadow_angle_min = 5.f,
-                     float             shadow_angle_max = 15.f,
-                     float             max_shadow_dist = 12.f,
-                     float             abrasion_rate = 0.f,
-                     float             repose_rate = 0.35f,
-                     int               sync_interval = 0,
-                     const TileRegion &region = TileRegion::dummy(),
-                     ICommunicator    &comm = SingleArrayComm::instance(),
-                     int               shadow_map_interval = 1,
-                     int               repose_interval = 2);
+void aeolian_erosion(Array         &z,
+                     int            steps = 300,
+                     std::uint32_t  seed = 1337u,
+                     glm::vec2      wind = {3.f, 0.f},
+                     const Array   *p_bedrock = nullptr,
+                     const Array   *p_vegetation = nullptr,
+                     const Array   *p_abrasion_mask = nullptr,
+                     Array         *p_sediment_map = nullptr,
+                     Array         *p_bedrock_map = nullptr,
+                     float          cell_size = -1.f,
+                     float          matter_to_move = 0.001f,
+                     int            samples_per_step = 0,
+                     float          sand_repose_angle = 33.f,
+                     float          shadow_angle_min = 5.f,
+                     float          shadow_angle_max = 15.f,
+                     float          max_shadow_dist = 12.f,
+                     float          abrasion_rate = 0.f,
+                     float          repose_rate = 0.35f,
+                     int            sync_interval = 0,
+                     const UvTile  &region = UvTile::dummy(),
+                     ICommunicator &comm = SingleArrayComm::instance(),
+                     int            shadow_map_interval = 1,
+                     int            repose_interval = 2);
 
 /**
  * @brief Multiscale (coarse-to-fine) variant of hmap::aeolian_erosion.

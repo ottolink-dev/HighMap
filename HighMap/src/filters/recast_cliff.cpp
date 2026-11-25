@@ -18,22 +18,22 @@
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap::gpu
 {
 
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  float             gain,
-                  int               iterations,
-                  Array            *p_cliff_mask,
-                  int               sync_interval,
-                  const TileRegion &region,
-                  ICommunicator    &comm)
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  float          gain,
+                  int            iterations,
+                  Array         *p_cliff_mask,
+                  int            sync_interval,
+                  const UvTile  &region,
+                  ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
 
@@ -129,17 +129,17 @@ void recast_cliff(Array            &array,
   array = std::move(array_out);
 }
 
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  const Array      *p_mask,
-                  float             gain,
-                  int               iterations,
-                  Array            *p_cliff_mask,
-                  int               sync_interval,
-                  const TileRegion &region,
-                  ICommunicator    &comm)
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  const Array   *p_mask,
+                  float          gain,
+                  int            iterations,
+                  Array         *p_cliff_mask,
+                  int            sync_interval,
+                  const UvTile  &region,
+                  ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
@@ -163,17 +163,17 @@ void recast_cliff(Array            &array,
   if (p_mask && p_cliff_mask) *p_cliff_mask *= *p_mask;
 }
 
-void recast_cliff_directional(Array            &array,
-                              float             talus,
-                              int               ir,
-                              float             amplitude,
-                              float             angle,
-                              float             gain,
-                              int               iterations,
-                              Array            *p_cliff_mask,
-                              int               sync_interval,
-                              const TileRegion &region,
-                              ICommunicator    &comm)
+void recast_cliff_directional(Array         &array,
+                              float          talus,
+                              int            ir,
+                              float          amplitude,
+                              float          angle,
+                              float          gain,
+                              int            iterations,
+                              Array         *p_cliff_mask,
+                              int            sync_interval,
+                              const UvTile  &region,
+                              ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
 
@@ -192,18 +192,18 @@ void recast_cliff_directional(Array            &array,
                            comm);
 }
 
-void recast_cliff_directional(Array            &array,
-                              float             talus,
-                              int               ir,
-                              float             amplitude,
-                              float             angle,
-                              const Array      *p_mask,
-                              float             gain,
-                              int               iterations,
-                              Array            *p_cliff_mask,
-                              int               sync_interval,
-                              const TileRegion &region,
-                              ICommunicator    &comm)
+void recast_cliff_directional(Array         &array,
+                              float          talus,
+                              int            ir,
+                              float          amplitude,
+                              float          angle,
+                              const Array   *p_mask,
+                              float          gain,
+                              int            iterations,
+                              Array         *p_cliff_mask,
+                              int            sync_interval,
+                              const UvTile  &region,
+                              ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
@@ -223,17 +223,17 @@ void recast_cliff_directional(Array            &array,
                            comm);
 }
 
-void recast_cliff_directional(Array            &array,
-                              float             talus,
-                              int               ir,
-                              float             amplitude,
-                              const Array      &angle,
-                              float             gain,
-                              int               iterations,
-                              Array            *p_cliff_mask,
-                              int               sync_interval,
-                              const TileRegion &region,
-                              ICommunicator    &comm)
+void recast_cliff_directional(Array         &array,
+                              float          talus,
+                              int            ir,
+                              float          amplitude,
+                              const Array   &angle,
+                              float          gain,
+                              int            iterations,
+                              Array         *p_cliff_mask,
+                              int            sync_interval,
+                              const UvTile  &region,
+                              ICommunicator &comm)
 {
   recast_cliff_directional(array,
                            talus,
@@ -249,18 +249,18 @@ void recast_cliff_directional(Array            &array,
                            comm);
 }
 
-void recast_cliff_directional(Array            &array,
-                              float             talus,
-                              int               ir,
-                              float             amplitude,
-                              const Array      &angle,
-                              const Array      *p_mask,
-                              float             gain,
-                              int               iterations,
-                              Array            *p_cliff_mask,
-                              int               sync_interval,
-                              const TileRegion &region,
-                              ICommunicator    &comm)
+void recast_cliff_directional(Array         &array,
+                              float          talus,
+                              int            ir,
+                              float          amplitude,
+                              const Array   &angle,
+                              const Array   *p_mask,
+                              float          gain,
+                              int            iterations,
+                              Array         *p_cliff_mask,
+                              int            sync_interval,
+                              const UvTile  &region,
+                              ICommunicator &comm)
 {
   if (!validate_non_empty(array) || !validate_same_shape(array, angle)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;

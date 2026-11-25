@@ -493,19 +493,19 @@ std::vector<glm::ivec2> find_path_multiscale(const Array &z,
   return current_path;
 }
 
-Path find_path_multiscale(const Array &z,
-                          glm::ivec2   ij_start,
-                          glm::ivec2   ij_end,
-                          glm::vec4    bbox,
-                          int          n_levels,
-                          int          corridor_radius,
-                          float        corridor_decay,
-                          float        elevation_ratio,
-                          float        distance_exponent,
-                          float        upward_penalization,
-                          const Array *p_mask_nogo,
-                          bool         use_astar,
-                          bool         smooth_path)
+Path find_path_multiscale(const Array  &z,
+                          glm::ivec2    ij_start,
+                          glm::ivec2    ij_end,
+                          const UvRect &uv_rect,
+                          int           n_levels,
+                          int           corridor_radius,
+                          float         corridor_decay,
+                          float         elevation_ratio,
+                          float         distance_exponent,
+                          float         upward_penalization,
+                          const Array  *p_mask_nogo,
+                          bool          use_astar,
+                          bool          smooth_path)
 {
   std::vector<glm::ivec2> indices = find_path_multiscale(z,
                                                          ij_start,
@@ -533,8 +533,8 @@ Path find_path_multiscale(const Array &z,
     float x = (nx > 1) ? float(p.x) / float(nx - 1) : 0.f;
     float y = (ny > 1) ? float(p.y) / float(ny - 1) : 0.f;
 
-    x = bbox.x + x * (bbox.y - bbox.x);
-    y = bbox.z + y * (bbox.w - bbox.z);
+    x = uv_rect.u_min + x * (uv_rect.u_max - uv_rect.u_min);
+    y = uv_rect.v_min + y * (uv_rect.v_max - uv_rect.v_min);
     float v = z(p.x, p.y);
 
     path.push_back(Point(x, y, v));

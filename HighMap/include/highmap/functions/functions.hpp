@@ -14,6 +14,7 @@
  * @copyright Copyright (c) 2023
  */
 #pragma once
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <functional>
@@ -22,6 +23,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 #include "highmap/math/constants.hpp"
 #include "highmap/math/core.hpp"
 
@@ -303,7 +305,7 @@ protected:
   float     c10;  ///< Bottom-right value.
   float     c01;  ///< Top-left value.
   float     c11;  ///< Top-right value.
-  glm::vec4 bbox; ///< Domain bounding box.
+  BBox2D bbox; ///< Domain bounding box.
 };
 
 /**

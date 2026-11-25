@@ -19,7 +19,7 @@
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
 #include "highmap/primitives.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -78,7 +78,7 @@ Array bulkify(const Array         &z,
               const Array         *p_noise_x = nullptr,
               const Array         *p_noise_y = nullptr,
               glm::vec2            center = {0.5f, 0.5f},
-              glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
+              const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Applies a canyonize filter to a heightmap.
@@ -1395,7 +1395,7 @@ void recast_rocky_slopes(Array        &array,
                          float         kw,
                          float         gamma = 0.5f,
                          const Array  *p_noise = nullptr,
-                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /// @overload
 void recast_rocky_slopes(Array        &array,
@@ -1407,7 +1407,7 @@ void recast_rocky_slopes(Array        &array,
                          const Array  *p_mask,
                          float         gamma = 0.5f,
                          const Array  *p_noise = nullptr,
-                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Transform heightmap to give a "cliff" like appearance.
@@ -1958,11 +1958,11 @@ void smooth_cone(Array &array, int ir, const Array *p_mask);
  *
  * See unit tests: @ref test_smooth_cpulse.cpp
  */
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask = nullptr,
-                   const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator    &comm = SingleArrayComm::instance());
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask = nullptr,
+                   const UvTile  &region = UvTile::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Smooths an array while attenuating edges using a gradient-based pulse.
@@ -2519,7 +2519,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi-based jagged bubble dome filter using an isotropic
@@ -2554,7 +2554,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask = nullptr,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
@@ -2607,7 +2607,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask = nullptr,
                  const Array  *p_noise_x = nullptr,
                  const Array  *p_noise_y = nullptr,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a fractal Brownian motion (fBm) version of the Voronoi-based
@@ -2652,7 +2652,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask = nullptr,
                  const Array  *p_noise_x = nullptr,
                  const Array  *p_noise_y = nullptr,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /*! @brief See hmap::laplace */
 void laplace(Array &array, float sigma = 0.2f, int iterations = 3);
@@ -2764,29 +2764,29 @@ Array project_talus_along_direction(const Array &array,
  * **Result**
  * @image html ex_recast_cliff.png
  */
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  float             gain = 2.f,
-                  int               iterations = 500,
-                  Array            *p_cliff_mask = nullptr,
-                  int               sync_interval = 0,
-                  const TileRegion &region = TileRegion::dummy(),
-                  ICommunicator    &comm = SingleArrayComm::instance());
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  float          gain = 2.f,
+                  int            iterations = 500,
+                  Array         *p_cliff_mask = nullptr,
+                  int            sync_interval = 0,
+                  const UvTile  &region = UvTile::dummy(),
+                  ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
-void recast_cliff(Array            &array,
-                  float             talus,
-                  int               ir,
-                  float             amplitude,
-                  const Array      *p_mask,
-                  float             gain = 2.f,
-                  int               iterations = 500,
-                  Array            *p_cliff_mask = nullptr,
-                  int               sync_interval = 0,
-                  const TileRegion &region = TileRegion::dummy(),
-                  ICommunicator    &comm = SingleArrayComm::instance());
+void recast_cliff(Array         &array,
+                  float          talus,
+                  int            ir,
+                  float          amplitude,
+                  const Array   *p_mask,
+                  float          gain = 2.f,
+                  int            iterations = 500,
+                  Array         *p_cliff_mask = nullptr,
+                  int            sync_interval = 0,
+                  const UvTile  &region = UvTile::dummy(),
+                  ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Transform heightmap to add directional cliffs where gradients are
@@ -2817,61 +2817,61 @@ void recast_cliff(Array            &array,
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    float             angle,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    float          angle,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    float             angle,
-    const Array      *p_mask,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    float          angle,
+    const Array   *p_mask,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    const Array      &angle,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    const Array   &angle,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /// @overload
 void recast_cliff_directional(
-    Array            &array,
-    float             talus,
-    int               ir,
-    float             amplitude,
-    const Array      &angle,
-    const Array      *p_mask,
-    float             gain = 2.f,
-    int               iterations = 500,
-    Array            *p_cliff_mask = nullptr,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    Array         &array,
+    float          talus,
+    int            ir,
+    float          amplitude,
+    const Array   &angle,
+    const Array   *p_mask,
+    float          gain = 2.f,
+    int            iterations = 500,
+    Array         *p_cliff_mask = nullptr,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::ridge_accentuate */
 void ridge_accentuate(Array &array,
@@ -2902,11 +2902,11 @@ void shrink(Array       &array,
             int          iterations = 1);
 
 /*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask = nullptr,
-                   const TileRegion &region = TileRegion::dummy(),
-                   ICommunicator    &comm = SingleArrayComm::instance());
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask = nullptr,
+                   const UvTile  &region = UvTile::dummy(),
+                   ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::smooth_cpulse_edge_removing */
 void smooth_cpulse_edge_removing(Array &array,
@@ -3002,7 +3002,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using an isotropic frequency.
@@ -3037,7 +3037,7 @@ Array voronoi_shrink(const Array  &array,
                      const Array  *p_mask = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a custom cloud of points.
@@ -3062,7 +3062,7 @@ Array voronoi_shrink(const Array &array,
                      const Array *p_mask = nullptr,
                      const Array *p_noise_x = nullptr,
                      const Array *p_noise_y = nullptr,
-                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a list of Point objects.
@@ -3089,7 +3089,7 @@ Array voronoi_shrink(const Array              &array,
                      const Array              *p_mask = nullptr,
                      const Array              *p_noise_x = nullptr,
                      const Array              *p_noise_y = nullptr,
-                     glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a list of glm::vec2 coordinates.
@@ -3117,7 +3117,7 @@ Array voronoi_shrink(const Array                  &array,
                      const Array                  *p_mask = nullptr,
                      const Array                  *p_noise_x = nullptr,
                      const Array                  *p_noise_y = nullptr,
-                     glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu
 

@@ -14,19 +14,19 @@
 namespace hmap
 {
 
-Array circus(glm::ivec2   shape,
-             float        radius,
-             float        angle,
-             float        exit_width,
-             float        exit_depth,
-             float        center_depth,
-             float        ridge_height,
-             float        ridge_width,
-             float        outer_falloff,
-             const Array *p_noise_r,
-             glm::vec2    center,
-             glm::vec4    bbox,
-             Array       *p_mask)
+Array circus(glm::ivec2    shape,
+             float         radius,
+             float         angle,
+             float         exit_width,
+             float         exit_depth,
+             float         center_depth,
+             float         ridge_height,
+             float         ridge_width,
+             float         outer_falloff,
+             const Array  *p_noise_r,
+             glm::vec2     center,
+             const UvRect &uv_rect,
+             Array        *p_mask)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array(shape);
@@ -47,7 +47,7 @@ Array circus(glm::ivec2   shape,
 
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   // --- Main generation loop
 

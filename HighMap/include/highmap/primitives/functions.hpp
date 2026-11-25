@@ -45,7 +45,7 @@ Array get_primitive_base(const PrimitiveType &primitive_type,
                          const Array         *p_noise_x = nullptr,
                          const Array         *p_noise_y = nullptr,
                          glm::vec2            center = {0.5f, 0.5f},
-                         glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a bounded band (capsule) mask.
@@ -87,7 +87,7 @@ Array band(glm::ivec2    shape,
            const Array  *p_noise_r = nullptr,
            const Array  *p_noise_offset = nullptr,
            glm::vec2     center = {0.5f, 0.5f},
-           glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a 'biquadratic pulse'.
@@ -113,10 +113,10 @@ Array biquad_pulse(glm::ivec2   shape,
                    const Array *p_noise_x = nullptr,
                    const Array *p_noise_y = nullptr,
                    glm::vec2    center = {0.5f, 0.5f},
-                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
-Array biquad_pulse_x(glm::ivec2 shape, glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
-Array biquad_pulse_y(glm::ivec2 shape, glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+Array biquad_pulse_x(glm::ivec2 shape, const UvRect &uv_rect = UvRect::unit());
+Array biquad_pulse_y(glm::ivec2 shape, const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a bump.
@@ -143,7 +143,7 @@ Array bump(glm::ivec2   shape,
            const Array *p_noise_x = nullptr,
            const Array *p_noise_y = nullptr,
            glm::vec2    center = {0.5f, 0.5f},
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a 2D Lorentzian bump pattern.
@@ -196,7 +196,7 @@ Array bump_lorentzian(
     const Array *p_noise_x = nullptr,
     const Array *p_noise_y = nullptr,
     glm::vec2    center = {0.5f, 0.5f},
-    glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a checkerboard heightmap.
@@ -218,7 +218,7 @@ Array checkerboard(glm::ivec2   shape,
                    glm::vec2    kw,
                    const Array *p_noise_x = nullptr,
                    const Array *p_noise_y = nullptr,
-                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a synthetic conical mountain heightmap.
@@ -254,7 +254,7 @@ Array cone(glm::ivec2   shape,
            glm::vec2    center = {0.5f, 0.5f},
            const Array *p_noise_x = nullptr,
            const Array *p_noise_y = nullptr,
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a complex conical heightfield with valleys, directional
@@ -329,7 +329,7 @@ Array cone_complex(
     const Array          *p_ctrl_param = nullptr,
     const Array          *p_noise_x = nullptr,
     const Array          *p_noise_y = nullptr,
-    glm::vec4             bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a smooth conical heightmap using a sigmoid-based profile.
@@ -368,7 +368,7 @@ Array cone_sigmoid(glm::ivec2   shape,
                    glm::vec2    center = {0.5f, 0.5f},
                    const Array *p_noise_x = nullptr,
                    const Array *p_noise_y = nullptr,
-                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a constant value array.
@@ -386,7 +386,7 @@ Array cubic_pulse(glm::ivec2   shape,
                   const Array *p_noise_x,
                   const Array *p_noise_y,
                   glm::vec2    center = {0.5f, 0.5f},
-                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a disk-shaped heightmap with optional modifications.
@@ -429,7 +429,7 @@ Array disk(glm::ivec2   shape,
            const Array *p_noise_x = nullptr,
            const Array *p_noise_y = nullptr,
            glm::vec2    center = {0.5f, 0.5f},
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a gaussian_decay pulse kernel.
@@ -457,7 +457,7 @@ Array gaussian_pulse(glm::ivec2   shape,
                      const Array *p_noise_x = nullptr,
                      const Array *p_noise_y = nullptr,
                      glm::vec2    center = {0.5f, 0.5f},
-                     glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a multi-step height profile along a rotated axis.
@@ -535,7 +535,7 @@ Array paraboloid(glm::ivec2   shape,
                  const Array *p_noise_x = nullptr,
                  const Array *p_noise_y = nullptr,
                  glm::vec2    center = {0.5f, 0.5f},
-                 glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a polar-based shape mask with optional angular and radial
@@ -585,7 +585,7 @@ Array polar_shape(glm::ivec2   shape,
                   const Array *p_noise_r = nullptr,
                   const Array *p_noise_theta = nullptr,
                   glm::vec2    center = {0.5f, 0.5f},
-                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a surface defined by the four corner values of the domain.
@@ -622,7 +622,7 @@ Array quad_surface(glm::ivec2   shape,
                    const Array *p_ctrl_param = nullptr,
                    const Array *p_noise_x = nullptr,
                    const Array *p_noise_y = nullptr,
-                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a rectangle-shaped heightmap with optional modifications.
@@ -671,7 +671,7 @@ Array rectangle(glm::ivec2   shape,
                 const Array *p_noise_x = nullptr,
                 const Array *p_noise_y = nullptr,
                 glm::vec2    center = {0.5f, 0.5f},
-                glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return an array corresponding to a slope with a given overall.
@@ -700,7 +700,7 @@ Array slope(glm::ivec2   shape,
             const Array *p_noise_x = nullptr,
             const Array *p_noise_y = nullptr,
             glm::vec2    center = {0.5f, 0.5f},
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a smooth cosine array.
@@ -709,7 +709,7 @@ Array smooth_cosine(glm::ivec2   shape,
                     const Array *p_noise_x,
                     const Array *p_noise_y,
                     glm::vec2    center = {0.5f, 0.5f},
-                    glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a step function (Heaviside with an optional talus slope at the
@@ -739,7 +739,7 @@ Array step(glm::ivec2   shape,
            const Array *p_noise_x = nullptr,
            const Array *p_noise_y = nullptr,
            glm::vec2    center = {0.5f, 0.5f},
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate displacements `dx` and `dy` to apply a swirl effect to
@@ -763,7 +763,7 @@ void swirl(Array       &dx,
            float        amplitude = 1.f,
            float        exponent = 1.f,
            const Array *p_noise = nullptr,
-           glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a dune shape wave.
@@ -791,7 +791,7 @@ Array wave_dune(glm::ivec2   shape,
                 const Array *p_noise_x = nullptr,
                 const Array *p_noise_y = nullptr,
                 glm::vec2    center = {0.5f, 0.5f},
-                glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a sine wave.
@@ -821,7 +821,7 @@ Array wave_sine(glm::ivec2   shape,
                 const Array *p_noise_x = nullptr,
                 const Array *p_noise_y = nullptr,
                 glm::vec2    center = {0.5f, 0.5f},
-                glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a square wave.
@@ -850,7 +850,7 @@ Array wave_square(glm::ivec2   shape,
                   const Array *p_noise_x = nullptr,
                   const Array *p_noise_y = nullptr,
                   glm::vec2    center = {0.5f, 0.5f},
-                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return a triangular wave.
@@ -882,7 +882,7 @@ Array wave_triangular(glm::ivec2   shape,
                       const Array *p_noise_x = nullptr,
                       const Array *p_noise_y = nullptr,
                       glm::vec2    center = {0.5f, 0.5f},
-                      glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+                      const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap
 
@@ -931,7 +931,7 @@ Array hemisphere_field(glm::ivec2    shape,
                        const Array  *p_noise_distance = nullptr,
                        const Array  *p_density_multiplier = nullptr,
                        const Array  *p_size_multiplier = nullptr,
-                       glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                       const UvRect &uv_rect = UvRect::unit());
 
 /*! @brief See hmap::hemisphere_field */
 Array hemisphere_field_fbm(glm::ivec2    shape,
@@ -951,7 +951,7 @@ Array hemisphere_field_fbm(glm::ivec2    shape,
                            const Array  *p_noise_distance = nullptr,
                            const Array  *p_density_multiplier = nullptr,
                            const Array  *p_size_multiplier = nullptr,
-                           glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                           const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief GPU-accelerated multi-step height generation with procedural noise.
@@ -1064,7 +1064,7 @@ Array polygon_field(glm::ivec2    shape,
                     const Array  *p_noise_distance = nullptr,
                     const Array  *p_density_multiplier = nullptr,
                     const Array  *p_size_multiplier = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a scalar field representing the signed distance to randomly
@@ -1130,6 +1130,6 @@ Array polygon_field_fbm(glm::ivec2    shape,
                         const Array  *p_noise_distance = nullptr,
                         const Array  *p_density_multiplier = nullptr,
                         const Array  *p_size_multiplier = nullptr,
-                        glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                        const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu

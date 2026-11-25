@@ -132,14 +132,14 @@ Array diffusion_limited_aggregation_trimesh(
 
   // --- Generate triangle mesh
 
-  const glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  const BBox2D uv_rect = BBox2D{};
 
   Cloud cloud = random_cloud_jittered(control_points_count,
                                       {0.5f, 0.5f},
                                       {0.f, 0.f},
                                       seed,
-                                      bbox);
-  cloud.snap_points_to_bounding_box(bbox);
+                                      uv_rect);
+  cloud.snap_points_to_bounding_box(uv_rect);
   cloud.set_values(0.f);
 
   // initialize seed

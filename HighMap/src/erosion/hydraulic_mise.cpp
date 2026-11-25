@@ -24,7 +24,7 @@
 #include "highmap/math/array.hpp"
 #include "highmap/random.hpp"
 #include "highmap/range.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 #include <bit>
@@ -1300,7 +1300,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
       {&out},
       [&](std::vector<const hmap::Array *> /* p_arrays_in */,
           std::vector<hmap::Array *> p_arrays_out,
-          const hmap::TileRegion & /* region */)
+          const hmap::UvTile & /* region */)
       {
         auto [pa_out] = unpack<1>(p_arrays_out);
         if (!pa_out || pa_out->vector.empty()) return;
@@ -1330,7 +1330,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {&out},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion &)
+            const hmap::UvTile &)
         {
           auto [pa_z, pa_m] = unpack<2>(p_arrays_in);
           auto [pa_out] = unpack<1>(p_arrays_out);
@@ -1349,7 +1349,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {p_erosion_map},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion &)
+            const hmap::UvTile &)
         {
           auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
           auto [pa_ero] = unpack<1>(p_arrays_out);
@@ -1367,7 +1367,7 @@ VirtualArray hydraulic_mise(const ComputeMode  &cm,
         {p_deposition_map},
         [&](std::vector<const hmap::Array *> p_arrays_in,
             std::vector<hmap::Array *>       p_arrays_out,
-            const hmap::TileRegion &)
+            const hmap::UvTile &)
         {
           auto [pa_z, pa_out] = unpack<2>(p_arrays_in);
           auto [pa_dep] = unpack<1>(p_arrays_out);

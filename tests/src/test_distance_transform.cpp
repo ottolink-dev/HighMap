@@ -270,7 +270,7 @@ TEST(DistanceTransform, TiledWithCommunicator)
 
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         { tile = distance_transform(tile, false, region, comm); },
         cm_dist);
 
@@ -293,7 +293,7 @@ TEST(DistanceTransform, TiledWithCommunicator)
 
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         { tile = distance_transform(tile, false, region, comm); },
         cm_dist);
 
@@ -318,7 +318,7 @@ TEST(DistanceTransform, TiledWithCommunicator)
 
     for_each_tile(
         va,
-        [](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [](Array &tile, const UvTile &region, ICommunicator &comm)
         { tile = distance_transform(tile, false, region, comm); },
         cm_seq);
 

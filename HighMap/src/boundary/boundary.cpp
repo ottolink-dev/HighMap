@@ -92,13 +92,14 @@ void falloff(Array           &array,
              float            strength,
              DistanceFunction dist_fct,
              const Array     *p_noise,
-             glm::vec4        bbox)
+             const UvRect    &uv_rect)
 {
   if (!validate_non_empty(array)) return;
   if (p_noise && !validate_same_shape(array, *p_noise)) return;
 
-  glm::vec2 shift = {bbox.x, bbox.z};
-  glm::vec2 scale = {bbox.y - bbox.x, bbox.w - bbox.z};
+  glm::vec2 shift = {uv_rect.u_min, uv_rect.v_min};
+  glm::vec2 scale = {uv_rect.u_max - uv_rect.u_min,
+                     uv_rect.v_max - uv_rect.v_min};
 
   std::vector<float> x = linspace(shift.x - 0.5f,
                                   shift.x - 0.5f + scale.x,

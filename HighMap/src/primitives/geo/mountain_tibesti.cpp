@@ -31,7 +31,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                        glm::vec2     center,
                        const Array  *p_noise_x,
                        const Array  *p_noise_y,
-                       glm::vec4     bbox)
+                       const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -57,7 +57,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                                 /* p_ctrl_param */ nullptr,
                                 p_noise_x,
                                 p_noise_y,
-                                bbox);
+                                uv_rect);
 
   noise4 = 0.5f * noise4 + 0.5f;
   clamp_min(noise4, 0.f);
@@ -75,7 +75,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                                 /* p_ctrl_param */ nullptr,
                                 p_noise_x,
                                 p_noise_y,
-                                bbox);
+                                uv_rect);
 
   // base
   Array dx = noise2 * std::cos(alpha); // perpendicular
@@ -93,7 +93,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                                /* p_ctrl_param */ nullptr,
                                &dx,
                                &dy,
-                               bbox);
+                               uv_rect);
 
   gabor = (0.5f * gabor + 0.5f) * noise4;
   gabor = noise4 * (bulk_amp + gabor) / (bulk_amp + 1.f);
@@ -105,7 +105,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                                /* p_noise_x */ nullptr,
                                /* p_noise_y */ nullptr,
                                center,
-                               bbox);
+                               uv_rect);
 
   gabor *= pulse;
 

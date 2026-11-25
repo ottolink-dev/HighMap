@@ -204,7 +204,7 @@ TEST(RecastCliff, TiledDistributedExecution)
 
     for_each_tile(
         z,
-        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [&](Array &tile, const UvTile &region, ICommunicator &comm)
         {
           if (mode == ForEachMode::VA_SEQUENTIAL)
           {
@@ -266,7 +266,7 @@ TEST(RecastCliffDirectional, TiledDistributedExecution)
 
     for_each_tile(
         z,
-        [&](Array &tile, const TileRegion &region, ICommunicator &comm)
+        [&](Array &tile, const UvTile &region, ICommunicator &comm)
         {
           if (mode == ForEachMode::VA_SEQUENTIAL)
           {

@@ -28,7 +28,7 @@ namespace hmap
  */
 struct ForestSeedingOptions
 {
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Bounding box {xmin, xmax, ymin, ymax}.
+  BBox2D bbox = BBox2D{}; ///< Bounding box {xmin, xmax, ymin, ymax}.
   uint32_t seed = 0;                     ///< Random number generator seed.
   float    exclusion_threshold = 0.f;    ///< Threshold for exclusion map masking.
   std::vector<Species> species = {};     ///< Optional Species definitions.

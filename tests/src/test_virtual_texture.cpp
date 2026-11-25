@@ -1,3 +1,4 @@
+#include "highmap/colormaps.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
 
@@ -172,7 +173,7 @@ TEST(VirtualTextureTest, SyncOverlapBuffers)
   // Fill channel 1 tile 0 with 2.0f, tile 1 with 4.0f
   for_each_tile(
       tex,
-      [&](std::vector<Array *> &chs, const TileRegion &region)
+      [&](std::vector<Array *> &chs, const UvTile &region)
       {
         if (region.key.tx == 0)
         {
@@ -191,11 +192,11 @@ TEST(VirtualTextureTest, SyncOverlapBuffers)
 
   for (int c = 0; c < tex.channels(); ++c)
   {
-    auto      &va = tex.channel(c);
-    TileRegion r0 = va.tile_region_from_tile_coords(0, 0);
-    TileRegion r1 = va.tile_region_from_tile_coords(1, 0);
-    Array     &t0 = va.storage->get_tile(r0);
-    Array     &t1 = va.storage->get_tile(r1);
+    auto  &va = tex.channel(c);
+    UvTile r0 = va.tile_region_from_tile_coords(0, 0);
+    UvTile r1 = va.tile_region_from_tile_coords(1, 0);
+    Array &t0 = va.storage->get_tile(r0);
+    Array &t1 = va.storage->get_tile(r1);
 
     int   pbuf = t0.shape.x - 2 * halo;
     float expected = (c == 0) ? 0.5f : 3.0f;

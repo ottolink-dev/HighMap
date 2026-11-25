@@ -198,7 +198,7 @@ Forest grow_forest_competition_nn(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
+    const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Adjusts tree radii based on Voronoi cell areas and species competition
@@ -245,7 +245,7 @@ Forest grow_forest_competition_voronoi(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
+    const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Simulates iterative plant growth with neighborhood competition and
@@ -281,7 +281,7 @@ Forest grow_forest_iterative(const Forest               &forest,
                              const Array             &max_radius_scale = {},
                              float            max_radius_scale_strength = 1.0f,
                              bool             prune_unviable = true,
-                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                             const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Performs multi-species Strauss soft-core growth and thinning on an
@@ -315,7 +315,7 @@ Forest grow_forest_soft_core(const Forest               &forest,
                              const Array             &max_radius_scale = {},
                              float            max_radius_scale_strength = 1.0f,
                              uint32_t         seed = 0,
-                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                             const BBox2D &bbox = BBox2D{});
 
 /**
  * @struct ForestScaleSampler
@@ -325,7 +325,7 @@ Forest grow_forest_soft_core(const Forest               &forest,
 struct ForestScaleSampler
 {
   const Array *scale_array = nullptr;
-  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f};
+  const BBox2D &bbox = BBox2D{};
   float        strength = 1.0f;
   float        bbox_dx = 1.0f;
   float        bbox_dy = 1.0f;
@@ -333,7 +333,7 @@ struct ForestScaleSampler
 
   ForestScaleSampler(const Array     &array,
                      float            strength_factor,
-                     const glm::vec4 &bounds);
+                     const BBox2D &bounds);
 
   float sample(float x, float y) const;
 };

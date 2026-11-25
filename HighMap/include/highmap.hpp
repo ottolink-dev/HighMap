@@ -11,6 +11,7 @@
  */
 #pragma once
 
+#include "highmap/adapters/opencv.hpp"
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
 #include "highmap/authoring.hpp"

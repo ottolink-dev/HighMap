@@ -17,6 +17,7 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 namespace hmap
 {
@@ -229,7 +230,7 @@ void clamp_oblique_plane(Array    &array,
                          bool      use_max_operator = true, // min if not
                          float     k = 0.f,
                          glm::vec2 center = {0.5f, 0.5f},
-                         glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+                         const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @brief Clamp array values within a given interval with a smooth transition.

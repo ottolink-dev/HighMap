@@ -240,7 +240,7 @@ void apply_terrain_alignment(VirtualArray           &upper,
 
   for_each_tile(
       upper,
-      [&](Array &tile, const TileRegion &region)
+      [&](Array &tile, const UvTile &region)
       {
         const glm::ivec2 offset = region.global_offset();
 

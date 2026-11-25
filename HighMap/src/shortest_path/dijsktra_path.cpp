@@ -15,13 +15,13 @@
 namespace hmap
 {
 
-Path dijkstra(const Path  &path,
-              const Array &array,
-              glm::vec4    bbox,
-              float        elevation_ratio,
-              float        distance_exponent,
-              float        upward_penalization,
-              Array       *p_mask_nogo)
+Path dijkstra(const Path   &path,
+              const Array  &array,
+              const UvRect &uv_rect,
+              float         elevation_ratio,
+              float         distance_exponent,
+              float         upward_penalization,
+              Array        *p_mask_nogo)
 {
   if (!validate_non_empty(array)) return path;
   if (!validate_min_size(path, 2, "Path points")) return path;
@@ -35,16 +35,16 @@ Path dijkstra(const Path  &path,
     size_t knext = (k + 1) % new_path.size();
 
     glm::ivec2 ij_start = glm::ivec2(
-        (int)((new_path[k].x - bbox.x) / (bbox.y - bbox.x) *
-              (array.shape.x - 1)),
-        (int)((new_path[k].y - bbox.z) / (bbox.w - bbox.z) *
-              (array.shape.y - 1)));
+        (int)((new_path[k].x - uv_rect.u_min) /
+              (uv_rect.u_max - uv_rect.u_min) * (array.shape.x - 1)),
+        (int)((new_path[k].y - uv_rect.v_min) /
+              (uv_rect.v_max - uv_rect.v_min) * (array.shape.y - 1)));
 
     glm::ivec2 ij_end = glm::ivec2(
-        (int)((new_path[knext].x - bbox.x) / (bbox.y - bbox.x) *
-              (array.shape.x - 1)),
-        (int)((new_path[knext].y - bbox.z) / (bbox.w - bbox.z) *
-              (array.shape.y - 1)));
+        (int)((new_path[knext].x - uv_rect.u_min) /
+              (uv_rect.u_max - uv_rect.u_min) * (array.shape.x - 1)),
+        (int)((new_path[knext].y - uv_rect.v_min) /
+              (uv_rect.v_max - uv_rect.v_min) * (array.shape.y - 1)));
 
     std::vector<int> ip, jp;
     find_path_dijkstra(array,
@@ -63,10 +63,12 @@ Path dijkstra(const Path  &path,
 
     for (size_t r = 1; r < ip.size() - 1; r++)
     {
-      float x = (float)ip[r] / (float)(array.shape.x - 1) * (bbox.y - bbox.x) +
-                bbox.x;
-      float y = (float)jp[r] / (float)(array.shape.y - 1) * (bbox.w - bbox.z) +
-                bbox.z;
+      float x = (float)ip[r] / (float)(array.shape.x - 1) *
+                    (uv_rect.u_max - uv_rect.u_min) +
+                uv_rect.u_min;
+      float y = (float)jp[r] / (float)(array.shape.y - 1) *
+                    (uv_rect.v_max - uv_rect.v_min) +
+                uv_rect.v_min;
 
       // use distance to start and end points to determine value at the added
       // point (barycentric value)

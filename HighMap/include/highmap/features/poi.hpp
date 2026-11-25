@@ -73,7 +73,7 @@ struct PoiGenerationOptions
   std::uint32_t seed = 1337;             ///< PRNG seed for deterministic generation and jitter.
   float jitter = 0.0f;                   ///< Stochastic displacement ratio in [0, 1].
   const Array *p_mask = nullptr;         ///< Optional exclusion / region-of-interest mask.
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
+  BBox2D bbox = BBox2D::unit(); ///< Domain bounding box.
 };
 
 // ============================================================================

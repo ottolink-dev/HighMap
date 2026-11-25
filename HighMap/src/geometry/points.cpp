@@ -22,7 +22,7 @@ void Point::print() const
             << std::endl;
 }
 
-void Point::set_value_from_array(const Array &array, const glm::vec4 &bbox)
+void Point::set_value_from_array(const Array &array, const BBox2D &bbox)
 {
   if (!validate_non_empty(array))
   {
@@ -30,8 +30,8 @@ void Point::set_value_from_array(const Array &array, const glm::vec4 &bbox)
     return;
   }
 
-  float dx = bbox.y - bbox.x;
-  float dy = bbox.w - bbox.z;
+  float dx = bbox.max.x - bbox.min.x;
+  float dy = bbox.max.y - bbox.min.y;
   if (std::abs(dx) < 1e-7f || std::abs(dy) < 1e-7f)
   {
     this->v = 0.f;
@@ -39,8 +39,8 @@ void Point::set_value_from_array(const Array &array, const glm::vec4 &bbox)
   }
 
   // scale to unit interval
-  float xn = (this->x - bbox.x) / dx;
-  float yn = (this->y - bbox.z) / dy;
+  float xn = (this->x - bbox.min.x) / dx;
+  float yn = (this->y - bbox.min.y) / dy;
 
   // scale to array shape
   xn *= static_cast<float>(array.shape.x - 1);
@@ -234,13 +234,12 @@ Point interp_decasteljau(const std::vector<Point> &points, float t)
   return temp[0];
 }
 
-glm::vec4 intersect_bounding_boxes(const glm::vec4 &bbox1,
-                                   const glm::vec4 &bbox2)
+glm::vec4 intersect_bounding_boxes(const BBox2D &bbox1, const BBox2D &bbox2)
 {
-  float min_x = std::max(bbox1.x, bbox2.x);
-  float max_x = std::min(bbox1.y, bbox2.y);
-  float min_y = std::max(bbox1.z, bbox2.z);
-  float max_y = std::min(bbox1.w, bbox2.w);
+  float min_x = std::max(bbox1.min.x, bbox2.min.x);
+  float max_x = std::min(bbox1.max.x, bbox2.max.x);
+  float min_y = std::max(bbox1.min.y, bbox2.min.y);
+  float max_y = std::min(bbox1.max.y, bbox2.max.y);
 
   if (min_x <= max_x && min_y <= max_y)
   {
@@ -251,14 +250,16 @@ glm::vec4 intersect_bounding_boxes(const glm::vec4 &bbox1,
   return glm::vec4(1.f, -1.f, 1.f, -1.f);
 }
 
-bool is_point_within_bounding_box(const Point &p, const glm::vec4 &bbox)
+bool is_point_within_bounding_box(const Point &p, const BBox2D &bbox)
 {
-  return p.x >= bbox.x && p.x <= bbox.y && p.y >= bbox.z && p.y <= bbox.w;
+  return p.x >= bbox.min.x && p.x <= bbox.max.x && p.y >= bbox.min.y &&
+         p.y <= bbox.max.y;
 }
 
-bool is_point_within_bounding_box(float x, float y, const glm::vec4 &bbox)
+bool is_point_within_bounding_box(float x, float y, const BBox2D &bbox)
 {
-  return x >= bbox.x && x <= bbox.y && y >= bbox.z && y <= bbox.w;
+  return x >= bbox.min.x && x <= bbox.max.x && y >= bbox.min.y &&
+         y <= bbox.max.y;
 }
 
 Point lerp(const Point &p1, const Point &p2, float t)
@@ -375,7 +376,7 @@ float triangle_area_signed(const Point &p1, const Point &p2, const Point &p3)
          (p1.x * (p2.y - p3.y) + p2.x * (p3.y - p1.y) + p3.x * (p1.y - p2.y));
 }
 
-glm::vec4 unit_square_bbox()
+BBox2D unit_square_bbox()
 {
   return glm::vec4(0.f, 1.f, 0.f, 1.f);
 }

@@ -16,8 +16,8 @@
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/profiling.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 
 namespace hmap
@@ -68,16 +68,9 @@ struct VirtualArray
   VirtualArray() = default;
 
   VirtualArray(glm::ivec2                   shape,
-               glm::vec4                    bbox, // (x1, x2, y1, y2)
                glm::ivec2                   tile_shape,
                int                          halo,
                std::unique_ptr<TileStorage> storage);
-
-  VirtualArray(glm::ivec2  shape,
-               glm::vec4   bbox,
-               glm::ivec2  tile_shape,
-               int         halo,
-               StorageMode storage_mode = StorageMode::VA_RAM);
 
   VirtualArray(glm::ivec2  shape,
                glm::ivec2  tile_shape,
@@ -136,13 +129,13 @@ struct VirtualArray
   void sync_overlap_buffers(SyncOperation op = SyncOperation::SmoothBlend);
 
   // Find which tile covers a given index
-  glm::vec2  tile_region_global_position(const TileRegion &region) const;
-  glm::ivec2 tile_region_global_indices(const TileRegion &region) const;
-  TileRegion tile_region_from_global_index(int global_i, int global_j) const;
-  TileRegion tile_region_from_tile_coords(int tile_x, int tile_y) const;
-  glm::ivec2 local_indices(const TileRegion &region,
-                           int               global_i,
-                           int               global_j) const;
+  glm::vec2  tile_region_global_position(const UvTile &region) const;
+  glm::ivec2 tile_region_global_indices(const UvTile &region) const;
+  UvTile     tile_region_from_global_index(int global_i, int global_j) const;
+  UvTile     tile_region_from_tile_coords(int tile_x, int tile_y) const;
+  glm::ivec2 local_indices(const UvTile &region,
+                           int           global_i,
+                           int           global_j) const;
 
   void   trim_storage() const;
   size_t live_tile_count() const;
@@ -153,7 +146,6 @@ struct VirtualArray
   // --- Members
 
   glm::ivec2                   shape;
-  glm::vec4                    bbox; // (x1, x2, y1, y2)
   glm::ivec2                   tile_shape;
   int                          halo;
   std::unique_ptr<TileStorage> storage;

@@ -116,7 +116,7 @@ TEST(SmoothCPulse_VirtualArray, SingleTileMatchesGPU)
     for (int i = 0; i < shape.x; ++i)
       input(i, j) = float(i + j * shape.x);
 
-  VirtualArray va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
   ComputeMode  cm_seq{.mode = ForEachMode::VA_SEQUENTIAL};
   va.from_array(input, cm_seq);
 
@@ -146,8 +146,8 @@ TEST(SmoothCPulse_VirtualArray, MaskedFilter)
       mask(i, j) = (i > 32) ? 1.f : 0.f;
     }
 
-  VirtualArray va_input(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
-  VirtualArray va_mask(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va_input(shape, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va_mask(shape, tile_shape, halo, StorageMode::VA_RAM);
   ComputeMode  cm_dist{.mode = ForEachMode::VA_DISTRIBUTED};
 
   va_input.from_array(input, cm_dist);
@@ -180,7 +180,7 @@ TEST(SmoothCPulse_VirtualArray, ReturnsFilteredVirtualArray)
     for (int i = 0; i < shape.x; ++i)
       input(i, j) = float(i + j * shape.x);
 
-  VirtualArray va_in(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray va_in(shape, tile_shape, halo, StorageMode::VA_RAM);
   ComputeMode  cm{.mode = ForEachMode::VA_DISTRIBUTED};
   va_in.from_array(input, cm);
 

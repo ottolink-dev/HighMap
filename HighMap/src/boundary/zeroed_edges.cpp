@@ -24,7 +24,7 @@ void zeroed_edges(Array               &array,
                   glm::vec2            center,
                   float                radius,
                   const Array         *p_noise_r,
-                  glm::vec4            bbox)
+                  const UvRect        &uv_rect)
 {
   if (!validate_non_empty(array)) return;
   if (p_noise_r && !validate_same_shape(array, *p_noise_r)) return;
@@ -38,7 +38,7 @@ void zeroed_edges(Array               &array,
   // grid
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   for (int j = 0; j < shape.y; j++)
     for (int i = 0; i < shape.x; i++)

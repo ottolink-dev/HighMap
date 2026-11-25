@@ -16,7 +16,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -67,8 +67,8 @@ public:
   virtual bool write_chunk(int                       offset_x,
                            int                       offset_y,
                            const std::vector<Array> &channels);
-  virtual bool write_tile(const TileRegion &region, const Array &data);
-  virtual bool write_tile(const TileRegion         &region,
+  virtual bool write_tile(const UvTile &region, const Array &data);
+  virtual bool write_tile(const UvTile             &region,
                           const std::vector<Array> &channels);
 
   // --- Properties

@@ -18,6 +18,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 namespace hmap
 {
@@ -49,7 +50,7 @@ public:
    */
   InverseSampler2D(const Array     &density,
                    std::uint32_t    seed = 0,
-                   const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                   const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
   //  Sampling
@@ -143,7 +144,7 @@ public:
    */
   void reset(const Array     &density,
              std::uint32_t    seed = 0,
-             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+             const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
   //  Getters & Setters
@@ -152,7 +153,7 @@ public:
   /**
    * @brief Gets the bounding box.
    */
-  const glm::vec4 &get_bbox() const;
+  const BBox2D &get_bbox() const;
 
   /**
    * @brief Gets the current density array.
@@ -167,7 +168,7 @@ public:
   /**
    * @brief Sets the bounding box.
    */
-  void set_bbox(const glm::vec4 &bbox);
+  void set_bbox(const BBox2D &bbox);
 
   /**
    * @brief Sets the RNG seed.
@@ -176,7 +177,7 @@ public:
 
 private:
   Array                                 density_;
-  glm::vec4                             bbox_ = {0.f, 1.f, 0.f, 1.f};
+  BBox2D bbox_ = BBox2D{};
   std::vector<float>                    row_sums_;
   std::vector<float>                    r_cdf_;
   std::mt19937                          rng_{0};

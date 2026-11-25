@@ -17,8 +17,8 @@
 #include "highmap/math/array.hpp"
 #include "highmap/primitives/functions.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -346,7 +346,7 @@ VirtualArray hydraulic_saleve(const ComputeMode    &cm,
       {&ze},
       [&](std::vector<const hmap::Array *> p_arrays_in,
           std::vector<hmap::Array *>       p_arrays_out,
-          const hmap::TileRegion          &region)
+          const hmap::UvTile              &region)
       {
         auto [pa_noise_x, pa_noise_y] = unpack<2>(p_arrays_in);
         auto [pa_ze] = unpack<1>(p_arrays_out);
@@ -356,13 +356,15 @@ VirtualArray hydraulic_saleve(const ComputeMode    &cm,
 
         if (pa_noise_x)
         {
-          dx = (*pa_noise_x) * biquad_pulse_x(region.shape, region.bbox);
+          dx = (*pa_noise_x) *
+               biquad_pulse_x(region.shape, region.uv_rect.to_vec4());
           pa_noise_x = &dx;
         }
 
         if (pa_noise_y)
         {
-          dy = (*pa_noise_y) * biquad_pulse_y(region.shape, region.bbox);
+          dy = (*pa_noise_y) *
+               biquad_pulse_y(region.shape, region.uv_rect.to_vec4());
           pa_noise_y = &dy;
         }
 
@@ -373,7 +375,7 @@ VirtualArray hydraulic_saleve(const ComputeMode    &cm,
                                interpolation_method,
                                pa_noise_x,
                                pa_noise_y,
-                               region.bbox);
+                               region.uv_rect.to_vec4());
       },
       cm);
 
@@ -384,7 +386,7 @@ VirtualArray hydraulic_saleve(const ComputeMode    &cm,
       {&ze},
       [&](std::vector<const hmap::Array *> p_arrays_in,
           std::vector<hmap::Array *>       p_arrays_out,
-          const hmap::TileRegion &)
+          const hmap::UvTile &)
       {
         auto [pa_z, pa_mask] = unpack<2>(p_arrays_in);
         auto [pa_ze] = unpack<1>(p_arrays_out);

@@ -89,7 +89,7 @@ Array dendry(glm::ivec2    shape,
              float         control_function_overlap = 0.5f,
              const Array  *p_noise_x = nullptr,
              const Array  *p_noise_y = nullptr,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+             const UvRect &uv_rect = UvRect::unit(),
              int           subsampling = 1);
 
 Array dendry(glm::ivec2                                       shape,
@@ -108,7 +108,7 @@ Array dendry(glm::ivec2                                       shape,
              float        control_function_overlap = 0.5f,
              const Array *p_noise_x = nullptr,
              const Array *p_noise_y = nullptr,
-             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a diffusion-limited aggregation (DLA) pattern.
@@ -222,7 +222,7 @@ Array noise(NoiseType     noise_type,
             std::uint32_t seed,
             const Array  *p_noise_x = nullptr,
             const Array  *p_noise_y = nullptr,
-            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+            const UvRect &uv_rect = UvRect::unit(),
             float         angle = 0.f,
             float         stretch = 1.f);
 
@@ -268,7 +268,7 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_ctrl_param = nullptr,
                 const Array  *p_noise_x = nullptr,
                 const Array  *p_noise_y = nullptr,
-                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                const UvRect &uv_rect = UvRect::unit(),
                 float         angle = 0.f,
                 float         stretch = 1.f,
                 float         stretch_decay = 0.f);
@@ -317,7 +317,7 @@ Array noise_iq(NoiseType     noise_type,
                const Array  *p_ctrl_param = nullptr,
                const Array  *p_noise_x = nullptr,
                const Array  *p_noise_y = nullptr,
-               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+               const UvRect &uv_rect = UvRect::unit(),
                float         angle = 0.f,
                float         stretch = 1.f,
                float         stretch_decay = 0.f);
@@ -372,7 +372,7 @@ Array noise_jordan(NoiseType     noise_type,
                    const Array  *p_ctrl_param = nullptr,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                   const UvRect &uv_rect = UvRect::unit(),
                    float         angle = 0.f,
                    float         stretch = 1.f,
                    float         stretch_decay = 0.f);
@@ -420,7 +420,7 @@ Array noise_parberry(glm::ivec2    shape,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                     const UvRect &uv_rect = UvRect::unit(),
                      float         angle = 0.f,
                      float         stretch = 1.f,
                      float         stretch_decay = 0.f);
@@ -467,7 +467,7 @@ Array noise_pingpong(NoiseType     noise_type,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                     const UvRect &uv_rect = UvRect::unit(),
                      float         angle = 0.f,
                      float         stretch = 1.f,
                      float         stretch_decay = 0.f);
@@ -516,7 +516,7 @@ Array noise_ridged(NoiseType     noise_type,
                    const Array  *p_ctrl_param = nullptr,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                   const UvRect &uv_rect = UvRect::unit(),
                    float         angle = 0.f,
                    float         stretch = 1.f,
                    float         stretch_decay = 0.f);
@@ -567,7 +567,7 @@ Array noise_slope(NoiseType     noise_type,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  const UvRect &uv_rect = UvRect::unit(),
                   float         angle = 0.f,
                   float         stretch = 1.f,
                   float         stretch_decay = 0.f);
@@ -616,7 +616,7 @@ Array noise_swiss(NoiseType     noise_type,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  const UvRect &uv_rect = UvRect::unit(),
                   float         angle = 0.f,
                   float         stretch = 1.f,
                   float         stretch_decay = 0.f);
@@ -652,7 +652,7 @@ Array worley_double(glm::ivec2    shape,
                     const Array  *p_ctrl_param = nullptr,
                     const Array  *p_noise_x = nullptr,
                     const Array  *p_noise_y = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap
 
@@ -687,14 +687,14 @@ Array gabor_wave(glm::ivec2    shape,
                  std::uint32_t seed,
                  const Array  &angle,
                  float         angle_spread_ratio = 1.f,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 Array gabor_wave(glm::ivec2    shape,
                  glm::vec2     kw,
                  std::uint32_t seed,
                  float         angle = 0.f,
                  float         angle_spread_ratio = 1.f,
-                 glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return an array filled with coherence Gabor noise.
@@ -740,7 +740,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 Array gabor_wave_fbm(glm::ivec2    shape,
                      glm::vec2     kw,
@@ -754,7 +754,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                      const Array  *p_ctrl_param = nullptr,
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a 2D array using the GavoroNoise algorithm, which is a
@@ -820,7 +820,7 @@ Array gavoronoise(glm::ivec2    shape,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 Array gavoronoise(glm::ivec2    shape,
                   glm::vec2     kw,
@@ -839,7 +839,7 @@ Array gavoronoise(glm::ivec2    shape,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 Array gavoronoise(const Array  &base,
                   glm::vec2     kw,
@@ -856,7 +856,7 @@ Array gavoronoise(const Array  &base,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /*! @brief See hmap::noise. @p period sets the tiling period in lattice cells.
    For the heightmap to be periodic with respect to the full domain, @p period
@@ -871,7 +871,7 @@ Array noise(NoiseType     noise_type,
             std::uint32_t seed,
             const Array  *p_noise_x = nullptr,
             const Array  *p_noise_y = nullptr,
-            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+            const UvRect &uv_rect = UvRect::unit(),
             glm::ivec2    period = {0, 0},
             float         angle = 0.f,
             float         stretch = 1.f);
@@ -894,7 +894,7 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_ctrl_param = nullptr,
                 const Array  *p_noise_x = nullptr,
                 const Array  *p_noise_y = nullptr,
-                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                const UvRect &uv_rect = UvRect::unit(),
                 glm::ivec2    period = {0, 0},
                 float         angle = 0.f,
                 float         stretch = 1.f,
@@ -918,7 +918,7 @@ Array noise_slope(NoiseType     noise_type,
                   const Array  *p_ctrl_param = nullptr,
                   const Array  *p_noise_x = nullptr,
                   const Array  *p_noise_y = nullptr,
-                  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                  const UvRect &uv_rect = UvRect::unit(),
                   glm::ivec2    period = {0, 0},
                   float         angle = 0.f,
                   float         stretch = 1.f,
@@ -963,7 +963,7 @@ Array phasor(PhasorProfile   phasor_profile,
              const Array    *p_angle = nullptr,
              const Array    *p_noise_x = nullptr,
              const Array    *p_noise_y = nullptr,
-             glm::vec4       bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a multi-octave (fBm) phasor-based pattern.
@@ -1012,7 +1012,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                  const Array    *p_angle = nullptr,
                  const Array    *p_noise_x = nullptr,
                  const Array    *p_noise_y = nullptr,
-                 glm::vec4       bbox = {0.f, 1.f, 0.f, 1.f});
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi-based pattern where cells are defined by proximity
@@ -1069,8 +1069,8 @@ Array vorolines(glm::ivec2        shape,
                 VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                 const Array      *p_noise_x = nullptr,
                 const Array      *p_noise_y = nullptr,
-                glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f},
-                glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit(),
+                const UvRect &uv_rect_points = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi-based pattern using distances to lines defined by
@@ -1142,8 +1142,8 @@ Array vorolines_fbm(
     float             lacunarity = 2.f,
     const Array      *p_noise_x = nullptr,
     const Array      *p_noise_y = nullptr,
-    glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f},
-    glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+    const UvRect &uv_rect = UvRect::unit(),
+    const UvRect     &uv_rect_points = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi diagram in a 2D array with configurable
@@ -1197,7 +1197,7 @@ Array voronoi(glm::ivec2        shape,
               const Array      *p_ctrl_param = nullptr,
               const Array      *p_noise_x = nullptr,
               const Array      *p_noise_y = nullptr,
-              glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f});
+              const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi diagram in a 2D array with configurable
@@ -1262,7 +1262,7 @@ Array voronoi_fbm(glm::ivec2        shape,
                   const Array      *p_ctrl_param = nullptr,
                   const Array      *p_noise_x = nullptr,
                   const Array      *p_noise_y = nullptr,
-                  glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Computes the Voronoi edge distance.
@@ -1300,7 +1300,7 @@ Array voronoi_edge_distance(glm::ivec2    shape,
                             const Array  *p_ctrl_param = nullptr,
                             const Array  *p_noise_x = nullptr,
                             const Array  *p_noise_y = nullptr,
-                            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                            const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a 2D Voronoi noise array.
@@ -1345,7 +1345,7 @@ Array voronoise(glm::ivec2    shape,
                 std::uint32_t seed,
                 const Array  *p_noise_x = nullptr,
                 const Array  *p_noise_y = nullptr,
-                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Return an array filled with coherence Voronoise.
@@ -1386,7 +1386,7 @@ Array voronoise_fbm(glm::ivec2    shape,
                     const Array  *p_ctrl_param = nullptr,
                     const Array  *p_noise_x = nullptr,
                     const Array  *p_noise_y = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a 2D Voronoi-based scalar field using OpenCL.
@@ -1445,8 +1445,8 @@ Array vororand(glm::ivec2        shape,
                VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                const Array      *p_noise_x = nullptr,
                const Array      *p_noise_y = nullptr,
-               glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f},
-               glm::vec4         bbox_points = {0.f, 1.f, 0.f, 1.f});
+               const UvRect &uv_rect = UvRect::unit(),
+               const UvRect     &uv_rect_points = UvRect::unit());
 
 Array vororand(glm::ivec2                shape,
                const std::vector<float> &xp,
@@ -1456,7 +1456,7 @@ Array vororand(glm::ivec2                shape,
                VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                const Array      *p_noise_x = nullptr,
                const Array      *p_noise_y = nullptr,
-               glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f});
+               const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates 2D wavelet noise using an OpenCL kernel.
@@ -1527,6 +1527,6 @@ Array wavelet_noise(glm::ivec2    shape,
                     const Array  *p_ctrl_param = nullptr,
                     const Array  *p_noise_x = nullptr,
                     const Array  *p_noise_y = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu

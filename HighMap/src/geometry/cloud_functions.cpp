@@ -19,11 +19,11 @@
 namespace hmap
 {
 
-Array cloud_sdf_to_array(const Cloud &cloud,
-                         glm::ivec2   shape,
-                         glm::vec4    bbox_array,
-                         const Array *p_noise_x,
-                         const Array *p_noise_y)
+Array cloud_sdf_to_array(const Cloud  &cloud,
+                         glm::ivec2    shape,
+                         const BBox2D &bbox_array,
+                         const Array  *p_noise_x,
+                         const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -41,7 +41,7 @@ Array cloud_sdf_to_array(const Cloud &cloud,
 
   // array base grid
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox_array, /* endpoint */ false);
+  grid_xy_vector(xg, yg, shape, UvRect::from_vec4(bbox_array.to_vec4()), false);
 
 #pragma omp parallel for default(none)                                         \
     shared(shape, p_noise_x, p_noise_y, xg, yg, tree, array)
@@ -95,14 +95,14 @@ bool has_duplicates(const Cloud &cloud, float eps, bool xy_only)
   return false;
 }
 
-std::vector<float> interpolate_values_from_array(const Cloud &cloud,
-                                                 const Array &array,
-                                                 glm::vec4    bbox)
+std::vector<float> interpolate_values_from_array(const Cloud  &cloud,
+                                                 const Array  &array,
+                                                 const BBox2D &bbox)
 {
   if (!validate_non_empty(array)) return std::vector<float>(cloud.size(), 0.f);
 
-  const float      inv_width = 1.0f / (bbox.y - bbox.x);
-  const float      inv_height = 1.0f / (bbox.w - bbox.z);
+  const float      inv_width = 1.0f / (bbox.max.x - bbox.min.x);
+  const float      inv_height = 1.0f / (bbox.max.y - bbox.min.y);
   const glm::ivec2 shape = {array.shape.x - 1, array.shape.y - 1};
 
   std::vector<float> values;
@@ -110,8 +110,8 @@ std::vector<float> interpolate_values_from_array(const Cloud &cloud,
 
   for (const auto &p : cloud)
   {
-    const float xn = (p.x - bbox.x) * inv_width;
-    const float yn = (p.y - bbox.z) * inv_height;
+    const float xn = (p.x - bbox.min.x) * inv_width;
+    const float yn = (p.y - bbox.min.y) * inv_height;
 
     if (xn < 0.0f || xn > 1.0f || yn < 0.0f || yn > 1.0f)
     {
@@ -138,17 +138,17 @@ std::vector<float> interpolate_values_from_array(const Cloud &cloud,
   return values;
 }
 
-void rejection_filter_density(Cloud           &cloud,
-                              const Array     &density_mask,
-                              std::uint32_t    seed,
-                              const glm::vec4 &bbox)
+void rejection_filter_density(Cloud        &cloud,
+                              const Array  &density_mask,
+                              std::uint32_t seed,
+                              const BBox2D &bbox)
 {
   if (!validate_non_empty(density_mask)) return;
 
   std::mt19937                          gen(seed);
   std::uniform_real_distribution<float> dis(0.f, 1.f);
 
-  auto density_fct = make_xy_function_from_array(density_mask, bbox);
+  auto density_fct = make_xy_function_from_array(density_mask, bbox.to_vec4());
 
   cloud.erase(std::remove_if(cloud.begin(),
                              cloud.end(),

@@ -9,20 +9,21 @@
 namespace hmap
 {
 
-void swirl(Array       &dx,
-           Array       &dy,
-           float        amplitude,
-           float        exponent,
-           const Array *p_noise,
-           glm::vec4    bbox)
+void swirl(Array        &dx,
+           Array        &dy,
+           float         amplitude,
+           float         exponent,
+           const Array  *p_noise,
+           const UvRect &uv_rect)
 {
   if (!validate_non_empty(dx) || !validate_same_shape(dx, dy)) return;
   if (p_noise && !validate_same_shape(dx, *p_noise)) return;
 
   const glm::ivec2 shape = dx.shape;
 
-  glm::vec2 shift = {bbox.x, bbox.z};
-  glm::vec2 scale = {bbox.y - bbox.x, bbox.w - bbox.z};
+  glm::vec2 shift = {uv_rect.u_min, uv_rect.v_min};
+  glm::vec2 scale = {uv_rect.u_max - uv_rect.u_min,
+                     uv_rect.v_max - uv_rect.v_min};
 
   float xc = (0.5f - shift.x) / scale.x;
   float yc = (0.5f - shift.y) / scale.y;

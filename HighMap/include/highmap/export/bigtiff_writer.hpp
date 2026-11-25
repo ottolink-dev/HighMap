@@ -42,8 +42,8 @@ public:
   bool write_chunk(int                       offset_x,
                    int                       offset_y,
                    const std::vector<Array> &channels) override;
-  bool write_tile(const TileRegion &region, const Array &data) override;
-  bool write_tile(const TileRegion         &region,
+  bool write_tile(const UvTile &region, const Array &data) override;
+  bool write_tile(const UvTile             &region,
                   const std::vector<Array> &channels) override;
 
   // --- Properties

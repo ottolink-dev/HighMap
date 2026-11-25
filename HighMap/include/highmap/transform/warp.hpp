@@ -153,7 +153,6 @@ void warp_downslope(Array       &array,
                     int          ir = 4,
                     bool         reverse = false);
 
-
 } // namespace hmap
 
 namespace hmap::gpu

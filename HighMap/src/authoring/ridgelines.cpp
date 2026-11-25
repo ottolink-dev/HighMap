@@ -26,11 +26,11 @@ Array ridgelines(glm::ivec2                shape,
                  float                     k_smoothing,
                  float                     width,
                  float                     vmin,
-                 glm::vec4                 bbox,
+                 const UvRect             &uv_rect,
                  const Array              *p_noise_x,
                  const Array              *p_noise_y,
                  const Array              *p_stretching,
-                 glm::vec4                 bbox_array)
+                 const UvRect             &uv_rect_array)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -42,7 +42,7 @@ Array ridgelines(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, bbox);
+  rescale_points_to_unit_square(xrs, yrs, BBox2D(uv_rect.to_vec4()));
 
   // define noise function
   std::function<float(float, float, float)> lambda;
@@ -98,7 +98,7 @@ Array ridgelines(glm::ivec2                shape,
 
   // eventually fill array
   fill_array_using_xy_function(array,
-                               bbox_array,
+                               uv_rect_array,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -116,11 +116,11 @@ Array ridgelines_bezier(glm::ivec2                shape,
                         float                     k_smoothing,
                         float                     width,
                         float                     vmin,
-                        glm::vec4                 bbox,
+                        const UvRect             &uv_rect,
                         const Array              *p_noise_x,
                         const Array              *p_noise_y,
                         const Array              *p_stretching,
-                        glm::vec4                 bbox_array)
+                        const UvRect             &uv_rect_array)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -132,7 +132,7 @@ Array ridgelines_bezier(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, bbox);
+  rescale_points_to_unit_square(xrs, yrs, BBox2D(uv_rect.to_vec4()));
 
   // define noise function
   std::function<float(float, float, float)> lambda;
@@ -313,7 +313,7 @@ Array ridgelines_bezier(glm::ivec2                shape,
 
   // eventually fill array
   fill_array_using_xy_function(array,
-                               bbox_array,
+                               uv_rect_array,
                                nullptr,
                                p_noise_x,
                                p_noise_y,

@@ -18,6 +18,7 @@
 #pragma once
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/uv_rect.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
 
@@ -214,7 +215,7 @@ std::vector<float> logspace(float start,
  */
 template <typename Fn>
 void fill_array_using_xy_function(Array       &array,
-                                  glm::vec4    bbox,
+                                  const UvRect &uv_rect,
                                   const Array *p_ctrl_param,
                                   const Array *p_noise_x,
                                   const Array *p_noise_y,
@@ -256,7 +257,7 @@ void fill_array_using_xy_function(Array       &array,
 /// @overload
 template <typename Fn>
 void fill_array_using_xy_function(Array       &array,
-                                  glm::vec4    bbox,
+                                  const UvRect &uv_rect,
                                   const Array *p_ctrl_param,
                                   const Array *p_noise_x,
                                   const Array *p_noise_y,

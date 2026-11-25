@@ -139,7 +139,7 @@ TEST(ScatterFieldTest, FilterByClassAndBbox)
   ScatterField filtered = field.filter_by_class(1u);
   EXPECT_EQ(filtered.size(), 2u);
 
-  glm::vec4 bbox = field.get_bbox();
+  glm::vec4 bbox = field.get_bbox().to_vec4();
   EXPECT_TRUE(float_eq(bbox.x, 1.f));
   EXPECT_TRUE(float_eq(bbox.y, 3.f));
   EXPECT_TRUE(float_eq(bbox.z, 1.f));

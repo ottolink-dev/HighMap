@@ -30,19 +30,19 @@ namespace hmap
 //  Procedural Rock Placement Functions (Alphabetically Sorted)
 // ============================================================================
 
-Array build_rock_density(const Array &heightmap,
-                         float        max_slope,
-                         float        bulkify_amp,
-                         float        weight_elev,
-                         float        weight_slope,
-                         float        weight_rivers,
-                         float        river_talus_ref,
-                         float        river_clipping_ratio,
-                         const Array &secondary_density,
-                         float        weight_secondary,
-                         const Array &exclusion_mask,
-                         float        exclusion_threshold,
-                         glm::vec4    bbox)
+Array build_rock_density(const Array  &heightmap,
+                         float         max_slope,
+                         float         bulkify_amp,
+                         float         weight_elev,
+                         float         weight_slope,
+                         float         weight_rivers,
+                         float         river_talus_ref,
+                         float         river_clipping_ratio,
+                         const Array  &secondary_density,
+                         float         weight_secondary,
+                         const Array  &exclusion_mask,
+                         float         exclusion_threshold,
+                         const BBox2D &bbox)
 {
   if (!validate_non_empty(heightmap)) return Array();
 
@@ -57,7 +57,7 @@ Array build_rock_density(const Array &heightmap,
                      nullptr,
                      nullptr,
                      {0.5f, 0.5f},
-                     bbox);
+                     UvRect::from_vec4(bbox.to_vec4()));
   }
   else
   {
@@ -224,9 +224,10 @@ RockField place_rocks_procedural(size_t       rock_count,
 
   for (auto &rock : rock_field)
   {
-    const float e = z_norm.get_value_bilinear(rock.position.x,
-                                              rock.position.y,
-                                              options.bbox);
+    const float e = z_norm.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
 
     const float t = std::clamp(size_elevation_gain *
                                    std::pow(1.f - e, size_elevation_exponent),
@@ -234,9 +235,10 @@ RockField place_rocks_procedural(size_t       rock_count,
                                1.f);
 
     // steep slopes reduce the maximum rock size
-    const float s = slope.get_value_bilinear(rock.position.x,
-                                             rock.position.y,
-                                             options.bbox);
+    const float s = slope.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
 
     const float slope_factor = 1.f -
                                std::clamp(size_slope_weight, 0.f, 1.f) * s;
@@ -253,9 +255,10 @@ RockField place_rocks_procedural(size_t       rock_count,
 
     rock.radius = std::clamp(radius, radius_min, local_radius_max);
     rock.class_id = options.distribution.class_id;
-    rock.position.z = elevation.get_value_bilinear(rock.position.x,
-                                                   rock.position.y,
-                                                   options.bbox);
+    rock.position.z = elevation.get_value_bilinear(
+        rock.position.x,
+        rock.position.y,
+        UvRect::from_vec4(options.bbox.to_vec4()));
   }
 
   return rock_field;
@@ -346,7 +349,7 @@ RockField place_rocks_procedural(size_t              rock_count,
         {},
         [&](const std::vector<const Array *> &p_arrays_in,
             std::vector<Array *> &,
-            const TileRegion &region)
+            const UvTile &region)
         {
           const auto [p_elev_tile, p_excl_tile] = unpack<2>(p_arrays_in);
 
@@ -403,14 +406,14 @@ RockField place_rocks_procedural(size_t              rock_count,
       {},
       [&](const std::vector<const Array *> &p_arrays_in,
           std::vector<Array *> &,
-          const TileRegion &region)
+          const UvTile &region)
       {
         const auto [p_elev_tile, p_density_tile, p_excl_tile] = unpack<3>(
             p_arrays_in);
 
         int tile_index = region.key.ty * num_tiles.x + region.key.tx;
 
-        tile_bboxs[tile_index] = region.bbox;
+        tile_bboxs[tile_index] = region.uv_rect.to_vec4();
 
         float  tile_sum = tile_full_sums[tile_index];
         size_t tile_rock_count = static_cast<size_t>(std::round(
@@ -422,7 +425,7 @@ RockField place_rocks_procedural(size_t              rock_count,
         }
 
         RockSeedingOptions tile_options = options;
-        tile_options.bbox = region.bbox;
+        tile_options.bbox = BBox2D(region.uv_rect.to_vec4());
         tile_options.seed = options.seed +
                             static_cast<uint32_t>(tile_index) * 1999u + 17u;
 
