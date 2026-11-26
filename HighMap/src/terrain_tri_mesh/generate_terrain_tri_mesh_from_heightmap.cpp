@@ -49,12 +49,17 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap(const Array &z,
 }
 
 TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const Array  &z,
-    int           control_points_count,
-    std::uint32_t seed)
+    const Array   &z,
+    int            control_points_count,
+    std::uint32_t  seed,
+    const UvTile  &region,
+    ICommunicator *p_comm)
 {
   if (!validate_non_empty(z)) return TerrainTriMesh();
 
+  SingleArrayComm default_comm;
+  ICommunicator  &comm = p_comm ? *p_comm : default_comm;
+
   const BBox2D bbox = BBox2D::unit();
 
   Cloud cloud = random_cloud_jittered(control_points_count,
@@ -63,50 +68,46 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
                                       seed,
                                       bbox);
   cloud.snap_points_to_bounding_box(bbox);
-  cloud.set_values_from_array(z, bbox);
 
-  return TerrainTriMesh(cloud.to_vec3());
+  const BBox2D core_bbox = region.core_uv_rect().to_bbox2d();
+
+  Cloud tile_cloud = cloud;
+  tile_cloud.set_values_from_array(z, region.uv_rect.to_bbox2d());
+  const std::vector<glm::vec3> tile_xyz = tile_cloud.to_vec3();
+
+  std::vector<glm::vec3> xyz = cloud.to_vec3();
+
+  const bool is_single = (comm.size() == 1);
+
+  for (size_t i = 0; i < xyz.size(); ++i)
+  {
+    const glm::vec3 &pt = xyz[i];
+
+    bool owned = is_single;
+    if (!owned)
+    {
+      const bool in_x = (region.is_left_border()
+                             ? pt.x >= core_bbox.min.x - 1e-6f
+                             : pt.x >= core_bbox.min.x) &&
+                        (region.is_right_border()
+                             ? pt.x <= core_bbox.max.x + 1e-6f
+                             : pt.x < core_bbox.max.x);
+      const bool in_y = (region.is_bottom_border()
+                             ? pt.y >= core_bbox.min.y - 1e-6f
+                             : pt.y >= core_bbox.min.y) &&
+                        (region.is_top_border()
+                             ? pt.y <= core_bbox.max.y + 1e-6f
+                             : pt.y < core_bbox.max.y);
+      owned = in_x && in_y;
+    }
+
+    const float local_z = owned ? tile_xyz[i].z : 0.f;
+    xyz[i].z = comm.all_reduce(local_z, ReduceOp::Sum);
+  }
+
+  if (comm.rank() == 0) return TerrainTriMesh(xyz);
+
+  return TerrainTriMesh();
 }
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const ComputeMode  &cm,
-    const VirtualArray &z,
-    int                 control_points_count,
-    std::uint32_t       seed)
-{
-  const BBox2D bbox = BBox2D::unit();
-
-  Cloud cloud = random_cloud_jittered(control_points_count,
-                                      {0.5f, 0.5f},
-                                      {0.f, 0.f},
-                                      seed,
-                                      bbox);
-  cloud.snap_points_to_bounding_box(bbox);
-
-  // sample the control points tile after tile in a fixed order: all tiles
-  // write into the same cloud, so distributed sampling races on the points in
-  // the overlaps and the resulting sinks change from one run to the next
-  ComputeMode cm_sampling = cm;
-  cm_sampling.mode = ForEachMode::VA_SEQUENTIAL;
-
-  hmap::for_each_tile(
-      {&z},
-      {},
-      [&](std::vector<const hmap::Array *> p_arrays_in,
-          std::vector<hmap::Array *>,
-          const hmap::UvTile &region)
-      {
-        auto [pa_z] = unpack<1>(p_arrays_in);
-        cloud.set_values_from_array(*pa_z, region.uv_rect.to_bbox2d());
-      },
-      cm_sampling);
-
-  return TerrainTriMesh(cloud.to_vec3());
-}
-
-} // namespace hmap::va
