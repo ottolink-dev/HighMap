@@ -181,23 +181,23 @@ std::array<std::vector<float>, 2> InverseSampler2D::sample(size_t count)
   return {std::move(x_coords), std::move(y_coords)};
 }
 
-glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox)
+glm::vec2 InverseSampler2D::sample(const BBox2D &restricted_bbox)
 {
   return this->sample(restricted_bbox,
                       this->dist_(this->rng_),
                       this->dist_(this->rng_));
 }
 
-glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox,
-                                   float            u_in,
-                                   float            u2_in)
+glm::vec2 InverseSampler2D::sample(const BBox2D &restricted_bbox,
+                                   float         u_in,
+                                   float         u2_in)
 {
   const int nx = this->density_.shape.x;
   const int ny = this->density_.shape.y;
 
   if (nx <= 0 || ny <= 0)
-    return glm::vec2(0.5f * (restricted_bbox.x + restricted_bbox.y),
-                     0.5f * (restricted_bbox.z + restricted_bbox.w));
+    return glm::vec2(0.5f * (restricted_bbox.min.x + restricted_bbox.max.x),
+                     0.5f * (restricted_bbox.min.y + restricted_bbox.max.y));
 
   const float bbox_dx = this->bbox_.max.x - this->bbox_.min.x;
   const float bbox_dy = this->bbox_.max.y - this->bbox_.min.y;
@@ -206,18 +206,22 @@ glm::vec2 InverseSampler2D::sample(const glm::vec4 &restricted_bbox,
     return glm::vec2(this->bbox_.min.x, this->bbox_.min.y);
 
   // clamp restricted bbox to the sampler domain
-  float xmin = std::clamp(std::min(restricted_bbox.x, restricted_bbox.y),
-                          this->bbox_.min.x,
-                          this->bbox_.max.x);
-  float xmax = std::clamp(std::max(restricted_bbox.x, restricted_bbox.y),
-                          this->bbox_.min.x,
-                          this->bbox_.max.x);
-  float ymin = std::clamp(std::min(restricted_bbox.z, restricted_bbox.w),
-                          this->bbox_.min.y,
-                          this->bbox_.max.y);
-  float ymax = std::clamp(std::max(restricted_bbox.z, restricted_bbox.w),
-                          this->bbox_.min.y,
-                          this->bbox_.max.y);
+  float xmin = std::clamp(
+      std::min(restricted_bbox.min.x, restricted_bbox.max.x),
+      this->bbox_.min.x,
+      this->bbox_.max.x);
+  float xmax = std::clamp(
+      std::max(restricted_bbox.min.x, restricted_bbox.max.x),
+      this->bbox_.min.x,
+      this->bbox_.max.x);
+  float ymin = std::clamp(
+      std::min(restricted_bbox.min.y, restricted_bbox.max.y),
+      this->bbox_.min.y,
+      this->bbox_.max.y);
+  float ymax = std::clamp(
+      std::max(restricted_bbox.min.y, restricted_bbox.max.y),
+      this->bbox_.min.y,
+      this->bbox_.max.y);
 
   if (xmax <= xmin || ymax <= ymin) return glm::vec2(xmin, ymin);
 

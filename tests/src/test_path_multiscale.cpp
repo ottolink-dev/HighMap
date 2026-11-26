@@ -208,11 +208,16 @@ TEST(PathMultiscale, PathOverloadAndToArray)
                                   {2.f, 2.f},
                                   99);
 
-  glm::ivec2 start = {8, 8};
-  glm::ivec2 end = {55, 55};
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  glm::ivec2   start = {8, 8};
+  glm::ivec2   end = {55, 55};
+  hmap::BBox2D bbox(0.f, 1.f, 0.f, 1.f);
 
-  hmap::Path path = hmap::find_path_multiscale(z, start, end, bbox, 3, 4);
+  hmap::Path path = hmap::find_path_multiscale(z,
+                                               start,
+                                               end,
+                                               hmap::UvRect::from_bbox2d(bbox),
+                                               3,
+                                               4);
 
   ASSERT_FALSE(path.empty());
 
@@ -267,9 +272,9 @@ TEST(PathMultiscale, FindPathDijkstraHarmonized)
                                   {2.f, 2.f},
                                   10);
 
-  glm::ivec2 start = {5, 5};
-  glm::ivec2 end = {58, 58};
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  glm::ivec2   start = {5, 5};
+  glm::ivec2   end = {58, 58};
+  hmap::BBox2D bbox(0.f, 1.f, 0.f, 1.f);
 
   // vector overload
   std::vector<glm::ivec2> vec_path = hmap::find_path_dijkstra(z, start, end);
@@ -278,7 +283,10 @@ TEST(PathMultiscale, FindPathDijkstraHarmonized)
   EXPECT_EQ(vec_path.back(), end);
 
   // Path overload
-  hmap::Path path = hmap::find_path_dijkstra(z, start, end, bbox);
+  hmap::Path path = hmap::find_path_dijkstra(z,
+                                             start,
+                                             end,
+                                             hmap::UvRect::from_bbox2d(bbox));
   ASSERT_FALSE(path.empty());
   EXPECT_NEAR(path.front().v, z(start.x, start.y), 1e-5f);
   EXPECT_NEAR(path.back().v, z(end.x, end.y), 1e-5f);
@@ -292,9 +300,9 @@ TEST(PathMultiscale, FindPathMidpointHarmonized)
                                   {2.f, 2.f},
                                   20);
 
-  glm::ivec2 start = {5, 5};
-  glm::ivec2 end = {58, 58};
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  glm::ivec2   start = {5, 5};
+  glm::ivec2   end = {58, 58};
+  hmap::BBox2D bbox(0.f, 1.f, 0.f, 1.f);
 
   // void (i_path, j_path) overload
   std::vector<int> ip, jp;
@@ -306,7 +314,10 @@ TEST(PathMultiscale, FindPathMidpointHarmonized)
   EXPECT_EQ(jp.back(), end.y);
 
   // Path overload
-  hmap::Path path = hmap::find_path_midpoint(z, start, end, bbox);
+  hmap::Path path = hmap::find_path_midpoint(z,
+                                             start,
+                                             end,
+                                             hmap::UvRect::from_bbox2d(bbox));
   ASSERT_FALSE(path.empty());
   EXPECT_NEAR(path.front().v, z(start.x, start.y), 1e-5f);
   EXPECT_NEAR(path.back().v, z(end.x, end.y), 1e-5f);

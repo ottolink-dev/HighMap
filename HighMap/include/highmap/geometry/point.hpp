@@ -392,7 +392,7 @@ Point interp_decasteljau(const std::vector<Point> &points, float t);
  * @param  bbox2 The second bounding box defined as `glm::vec4`.
  * @return       The intersecting bounding box, or {1, -1, 1, -1} if disjoint.
  */
-glm::vec4 intersect_bounding_boxes(const BBox2D &bbox1,
+BBox2D intersect_bounding_boxes(const BBox2D &bbox1,
                                    const BBox2D &bbox2);
 
 /**

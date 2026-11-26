@@ -55,7 +55,7 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
 {
   if (!validate_non_empty(z)) return TerrainTriMesh();
 
-  const glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  const BBox2D bbox = BBox2D::unit();
 
   Cloud cloud = random_cloud_jittered(control_points_count,
                                       {0.5f, 0.5f},
@@ -79,7 +79,7 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
     int                 control_points_count,
     std::uint32_t       seed)
 {
-  const glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  const BBox2D bbox = BBox2D::unit();
 
   Cloud cloud = random_cloud_jittered(control_points_count,
                                       {0.5f, 0.5f},
@@ -102,7 +102,7 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
           const hmap::UvTile &region)
       {
         auto [pa_z] = unpack<1>(p_arrays_in);
-        cloud.set_values_from_array(*pa_z, region.uv_rect.to_vec4());
+        cloud.set_values_from_array(*pa_z, region.uv_rect.to_bbox2d());
       },
       cm_sampling);
 

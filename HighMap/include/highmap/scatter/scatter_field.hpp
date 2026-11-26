@@ -526,7 +526,7 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
  * @return                ScatterField   Merged scatter field.
  */
 ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
-                                  const std::vector<glm::vec4>    &bboxs,
+                                  const std::vector<BBox2D>       &bboxs,
                                   bool merge_by_class = true);
 
 /**

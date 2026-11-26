@@ -127,7 +127,7 @@ void RockField::apply_slope_sorting(const Array  &slope,
 
   // --- Sample Local Slopes at Rock Positions
 
-  auto slope_fct = make_xy_function_from_array(slope, bbox.to_vec4());
+  auto               slope_fct = make_xy_function_from_array(slope, bbox);
   std::vector<float> sampled_slopes(items.size());
   for (size_t i = 0; i < items.size(); ++i)
   {

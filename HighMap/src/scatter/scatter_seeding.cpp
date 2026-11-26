@@ -131,12 +131,10 @@ ScatterField seed_scatter_clusters(size_t       class_count,
                                       target_s - count_for_s);
       if (pts_to_sample == 0) break;
 
-      glm::vec4 cluster_bbox = {
-          cx - cluster_spread,
-          cx + cluster_spread,
-          cy - cluster_spread,
-          cy + cluster_spread,
-      };
+      BBox2D cluster_bbox(cx - cluster_spread,
+                          cx + cluster_spread,
+                          cy - cluster_spread,
+                          cy + cluster_spread);
 
       for (size_t k = 0; k < pts_to_sample; ++k)
       {

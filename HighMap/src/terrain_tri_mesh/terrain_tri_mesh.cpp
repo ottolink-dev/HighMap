@@ -874,7 +874,7 @@ void TerrainTriMesh::subdivise()
 
 Array TerrainTriMesh::to_array(const glm::ivec2         &shape,
                                const std::vector<float> &values,
-                               const glm::vec4          &bbox) const
+                               const BBox2D             &bbox) const
 {
   if (!validate_shape(shape)) return Array();
 
@@ -917,7 +917,7 @@ Array TerrainTriMesh::to_array(const glm::ivec2         &shape,
                                   hmap::InterpolationMethod2D::ITP2D_DELAUNAY,
                                   nullptr,
                                   nullptr,
-                                  bbox);
+                                  UvRect::from_bbox2d(bbox));
   return out;
 }
 

@@ -148,7 +148,7 @@ void rejection_filter_density(Cloud        &cloud,
   std::mt19937                          gen(seed);
   std::uniform_real_distribution<float> dis(0.f, 1.f);
 
-  auto density_fct = make_xy_function_from_array(density_mask, bbox.to_vec4());
+  auto density_fct = make_xy_function_from_array(density_mask, bbox);
 
   cloud.erase(std::remove_if(cloud.begin(),
                              cloud.end(),

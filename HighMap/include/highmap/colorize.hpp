@@ -556,7 +556,7 @@ Texture terrain_texture(
     const Array                *p_deposition = nullptr,
     const Array                *p_snow_depth = nullptr,
     const TerrainTextureParams &params = TerrainTextureParams(),
-    const glm::vec4            &bbox = glm::vec4(0.f, 0.f, 1.f, 1.f),
+    const BBox2D               &bbox = BBox2D::unit(),
     const Array                *p_noise = nullptr,
     ICommunicator              &comm = SingleArrayComm::instance());
 

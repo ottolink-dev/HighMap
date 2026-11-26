@@ -467,7 +467,7 @@ TEST(ForestGrowthTest, CompetitionNNMaxRadiusScale)
   scale_map(0, 0) = 0.0f;
   scale_map(1, 0) = 1.0f;
 
-  glm::vec4 bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  BBox2D bbox(0.0f, 1.0f, 0.0f, 1.0f);
 
   // Full strength (1.0)
   Forest grown_full = grow_forest_competition_nn(forest,
@@ -583,7 +583,7 @@ TEST(ForestGrowthTest, CompetitionVoronoiMaxRadiusScale)
   scale_map(0, 0) = 0.0f; // left side scale = 0 -> r_max_eff = r_min = 0.1
   scale_map(1, 0) = 1.0f; // right side scale = 1 -> r_max_eff = r_max = 2.0
 
-  glm::vec4 bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  BBox2D bbox(0.0f, 1.0f, 0.0f, 1.0f);
 
   Forest grown_full = grow_forest_competition_voronoi(forest,
                                                       species,
@@ -1072,7 +1072,7 @@ TEST(ForestSeedingTest, VirtualArrayBasicClusterSeeding)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
 
   VirtualArray density(shape, tile_shape, halo);
   ComputeMode  cm;
@@ -1119,7 +1119,7 @@ TEST(ForestSeedingTest, VirtualArrayExclusionMask)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  BBox2D     bbox(0.0f, 1.0f, 0.0f, 1.0f);
 
   VirtualArray density(shape, tile_shape, halo);
   VirtualArray exclusion(shape, tile_shape, halo);

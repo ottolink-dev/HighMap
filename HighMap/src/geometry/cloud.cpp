@@ -167,7 +167,7 @@ bool Cloud::from_csv(const std::string &fname)
 
 BBox2D Cloud::get_bbox() const
 {
-  if (!validate_non_empty(*this, "Cloud points")) return glm::vec4();
+  if (!validate_non_empty(*this, "Cloud points")) return BBox2D();
 
   float xmin = (*this)[0].x;
   float xmax = (*this)[0].x;

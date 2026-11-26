@@ -234,7 +234,7 @@ Point interp_decasteljau(const std::vector<Point> &points, float t)
   return temp[0];
 }
 
-glm::vec4 intersect_bounding_boxes(const BBox2D &bbox1, const BBox2D &bbox2)
+BBox2D intersect_bounding_boxes(const BBox2D &bbox1, const BBox2D &bbox2)
 {
   float min_x = std::max(bbox1.min.x, bbox2.min.x);
   float max_x = std::min(bbox1.max.x, bbox2.max.x);
@@ -243,11 +243,11 @@ glm::vec4 intersect_bounding_boxes(const BBox2D &bbox1, const BBox2D &bbox2)
 
   if (min_x <= max_x && min_y <= max_y)
   {
-    return glm::vec4{min_x, max_x, min_y, max_y};
+    return BBox2D(min_x, max_x, min_y, max_y);
   }
 
   // else return an "impossible" bounding box with xmin > xmax and ymin > ymax
-  return glm::vec4(1.f, -1.f, 1.f, -1.f);
+  return BBox2D(1.f, -1.f, 1.f, -1.f);
 }
 
 bool is_point_within_bounding_box(const Point &p, const BBox2D &bbox)
@@ -378,7 +378,7 @@ float triangle_area_signed(const Point &p1, const Point &p2, const Point &p3)
 
 BBox2D unit_square_bbox()
 {
-  return glm::vec4(0.f, 1.f, 0.f, 1.f);
+  return BBox2D::unit();
 }
 
 } // namespace hmap

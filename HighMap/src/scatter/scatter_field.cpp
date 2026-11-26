@@ -246,7 +246,7 @@ BBox2D ScatterField::get_bbox() const
     ymax = std::max(ymax, item.position.y);
   }
 
-  return BBox2D({xmin, xmax, ymin, ymax});
+  return BBox2D(xmin, xmax, ymin, ymax);
 }
 
 std::vector<uint32_t> ScatterField::get_class_ids() const
@@ -371,7 +371,12 @@ void ScatterField::pack_interstitial(size_t        count,
   std::unique_ptr<InverseSampler2D> sampler;
   if (has_density)
   {
-    sampler = std::make_unique<InverseSampler2D>(density, seed, effective_bbox);
+    sampler = std::make_unique<InverseSampler2D>(density,
+                                                 seed,
+                                                 BBox2D(effective_bbox.x,
+                                                        effective_bbox.y,
+                                                        effective_bbox.z,
+                                                        effective_bbox.w));
     if (sampler->get_total_weight() <= 1e-7f)
     {
       has_density = false;
@@ -657,7 +662,7 @@ void ScatterField::prune_density(const Array  &density_mask,
   // --- Sample Local Density for Items Inside Bounding Box
 
   auto         density_fct = make_xy_function_from_array(density_mask,
-                                                 uv_rect.to_vec4());
+                                                 uv_rect.to_bbox2d());
   const size_t nb_inside = inside_indices.size();
 
   std::vector<float> sampled_densities(nb_inside);
@@ -1816,7 +1821,7 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
 }
 
 ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
-                                  const std::vector<glm::vec4>    &bboxs,
+                                  const std::vector<BBox2D>       &bboxs,
                                   bool merge_by_class)
 {
   if (fields.size() != bboxs.size())
@@ -1827,11 +1832,8 @@ ScatterField merge_scatter_fields(const std::vector<ScatterField> &fields,
     return {};
   }
 
-  auto is_in_bbox = [](const glm::vec3 &position, const UvRect &uv_rect) -> bool
-  {
-    return position.x >= uv_rect.u_min && position.x <= uv_rect.u_max &&
-           position.y >= uv_rect.v_min && position.y <= uv_rect.v_max;
-  };
+  auto is_in_bbox = [](const glm::vec3 &position, const BBox2D &bbox) -> bool
+  { return bbox.contains({position.x, position.y}); };
 
   ScatterField result;
   size_t       total_size = 0;

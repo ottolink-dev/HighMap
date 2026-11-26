@@ -469,10 +469,10 @@ ValueLinearNoiseFunction::ValueLinearNoiseFunction(glm::vec2     kw,
 
 void ValueLinearNoiseFunction::update_interpolation_function()
 {
-  glm::vec4 bbox = {-1.f, 2.f, -1.f, 2.f}; // bounding box
+  BBox2D bbox(-1.f, 2.f, -1.f, 2.f); // bounding box
 
-  float lx = bbox.y - bbox.x;
-  float ly = bbox.w - bbox.z;
+  float lx = bbox.max.x - bbox.min.x;
+  float ly = bbox.max.y - bbox.min.y;
 
   glm::ivec2 shape_base = glm::ivec2((int)(this->kw.x * lx) + 1,
                                      (int)(this->kw.y * ly) + 1);
@@ -484,15 +484,17 @@ void ValueLinearNoiseFunction::update_interpolation_function()
   std::vector<float> yv(shape_base.y);
 
   for (int i = 0; i < shape_base.x; i++)
-    xv[i] = bbox.x + lx * (float)i / (float)(shape_base.x - 1);
+    xv[i] = bbox.min.x + lx * (float)i / (float)(shape_base.x - 1);
 
   for (int j = 0; j < shape_base.y; j++)
-    yv[j] = bbox.z + ly * (float)j / (float)(shape_base.y - 1);
+    yv[j] = bbox.min.y + ly * (float)j / (float)(shape_base.y - 1);
 
   auto itp_fct = [xv, yv, value, bbox](float x_, float y_, float)
   {
-    float xn = (x_ - bbox.x) / (bbox.y - bbox.x) * (float)(value.shape.x - 1);
-    float yn = (y_ - bbox.z) / (bbox.w - bbox.z) * (float)(value.shape.y - 1);
+    float xn = (x_ - bbox.min.x) / (bbox.max.x - bbox.min.x) *
+               (float)(value.shape.x - 1);
+    float yn = (y_ - bbox.min.y) / (bbox.max.y - bbox.min.y) *
+               (float)(value.shape.y - 1);
 
     int in = (int)xn;
     int jn = (int)yn;

@@ -534,7 +534,7 @@ TEST(CloudTest, InverseSampler2DSequentialAndRegionUpdate)
   EXPECT_EQ(batch[1].size(), 100u);
 
   // Restricted bbox sampling
-  glm::vec4 restricted_bbox = {0.6f, 0.8f, 0.6f, 0.8f};
+  BBox2D restricted_bbox(0.6f, 0.8f, 0.6f, 0.8f);
   for (int k = 0; k < 50; ++k)
   {
     glm::vec2 pt = sampler.sample(restricted_bbox);

@@ -59,11 +59,11 @@ public:
 
   // Methods
 
-  glm::vec4 compute_bounding_box() const;
+  BBox2D compute_bounding_box() const;
 
   BBox2D compute_bbox() const
   {
-    return BBox2D::from_vec4(compute_bounding_box());
+    return compute_bounding_box();
   }
 
   bool intersects(const CoordFrame &other) const;

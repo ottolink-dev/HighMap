@@ -89,7 +89,7 @@ public:
    * @return                 2D point coordinates within the restricted bounding
    *                         box.
    */
-  glm::vec2 sample(const glm::vec4 &restricted_bbox);
+  glm::vec2 sample(const BBox2D &restricted_bbox);
 
   /**
    * @brief Samples a single point within a restricted bounding box with
@@ -103,7 +103,7 @@ public:
    * @return                 2D point coordinates within the restricted bounding
    *                         box.
    */
-  glm::vec2 sample(const glm::vec4 &restricted_bbox, float u, float u2);
+  glm::vec2 sample(const BBox2D &restricted_bbox, float u, float u2);
 
   // ==========================================================================
   //  Updates & Modifiers

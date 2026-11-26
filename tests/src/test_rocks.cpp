@@ -77,7 +77,7 @@ TEST(RockFieldTest, SlopeSorting)
                          0.1f * float(i + 1)));
   }
 
-  glm::vec4 bbox = {0.f, 9.f, 0.f, 9.f};
+  BBox2D bbox(0.f, 9.f, 0.f, 9.f);
   field.apply_slope_sorting(slope, 1.0f, bbox);
 
   // Rock at low slope (x=0) should have larger radius than rock at high slope
@@ -93,7 +93,7 @@ TEST(RockFieldTest, InterstitialPacking)
   field.push_back(Rock(glm::vec3(0.8f, 0.5f, 0.f), 0u, 0.1f));
 
   size_t    original_count = field.size();
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  UvRect bbox = {0.f, 1.f, 0.f, 1.f};
 
   // 1. Pack without density (uniform)
   field.pack_interstitial(20, {}, 0.01f, 0.02f, 1u, 42, bbox);
@@ -128,7 +128,7 @@ TEST(RockFieldTest, VirtualArraySeeding)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
 
   VirtualArray density(shape, tile_shape, halo);
   ComputeMode  cm;
@@ -168,7 +168,7 @@ TEST(RockFieldTest, VirtualArrayExclusionMask)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  BBox2D     bbox(0.0f, 1.0f, 0.0f, 1.0f);
 
   VirtualArray density(shape, tile_shape, halo);
   VirtualArray exclusion(shape, tile_shape, halo);
@@ -678,7 +678,7 @@ TEST(RockProceduralTest, VirtualArrayBasicExecution)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 100.0f, 0.0f, 100.0f};
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
 
   VirtualArray elevation(shape, tile_shape, halo);
   ComputeMode  cm;
@@ -726,7 +726,7 @@ TEST(RockProceduralTest, VirtualArrayExclusionMask)
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  glm::vec4  bbox = {0.0f, 1.0f, 0.0f, 1.0f};
+  BBox2D     bbox(0.0f, 1.0f, 0.0f, 1.0f);
 
   VirtualArray elevation(shape, tile_shape, halo);
   VirtualArray exclusion(shape, tile_shape, halo);

@@ -33,7 +33,7 @@ Array island_land_mask(glm::ivec2       shape,
                        float            persistence,
                        float            lacunarity,
                        const glm::vec2 &center,
-                       const glm::vec4 &uv_rect)
+                       const BBox2D    &bbox)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -53,8 +53,8 @@ Array island_land_mask(glm::ivec2       shape,
             float x = float(i) / float(shape.x - 1);
             float y = float(j) / float(shape.y - 1);
 
-            x = (uv_rect.y - uv_rect.x) * x + uv_rect.x - center.x;
-            y = (uv_rect.w - uv_rect.z) * y + uv_rect.z - center.y;
+            x = (bbox.max.x - bbox.min.x) * x + bbox.min.x - center.x;
+            y = (bbox.max.y - bbox.min.y) * y + bbox.min.y - center.y;
 
             float r = std::hypot(x, y);
             float theta = std::atan2(y, x);

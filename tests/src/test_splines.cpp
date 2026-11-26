@@ -10,7 +10,7 @@ Path helper_generate_path()
   const glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
   const int       npoints = 10;
 
-  Path path = Path(npoints, seed, adjust(bbox, -0.1f));
+  Path path = Path(npoints, seed, BBox2D(0.1f, 0.9f, 0.1f, 0.9f));
   path.reorder_nns();
   return path;
 }

@@ -51,8 +51,8 @@ TEST(DrainageBasin, RidgeNodesAndRootsInitialized)
                                    42);
   hmap::remap(z0);
 
-  glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Cloud cloud = hmap::random_cloud(200,
+  hmap::BBox2D bbox(0.f, 1.f, 0.f, 1.f);
+  hmap::Cloud  cloud = hmap::random_cloud(200,
                                          42,
                                          hmap::PointSamplingMethod::RND_LHS,
                                          bbox);
@@ -75,8 +75,8 @@ TEST(DrainageBasin, ResponseTimesAndElevationUpdate)
                                    123);
   hmap::remap(z0);
 
-  glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Cloud cloud = hmap::random_cloud(300,
+  hmap::BBox2D bbox(0.f, 1.f, 0.f, 1.f);
+  hmap::Cloud  cloud = hmap::random_cloud(300,
                                          123,
                                          hmap::PointSamplingMethod::RND_LHS,
                                          bbox);

@@ -99,8 +99,8 @@ TEST(PathSquiggle, SpatialWeights)
     for (int i = 0; i < shape.x; ++i)
       weights(i, j) = 100.f;
 
-  glm::vec4 bbox = {0.f, 10.f, -5.f, 5.f};
-  Path      result = squiggle(input_path,
+  BBox2D bbox(0.f, 10.f, -5.f, 5.f);
+  Path   result = squiggle(input_path,
                          4,
                          42,
                          0.5f,
@@ -123,8 +123,8 @@ TEST(PathSquiggle, MaskAvoidance)
     for (int i = 0; i < shape.x; ++i)
       mask(i, j) = 0.f;
 
-  glm::vec4 bbox = {0.f, 10.f, -5.f, 5.f};
-  Path      result = squiggle(input_path, 4, 42, 0.5f, 1, nullptr, &mask, bbox);
+  BBox2D bbox(0.f, 10.f, -5.f, 5.f);
+  Path   result = squiggle(input_path, 4, 42, 0.5f, 1, nullptr, &mask, bbox);
 
   EXPECT_GT(result.size(), 2u);
 }

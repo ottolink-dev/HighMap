@@ -63,6 +63,11 @@ struct UvRect
     return BBox2D(glm::vec2(u_min, v_min), glm::vec2(u_max, v_max));
   }
 
+  static constexpr UvRect from_bbox2d(const BBox2D &bbox)
+  {
+    return UvRect(bbox.min.x, bbox.max.x, bbox.min.y, bbox.max.y);
+  }
+
   constexpr glm::vec2 size() const
   {
     return {u_max - u_min, v_max - v_min};

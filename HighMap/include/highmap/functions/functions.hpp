@@ -53,7 +53,7 @@ namespace hmap
  */
 std::function<float(float, float)> make_xy_function_from_array(
     const Array     &array,
-    const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+    const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @enum NoiseType

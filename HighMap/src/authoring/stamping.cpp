@@ -45,7 +45,7 @@ Array stamping(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, BBox2D(uv_rect_array.to_vec4()));
+  rescale_points_to_unit_square(xrs, yrs, uv_rect_array.to_bbox2d());
 
   // --- define blending function
 

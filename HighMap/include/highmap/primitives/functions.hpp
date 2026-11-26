@@ -500,7 +500,7 @@ Array multisteps(glm::ivec2       shape,
                  const Array     *p_noise_x = nullptr,
                  const Array     *p_noise_y = nullptr,
                  const glm::vec2 &center = {0.5f, 0.5f},
-                 const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                 const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @brief Return a paraboloid.
@@ -1000,7 +1000,7 @@ Array multisteps(glm::ivec2       shape,
                  float            outer_slope = 0.1f,
                  const Array     *p_ctrl_param = nullptr,
                  const glm::vec2 &center = {0.5f, 0.5f},
-                 const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                 const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @brief Generates a scalar field representing the signed distance to randomly

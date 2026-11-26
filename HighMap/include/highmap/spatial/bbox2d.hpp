@@ -31,7 +31,8 @@ struct BBox2D
       : min(min_p), max(max_p)
   {
   }
-  constexpr BBox2D(const glm::vec4 &v) : min(v.x, v.z), max(v.y, v.w)
+  constexpr BBox2D(float xmin, float xmax, float ymin, float ymax)
+      : min(xmin, ymin), max(xmax, ymax)
   {
   }
 

@@ -350,7 +350,7 @@ public:
   /** @brief Rasterize the mesh into an array. */
   Array to_array(const glm::ivec2         &shape,
                  const std::vector<float> &values = {},
-                 const glm::vec4          &bbox = {0.f, 1.f, 0.f, 1.f}) const;
+                 const BBox2D             &bbox = BBox2D::unit()) const;
 
   /** @brief Export vertices to CSV. */
   void to_csv(const std::string &fname) const;

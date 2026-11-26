@@ -132,7 +132,7 @@ void fill_array_using_xy_function(Array       &array,
 
   // subsampled grid (with endpoints to cover the exact same domain as
   // the original grid)
-  glm::vec4 bbox_sub = glm::vec4(x.front(), x.back(), y.front(), y.back());
+  UvRect uv_rect_sub(x.front(), x.back(), y.front(), y.back());
 
   // resample control parameter
   Array ctrl_array_sub = ctrl_array.resample_to_shape(shape_sub);
@@ -165,7 +165,7 @@ void fill_array_using_xy_function(Array       &array,
   }
 
   fill_array_using_xy_function(array_sub,
-                               bbox_sub,
+                               uv_rect_sub,
                                &ctrl_array_sub,
                                p_noise_x_sub,
                                p_noise_y_sub,
