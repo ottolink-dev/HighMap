@@ -8,8 +8,7 @@ var namespacehmap =
       [ "flow_fixing_mst_triangulated", "namespacehmap_1_1va.html#a79c8b1b0f1447fcb8f94f6e2cec8788b", null ],
       [ "flow_stream", "namespacehmap_1_1va.html#ae1f6f9589633a460dabd6bb44473d4fe", null ],
       [ "find_cut_path_dijkstra", "namespacehmap_1_1va.html#afa19680ed9583277c2fb76daa95bfa96", null ],
-      [ "find_path_dijkstra", "namespacehmap_1_1va.html#a996f3a9161ae2f85e2ef1d257dd43349", null ],
-      [ "generate_terrain_tri_mesh_from_heightmap_random", "namespacehmap_1_1va.html#ac5a99fc7607556be58fb75ae10125940", null ]
+      [ "find_path_dijkstra", "namespacehmap_1_1va.html#a996f3a9161ae2f85e2ef1d257dd43349", null ]
     ] ],
     [ "neighborhood", "namespacehmap_1_1neighborhood.html", "namespacehmap_1_1neighborhood" ],
     [ "log", "namespacehmap_1_1log.html", "namespacehmap_1_1log" ],
@@ -1295,7 +1294,7 @@ var namespacehmap =
     [ "terrain_super_resolution", "namespacehmap.html#a580605e460b9b7573340233906b67517", null ],
     [ "cubic_pulse", "namespacehmap.html#aad6a39e70bf2ff70f8367e663d3027cf", null ],
     [ "generate_terrain_tri_mesh_from_heightmap", "namespacehmap.html#af9fdabd692817be603ff5c44e68ea619", null ],
-    [ "generate_terrain_tri_mesh_from_heightmap_random", "namespacehmap.html#a5078af3eb73fb47ab1aad6cc872ab29a", null ],
+    [ "generate_terrain_tri_mesh_from_heightmap_random", "namespacehmap.html#a22cbe2a3bdd31fe191d1ee559c2e071a", null ],
     [ "compute_terrain_alignment", "namespacehmap.html#af45ab826099a96280cbe8701f58742a9", null ],
     [ "compute_terrain_alignment", "namespacehmap.html#ae75d2dda9b3122234fb87505b87284d1", null ],
     [ "apply_terrain_alignment", "namespacehmap.html#aa43bd69cf1ee61e1e19d6119d9718930", null ],

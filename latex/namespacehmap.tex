@@ -2274,8 +2274,8 @@ std\+::vector$<$ float $>$ \mbox{\hyperlink{namespacehmap_aad6a39e70bf2ff70f8367
 \begin{DoxyCompactList}\small\item\em Compute a cubic pulse value for each mesh vertex. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \mbox{\hyperlink{namespacehmap_af9fdabd692817be603ff5c44e68ea619}{generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, float max\+\_\+error, int max\+\_\+triangles=0, int max\+\_\+points=0)
 \begin{DoxyCompactList}\small\item\em Generate a terrain mesh from a heightmap. \end{DoxyCompactList}\item 
-\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \mbox{\hyperlink{namespacehmap_a5078af3eb73fb47ab1aad6cc872ab29a}{generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap\+\_\+random}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int control\+\_\+points\+\_\+count, std\+::uint32\+\_\+t seed)
-\begin{DoxyCompactList}\small\item\em Generate a random terrain mesh from a heightmap. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} \mbox{\hyperlink{namespacehmap_a22cbe2a3bdd31fe191d1ee559c2e071a}{generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap\+\_\+random}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&z, int control\+\_\+points\+\_\+count, std\+::uint32\+\_\+t seed, const \mbox{\hyperlink{structhmap_1_1UvTile}{Uv\+Tile}} \&region=\mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{Uv\+Tile\+::unit}}(), \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \texorpdfstring{$\ast$}{*}p\+\_\+comm=nullptr)
+\begin{DoxyCompactList}\small\item\em Generate a random terrain mesh from a heightmap tile. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_af45ab826099a96280cbe8701f58742a9}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10)
 \begin{DoxyCompactList}\small\item\em Compute alignment parameters to fit {\ttfamily upper} to {\ttfamily lower} over their common valid area. \end{DoxyCompactList}\item 
 \mbox{\hyperlink{structhmap_1_1TerrainAlignment}{Terrain\+Alignment}} \mbox{\hyperlink{namespacehmap_ae75d2dda9b3122234fb87505b87284d1}{compute\+\_\+terrain\+\_\+alignment}} (const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&lower, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+lower, const \mbox{\hyperlink{structhmap_1_1VirtualArray}{Virtual\+Array}} \&upper, const \mbox{\hyperlink{classhmap_1_1CoordFrame}{Coord\+Frame}} \&frame\+\_\+upper, \mbox{\hyperlink{namespacehmap_a4280f8e4c700035e86e390420de7751d}{Terrain\+Align\+Mode}} mode, float huber\+\_\+delta=0.\+1\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}, int max\+\_\+iterations=10, int coarse\+\_\+size=128)
@@ -21118,7 +21118,7 @@ The output path consists of\+:
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ generate\ triangular\ terrain\ mesh\ from\ heightmap}}
 \DoxyCodeLine{\ \ \mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{hmap::TerrainTriMesh}}\ mesh\ =}
-\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a5078af3eb73fb47ab1aad6cc872ab29a}{hmap::generate\_terrain\_tri\_mesh\_from\_heightmap\_random}}(z,\ 2\ *\ 4096,\ seed);}
+\DoxyCodeLine{\ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_a22cbe2a3bdd31fe191d1ee559c2e071a}{hmap::generate\_terrain\_tri\_mesh\_from\_heightmap\_random}}(z,\ 2\ *\ 4096,\ seed);}
 \DoxyCodeLine{}
 \DoxyCodeLine{\ \ \textcolor{comment}{//\ multiple\ starting\ points\ across\ the\ slopes\ of\ the\ valley\ head}}
 \DoxyCodeLine{\ \ std::vector<glm::vec2>\ start\_points\ =\ \{}
@@ -37490,15 +37490,15 @@ Compute a cubic pulse value for each mesh vertex.
 
 Generate a terrain mesh from a heightmap. 
 
-\Hypertarget{namespacehmap_a5078af3eb73fb47ab1aad6cc872ab29a}\index{hmap@{hmap}!generate\_terrain\_tri\_mesh\_from\_heightmap\_random@{generate\_terrain\_tri\_mesh\_from\_heightmap\_random}}
+\Hypertarget{namespacehmap_a22cbe2a3bdd31fe191d1ee559c2e071a}\index{hmap@{hmap}!generate\_terrain\_tri\_mesh\_from\_heightmap\_random@{generate\_terrain\_tri\_mesh\_from\_heightmap\_random}}
 \index{generate\_terrain\_tri\_mesh\_from\_heightmap\_random@{generate\_terrain\_tri\_mesh\_from\_heightmap\_random}!hmap@{hmap}}
 \doxysubsubsection{\texorpdfstring{generate\_terrain\_tri\_mesh\_from\_heightmap\_random()}{generate\_terrain\_tri\_mesh\_from\_heightmap\_random()}}
-{\footnotesize\ttfamily \label{namespacehmap_a5078af3eb73fb47ab1aad6cc872ab29a} 
-\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} hmap\+::generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap\+\_\+random (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{int}]{control\+\_\+points\+\_\+count}{, }\item[{std\+::uint32\+\_\+t}]{seed}{}\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{namespacehmap_a22cbe2a3bdd31fe191d1ee559c2e071a} 
+\mbox{\hyperlink{classhmap_1_1TerrainTriMesh}{Terrain\+Tri\+Mesh}} hmap\+::generate\+\_\+terrain\+\_\+tri\+\_\+mesh\+\_\+from\+\_\+heightmap\+\_\+random (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classhmap_1_1Array}{Array}} \&}]{z}{, }\item[{int}]{control\+\_\+points\+\_\+count}{, }\item[{std\+::uint32\+\_\+t}]{seed}{, }\item[{const \mbox{\hyperlink{structhmap_1_1UvTile}{Uv\+Tile}} \&}]{region}{ = {\ttfamily \mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{Uv\+Tile\+::unit}}()}, }\item[{\mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}} \texorpdfstring{$\ast$}{*}}]{p\+\_\+comm}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})}
 
 
 
-Generate a random terrain mesh from a heightmap. 
+Generate a random terrain mesh from a heightmap tile. 
 
 \Hypertarget{namespacehmap_af45ab826099a96280cbe8701f58742a9}\index{hmap@{hmap}!compute\_terrain\_alignment@{compute\_terrain\_alignment}}
 \index{compute\_terrain\_alignment@{compute\_terrain\_alignment}!hmap@{hmap}}

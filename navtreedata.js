@@ -234,21 +234,21 @@ var NAVTREEINDEX =
 "deposition_8cpp.html",
 "functions_vars_b.html",
 "md_docs_2content_2dev_2tiled__communication.html#autotoc_md112",
-"namespacehmap.html#a2b25a71f7da0b8324df986e01e5b08dc",
+"namespacehmap.html#a2affc745bc33b7555352665745741f90ada6f8c1c08707c0497225cca34975ca5",
 "namespacehmap.html#a5421f279cef2873c17b26c610a7fd87a",
 "namespacehmap.html#a91708f107a53c4b8ef68bb1d0291c73f",
 "namespacehmap.html#ac5cbdd19410027f3d4e26fd68fd9bdb7",
 "namespacehmap.html#af9b55527f8d0f1c01d110b3144ee7d91",
 "namespacehmap_1_1gpu.html#ab4b68e1b48d16193615105656680ced8",
-"point__sampling_8cpp.html",
+"point__sampling_8hpp.html",
 "structhmap_1_1DeformationConstraint.html",
 "structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e",
 "structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0",
 "structhmap_1_1VirtualTextureStorage.html#a4f2d03a10a486427a4792228477c8d8c",
-"test__cloud_8cpp.html#aee9ad40383097b71eeb75b813a3b4b93",
-"test__gpu__cpu_8cpp.html#a6bd81817caa0d999abe9caec8aec2ae8",
-"test__point_8cpp.html#a14d69667ae35e6628b4b3b8be25944fa",
-"test__terrain__tri__mesh_8cpp.html#a7ed4aaa3369b261b9bca54beca54be9c"
+"test__cloud_8cpp.html#afbb5b1c88e88a97044e5571bce02ddb0",
+"test__gpu__cpu_8cpp.html#a76ab52580641281ea9fbecc3ad4a0bc5",
+"test__point_8cpp.html#a1897145540705f2ed8891169448f12f8",
+"test__terrain__tri__mesh_8cpp.html#a80979cd41d6bd6efef88bb25714c2bf8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

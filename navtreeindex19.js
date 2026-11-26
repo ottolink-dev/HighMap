@@ -1,6 +1,5 @@
 var NAVTREEINDEX19 =
 {
-"structhmap_1_1DeformationConstraint.html":[16,0,0,11],
 "structhmap_1_1DeformationConstraint.html":[17,0,0,9],
 "structhmap_1_1DeformationConstraint.html#a745bd7aee21aacf0ef756e777aa8df9d":[16,0,0,11,2],
 "structhmap_1_1DeformationConstraint.html#a745bd7aee21aacf0ef756e777aa8df9d":[17,0,0,9,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX19 =
 "structhmap_1_1PoiGenerationOptions.html":[16,0,0,26],
 "structhmap_1_1PoiGenerationOptions.html":[17,0,0,24],
 "structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[16,0,0,26,5],
-"structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[17,0,0,24,5]
+"structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[17,0,0,24,5],
+"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[16,0,0,26,8]
 };

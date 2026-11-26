@@ -1,6 +1,5 @@
 var NAVTREEINDEX20 =
 {
-"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[16,0,0,26,8],
 "structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[17,0,0,24,8],
 "structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5":[16,0,0,26,0],
 "structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5":[17,0,0,24,0],
@@ -249,5 +248,6 @@ var NAVTREEINDEX20 =
 "structhmap_1_1TerrainTriMesh_1_1Edge.html#a6a47d9f0ff2b4ae570e1d110d920b48f":[16,0,0,97,0,0],
 "structhmap_1_1TerrainTriMesh_1_1Edge.html#a6a47d9f0ff2b4ae570e1d110d920b48f":[17,0,0,95,0,0],
 "structhmap_1_1TerrainTriMesh_1_1Edge.html#a73341f8d9c9398b96e078037ddd01c52":[16,0,0,97,0,2],
-"structhmap_1_1TerrainTriMesh_1_1Edge.html#a73341f8d9c9398b96e078037ddd01c52":[17,0,0,95,0,2]
+"structhmap_1_1TerrainTriMesh_1_1Edge.html#a73341f8d9c9398b96e078037ddd01c52":[17,0,0,95,0,2],
+"structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0":[16,0,0,97,0,3]
 };

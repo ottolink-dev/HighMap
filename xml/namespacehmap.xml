@@ -38697,7 +38697,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>generate<sp/>triangular<sp/>terrain<sp/>mesh<sp/>from<sp/>heightmap</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">hmap::TerrainTriMesh</ref><sp/>mesh<sp/>=</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5078af3eb73fb47ab1aad6cc872ab29a" kindref="member">hmap::generate_terrain_tri_mesh_from_heightmap_random</ref>(z,<sp/>2<sp/>*<sp/>4096,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a22cbe2a3bdd31fe191d1ee559c2e071a" kindref="member">hmap::generate_terrain_tri_mesh_from_heightmap_random</ref>(z,<sp/>2<sp/>*<sp/>4096,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>multiple<sp/>starting<sp/>points<sp/>across<sp/>the<sp/>slopes<sp/>of<sp/>the<sp/>valley<sp/>head</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>std::vector&lt;glm::vec2&gt;<sp/>start_points<sp/>=<sp/>{</highlight></codeline>
@@ -72813,7 +72813,7 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/terrain_tri_mesh/terrain_tri_mesh.cpp" line="1004" column="13" bodyfile="HighMap/src/terrain_tri_mesh/terrain_tri_mesh.cpp" bodystart="1004" bodyend="1032" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="371" declcolumn="13"/>
+        <location file="HighMap/src/terrain_tri_mesh/terrain_tri_mesh.cpp" line="1004" column="13" bodyfile="HighMap/src/terrain_tri_mesh/terrain_tri_mesh.cpp" bodystart="1004" bodyend="1032" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="372" declcolumn="13"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af9fdabd692817be603ff5c44e68ea619" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref></type>
@@ -72846,12 +72846,12 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" line="21" column="16" bodyfile="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" bodystart="21" bodyend="49" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="374" declcolumn="16"/>
+        <location file="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" line="21" column="16" bodyfile="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" bodystart="21" bodyend="49" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="375" declcolumn="16"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a5078af3eb73fb47ab1aad6cc872ab29a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1a22cbe2a3bdd31fe191d1ee559c2e071a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref></type>
         <definition>TerrainTriMesh hmap::generate_terrain_tri_mesh_from_heightmap_random</definition>
-        <argsstring>(const Array &amp;z, int control_points_count, std::uint32_t seed)</argsstring>
+        <argsstring>(const Array &amp;z, int control_points_count, std::uint32_t seed, const UvTile &amp;region=UvTile::unit(), ICommunicator *p_comm=nullptr)</argsstring>
         <name>generate_terrain_tri_mesh_from_heightmap_random</name>
         <qualifiedname>hmap::generate_terrain_tri_mesh_from_heightmap_random</qualifiedname>
         <param>
@@ -72866,14 +72866,24 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
           <type>std::uint32_t</type>
           <declname>seed</declname>
         </param>
+        <param>
+          <type>const <ref refid="structhmap_1_1UvTile" kindref="compound">UvTile</ref> &amp;</type>
+          <declname>region</declname>
+          <defval><ref refid="structhmap_1_1UvTile_1acac98391a9428457ac4d8f3cca886c4e" kindref="member">UvTile::unit</ref>()</defval>
+        </param>
+        <param>
+          <type><ref refid="classhmap_1_1ICommunicator" kindref="compound">ICommunicator</ref> *</type>
+          <declname>p_comm</declname>
+          <defval>nullptr</defval>
+        </param>
         <briefdescription>
-<para>Generate a random terrain mesh from a heightmap. </para>
+<para>Generate a random terrain mesh from a heightmap tile. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" line="51" column="16" bodyfile="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" bodystart="51" bodyend="69" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="380" declcolumn="16"/>
+        <location file="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" line="51" column="16" bodyfile="HighMap/src/terrain_tri_mesh/generate_terrain_tri_mesh_from_heightmap.cpp" bodystart="51" bodyend="111" declfile="HighMap/include/highmap/terrain_tri_mesh.hpp" declline="381" declcolumn="16"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af45ab826099a96280cbe8701f58742a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="structhmap_1_1TerrainAlignment" kindref="compound">TerrainAlignment</ref></type>

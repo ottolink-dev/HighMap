@@ -1,6 +1,5 @@
 var NAVTREEINDEX21 =
 {
-"structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0":[16,0,0,97,0,3],
 "structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0":[17,0,0,95,0,3],
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html":[16,0,0,97,1],
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html":[17,0,0,95,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX21 =
 "structhmap_1_1VirtualTextureStorage.html":[16,0,0,111],
 "structhmap_1_1VirtualTextureStorage.html":[17,0,0,109],
 "structhmap_1_1VirtualTextureStorage.html#a21c8303565af1216ffd3ebc96f5751b1":[16,0,0,111,2],
-"structhmap_1_1VirtualTextureStorage.html#a21c8303565af1216ffd3ebc96f5751b1":[17,0,0,109,2]
+"structhmap_1_1VirtualTextureStorage.html#a21c8303565af1216ffd3ebc96f5751b1":[17,0,0,109,2],
+"structhmap_1_1VirtualTextureStorage.html#a4f2d03a10a486427a4792228477c8d8c":[16,0,0,111,4]
 };
