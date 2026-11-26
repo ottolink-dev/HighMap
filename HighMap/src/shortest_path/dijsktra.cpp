@@ -258,44 +258,23 @@ Path find_path_dijkstra(const Array  &z,
   return Path(points);
 }
 
-} // namespace hmap
-
-namespace hmap::va
+Path find_path_dijkstra(const Array   &z,
+                        glm::vec2      start,
+                        glm::vec2      end,
+                        std::uint32_t  seed,
+                        size_t         control_points_count,
+                        bool           favor_domain_center,
+                        const UvTile  &region,
+                        ICommunicator &comm)
 {
+  TerrainTriMesh mesh = hmap::generate_terrain_tri_mesh_from_heightmap_random(
+      z,
+      control_points_count,
+      seed,
+      region,
+      &comm);
 
-Path find_path_dijkstra(const ComputeMode  &cm,
-                        const VirtualArray &z,
-                        glm::vec2           start,
-                        glm::vec2           end,
-                        std::uint32_t       seed,
-                        size_t              control_points_count,
-                        bool                favor_domain_center)
-{
-  TerrainTriMesh mesh;
-
-  hmap::for_each_tile(
-      {&z},
-      {},
-      [&](std::vector<const hmap::Array *> p_arrays_in,
-          std::vector<hmap::Array *>,
-          const hmap::UvTile &region,
-          ICommunicator      &comm)
-      {
-        auto [pa_z] = unpack<1>(p_arrays_in);
-
-        TerrainTriMesh tile_mesh =
-            hmap::generate_terrain_tri_mesh_from_heightmap_random(
-                *pa_z,
-                control_points_count,
-                seed,
-                region,
-                &comm);
-
-        if (comm.rank() == 0) mesh = std::move(tile_mesh);
-      },
-      cm);
-
-  if (mesh.size() == 0) return Path();
+  if (comm.rank() != 0 || mesh.size() == 0) return Path();
 
   const auto &pts = mesh.get_points();
 
@@ -358,4 +337,4 @@ Path find_path_dijkstra(const ComputeMode  &cm,
   return Path(path_points);
 }
 
-} // namespace hmap::va
+} // namespace hmap

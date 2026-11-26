@@ -338,30 +338,76 @@ TEST(PathMultiscale, VAFindCutPathDijkstra)
                                       42);
   vz.from_array(z_arr, cm);
 
-  hmap::Path path = hmap::va::find_cut_path_dijkstra(
-      cm,
-      vz,
+  hmap::Path path_tiled;
+  hmap::for_each_tile(
+      {&vz},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        hmap::Path tile_path = hmap::find_cut_path_dijkstra(
+            *pa_z,
+            hmap::DomainBoundary::BOUNDARY_LEFT,
+            hmap::DomainBoundary::BOUNDARY_RIGHT,
+            42,
+            256,
+            true,
+            true,
+            true,
+            false,
+            region,
+            comm);
+        if (comm.rank() == 0) path_tiled = std::move(tile_path);
+      },
+      cm);
+
+  hmap::Path path_nontiled = hmap::find_cut_path_dijkstra(
+      z_arr,
       hmap::DomainBoundary::BOUNDARY_LEFT,
       hmap::DomainBoundary::BOUNDARY_RIGHT,
-      42,
-      256);
+      42u,
+      size_t(256));
 
-  ASSERT_FALSE(path.empty());
-  EXPECT_NEAR(path.front().x, 0.f, 1e-4f);
-  EXPECT_NEAR(path.back().x, 1.f, 1e-4f);
+  ASSERT_FALSE(path_tiled.empty());
+  ASSERT_EQ(path_tiled.size(), path_nontiled.size());
+  for (size_t i = 0; i < path_tiled.size(); ++i)
+  {
+    EXPECT_NEAR(path_tiled[i].x, path_nontiled[i].x, 0.1f);
+    EXPECT_NEAR(path_tiled[i].y, path_nontiled[i].y, 0.1f);
+    EXPECT_NEAR(path_tiled[i].v, path_nontiled[i].v, 1e-2f);
+  }
+  EXPECT_NEAR(path_tiled.front().x, 0.f, 1e-4f);
+  EXPECT_NEAR(path_tiled.back().x, 1.f, 1e-4f);
 
   // test with favor_domain_center enabled
-  hmap::Path path_center = hmap::va::find_cut_path_dijkstra(
-      cm,
-      vz,
-      hmap::DomainBoundary::BOUNDARY_LEFT,
-      hmap::DomainBoundary::BOUNDARY_RIGHT,
-      42,
-      256,
-      true,
-      true,
-      true,
-      true);
+  hmap::Path path_center;
+  hmap::for_each_tile(
+      {&vz},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        hmap::Path tile_path = hmap::find_cut_path_dijkstra(
+            *pa_z,
+            hmap::DomainBoundary::BOUNDARY_LEFT,
+            hmap::DomainBoundary::BOUNDARY_RIGHT,
+            42,
+            256,
+            true,
+            true,
+            true,
+            true,
+            region,
+            comm);
+        if (comm.rank() == 0) path_center = std::move(tile_path);
+      },
+      cm);
 
   ASSERT_FALSE(path_center.empty());
   EXPECT_NEAR(path_center.front().x, 0.f, 1e-4f);
@@ -424,21 +470,124 @@ TEST(PathMultiscale, VAFindPathDijkstra)
   glm::vec2 start = {0.1f, 0.1f};
   glm::vec2 end = {0.9f, 0.9f};
 
-  hmap::Path path = hmap::va::find_path_dijkstra(cm, vz, start, end, 42, 256);
+  hmap::Path path_tiled;
+  hmap::for_each_tile(
+      {&vz},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        hmap::Path tile_path = hmap::find_path_dijkstra(*pa_z,
+                                                        start,
+                                                        end,
+                                                        42,
+                                                        256,
+                                                        false,
+                                                        region,
+                                                        comm);
+        if (comm.rank() == 0) path_tiled = std::move(tile_path);
+      },
+      cm);
 
-  ASSERT_FALSE(path.empty());
-  EXPECT_NEAR(path.front().x, start.x, 0.2f);
-  EXPECT_NEAR(path.front().y, start.y, 0.2f);
-  EXPECT_NEAR(path.back().x, end.x, 0.2f);
-  EXPECT_NEAR(path.back().y, end.y, 0.2f);
+  hmap::Path path_nontiled = hmap::find_path_dijkstra(z_arr,
+                                                      start,
+                                                      end,
+                                                      42,
+                                                      256);
+
+  ASSERT_FALSE(path_tiled.empty());
+  ASSERT_EQ(path_tiled.size(), path_nontiled.size());
+  for (size_t i = 0; i < path_tiled.size(); ++i)
+  {
+    EXPECT_NEAR(path_tiled[i].x, path_nontiled[i].x, 0.1f);
+    EXPECT_NEAR(path_tiled[i].y, path_nontiled[i].y, 0.1f);
+    EXPECT_NEAR(path_tiled[i].v, path_nontiled[i].v, 1e-2f);
+  }
+  EXPECT_NEAR(path_tiled.front().x, start.x, 0.2f);
+  EXPECT_NEAR(path_tiled.front().y, start.y, 0.2f);
+  EXPECT_NEAR(path_tiled.back().x, end.x, 0.2f);
+  EXPECT_NEAR(path_tiled.back().y, end.y, 0.2f);
 
   // test with favor_domain_center enabled
-  hmap::Path path_center =
-      hmap::va::find_path_dijkstra(cm, vz, start, end, 42, 256, true);
+  hmap::Path path_center;
+  hmap::for_each_tile(
+      {&vz},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        hmap::Path tile_path = hmap::find_path_dijkstra(*pa_z,
+                                                        start,
+                                                        end,
+                                                        42,
+                                                        256,
+                                                        true,
+                                                        region,
+                                                        comm);
+        if (comm.rank() == 0) path_center = std::move(tile_path);
+      },
+      cm);
 
   ASSERT_FALSE(path_center.empty());
   EXPECT_NEAR(path_center.front().x, start.x, 0.2f);
   EXPECT_NEAR(path_center.front().y, start.y, 0.2f);
   EXPECT_NEAR(path_center.back().x, end.x, 0.2f);
   EXPECT_NEAR(path_center.back().y, end.y, 0.2f);
+}
+
+TEST(PathMultiscale, FindCutPathMidpointTiled)
+{
+  glm::ivec2 shape = {128, 128};
+  glm::ivec2 tile_shape = {64, 64};
+  int        halo = 0;
+
+  hmap::ComputeMode  cm;
+  hmap::VirtualArray vz(shape, tile_shape, halo, hmap::StorageMode::VA_RAM);
+
+  hmap::Array z_arr = hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                      shape,
+                                      {2.f, 2.f},
+                                      42);
+  vz.from_array(z_arr, cm);
+
+  hmap::Path path_tiled;
+  hmap::for_each_tile(
+      {&vz},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
+      {
+        auto [pa_z] = hmap::unpack<1>(p_arrays_in);
+        hmap::Path tile_path = hmap::find_cut_path_midpoint(
+            *pa_z,
+            hmap::DomainBoundary::BOUNDARY_LEFT,
+            hmap::DomainBoundary::BOUNDARY_RIGHT,
+            42,
+            0.2f,
+            16,
+            true,
+            true,
+            true,
+            region,
+            comm);
+        if (comm.rank() == 0) path_tiled = std::move(tile_path);
+      },
+      cm);
+
+  hmap::Path path_nontiled = hmap::find_cut_path_midpoint(
+      z_arr,
+      hmap::DomainBoundary::BOUNDARY_LEFT,
+      hmap::DomainBoundary::BOUNDARY_RIGHT,
+      42);
+
+  ASSERT_FALSE(path_tiled.empty());
+  ASSERT_FALSE(path_nontiled.empty());
 }
