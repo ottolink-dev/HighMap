@@ -15,6 +15,8 @@
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
+#include "highmap/spatial/bbox2d.hpp"
+
 namespace hmap
 {
 
@@ -54,6 +56,11 @@ struct UvRect
   constexpr glm::vec4 to_vec4() const
   {
     return {u_min, u_max, v_min, v_max};
+  }
+
+  constexpr BBox2D to_bbox2d() const
+  {
+    return BBox2D(glm::vec2(u_min, v_min), glm::vec2(u_max, v_max));
   }
 
   constexpr glm::vec2 size() const
