@@ -1,5 +1,7 @@
 var NAVTREEINDEX22 =
 {
+"structhmap_1_1VirtualArray.html#af18d79861c72756d23fbde116be927d0":[17,0,0,107,7],
+"structhmap_1_1VirtualArray.html#af3c6671195e6953ad46ae65a64fe88bd":[16,0,0,109,11],
 "structhmap_1_1VirtualArray.html#af3c6671195e6953ad46ae65a64fe88bd":[17,0,0,107,11],
 "structhmap_1_1VirtualArray.html#af6398e65bc2c78dd6bddf073335bf4d3":[16,0,0,109,30],
 "structhmap_1_1VirtualArray.html#af6398e65bc2c78dd6bddf073335bf4d3":[17,0,0,107,30],
@@ -247,7 +249,5 @@ var NAVTREEINDEX22 =
 "test__cloud_8cpp.html#a6c2556cff1117395244065d44e6ec071":[18,0,2,0,15,15],
 "test__cloud_8cpp.html#a797d43e16a987502f8dae190dbc61b16":[18,0,2,0,15,30],
 "test__cloud_8cpp.html#a7f54daab5dff413f781fb07195ca2204":[18,0,2,0,15,21],
-"test__cloud_8cpp.html#a83dc342efadda75314b178158e96ebb1":[18,0,2,0,15,0],
-"test__cloud_8cpp.html#a88d19cb9d2f09747e6668473c3df525b":[18,0,2,0,15,32],
-"test__cloud_8cpp.html#aa8879c8da68a109517ca9cc90c4cbe83":[18,0,2,0,15,11]
+"test__cloud_8cpp.html#a83dc342efadda75314b178158e96ebb1":[18,0,2,0,15,0]
 };

@@ -4,6 +4,7 @@ var structhmap_1_1UvRect =
     [ "UvRect", "structhmap_1_1UvRect.html#a4847874f20644f34f14dc204bfc1ab01", null ],
     [ "UvRect", "structhmap_1_1UvRect.html#aa1af9e8fb962459d3d91186290b60527", null ],
     [ "to_vec4", "structhmap_1_1UvRect.html#a01e940c7389509f7f803f7808e1d2f9d", null ],
+    [ "to_bbox2d", "structhmap_1_1UvRect.html#a0fe5ad51c8a8c1e4e937b1d241424179", null ],
     [ "size", "structhmap_1_1UvRect.html#ae121db94beda0dc565b4a3fc92122142", null ],
     [ "contains", "structhmap_1_1UvRect.html#a1afb85faf0308058824f138822fd6e5e", null ],
     [ "lerp", "structhmap_1_1UvRect.html#a420931baad33874ef7ee8b482f27410f", null ],

@@ -244,11 +244,11 @@ var NAVTREEINDEX =
 "structhmap_1_1ColorAdjust.html#acd22feabf5d46054cd4f4fd9771c0d26",
 "structhmap_1_1OpenEXRWriter_1_1Impl.html#a5fb3df28a2336bde9b863271f6cc9308",
 "structhmap_1_1TerrainTextureParams.html#ae5df313448151b2bc37c1d9d691ac9da",
-"structhmap_1_1VirtualArray.html#af3c6671195e6953ad46ae65a64fe88bd",
-"test__cloud_8cpp.html#aaa6ef8676f6c7dd87dc6afe9815b4e20",
-"test__forest__seeding_8cpp.html#ae5b152ecd8c280716b39a34994c30e2f",
-"test__poi_8cpp.html#acc090897692f5bc99105676d365f42e1",
-"test__splines_8cpp.html#a581dc48c6aaf8eab38fb9c27b6b0008a"
+"structhmap_1_1VirtualArray.html#af18d79861c72756d23fbde116be927d0",
+"test__cloud_8cpp.html#a88d19cb9d2f09747e6668473c3df525b",
+"test__forest__seeding_8cpp.html#add7f5646a906ba67cfd632f2e1caa7fa",
+"test__poi_8cpp.html#a5eb15bf795f425cf190c983ece52f6a8",
+"test__snow__simulation_8cpp.html#aaeb8e01ef938cdf77eccbd31945edd0f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
