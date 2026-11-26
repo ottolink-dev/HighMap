@@ -92,7 +92,7 @@ TEST(RockFieldTest, InterstitialPacking)
   field.push_back(Rock(glm::vec3(0.2f, 0.5f, 0.f), 0u, 0.1f));
   field.push_back(Rock(glm::vec3(0.8f, 0.5f, 0.f), 0u, 0.1f));
 
-  size_t    original_count = field.size();
+  size_t original_count = field.size();
   UvRect bbox = {0.f, 1.f, 0.f, 1.f};
 
   // 1. Pack without density (uniform)
