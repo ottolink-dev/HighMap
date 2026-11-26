@@ -33,7 +33,7 @@ int main(void)
   star.set_closed(true);
 
   hmap::Array mask(shape, 0.f);
-  star.to_array(mask, {0.f, 1.f, 0.f, 1.f}, true);
+  star.to_array(mask, hmap::BBox2D::unit(), true);
 
   hmap::Array sea(shape, 1.f);
   sea -= mask;

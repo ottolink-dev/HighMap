@@ -17,21 +17,21 @@
 namespace hmap::gpu
 {
 
-Array generate_riverbed(const Path &path,
-                        glm::ivec2  shape,
-                        glm::vec4   bbox,
-                        bool        bezier_smoothing,
-                        float       depth_start,
-                        float       depth_end,
-                        float       slope_start,
-                        float       slope_end,
-                        float       shape_exponent_start,
-                        float       shape_exponent_end,
-                        float       k_smoothing,
-                        int         post_filter_ir,
-                        Array      *p_noise_x,
-                        Array      *p_noise_y,
-                        Array      *p_noise_r)
+Array generate_riverbed(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect,
+                        bool          bezier_smoothing,
+                        float         depth_start,
+                        float         depth_end,
+                        float         slope_start,
+                        float         slope_end,
+                        float         shape_exponent_start,
+                        float         shape_exponent_end,
+                        float         k_smoothing,
+                        int           post_filter_ir,
+                        Array        *p_noise_x,
+                        Array        *p_noise_y,
+                        Array        *p_noise_r)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_min_size(path, 2, "Path points")) return Array(shape);
@@ -41,9 +41,13 @@ Array generate_riverbed(const Path &path,
 
   Array sdf;
   if (bezier_smoothing)
-    sdf = gpu::sdf_2d_polyline_bezier(path, shape, bbox, p_noise_x, p_noise_y);
+    sdf = gpu::sdf_2d_polyline_bezier(path,
+                                      shape,
+                                      uv_rect,
+                                      p_noise_x,
+                                      p_noise_y);
   else
-    sdf = gpu::sdf_2d_polyline(path, shape, bbox, p_noise_x, p_noise_y);
+    sdf = gpu::sdf_2d_polyline(path, shape, uv_rect, p_noise_x, p_noise_y);
 
   Array dz(shape);
 
@@ -74,7 +78,7 @@ Array generate_riverbed(const Path &path,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
                      p_noise_r ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("sdf");
   run.write_buffer("xp");

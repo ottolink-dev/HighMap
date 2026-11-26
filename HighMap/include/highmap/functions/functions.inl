@@ -311,6 +311,88 @@ float FbmRidgedFunction<BaseFn>::operator()(float x,
 }
 
 template <typename BaseFn>
+FbmSlopeFunction<BaseFn>::FbmSlopeFunction(BaseFn base,
+                                           int    octaves,
+                                           float  weight,
+                                           float  persistence,
+                                           float  lacunarity,
+                                           float  gradient_scale,
+                                           float  slope_power,
+                                           float  octave_blend,
+                                           float  bias_angle,
+                                           float  bias_strength)
+    : GenericFractalFunction<BaseFn>(std::move(base),
+                                     octaves,
+                                     weight,
+                                     persistence,
+                                     lacunarity),
+      gradient_scale(gradient_scale),
+      slope_power(slope_power),
+      octave_blend(octave_blend)
+{
+  this->set_bias(bias_angle, bias_strength);
+}
+
+template <typename BaseFn>
+float FbmSlopeFunction<BaseFn>::operator()(float x,
+                                           float y,
+                                           float /* ctrl_param */) const
+{
+  float sum = 0.f;
+  float amp = this->amp0;
+  float ki = 1.f;
+  float kj = 1.f;
+  float dx_sum = 0.f;
+  float dy_sum = 0.f;
+
+  for (int k = 0; k < this->octaves; k++)
+  {
+    float xw = ki * x;
+    float yw = kj * y;
+    this->apply_stretch(xw, yw, k);
+
+    float value = this->base(xw, yw, 0.f);
+    float dx = (this->base(xw + HMAP_GRADIENT_OFFSET, yw, 0.f) -
+                this->base(xw - HMAP_GRADIENT_OFFSET, yw, 0.f)) /
+               (2.f * HMAP_GRADIENT_OFFSET);
+    float dy = (this->base(xw, yw + HMAP_GRADIENT_OFFSET, 0.f) -
+                this->base(xw, yw - HMAP_GRADIENT_OFFSET, 0.f)) /
+               (2.f * HMAP_GRADIENT_OFFSET);
+
+    // weight gradient by octave amplitude so macro slopes drive the mask
+    dx_sum += amp * dx;
+    dy_sum += amp * dy;
+
+    float grad_norm = std::sqrt(dx_sum * dx_sum + dy_sum * dy_sum);
+    float gs = this->gradient_scale * grad_norm;
+    float gs_p = std::pow(gs, this->slope_power);
+    float w_slope = gs_p / (1.f + gs_p);
+
+    if (this->bias_strength > 0.f && grad_norm > 1e-6f)
+    {
+      float cos_align = (dx_sum * this->bias_cos + dy_sum * this->bias_sin) /
+                        grad_norm;
+      float w_dir = (1.f - this->bias_strength) +
+                    this->bias_strength * 0.5f * (cos_align + 1.f);
+      w_slope *= w_dir;
+    }
+
+    // low octaves form smooth hills everywhere; high octaves are slope-masked
+    float alpha = 1.f - std::exp(-this->octave_blend * static_cast<float>(k));
+    float w_octave = (1.f - alpha) + alpha * w_slope;
+
+    sum += value * amp * w_octave;
+    amp *= (1.f - this->weight) +
+           this->weight * std::min(value + 1.f, 2.f) * 0.5f;
+    amp *= this->persistence;
+    ki *= this->lacunarity;
+    kj *= this->lacunarity;
+  }
+
+  return sum;
+}
+
+template <typename BaseFn>
 FbmSwissFunction<BaseFn>::FbmSwissFunction(BaseFn base,
                                            int    octaves,
                                            float  weight,

@@ -42,7 +42,7 @@ Array dendry(glm::ivec2    shape,
              float         control_function_overlap,
              const Array  *p_noise_x,
              const Array  *p_noise_y,
-             glm::vec4     bbox,
+             const UvRect &uv_rect,
              int           subsampling)
 {
   if (!validate_shape(shape)) return Array();
@@ -90,7 +90,7 @@ Array dendry(glm::ivec2    shape,
 
   fill_array_using_xy_function(
       array,
-      bbox,
+      uv_rect,
       nullptr,
       p_noise_x,
       p_noise_y,
@@ -116,9 +116,9 @@ Array dendry(glm::ivec2                                       shape,
              float noise_amplitude_proportion,
              bool  add_control_function,
              float /* control_function_overlap */,
-             const Array *p_noise_x,
-             const Array *p_noise_y,
-             glm::vec4    bbox)
+             const Array  *p_noise_x,
+             const Array  *p_noise_y,
+             const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -156,7 +156,7 @@ Array dendry(glm::ivec2                                       shape,
 
   fill_array_using_xy_function(
       array,
-      bbox,
+      uv_rect,
       nullptr,
       p_noise_x,
       p_noise_y,

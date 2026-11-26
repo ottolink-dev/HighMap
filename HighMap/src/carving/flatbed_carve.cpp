@@ -27,7 +27,7 @@ Array flatbed_carve(glm::ivec2    shape,
                     float         radial_profile_parameter,
                     Array        *p_falloff_mask,
                     const Array  *p_noise_r,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -41,7 +41,7 @@ Array flatbed_carve(glm::ivec2    shape,
   // project path to the array
   Path path_cpy = path;
   path_cpy.set_values(1.f);
-  path_cpy.to_array(z, bbox);
+  path_cpy.to_array(z, BBox2D::from_vec4(uv_rect.to_vec4()));
 
   // radial profile
   auto profile_fct = get_radial_profile_function(radial_profile,
@@ -129,7 +129,7 @@ void flatbed_carve(Array        &z,
                    float         radial_profile_parameter,
                    Array        *p_falloff_mask,
                    const Array  *p_noise_r,
-                   glm::vec4     bbox)
+                   const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
@@ -149,7 +149,7 @@ void flatbed_carve(Array        &z,
                                 radial_profile_parameter,
                                 &mask,
                                 p_noise_r,
-                                bbox);
+                                uv_rect);
 
   z = lerp(z, flatbed, mask);
 

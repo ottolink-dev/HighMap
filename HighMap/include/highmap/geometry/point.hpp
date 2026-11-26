@@ -11,6 +11,7 @@
 #include <optional>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 namespace hmap
 {
@@ -240,7 +241,7 @@ public:
    * @param bbox  Bounding box used for normalizing coordinates {xmin, xmax,
    *              ymin, ymax}.
    */
-  void set_value_from_array(const Array &array, const glm::vec4 &bbox);
+  void set_value_from_array(const Array &array, const BBox2D &bbox);
 };
 
 // ==========================================================================
@@ -391,8 +392,7 @@ Point interp_decasteljau(const std::vector<Point> &points, float t);
  * @param  bbox2 The second bounding box defined as `glm::vec4`.
  * @return       The intersecting bounding box, or {1, -1, 1, -1} if disjoint.
  */
-glm::vec4 intersect_bounding_boxes(const glm::vec4 &bbox1,
-                                   const glm::vec4 &bbox2);
+BBox2D intersect_bounding_boxes(const BBox2D &bbox1, const BBox2D &bbox2);
 
 /**
  * @brief Checks if a point is within a specified bounding box.
@@ -401,7 +401,7 @@ glm::vec4 intersect_bounding_boxes(const glm::vec4 &bbox1,
  * @param  bbox Bounding box {xmin, xmax, ymin, ymax}.
  * @return      true if the point is within the bounding box, false otherwise.
  */
-bool is_point_within_bounding_box(const Point &p, const glm::vec4 &bbox);
+bool is_point_within_bounding_box(const Point &p, const BBox2D &bbox);
 
 /**
  * @brief Checks if a point with coordinates (x, y) is within a specified
@@ -412,7 +412,7 @@ bool is_point_within_bounding_box(const Point &p, const glm::vec4 &bbox);
  * @param  bbox Bounding box {xmin, xmax, ymin, ymax}.
  * @return      true if the point is within the bounding box, false otherwise.
  */
-bool is_point_within_bounding_box(float x, float y, const glm::vec4 &bbox);
+bool is_point_within_bounding_box(float x, float y, const BBox2D &bbox);
 
 /**
  * @brief Linearly interpolates between two points.
@@ -517,6 +517,6 @@ float triangle_area_signed(const Point &p1, const Point &p2, const Point &p3);
  *
  * @return glm::vec4 Unit square bounding box.
  */
-glm::vec4 unit_square_bbox();
+BBox2D unit_square_bbox();
 
 } // namespace hmap

@@ -8,7 +8,7 @@
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
 #include "highmap/profiling.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
@@ -29,10 +29,10 @@ void VirtualArray::sync_overlap_buffers(SyncOperation op)
     for (int tx = 0; tx < nx - 1; ++tx)
     {
       // load
-      TileRegion region0 = this->tile_region_from_tile_coords(tx, ty);
-      TileRegion region1 = this->tile_region_from_tile_coords(tx + 1, ty);
-      Array     &tile0 = this->storage->get_tile(region0);
-      Array     &tile1 = this->storage->get_tile(region1);
+      UvTile region0 = this->tile_region_from_tile_coords(tx, ty);
+      UvTile region1 = this->tile_region_from_tile_coords(tx + 1, ty);
+      Array &tile0 = this->storage->get_tile(region0);
+      Array &tile1 = this->storage->get_tile(region1);
 
       switch (op)
       {
@@ -134,10 +134,10 @@ void VirtualArray::sync_overlap_buffers(SyncOperation op)
     for (int tx = 0; tx < nx; ++tx)
     {
       // load
-      TileRegion region0 = this->tile_region_from_tile_coords(tx, ty);
-      TileRegion region1 = this->tile_region_from_tile_coords(tx, ty + 1);
-      Array     &tile0 = this->storage->get_tile(region0);
-      Array     &tile1 = this->storage->get_tile(region1);
+      UvTile region0 = this->tile_region_from_tile_coords(tx, ty);
+      UvTile region1 = this->tile_region_from_tile_coords(tx, ty + 1);
+      Array &tile0 = this->storage->get_tile(region0);
+      Array &tile1 = this->storage->get_tile(region1);
 
       switch (op)
       {

@@ -214,15 +214,15 @@ std::vector<glm::ivec2> find_path_dijkstra(const Array &z,
   return path;
 }
 
-Path find_path_dijkstra(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
-                        glm::vec4    bbox,
-                        float        elevation_ratio,
-                        float        distance_exponent,
-                        float        upward_penalization,
-                        const Array *p_mask_nogo,
-                        const Array *p_node_weights)
+Path find_path_dijkstra(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
+                        const UvRect &uv_rect,
+                        float         elevation_ratio,
+                        float         distance_exponent,
+                        float         upward_penalization,
+                        const Array  *p_mask_nogo,
+                        const Array  *p_node_weights)
 {
   if (!validate_non_empty(z)) return Path();
 
@@ -241,15 +241,15 @@ Path find_path_dijkstra(const Array &z,
   std::vector<Point> points;
   points.reserve(ip.size());
 
-  const float lx = bbox.y - bbox.x;
-  const float ly = bbox.w - bbox.z;
+  const float lx = uv_rect.u_max - uv_rect.u_min;
+  const float ly = uv_rect.v_max - uv_rect.v_min;
   const float denom_x = (z.shape.x > 1) ? float(z.shape.x - 1) : 1.f;
   const float denom_y = (z.shape.y > 1) ? float(z.shape.y - 1) : 1.f;
 
   for (size_t k = 0; k < ip.size(); ++k)
   {
-    float px = (float(ip[k]) / denom_x) * lx + bbox.x;
-    float py = (float(jp[k]) / denom_y) * ly + bbox.z;
+    float px = (float(ip[k]) / denom_x) * lx + uv_rect.u_min;
+    float py = (float(jp[k]) / denom_y) * ly + uv_rect.v_min;
     float pv = z(ip[k], jp[k]);
 
     points.emplace_back(px, py, pv);
@@ -258,26 +258,23 @@ Path find_path_dijkstra(const Array &z,
   return Path(points);
 }
 
-} // namespace hmap
-
-namespace hmap::va
+Path find_path_dijkstra(const Array   &z,
+                        glm::vec2      start,
+                        glm::vec2      end,
+                        std::uint32_t  seed,
+                        size_t         control_points_count,
+                        bool           favor_domain_center,
+                        const UvTile  &region,
+                        ICommunicator &comm)
 {
-
-Path find_path_dijkstra(const ComputeMode  &cm,
-                        const VirtualArray &z,
-                        glm::vec2           start,
-                        glm::vec2           end,
-                        std::uint32_t       seed,
-                        size_t              control_points_count,
-                        bool                favor_domain_center)
-{
-  TerrainTriMesh mesh = va::generate_terrain_tri_mesh_from_heightmap_random(
-      cm,
+  TerrainTriMesh mesh = hmap::generate_terrain_tri_mesh_from_heightmap_random(
       z,
       control_points_count,
-      seed);
+      seed,
+      region,
+      &comm);
 
-  if (mesh.size() == 0) return Path();
+  if (comm.rank() != 0 || mesh.size() == 0) return Path();
 
   const auto &pts = mesh.get_points();
 
@@ -340,4 +337,4 @@ Path find_path_dijkstra(const ComputeMode  &cm,
   return Path(path_points);
 }
 
-} // namespace hmap::va
+} // namespace hmap

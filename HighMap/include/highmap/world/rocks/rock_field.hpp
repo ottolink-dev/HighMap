@@ -119,9 +119,9 @@ public:
    *                         between slope and rock size.
    * @param bbox             Domain bounding box {xmin, xmax, ymin, ymax}.
    */
-  void apply_slope_sorting(const Array     &slope,
-                           float            sorting_strength = 1.0f,
-                           const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+  void apply_slope_sorting(const Array  &slope,
+                           float         sorting_strength = 1.0f,
+                           const BBox2D &bbox = BBox2D{});
 
   /**
    * @brief Simulates physical movement (sliding, rolling, bouncing, and

@@ -14,8 +14,10 @@
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
+#include "highmap/core/communicator_interface.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 namespace hmap
 {
@@ -55,13 +57,13 @@ struct VirtualArray;
  *
  * @see                     Array::find_path_dijkstra
  */
-Path dijkstra(const Path  &path,
-              const Array &array,
-              glm::vec4    bbox,
-              float        elevation_ratio = 0.f,
-              float        distance_exponent = 0.5f,
-              float        upward_penalization = 0.1f,
-              Array       *p_mask_nogo = nullptr);
+Path dijkstra(const Path   &path,
+              const Array  &array,
+              const UvRect &uv_rect,
+              float         elevation_ratio = 0.f,
+              float         distance_exponent = 0.5f,
+              float         upward_penalization = 0.1f,
+              Array        *p_mask_nogo = nullptr);
 
 /**
  * @brief Find a Dijkstra-based cut path between two domain boundaries.
@@ -102,20 +104,58 @@ Path find_cut_path_dijkstra(const Array   &z,
                             bool           favor_domain_center = false);
 
 /**
+ * @brief Generate a cut path across a heightmap using a random triangular mesh
+ * and Dijkstra shortest path search (tileable).
+ *
+ * @param  z                     Heightmap array (or tile).
+ * @param  start                 Start boundary.
+ * @param  end                   End boundary.
+ * @param  seed                  Random seed for mesh point generation.
+ * @param  control_points_count  Number of control points sampled for the mesh.
+ * @param  favor_boundary_center Favor points near the center of the boundary.
+ * @param  favor_lower_elevation Favor lower elevation points on the boundary.
+ * @param  favor_sinks           Favor local depressions.
+ * @param  favor_domain_center   Favor passing through the center of the domain.
+ * @param  region                Tile region metadata.
+ * @param  comm                  Tiled communicator instance.
+ *
+ * @return                       Path containing normalized 3D coordinates and
+ *                               elevations (empty on non-root ranks).
+ */
+Path find_cut_path_dijkstra(const Array   &z,
+                            DomainBoundary start,
+                            DomainBoundary end,
+                            std::uint32_t  seed,
+                            size_t         control_points_count = 2048,
+                            bool           favor_boundary_center = true,
+                            bool           favor_lower_elevation = true,
+                            bool           favor_sinks = true,
+                            bool           favor_domain_center = false,
+                            const UvTile  &region = UvTile::unit(),
+                            ICommunicator &comm = SingleArrayComm::instance());
+
+/**
  * @brief Generate a stochastic cut path using midpoint displacement.
  *
  * Creates a path between the @p start and @p end boundaries of heightmap @p z
  * by recursively subdividing and perturbing a segment. The result is a natural,
  * irregular path defined by normalized (x, y) coordinates and elevations.
  *
- * @param  z               Heightmap array.
- * @param  start           Start boundary.
- * @param  end             End boundary.
- * @param  seed            Random seed.
- * @param  midp_iterations Number of subdivision steps.
- * @param  midp_sigma      Displacement amplitude.
+ * @param  z                     Heightmap array.
+ * @param  start                 Start boundary.
+ * @param  end                   End boundary.
+ * @param  seed                  Random seed.
+ * @param  midp_iterations       Number of subdivision steps.
+ * @param  midp_sigma            Displacement amplitude.
  *
- * @return                 Path with normalized coordinates and elevations.
+ * @param  favor_boundary_center Favor points near the center of the boundary.
+ * @param  favor_lower_elevation Favor lower elevation points on the boundary.
+ * @param  favor_sinks           Favor local depressions.
+ * @param  region                Tile region metadata.
+ * @param  comm                  Tiled communicator instance.
+ *
+ * @return                       Path with normalized coordinates and
+ *                               elevations.
  *
  * **Example**
  * @include ex_find_cut_path.cpp
@@ -131,7 +171,9 @@ Path find_cut_path_midpoint(const Array   &z,
                             int            steps = 16,
                             bool           favor_boundary_center = true,
                             bool           favor_lower_elevation = true,
-                            bool           favor_sinks = true);
+                            bool           favor_sinks = true,
+                            const UvTile  &region = UvTile::unit(),
+                            ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Find a fast coarse-to-fine multiscale cut path between two domain
@@ -240,6 +282,31 @@ void find_path_dijkstra(const Array                   &z,
                         const Array *p_node_weights = nullptr);
 
 /**
+ * @brief Generate a path between two points across a heightmap using a random
+ * triangular mesh and Dijkstra shortest path search (tileable).
+ *
+ * @param  z                    Heightmap array (or tile).
+ * @param  start                Start coordinates (x, y) in [0, 1].
+ * @param  end                  End coordinates (x, y) in [0, 1].
+ * @param  seed                 Random seed for mesh point generation.
+ * @param  control_points_count Number of control points sampled for the mesh.
+ * @param  favor_domain_center  Favor passing through the center of the domain.
+ * @param  region               Tile region metadata.
+ * @param  comm                 Tiled communicator instance.
+ *
+ * @return                      Path containing 3D coordinates and elevations
+ *                              (empty on non-root ranks).
+ */
+Path find_path_dijkstra(const Array   &z,
+                        glm::vec2      start,
+                        glm::vec2      end,
+                        std::uint32_t  seed,
+                        size_t         control_points_count = 2048,
+                        bool           favor_domain_center = false,
+                        const UvTile  &region = UvTile::unit(),
+                        ICommunicator &comm = SingleArrayComm::instance());
+
+/**
  * @brief Overload of find_path_dijkstra returning a vector of grid indices.
  *
  * @param  z                   Heightmap array.
@@ -280,15 +347,15 @@ std::vector<glm::ivec2> find_path_dijkstra(
  * @return                     Path with coordinates and sampled elevation
  *                             values.
  */
-Path find_path_dijkstra(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
-                        glm::vec4    bbox,
-                        float        elevation_ratio = 0.1f,
-                        float        distance_exponent = 2.f,
-                        float        upward_penalization = 0.1f,
-                        const Array *p_mask_nogo = nullptr,
-                        const Array *p_node_weights = nullptr);
+Path find_path_dijkstra(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
+                        const UvRect &uv_rect,
+                        float         elevation_ratio = 0.1f,
+                        float         distance_exponent = 2.f,
+                        float         upward_penalization = 0.1f,
+                        const Array  *p_mask_nogo = nullptr,
+                        const Array  *p_node_weights = nullptr);
 
 /**
  * @brief Compute a path between two points using iterative midpoint refinement.
@@ -355,13 +422,13 @@ void find_path_midpoint(const Array      &z,
  *
  * @return              Path with coordinates and sampled elevation values.
  */
-Path find_path_midpoint(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
-                        glm::vec4    bbox,
-                        float        offset_ratio = 0.2f,
-                        int          max_it = 0,
-                        int          steps = 16);
+Path find_path_midpoint(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
+                        const UvRect &uv_rect,
+                        float         offset_ratio = 0.2f,
+                        int           max_it = 0,
+                        int           steps = 16);
 
 /**
  * @brief Finds a shortest path on a 2D grid using a fast coarse-to-fine
@@ -464,86 +531,18 @@ std::vector<glm::ivec2> find_path_multiscale(const Array &z,
  * @return                     Path containing coordinates and sampled elevation
  *                             values.
  */
-Path find_path_multiscale(const Array &z,
-                          glm::ivec2   ij_start,
-                          glm::ivec2   ij_end,
-                          glm::vec4    bbox,
-                          int          n_levels = 3,
-                          int          corridor_radius = 4,
-                          float        corridor_decay = 1.f,
-                          float        elevation_ratio = 0.1f,
-                          float        distance_exponent = 2.f,
-                          float        upward_penalization = 0.1f,
-                          const Array *p_mask_nogo = nullptr,
-                          bool         use_astar = false,
-                          bool         smooth_path = false);
+Path find_path_multiscale(const Array  &z,
+                          glm::ivec2    ij_start,
+                          glm::ivec2    ij_end,
+                          const UvRect &uv_rect,
+                          int           n_levels = 3,
+                          int           corridor_radius = 4,
+                          float         corridor_decay = 1.f,
+                          float         elevation_ratio = 0.1f,
+                          float         distance_exponent = 2.f,
+                          float         upward_penalization = 0.1f,
+                          const Array  *p_mask_nogo = nullptr,
+                          bool          use_astar = false,
+                          bool          smooth_path = false);
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-/**
- * @brief Generate a cut path across a heightmap VirtualArray using a random
- * triangular mesh and Dijkstra shortest path search.
- *
- * Constructs a random Delaunay triangulation sampled from the VirtualArray,
- * selects start and end vertices along the requested domain boundaries, and
- * computes the Dijkstra shortest path connecting them across the mesh.
- *
- * @param  cm                    Compute mode configuration.
- * @param  z                     Heightmap VirtualArray.
- * @param  start                 Boundary where the path begins.
- * @param  end                   Boundary where the path ends.
- * @param  seed                  Random seed for mesh point generation and
- *                               boundary vertex picking.
- * @param  control_points_count  Number of control points sampled for the mesh.
- * @param  favor_boundary_center Favor picking boundary vertices near center.
- * @param  favor_lower_elevation Favor picking boundary vertices at low
- *                               elevation.
- * @param  favor_sinks           Favor picking boundary vertices at local
- *                               depressions.
- * @param  favor_domain_center   Favor passing through the center of the domain.
- *
- * @return                       Path containing normalized 3D coordinates and
- *                               elevations.
- */
-Path find_cut_path_dijkstra(const ComputeMode  &cm,
-                            const VirtualArray &z,
-                            DomainBoundary      start,
-                            DomainBoundary      end,
-                            std::uint32_t       seed = 0,
-                            size_t              control_points_count = 2048,
-                            bool                favor_boundary_center = true,
-                            bool                favor_lower_elevation = true,
-                            bool                favor_sinks = true,
-                            bool                favor_domain_center = false);
-
-/**
- * @brief Generate a path between two points across a heightmap VirtualArray
- * using an intermediate random triangular mesh and Dijkstra shortest path
- * search.
- *
- * Constructs a random Delaunay triangulation sampled from the VirtualArray,
- * locates the nearest mesh vertices to the start and end coordinates, and
- * computes the Dijkstra shortest path connecting them across the mesh.
- *
- * @param  cm                   Compute mode configuration.
- * @param  z                    Heightmap VirtualArray.
- * @param  start                Start coordinates (x, y) in [0, 1].
- * @param  end                  End coordinates (x, y) in [0, 1].
- * @param  seed                 Random seed for mesh point generation.
- * @param  control_points_count Number of control points sampled for the mesh.
- * @param  favor_domain_center  Favor passing through the center of the domain.
- *
- * @return                      Path containing 3D coordinates and elevations.
- */
-Path find_path_dijkstra(const ComputeMode  &cm,
-                        const VirtualArray &z,
-                        glm::vec2           start,
-                        glm::vec2           end,
-                        std::uint32_t       seed = 0,
-                        size_t              control_points_count = 2048,
-                        bool                favor_domain_center = false);
-
-} // namespace hmap::va

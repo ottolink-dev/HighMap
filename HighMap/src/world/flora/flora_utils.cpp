@@ -11,14 +11,14 @@
 namespace hmap
 {
 
-ForestScaleSampler::ForestScaleSampler(const Array     &array,
-                                       float            strength_factor,
-                                       const glm::vec4 &bounds)
+ForestScaleSampler::ForestScaleSampler(const Array  &array,
+                                       float         strength_factor,
+                                       const BBox2D &bounds)
     : scale_array(&array),
       bbox(bounds),
       strength(std::clamp(strength_factor, 0.0f, 1.0f)),
-      bbox_dx(bounds.y - bounds.x),
-      bbox_dy(bounds.w - bounds.z)
+      bbox_dx(bounds.max.x - bounds.min.x),
+      bbox_dy(bounds.max.y - bounds.min.y)
 {
   bool has_data = !array.vector.empty() && validate_non_empty(array);
   bool valid_bbox = (std::abs(bbox_dx) > 1e-7f && std::abs(bbox_dy) > 1e-7f);
@@ -29,8 +29,8 @@ float ForestScaleSampler::sample(float x, float y) const
 {
   if (!active || !scale_array) return 1.0f;
 
-  float u_norm = std::clamp((x - bbox.x) / bbox_dx, 0.0f, 1.0f);
-  float v_norm = std::clamp((y - bbox.z) / bbox_dy, 0.0f, 1.0f);
+  float u_norm = std::clamp((x - bbox.min.x) / bbox_dx, 0.0f, 1.0f);
+  float v_norm = std::clamp((y - bbox.min.y) / bbox_dy, 0.0f, 1.0f);
 
   float xn = u_norm * static_cast<float>(scale_array->shape.x - 1);
   float yn = v_norm * static_cast<float>(scale_array->shape.y - 1);

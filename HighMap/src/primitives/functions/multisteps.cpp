@@ -27,7 +27,7 @@ Array multisteps(glm::ivec2       shape,
                  const Array     *p_noise_x,
                  const Array     *p_noise_y,
                  const glm::vec2 &center,
-                 const glm::vec4 &bbox)
+                 const BBox2D    &bbox)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -75,7 +75,7 @@ Array multisteps(glm::ivec2       shape,
   };
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               UvRect::from_bbox2d(bbox),
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,
@@ -105,7 +105,7 @@ Array multisteps(glm::ivec2       shape,
                  float            outer_slope,
                  const Array     *p_ctrl_param,
                  const glm::vec2 &center,
-                 const glm::vec4 &bbox)
+                 const BBox2D    &bbox)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -130,7 +130,7 @@ Array multisteps(glm::ivec2       shape,
                                        nullptr,
                                        nullptr,
                                        nullptr,
-                                       bbox); // in [0, 1]
+                                       UvRect::from_bbox2d(bbox)); // in [0, 1]
 
   float sign = noise_inflate ? -1.f : 1.f;
   noise = noise_amp * sign * (2.f * noise - 1.f);

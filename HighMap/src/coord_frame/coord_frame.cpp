@@ -29,7 +29,7 @@ CoordFrame::CoordFrame(glm::vec2 origin, glm::vec2 size, float rotation_angle)
   this->set_rotation_angle(rotation_angle);
 }
 
-glm::vec4 CoordFrame::compute_bounding_box() const
+BBox2D CoordFrame::compute_bounding_box() const
 {
   // Define the four corners relative to the origin
   std::pair<float, float> corners[4] = {{0.f, 0.f},
@@ -54,7 +54,7 @@ glm::vec4 CoordFrame::compute_bounding_box() const
     max_y = std::max(max_y, g.y);
   }
 
-  return glm::vec4(min_x, max_x, min_y, max_y);
+  return BBox2D(min_x, max_x, min_y, max_y);
 }
 
 AffineTransform2D CoordFrame::compute_relative_transform(
@@ -120,10 +120,11 @@ void CoordFrame::set_size(glm::vec2 new_size)
 // Method to determine if a point (x, y) is within the rotated terrain
 bool CoordFrame::intersects(const CoordFrame &other) const
 {
-  const glm::vec4 b1 = this->compute_bounding_box();
-  const glm::vec4 b2 = other.compute_bounding_box();
+  const BBox2D b1 = this->compute_bounding_box();
+  const BBox2D b2 = other.compute_bounding_box();
 
-  return !(b1.y < b2.x || b2.y < b1.x || b1.w < b2.z || b2.w < b1.z);
+  return !(b1.max.x < b2.min.x || b2.max.x < b1.min.x || b1.max.y < b2.min.y ||
+           b2.max.y < b1.min.y);
 }
 
 bool CoordFrame::is_point_within(float gx, float gy) const

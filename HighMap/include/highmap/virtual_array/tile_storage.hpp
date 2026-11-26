@@ -15,7 +15,7 @@
 #include <optional>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 #include <unordered_map>
 
@@ -57,12 +57,12 @@ public:
 
   virtual std::unique_ptr<TileStorage> clone() const = 0;
 
-  virtual Array      &get_tile(const TileRegion &region) = 0;
+  virtual Array      &get_tile(const UvTile &region) = 0;
   virtual std::string info_string() const = 0;
   virtual size_t      live_tile_count() const = 0;
   virtual size_t      live_memory_bytes() const = 0;
   virtual size_t      max_live_tiles() const = 0;
-  virtual void        release_tile(const TileRegion &region) = 0;
+  virtual void        release_tile(const UvTile &region) = 0;
   virtual void        trim();
 };
 
@@ -78,12 +78,12 @@ public:
 
   std::unique_ptr<TileStorage> clone() const override;
 
-  Array      &get_tile(const TileRegion &region) override;
+  Array      &get_tile(const UvTile &region) override;
   std::string info_string() const override;
   size_t      live_tile_count() const override;
   size_t      live_memory_bytes() const override;
   size_t      max_live_tiles() const override;
-  void        release_tile(const TileRegion &region) override;
+  void        release_tile(const UvTile &region) override;
 
 private:
   mutable std::mutex                              mtx;
@@ -111,12 +111,12 @@ public:
 
   std::unique_ptr<TileStorage> clone() const override;
 
-  Array      &get_tile(const TileRegion &region) override;
+  Array      &get_tile(const UvTile &region) override;
   std::string info_string() const override;
   size_t      live_tile_count() const override;
   size_t      live_memory_bytes() const override;
   size_t      max_live_tiles() const override;
-  void        release_tile(const TileRegion &region) override;
+  void        release_tile(const UvTile &region) override;
   void        trim() override;
 
   StorageMode get_mode() const;
@@ -129,7 +129,7 @@ private:
   mutable std::mutex                                     mutex;
 
   std::filesystem::path tile_path(const TileKey &key) const;
-  Array                 load_tile_from_disk(const TileRegion &region);
+  Array                 load_tile_from_disk(const UvTile &region);
   void save_tile_to_disk(const TileKey &key, const Array &tile);
   void evict_entry_no_mutex_lock(
       std::unordered_map<TileKey, LruTileEntry, TileKeyHash>::iterator it);

@@ -78,7 +78,7 @@ public:
    * @param seed    Random seed number for generating random values.
    * @param bbox    Bounding box for random point generation.
    */
-  Path(int npoints, std::uint32_t seed, glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f})
+  Path(int npoints, std::uint32_t seed, const BBox2D &bbox = BBox2D{})
       : Cloud(npoints, seed, bbox) {};
 
   /**
@@ -130,7 +130,7 @@ public:
    */
   Path(const std::vector<glm::ivec2> &indices,
        const glm::ivec2              &shape,
-       const glm::vec4               &bbox = {0.f, 1.f, 0.f, 1.f})
+       const BBox2D                  &bbox = BBox2D{})
       : Cloud(indices, shape, bbox) {};
 
   /**
@@ -294,9 +294,9 @@ public:
    * @param radius      Capsule radius in world domain coordinates.
    * @param bbox        Domain bounding box (xmin, xmax, ymin, ymax).
    */
-  void rasterize_capsules(Array    &out_dist_sq,
-                          float     radius,
-                          glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
+  void rasterize_capsules(Array        &out_dist_sq,
+                          float         radius,
+                          const BBox2D &bbox = BBox2D{}) const;
 
   /**
    * @brief Reorder points using a nearest neighbor search.
@@ -429,19 +429,19 @@ public:
    * @param filled Boolean flag indicating whether to perform flood filling of
    *               the path's contour.
    */
-  void to_array(Array    &array,
-                glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f},
-                bool      filled = false) const;
+  void to_array(Array        &array,
+                const BBox2D &bbox = BBox2D{},
+                bool          filled = false) const;
 
   /*! @brief See hmap::to_array */
-  Array to_array(glm::ivec2 shape,
-                 glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f},
-                 bool       filled = false) const;
+  Array to_array(glm::ivec2    shape,
+                 const BBox2D &bbox = BBox2D{},
+                 bool          filled = false) const;
 
   /*! @brief See hmap::to_array */
-  void to_array_mask(Array    &array,
-                     glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f},
-                     bool      filled = false) const;
+  void to_array_mask(Array        &array,
+                     const BBox2D &bbox = BBox2D{},
+                     bool          filled = false) const;
 
   /**
    * @brief Export path as PNG image file.
@@ -680,7 +680,7 @@ Path fractalize(const Path   &path,
                 int           orientation = 0,
                 float         persistence = 1.f,
                 Array        *p_control_field = nullptr,
-                glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+                const BBox2D &bbox = BBox2D{},
                 bool          bounded = false);
 
 /**
@@ -756,25 +756,25 @@ Path meanderize(
  * @param  use_bvh    Whether to use BVH acceleration (default: true).
  * @return            Array of signed distances to the Bezier curve.
  */
-Array path_sdf_bezier_to_array(const Path  &path,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                               const Array *p_noise_x = nullptr,
-                               const Array *p_noise_y = nullptr,
-                               bool         use_bvh = true);
+Array path_sdf_bezier_to_array(const Path   &path,
+                               glm::ivec2    shape,
+                               const BBox2D &bbox_array = BBox2D::unit(),
+                               const Array  *p_noise_x = nullptr,
+                               const Array  *p_noise_y = nullptr,
+                               bool          use_bvh = true);
 
 Array path_sdf_bezier_to_array_brute_force(
-    const Path  &path,
-    glm::ivec2   shape,
-    glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-    const Array *p_noise_x = nullptr,
-    const Array *p_noise_y = nullptr);
+    const Path   &path,
+    glm::ivec2    shape,
+    const BBox2D &bbox_array = BBox2D::unit(),
+    const Array  *p_noise_x = nullptr,
+    const Array  *p_noise_y = nullptr);
 
-Array path_sdf_bezier_to_array_bvh(const Path &path,
-                                   glm::ivec2  shape,
-                                   glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f},
-                                   const Array *p_noise_x = nullptr,
-                                   const Array *p_noise_y = nullptr);
+Array path_sdf_bezier_to_array_bvh(const Path   &path,
+                                   glm::ivec2    shape,
+                                   const BBox2D &bbox_array = BBox2D::unit(),
+                                   const Array  *p_noise_x = nullptr,
+                                   const Array  *p_noise_y = nullptr);
 
 /**
  * @brief Compute a distance field from a point path.
@@ -790,41 +790,41 @@ Array path_sdf_bezier_to_array_bvh(const Path &path,
  * @param  use_bvh    Whether to use BVH acceleration (default: true).
  * @return            Array of distances to the nearest point.
  */
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                        const Array *p_noise_x = nullptr,
-                        const Array *p_noise_y = nullptr,
-                        bool         use_bvh = true);
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const BBox2D &bbox_array = BBox2D::unit(),
+                        const Array  *p_noise_x = nullptr,
+                        const Array  *p_noise_y = nullptr,
+                        bool          use_bvh = true);
 
-Array path_sdf_to_array_brute_force(const Path &path,
-                                    glm::ivec2  shape,
-                                    glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f},
-                                    const Array *p_noise_x = nullptr,
-                                    const Array *p_noise_y = nullptr);
+Array path_sdf_to_array_brute_force(const Path   &path,
+                                    glm::ivec2    shape,
+                                    const BBox2D &bbox_array = BBox2D::unit(),
+                                    const Array  *p_noise_x = nullptr,
+                                    const Array  *p_noise_y = nullptr);
 
-Array path_sdf_to_array_bvh(const Path  &path,
-                            glm::ivec2   shape,
-                            glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                            const Array *p_noise_x = nullptr,
-                            const Array *p_noise_y = nullptr);
+Array path_sdf_to_array_bvh(const Path   &path,
+                            glm::ivec2    shape,
+                            const BBox2D &bbox_array = BBox2D::unit(),
+                            const Array  *p_noise_x = nullptr,
+                            const Array  *p_noise_y = nullptr);
 
 namespace gpu
 {
 
 /*! @brief See hmap::path_sdf_bezier_to_array */
-Array path_sdf_bezier_to_array(const Path  &path,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                               const Array *p_noise_x = nullptr,
-                               const Array *p_noise_y = nullptr);
+Array path_sdf_bezier_to_array(const Path   &path,
+                               glm::ivec2    shape,
+                               const UvRect &uv_rect_array = UvRect::unit(),
+                               const Array  *p_noise_x = nullptr,
+                               const Array  *p_noise_y = nullptr);
 
 /*! @brief See hmap::path_sdf_to_array */
-Array path_sdf_to_array(const Path  &path,
-                        glm::ivec2   shape,
-                        glm::vec4    bbox_array = {0.f, 1.f, 0.f, 1.f},
-                        const Array *p_noise_x = nullptr,
-                        const Array *p_noise_y = nullptr);
+Array path_sdf_to_array(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect_array = UvRect::unit(),
+                        const Array  *p_noise_x = nullptr,
+                        const Array  *p_noise_y = nullptr);
 
 } // namespace gpu
 
@@ -950,7 +950,7 @@ Path squiggle(const Path   &path,
               int           orientation = 0,
               const Array  *p_weights = nullptr,
               const Array  *p_mask = nullptr,
-              glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+              const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Generates squiggle paths with secondary tributary branches along each
@@ -981,7 +981,7 @@ std::vector<Path> squiggle_branches(const Path   &path,
                                     int           orientation = 0,
                                     const Array  *p_weights = nullptr,
                                     const Array  *p_mask = nullptr,
-                                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                                    const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Truncates a path at its first intersection with any path in a given

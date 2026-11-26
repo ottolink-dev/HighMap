@@ -14,8 +14,8 @@
 #include "highmap/array.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 #include <CL/opencl.hpp>
 
@@ -33,23 +33,23 @@ float helper_vflow_compute_adaptive_dt(const Array &h,
   return c / fmax(mobility, 1e-6f);
 }
 
-Array flow_simulation(const Array      &z,
-                      float             water_height,
-                      const Array      &depth_map,
-                      int               iterations,
-                      float             dt,
-                      bool              flux_diffusion,
-                      float             flux_diffusion_strength,
-                      float             dry_out_ratio,
-                      const Array      *p_rain_map,
-                      float             rain_rate,
-                      float             evap_rate,
-                      bool              outflow_boundaries,
-                      Array            *p_vel_u,
-                      Array            *p_vel_v,
-                      int               sync_interval,
-                      const TileRegion &region,
-                      ICommunicator    &comm)
+Array flow_simulation(const Array   &z,
+                      float          water_height,
+                      const Array   &depth_map,
+                      int            iterations,
+                      float          dt,
+                      bool           flux_diffusion,
+                      float          flux_diffusion_strength,
+                      float          dry_out_ratio,
+                      const Array   *p_rain_map,
+                      float          rain_rate,
+                      float          evap_rate,
+                      bool           outflow_boundaries,
+                      Array         *p_vel_u,
+                      Array         *p_vel_v,
+                      int            sync_interval,
+                      const UvTile  &region,
+                      ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (!validate_same_shape(z, depth_map)) return Array();
@@ -270,19 +270,19 @@ Array flow_simulation(const Array      &z,
   return finalize();
 }
 
-Array flow_simulation_viscous(const Array      &z,
-                              float             water_height,
-                              const Array      &depth_map,
-                              int               iterations,
-                              float             dt,
-                              float             dry_out_ratio,
-                              float             viscosity,
-                              float             power,
-                              float             evap_rate,
-                              bool              outflow_boundaries,
-                              int               sync_interval,
-                              const TileRegion &region,
-                              ICommunicator    &comm)
+Array flow_simulation_viscous(const Array   &z,
+                              float          water_height,
+                              const Array   &depth_map,
+                              int            iterations,
+                              float          dt,
+                              float          dry_out_ratio,
+                              float          viscosity,
+                              float          power,
+                              float          evap_rate,
+                              bool           outflow_boundaries,
+                              int            sync_interval,
+                              const UvTile  &region,
+                              ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (!validate_same_shape(z, depth_map)) return Array();

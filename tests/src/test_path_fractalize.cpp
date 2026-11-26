@@ -21,7 +21,7 @@ TEST(PathFractalize, BoundedWithinSingleEdgeBoundingBox)
                                    0,
                                    1.f,
                                    nullptr,
-                                   {0.f, 10.f, 0.f, 10.f},
+                                   BBox2D({0.f, 10.f, 0.f, 10.f}),
                                    true);
 
   for (const auto &pt : result_bounded)
@@ -50,7 +50,7 @@ TEST(PathFractalize, BoundedMultiEdgePath)
                            0,
                            1.f,
                            nullptr,
-                           {0.f, 10.f, 0.f, 10.f},
+                           BBox2D({0.f, 10.f, 0.f, 10.f}),
                            true);
 
   // At iteration `it`, each initial edge is subdivided into 2^it segments,
@@ -110,7 +110,7 @@ TEST(PathFractalize, DefaultUnboundedBehavior)
                                    0,
                                    1.f,
                                    nullptr,
-                                   {0.f, 10.f, 0.f, 0.f},
+                                   BBox2D({0.f, 10.f, 0.f, 0.f}),
                                    true);
 
   for (const auto &pt : result_bounded)

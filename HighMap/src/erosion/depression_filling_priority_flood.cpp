@@ -13,21 +13,21 @@
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
 
-void depression_filling_priority_flood(Array            &z,
-                                       bool              apply_post_filter,
-                                       bool              outflow_left,
-                                       bool              outflow_right,
-                                       bool              outflow_bottom,
-                                       bool              outflow_top,
-                                       const TileRegion &region,
-                                       ICommunicator    &comm)
+void depression_filling_priority_flood(Array         &z,
+                                       bool           apply_post_filter,
+                                       bool           outflow_left,
+                                       bool           outflow_right,
+                                       bool           outflow_bottom,
+                                       bool           outflow_top,
+                                       const UvTile  &region,
+                                       ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return;
 
@@ -82,10 +82,10 @@ void depression_filling_priority_flood(Array            &z,
 
   Array z_bckp = apply_post_filter ? z : Array();
 
-  bool tile_outflow_l = region.is_west_boundary() ? outflow_left : true;
-  bool tile_outflow_r = region.is_east_boundary() ? outflow_right : true;
-  bool tile_outflow_b = region.is_south_boundary() ? outflow_bottom : true;
-  bool tile_outflow_t = region.is_north_boundary() ? outflow_top : true;
+  bool tile_outflow_l = region.is_left_border() ? outflow_left : true;
+  bool tile_outflow_r = region.is_right_border() ? outflow_right : true;
+  bool tile_outflow_b = region.is_bottom_border() ? outflow_bottom : true;
+  bool tile_outflow_t = region.is_top_border() ? outflow_top : true;
 
   int n_tiles = comm.size();
   int side = std::max(1, int(std::ceil(std::sqrt(n_tiles))));

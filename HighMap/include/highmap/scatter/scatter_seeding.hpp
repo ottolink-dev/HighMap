@@ -26,9 +26,9 @@ namespace hmap
  */
 struct ScatterSeedingOptions
 {
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};              ///< Bounding box {xmin, xmax, ymin, ymax}.
-  uint32_t  seed = 0;                                 ///< Random number generator seed.
-  float     exclusion_threshold = 0.f;                ///< Threshold for exclusion map masking.
+  BBox2D   bbox = BBox2D::unit();                     ///< Bounding box.
+  uint32_t seed = 0;                                  ///< Random number generator seed.
+  float exclusion_threshold = 0.f;                    ///< Threshold for exclusion map masking.
   std::vector<float> class_weights = {};              ///< Relative abundance weights per class_id.
   float default_radius = HMAP_DEFAULT_SCATTER_RADIUS; ///< Default radius.
 };

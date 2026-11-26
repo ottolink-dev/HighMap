@@ -15,11 +15,7 @@ int main(void)
   const glm::ivec2 tile_shape = {256, 256};
   const int        halo = 4;
 
-  VirtualArray va(total_shape,
-                  {-1.f, 1.f, -1.f, 1.f},
-                  tile_shape,
-                  halo,
-                  StorageMode::VA_RAM);
+  VirtualArray va(total_shape, tile_shape, halo, StorageMode::VA_RAM);
 
   ComputeMode cm;
   cm.mode = ForEachMode::VA_DISTRIBUTED;

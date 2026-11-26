@@ -6,7 +6,9 @@ int main(void)
   int        seed = 1;
 
   glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(5, seed, {1.2f, 1.8f, -0.3, 0.3f});
+  hmap::Path path = hmap::Path(5,
+                               seed,
+                               hmap::BBox2D({1.2f, 1.8f, -0.3f, 0.3f}));
   path.reorder_nns();
   path.set_closed(true);
 

@@ -31,7 +31,7 @@ Array shattered_peak(glm::ivec2    shape,
                      glm::vec2     center,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -58,7 +58,7 @@ Array shattered_peak(glm::ivec2    shape,
                                /* p_ctrl_param */ nullptr,
                                p_noise_x,
                                p_noise_y,
-                               bbox);
+                               uv_rect);
 
   Array dx = noise * std::cos(alpha);
   Array dy = noise * std::sin(alpha);
@@ -70,7 +70,7 @@ Array shattered_peak(glm::ivec2    shape,
                                /* p_noise_x */ nullptr,
                                /* p_noise_y */ nullptr,
                                center,
-                               bbox);
+                               uv_rect);
 
   // base primitives
   glm::vec2         jitter(1.f, 1.f);
@@ -92,7 +92,7 @@ Array shattered_peak(glm::ivec2    shape,
                               /* p_ctrl_param */ nullptr,
                               &dx,
                               &dy,
-                              bbox);
+                              uv_rect);
 
   voronoi *= pulse;
   voronoi += bulk_amp * pulse;

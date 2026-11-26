@@ -206,14 +206,14 @@ float clamp_min_smooth(float x, float vmin, float k)
   return std::max(x, vmin) + h * h * h * k / 6.f;
 }
 
-void clamp_oblique_plane(Array    &array,
-                         float     vmax,
-                         float     angle,
-                         float     slope_value,
-                         bool      use_max_operator,
-                         float     k,
-                         glm::vec2 center,
-                         glm::vec4 bbox)
+void clamp_oblique_plane(Array        &array,
+                         float         vmax,
+                         float         angle,
+                         float         slope_value,
+                         bool          use_max_operator,
+                         float         k,
+                         glm::vec2     center,
+                         const BBox2D &bbox)
 {
   if (!validate_non_empty(array)) return;
 
@@ -225,7 +225,7 @@ void clamp_oblique_plane(Array    &array,
                       /* p_noise_x  */ nullptr,
                       /* p_noise_y  */ nullptr,
                       center,
-                      bbox);
+                      UvRect::from_vec4(bbox.to_vec4()));
   plane += vmax;
 
   // clamp operation

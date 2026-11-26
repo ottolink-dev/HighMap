@@ -1,3 +1,5 @@
+#include <opencv2/core.hpp>
+
 #include "highmap/array.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/primitives.hpp"

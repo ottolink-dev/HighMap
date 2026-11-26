@@ -10,8 +10,8 @@ using namespace hmap;
 
 TEST(AlphaModelTest, InvalidInputs)
 {
-  Array     z = Array(glm::ivec2(16, 16), 0.f);
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  Array  z = Array(glm::ivec2(16, 16), 0.f);
+  BBox2D bbox = BBox2D::unit();
 
   // empty cities
   Graph g1 = generate_network_alpha_model({}, {}, {}, bbox, z, 0);
@@ -45,7 +45,7 @@ TEST(AlphaModelTest, BasicNetworkGeneration)
 {
   glm::ivec2 shape = {64, 64};
   Array      z = Array(shape, 0.f);
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   std::vector<float> xc = {0.2f, 0.8f, 0.5f};
   std::vector<float> yc = {0.2f, 0.8f, 0.5f};

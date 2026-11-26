@@ -41,7 +41,7 @@ TerrainAlignment compute_terrain_alignment(const Array      &lower,
                                            const CoordFrame &frame_upper,
                                            TerrainAlignMode  mode,
                                            float             huber_delta = 0.1f,
-                                           int               max_iterations = 10);
+                                           int max_iterations = 10);
 
 /**
  * @brief Compute alignment parameters for VirtualArray inputs using a coarse
@@ -52,15 +52,14 @@ TerrainAlignment compute_terrain_alignment(const VirtualArray &lower,
                                            const VirtualArray &upper,
                                            const CoordFrame   &frame_upper,
                                            TerrainAlignMode    mode,
-                                           float               huber_delta = 0.1f,
-                                           int                 max_iterations = 10,
-                                           int                 coarse_size = 128);
+                                           float huber_delta = 0.1f,
+                                           int   max_iterations = 10,
+                                           int   coarse_size = 128);
 
 /**
  * @brief Apply precomputed alignment parameters to an Array in-place.
  */
-void apply_terrain_alignment(Array                  &upper,
-                             const TerrainAlignment &alignment);
+void apply_terrain_alignment(Array &upper, const TerrainAlignment &alignment);
 
 /**
  * @brief Apply precomputed alignment parameters to a VirtualArray in-place.

@@ -13,21 +13,21 @@
 namespace hmap
 {
 
-Array valley_head(glm::ivec2   shape,
-                  float        angle,
-                  float        min_depth,
-                  float        max_depth,
-                  float        min_width,
-                  float        max_width,
-                  float        depth_length,
-                  float        width_length,
-                  float        development_power,
-                  float        profile_power,
-                  const Array *p_noise_offset,
-                  const Array *p_noise_r,
-                  glm::vec2    center,
-                  glm::vec4    bbox,
-                  Array       *p_mask)
+Array valley_head(glm::ivec2    shape,
+                  float         angle,
+                  float         min_depth,
+                  float         max_depth,
+                  float         min_width,
+                  float         max_width,
+                  float         depth_length,
+                  float         width_length,
+                  float         development_power,
+                  float         profile_power,
+                  const Array  *p_noise_offset,
+                  const Array  *p_noise_r,
+                  glm::vec2     center,
+                  const UvRect &uv_rect,
+                  Array        *p_mask)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_offset && !validate_same_shape(shape, *p_noise_offset))
@@ -58,7 +58,7 @@ Array valley_head(glm::ivec2   shape,
 
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   // --- Generate deformation
 

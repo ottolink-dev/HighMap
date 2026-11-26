@@ -26,7 +26,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask,
              const Array  *p_noise_x,
              const Array  *p_noise_y,
-             glm::vec4     bbox)
+             const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_mask && !validate_same_shape(array, *p_mask)) return Array(array.shape);
@@ -59,7 +59,7 @@ Array jagged(const Array  &array,
                      p_mask ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_imagef("in");
   run.execute({shape.x, shape.y});
@@ -78,7 +78,7 @@ Array jagged(const Array  &array,
              const Array  *p_mask,
              const Array  *p_noise_x,
              const Array  *p_noise_y,
-             glm::vec4     bbox)
+             const UvRect &uv_rect)
 {
   return jagged(array,
                 {kw, kw},
@@ -90,7 +90,7 @@ Array jagged(const Array  &array,
                 p_mask,
                 p_noise_x,
                 p_noise_y,
-                bbox);
+                uv_rect);
 }
 
 Array jagged_fbm(const Array  &array,
@@ -107,7 +107,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask,
                  const Array  *p_noise_x,
                  const Array  *p_noise_y,
-                 glm::vec4     bbox)
+                 const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_mask && !validate_same_shape(array, *p_mask)) return Array(array.shape);
@@ -133,7 +133,7 @@ Array jagged_fbm(const Array  &array,
                  p_mask,
                  p_noise_x,
                  p_noise_y,
-                 bbox);
+                 uv_rect);
 
     current_kw *= lacunarity;
     if (switch_kx_ky) std::swap(current_kw.x, current_kw.y);
@@ -159,7 +159,7 @@ Array jagged_fbm(const Array  &array,
                  const Array  *p_mask,
                  const Array  *p_noise_x,
                  const Array  *p_noise_y,
-                 glm::vec4     bbox)
+                 const UvRect &uv_rect)
 {
   return jagged_fbm(array,
                     {kw, kw},
@@ -175,7 +175,7 @@ Array jagged_fbm(const Array  &array,
                     p_mask,
                     p_noise_x,
                     p_noise_y,
-                    bbox);
+                    uv_rect);
 }
 
 } // namespace hmap::gpu

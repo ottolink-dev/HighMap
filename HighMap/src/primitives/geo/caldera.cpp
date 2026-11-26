@@ -13,16 +13,16 @@
 namespace hmap
 {
 
-Array caldera(glm::ivec2   shape,
-              float        radius,
-              float        sigma_inner,
-              float        sigma_outer,
-              float        z_bottom,
-              const Array *p_noise,
-              float        noise_r_amp,
-              float        noise_z_ratio,
-              glm::vec2    center,
-              glm::vec4    bbox)
+Array caldera(glm::ivec2    shape,
+              float         radius,
+              float         sigma_inner,
+              float         sigma_outer,
+              float         z_bottom,
+              const Array  *p_noise,
+              float         noise_r_amp,
+              float         noise_z_ratio,
+              glm::vec2     center,
+              const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise && !validate_same_shape(shape, *p_noise)) return Array(shape);
@@ -30,7 +30,7 @@ Array caldera(glm::ivec2   shape,
   Array z = Array(shape);
 
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, false);
+  grid_xy_vector(x, y, shape, uv_rect, false);
 
   float si2 = sigma_inner * sigma_inner;
   float so2 = sigma_outer * sigma_outer;
@@ -73,13 +73,13 @@ Array caldera(glm::ivec2   shape,
   return z;
 }
 
-Array caldera(glm::ivec2 shape,
-              float      radius,
-              float      sigma_inner,
-              float      sigma_outer,
-              float      z_bottom,
-              glm::vec2  center,
-              glm::vec4  bbox)
+Array caldera(glm::ivec2    shape,
+              float         radius,
+              float         sigma_inner,
+              float         sigma_outer,
+              float         z_bottom,
+              glm::vec2     center,
+              const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -93,7 +93,7 @@ Array caldera(glm::ivec2 shape,
                     0.f,
                     0.f,
                     center,
-                    bbox);
+                    uv_rect);
   return z;
 }
 

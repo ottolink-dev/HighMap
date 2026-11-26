@@ -16,7 +16,9 @@ int main(void)
   int         ndummy = 50 * 50;
   float       alpha = 0.8f;
   glm::vec4   bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Cloud cloud = hmap::Cloud(npoints, seed, {1.2f, 1.8f, -0.4f, 0.4f});
+  hmap::Cloud cloud = hmap::Cloud(npoints,
+                                  seed,
+                                  hmap::BBox2D({1.2f, 1.8f, -0.4f, 0.4f}));
 
   hmap::Graph network = hmap::generate_network_alpha_model(cloud.get_x(),
                                                            cloud.get_y(),

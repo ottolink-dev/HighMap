@@ -207,14 +207,14 @@ Array flooding_uniform_level(const Array &z, float zref);
  * @image html ex_flooding_from_point.png
  */
 Array flooding_from_boundaries(
-    const Array      &z,
-    float             zref,
-    bool              from_east = true,
-    bool              from_west = true,
-    bool              from_north = true,
-    bool              from_south = true,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    const Array   &z,
+    float          zref,
+    bool           from_east = true,
+    bool           from_west = true,
+    bool           from_north = true,
+    bool           from_south = true,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Flood terrain starting from a single seed point.
@@ -238,8 +238,8 @@ Array flooding_from_point(const Array &z,
                           int          i,
                           int          j,
                           float depth_min = std::numeric_limits<float>::max(),
-                          const TileRegion &region = TileRegion::dummy(),
-                          ICommunicator    &comm = SingleArrayComm::instance());
+                          const UvTile  &region = UvTile::dummy(),
+                          ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Flood terrain starting from multiple seed points.
@@ -264,8 +264,8 @@ Array flooding_from_point(const Array            &z,
                           const std::vector<int> &i,
                           const std::vector<int> &j,
                           float depth_min = std::numeric_limits<float>::max(),
-                          const TileRegion &region = TileRegion::dummy(),
-                          ICommunicator    &comm = SingleArrayComm::instance());
+                          const UvTile  &region = UvTile::dummy(),
+                          ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Estimate lake water depths on a terrain by filling depressions.
@@ -296,9 +296,9 @@ Array flooding_from_point(const Array            &z,
  * **Result**
  * @image html ex_flooding_lake_system.png
  */
-Array flooding_lake_system(const Array      &z,
-                           float             surface_threshold = 0.f,
-                           const TileRegion &region = TileRegion::dummy(),
+Array flooding_lake_system(const Array   &z,
+                           float          surface_threshold = 0.f,
+                           const UvTile  &region = UvTile::dummy(),
                            ICommunicator &comm = SingleArrayComm::instance());
 
 /**
@@ -384,7 +384,7 @@ Array flow_accumulation_stochastic(const Array  &z,
  *                    streams.
  * @param  iterations Maximum number of boundary exchange iterations across
  *                    tiles (0 defaults to auto: grid diameter).
- * @param  region     TileRegion descriptor for tiled domain positioning.
+ * @param  region     UvTile descriptor for tiled domain positioning.
  * @param  comm       Communicator for multi-tile synchronization.
  * @return            Array An array where each cell contains the computed flow
  *                    accumulation.
@@ -399,10 +399,10 @@ Array flow_accumulation_stochastic(const Array  &z,
  *
  * @see               flow_direction_dinf, flow_accumulation_d8
  */
-Array flow_accumulation_dinf(const Array      &z,
-                             float             talus_ref = 0.1f,
-                             int               iterations = 0,
-                             const TileRegion &region = {},
+Array flow_accumulation_dinf(const Array   &z,
+                             float          talus_ref = 0.1f,
+                             int            iterations = 0,
+                             const UvTile  &region = {},
                              ICommunicator &comm = SingleArrayComm::instance());
 
 /**
@@ -427,7 +427,7 @@ Array flow_accumulation_dinf(const Array      &z,
  * @param  bbox       Bounding box used for noise generation.
  * @param  iterations Maximum number of boundary exchange iterations across
  *                    tiles (0 defaults to auto).
- * @param  region     TileRegion descriptor for tiled domain positioning.
+ * @param  region     UvTile descriptor for tiled domain positioning.
  * @param  comm       Communicator for multi-tile synchronization.
  *
  * @return            Averaged flow accumulation array.
@@ -442,17 +442,17 @@ Array flow_accumulation_dinf(const Array      &z,
  */
 
 Array flow_accumulation_dinf_perturbed(
-    const Array      &z,
-    float             talus_ref,
-    int               nsamples,
-    glm::vec2         kw,
-    std::uint32_t     seed,
-    float             amp,
-    const Array      *p_perturb_scaling = nullptr,
-    glm::vec4         bbox = {0.f, 1.f, 0.f, 1.f},
-    int               iterations = 0,
-    const TileRegion &region = {},
-    ICommunicator    &comm = SingleArrayComm::instance());
+    const Array   &z,
+    float          talus_ref,
+    int            nsamples,
+    glm::vec2      kw,
+    std::uint32_t  seed,
+    float          amp,
+    const Array   *p_perturb_scaling = nullptr,
+    const UvRect  &uv_rect = UvRect::unit(),
+    int            iterations = 0,
+    const UvTile  &region = {},
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Computes the flow direction from each cell to its downslope neighbor
@@ -869,21 +869,21 @@ Path flow_stream(const TerrainTriMesh    &mesh,
  * **Result**
  * @image html ex_generate_riverbed.png
  */
-Array generate_riverbed(const Path &path,
-                        glm::ivec2  shape,
-                        glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f},
-                        bool        bezier_smoothing = false,
-                        float       depth_start = 0.01f,
-                        float       depth_end = 1.f,
-                        float       slope_start = 64.f,
-                        float       slope_end = 32.f,
-                        float       shape_exponent_start = 1.f,
-                        float       shape_exponent_end = 10.f,
-                        float       k_smoothing = 0.5f,
-                        int         post_filter_ir = 0,
-                        Array      *p_noise_x = nullptr,
-                        Array      *p_noise_y = nullptr,
-                        Array      *p_noise_r = nullptr);
+Array generate_riverbed(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect = UvRect::unit(),
+                        bool          bezier_smoothing = false,
+                        float         depth_start = 0.01f,
+                        float         depth_end = 1.f,
+                        float         slope_start = 64.f,
+                        float         slope_end = 32.f,
+                        float         shape_exponent_start = 1.f,
+                        float         shape_exponent_end = 10.f,
+                        float         k_smoothing = 0.5f,
+                        int           post_filter_ir = 0,
+                        Array        *p_noise_x = nullptr,
+                        Array        *p_noise_y = nullptr,
+                        Array        *p_noise_r = nullptr);
 
 /**
  * @brief Convert a collection of hydrology flow paths into a connected Graph.
@@ -1294,23 +1294,23 @@ Array flow_direction_d8(const Array &z);
  *
  * @return                         Array Final simulated water depth map.
  */
-Array flow_simulation(const Array      &z,
-                      float             water_depth,
-                      const Array      &depth_map,
-                      int               iterations,
-                      float             dt = 0.5f,
-                      bool              flux_diffusion = true,
-                      float             flux_diffusion_strength = 0.01f,
-                      float             dry_out_ratio = 0.f,
-                      const Array      *p_rain_map = nullptr,
-                      float             rain_rate = 0.f,
-                      float             evap_rate = 0.f,
-                      bool              outflow_boundaries = false,
-                      Array            *p_vel_u = nullptr,
-                      Array            *p_vel_v = nullptr,
-                      int               sync_interval = 0,
-                      const TileRegion &region = TileRegion::dummy(),
-                      ICommunicator    &comm = SingleArrayComm::instance());
+Array flow_simulation(const Array   &z,
+                      float          water_depth,
+                      const Array   &depth_map,
+                      int            iterations,
+                      float          dt = 0.5f,
+                      bool           flux_diffusion = true,
+                      float          flux_diffusion_strength = 0.01f,
+                      float          dry_out_ratio = 0.f,
+                      const Array   *p_rain_map = nullptr,
+                      float          rain_rate = 0.f,
+                      float          evap_rate = 0.f,
+                      bool           outflow_boundaries = false,
+                      Array         *p_vel_u = nullptr,
+                      Array         *p_vel_v = nullptr,
+                      int            sync_interval = 0,
+                      const UvTile  &region = UvTile::dummy(),
+                      ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief GPU viscous shallow-water flow simulation using non-linear thin-film
@@ -1335,36 +1335,36 @@ Array flow_simulation(const Array      &z,
  * @return                    Array Final simulated water depth map.
  */
 Array flow_simulation_viscous(
-    const Array      &z,
-    float             water_depth,
-    const Array      &depth_map,
-    int               iterations,
-    float             dt = -1.f,
-    float             dry_out_ratio = 0.f,
-    float             viscosity = 1.f,
-    float             power = 2.5f,
-    float             evap_rate = 0.f,
-    bool              outflow_boundaries = false,
-    int               sync_interval = 0,
-    const TileRegion &region = TileRegion::dummy(),
-    ICommunicator    &comm = SingleArrayComm::instance());
+    const Array   &z,
+    float          water_depth,
+    const Array   &depth_map,
+    int            iterations,
+    float          dt = -1.f,
+    float          dry_out_ratio = 0.f,
+    float          viscosity = 1.f,
+    float          power = 2.5f,
+    float          evap_rate = 0.f,
+    bool           outflow_boundaries = false,
+    int            sync_interval = 0,
+    const UvTile  &region = UvTile::dummy(),
+    ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::generate_riverbed */
-Array generate_riverbed(const Path &path,
-                        glm::ivec2  shape,
-                        glm::vec4   bbox = {0.f, 1.f, 0.f, 1.f},
-                        bool        bezier_smoothing = false,
-                        float       depth_start = 0.01f,
-                        float       depth_end = 1.f,
-                        float       slope_start = 64.f,
-                        float       slope_end = 32.f,
-                        float       shape_exponent_start = 1.f,
-                        float       shape_exponent_end = 10.f,
-                        float       k_smoothing = 0.5f,
-                        int         post_filter_ir = 0,
-                        Array      *p_noise_x = nullptr,
-                        Array      *p_noise_y = nullptr,
-                        Array      *p_noise_r = nullptr);
+Array generate_riverbed(const Path   &path,
+                        glm::ivec2    shape,
+                        const UvRect &uv_rect = UvRect::unit(),
+                        bool          bezier_smoothing = false,
+                        float         depth_start = 0.01f,
+                        float         depth_end = 1.f,
+                        float         slope_start = 64.f,
+                        float         slope_end = 32.f,
+                        float         shape_exponent_start = 1.f,
+                        float         shape_exponent_end = 10.f,
+                        float         k_smoothing = 0.5f,
+                        int           post_filter_ir = 0,
+                        Array        *p_noise_x = nullptr,
+                        Array        *p_noise_y = nullptr,
+                        Array        *p_noise_r = nullptr);
 
 /**
  * @brief Generates fine-scale snow mantle accumulation over terrain.
@@ -1461,28 +1461,28 @@ Array snow_mantle(const Array &z,
  * **Result**
  * @image html ex_snow_simulation.png
  */
-Array snow_simulation(const Array      &z,
-                      float             snow_depth,
-                      const Array      &fall_map,
-                      const Array      &melting_map,
-                      const Array      &talus,
-                      int               iterations,
-                      float             dt = 0.5f,
-                      float             fall_iterations_ratio = 1.f,
-                      float             k_snow = 0.5f,
-                      float             k_visc = 0.1f,
-                      float             k_melt_factor = 0.8f,
-                      float             k_depth_ratio = 1.f,
-                      float             k_depth_slope_ratio = 1.f,
-                      float             k_creep = 0.1f,
-                      bool              post_filter = true,
-                      float             thermal_talus_ratio = 0.2f,
-                      bool              outflow_boundaries = true,
-                      float             clamp_smin = 0.f,
-                      bool              rebase_snow_depth_to_zero = true,
-                      int               sync_interval = 0,
-                      const TileRegion &region = TileRegion::dummy(),
-                      ICommunicator    &comm = SingleArrayComm::instance());
+Array snow_simulation(const Array   &z,
+                      float          snow_depth,
+                      const Array   &fall_map,
+                      const Array   &melting_map,
+                      const Array   &talus,
+                      int            iterations,
+                      float          dt = 0.5f,
+                      float          fall_iterations_ratio = 1.f,
+                      float          k_snow = 0.5f,
+                      float          k_visc = 0.1f,
+                      float          k_melt_factor = 0.8f,
+                      float          k_depth_ratio = 1.f,
+                      float          k_depth_slope_ratio = 1.f,
+                      float          k_creep = 0.1f,
+                      bool           post_filter = true,
+                      float          thermal_talus_ratio = 0.2f,
+                      bool           outflow_boundaries = true,
+                      float          clamp_smin = 0.f,
+                      bool           rebase_snow_depth_to_zero = true,
+                      int            sync_interval = 0,
+                      const UvTile  &region = UvTile::dummy(),
+                      ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Filters water depth values using elevation data and a given radius.

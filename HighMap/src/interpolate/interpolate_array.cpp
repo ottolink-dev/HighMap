@@ -31,23 +31,23 @@ void interpolate_array_bicubic(const Array &source,
                                bool         endpoint,
                                bool         pixel_centered)
 {
-  glm::vec4 bbox_source(0.f, 1.f, 0.f, 1.f);
-  glm::vec4 bbox_target(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect_source = UvRect::unit();
+  const UvRect uv_rect_target = UvRect::unit();
 
   interpolate_array_bicubic(source,
                             target,
-                            bbox_source,
-                            bbox_target,
+                            uv_rect_source,
+                            uv_rect_target,
                             endpoint,
                             pixel_centered);
 }
 
-void interpolate_array_bicubic(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target,
-                               bool             endpoint,
-                               bool             pixel_centered)
+void interpolate_array_bicubic(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target,
+                               bool          endpoint,
+                               bool          pixel_centered)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
@@ -63,22 +63,24 @@ void interpolate_array_bicubic(const Array     &source,
   float shift_y_s = pixel_centered ? 0.5f : 0.f;
 
   // grid points (pixel-centered)
-  std::vector<float> x = linspace(bbox_target.x + shift_x_t,
-                                  bbox_target.y,
+  std::vector<float> x = linspace(uv_rect_target.u_min + shift_x_t,
+                                  uv_rect_target.u_max,
                                   target.shape.x,
                                   endpoint);
 
-  std::vector<float> y = linspace(bbox_target.z + shift_y_t,
-                                  bbox_target.w,
+  std::vector<float> y = linspace(uv_rect_target.v_min + shift_y_t,
+                                  uv_rect_target.v_max,
                                   target.shape.y,
                                   endpoint);
 
-  // rescale to a unit square based on bbox_source
+  // rescale to a unit square based on uv_rect_source
   for (auto &x_ : x)
-    x_ = (x_ - bbox_source.x) / (bbox_source.y - bbox_source.x);
+    x_ = (x_ - uv_rect_source.u_min) /
+         (uv_rect_source.u_max - uv_rect_source.u_min);
 
   for (auto &y_ : y)
-    y_ = (y_ - bbox_source.z) / (bbox_source.w - bbox_source.z);
+    y_ = (y_ - uv_rect_source.v_min) /
+         (uv_rect_source.v_max - uv_rect_source.v_min);
 
   for (int j = 0; j < target.shape.y; ++j)
     for (int i = 0; i < target.shape.x; ++i)
@@ -124,23 +126,23 @@ void interpolate_array_bilinear(const Array &source,
                                 bool         endpoint,
                                 bool         pixel_centered)
 {
-  glm::vec4 bbox_source(0.f, 1.f, 0.f, 1.f);
-  glm::vec4 bbox_target(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect_source = UvRect::unit();
+  const UvRect uv_rect_target = UvRect::unit();
 
   interpolate_array_bilinear(source,
                              target,
-                             bbox_source,
-                             bbox_target,
+                             uv_rect_source,
+                             uv_rect_target,
                              endpoint,
                              pixel_centered);
 }
 
-void interpolate_array_bilinear(const Array     &source,
-                                Array           &target,
-                                const glm::vec4 &bbox_source,
-                                const glm::vec4 &bbox_target,
-                                bool             endpoint,
-                                bool             pixel_centered)
+void interpolate_array_bilinear(const Array  &source,
+                                Array        &target,
+                                const UvRect &uv_rect_source,
+                                const UvRect &uv_rect_target,
+                                bool          endpoint,
+                                bool          pixel_centered)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
@@ -156,22 +158,24 @@ void interpolate_array_bilinear(const Array     &source,
   float shift_y_s = pixel_centered ? 0.5f : 0.f;
 
   // grid points (pixel-centered)
-  std::vector<float> x = linspace(bbox_target.x + shift_x_t,
-                                  bbox_target.y,
+  std::vector<float> x = linspace(uv_rect_target.u_min + shift_x_t,
+                                  uv_rect_target.u_max,
                                   target.shape.x,
                                   endpoint);
 
-  std::vector<float> y = linspace(bbox_target.z + shift_y_t,
-                                  bbox_target.w,
+  std::vector<float> y = linspace(uv_rect_target.v_min + shift_y_t,
+                                  uv_rect_target.v_max,
                                   target.shape.y,
                                   endpoint);
 
-  // rescale to a unit square based on bbox_source
+  // rescale to a unit square based on uv_rect_source
   for (auto &x_ : x)
-    x_ = (x_ - bbox_source.x) / (bbox_source.y - bbox_source.x);
+    x_ = (x_ - uv_rect_source.u_min) /
+         (uv_rect_source.u_max - uv_rect_source.u_min);
 
   for (auto &y_ : y)
-    y_ = (y_ - bbox_source.z) / (bbox_source.w - bbox_source.z);
+    y_ = (y_ - uv_rect_source.v_min) /
+         (uv_rect_source.v_max - uv_rect_source.v_min);
 
   for (int j = 0; j < target.shape.y; ++j)
     for (int i = 0; i < target.shape.x; ++i)
@@ -206,39 +210,43 @@ void interpolate_array_nearest(const Array &source,
                                Array       &target,
                                bool         endpoint)
 {
-  glm::vec4 bbox_source(0.f, 1.f, 0.f, 1.f);
-  glm::vec4 bbox_target(0.f, 1.f, 0.f, 1.f);
+  const UvRect uv_rect_source = UvRect::unit();
+  const UvRect uv_rect_target = UvRect::unit();
 
-  interpolate_array_nearest(source, target, bbox_source, bbox_target, endpoint);
+  interpolate_array_nearest(source,
+                            target,
+                            uv_rect_source,
+                            uv_rect_target,
+                            endpoint);
 }
 
-void interpolate_array_nearest(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target,
-                               bool             endpoint)
+void interpolate_array_nearest(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target,
+                               bool          endpoint)
 {
   if (!validate_non_empty(source) || !validate_non_empty(target)) return;
 
-  std::vector<float> x = linspace(bbox_target.x,
-                                  bbox_target.y,
+  std::vector<float> x = linspace(uv_rect_target.u_min,
+                                  uv_rect_target.u_max,
                                   target.shape.x,
                                   endpoint);
 
-  std::vector<float> y = linspace(bbox_target.z,
-                                  bbox_target.w,
+  std::vector<float> y = linspace(uv_rect_target.v_min,
+                                  uv_rect_target.v_max,
                                   target.shape.y,
                                   endpoint);
 
   for (int j = 0; j < target.shape.y; ++j)
     for (int i = 0; i < target.shape.x; ++i)
     {
-      int is = static_cast<int>(
-          std::round((x[i] - bbox_source.x) / (bbox_source.y - bbox_source.x) *
-                     source.shape.x));
-      int js = static_cast<int>(
-          std::round((y[j] - bbox_source.z) / (bbox_source.w - bbox_source.z) *
-                     source.shape.y));
+      int is = static_cast<int>(std::round(
+          (x[i] - uv_rect_source.u_min) /
+          (uv_rect_source.u_max - uv_rect_source.u_min) * source.shape.x));
+      int js = static_cast<int>(std::round(
+          (y[j] - uv_rect_source.v_min) /
+          (uv_rect_source.v_max - uv_rect_source.v_min) * source.shape.y));
 
       is = std::clamp(is, 0, source.shape.x - 1);
       js = std::clamp(js, 0, source.shape.y - 1);

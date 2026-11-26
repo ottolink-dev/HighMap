@@ -32,20 +32,6 @@ namespace hmap
 {
 
 // ------------------------------------------------------------
-// BoundingBox
-// ------------------------------------------------------------
-
-bool TerrainTriMesh::BoundingBox::contains(const glm::vec2 &p) const
-{
-  return (p.x >= this->min.x && p.x <= this->max.x && p.y >= this->min.y &&
-          p.y <= this->max.y);
-}
-
-glm::vec2 TerrainTriMesh::BoundingBox::clamp(const glm::vec2 &p) const
-{
-  return {std::clamp(p.x, this->min.x, this->max.x),
-          std::clamp(p.y, this->min.y, this->max.y)};
-}
 
 // ------------------------------------------------------------
 // TerrainTriMesh
@@ -888,7 +874,7 @@ void TerrainTriMesh::subdivise()
 
 Array TerrainTriMesh::to_array(const glm::ivec2         &shape,
                                const std::vector<float> &values,
-                               const glm::vec4          &bbox) const
+                               const BBox2D             &bbox) const
 {
   if (!validate_shape(shape)) return Array();
 
@@ -931,7 +917,7 @@ Array TerrainTriMesh::to_array(const glm::ivec2         &shape,
                                   hmap::InterpolationMethod2D::ITP2D_DELAUNAY,
                                   nullptr,
                                   nullptr,
-                                  bbox);
+                                  UvRect::from_bbox2d(bbox));
   return out;
 }
 

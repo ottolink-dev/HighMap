@@ -5,8 +5,8 @@ int main(void)
   glm::ivec2 shape = {256, 256};
   int        seed = 3;
 
-  glm::vec4  bbox = hmap::unit_square_bbox();
-  hmap::Path path = hmap::Path(4, seed, bbox);
+  hmap::BBox2D bbox = hmap::unit_square_bbox();
+  hmap::Path   path = hmap::Path(4, seed, bbox);
   path.reorder_nns();
   path = hmap::bezier(path);
 

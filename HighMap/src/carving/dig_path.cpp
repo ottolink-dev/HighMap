@@ -16,14 +16,14 @@
 namespace hmap
 {
 
-void dig_path(Array    &z,
-              Path     &path,
-              int       width,
-              int       decay,
-              int       flattening_radius,
-              bool      force_downhill,
-              glm::vec4 bbox,
-              float     depth)
+void dig_path(Array        &z,
+              Path         &path,
+              int           width,
+              int           decay,
+              int           flattening_radius,
+              bool          force_downhill,
+              const UvRect &uv_rect,
+              float         depth)
 {
   if (!validate_non_empty(z)) return;
   if (!validate_non_empty(path, "Path")) return;
@@ -35,19 +35,19 @@ void dig_path(Array    &z,
   if (force_downhill)
   {
     // make sure the path is monotically decreasing
-    path_copy.set_values_from_array(z, bbox);
+    path_copy.set_values_from_array(z, BBox2D::from_vec4(uv_rect.to_vec4()));
 
     for (size_t k = 1; k < path_copy.size(); k++)
       if (path_copy[k].v > path_copy[k - 1].v)
         path_copy[k].v = path_copy[k - 1].v;
 
-    path_copy.to_array(mask, bbox);
+    path_copy.to_array(mask, BBox2D::from_vec4(uv_rect.to_vec4()));
     zf = local_max(mask, 3 * (width + decay));
     smooth_cpulse(zf, width + decay);
 
     // regenerate the mask
     path_copy.set_values(1.f);
-    path_copy.to_array(mask, bbox);
+    path_copy.to_array(mask, BBox2D::from_vec4(uv_rect.to_vec4()));
   }
   else
   {
@@ -56,7 +56,7 @@ void dig_path(Array    &z,
     Path path_copy = path;
     path_copy.set_values(1.f);
 
-    path_copy.to_array(mask, bbox);
+    path_copy.to_array(mask, BBox2D::from_vec4(uv_rect.to_vec4()));
     zf = local_mean(z, flattening_radius);
   }
 

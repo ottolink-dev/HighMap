@@ -64,7 +64,11 @@ TEST(PathSDF, OpenPathRespectsDomainAndWarp)
   Array dx({8, 8}, 0.25f);
   Array dy({8, 8}, -0.25f);
 
-  Array sdf = path_sdf_to_array(path, {8, 8}, {1.f, 5.f, 2.f, 6.f}, &dx, &dy);
+  Array sdf = path_sdf_to_array(path,
+                                {8, 8},
+                                BBox2D({1.f, 5.f, 2.f, 6.f}),
+                                &dx,
+                                &dy);
 
   // Grid point (1.5, 4) is warped to (1.75, 3.75), nearest the first endpoint.
   EXPECT_NEAR(sdf(1, 4), std::sqrt(0.25f * 0.25f + 0.75f * 0.75f), 1e-6f);

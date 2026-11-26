@@ -91,24 +91,24 @@ float query_nearest_dist_sq_bvh(const BVH2D &bvh, const glm::vec2 &p)
 
 } // namespace
 
-Array sdf_2d_graph(const Graph &graph,
-                   glm::ivec2   shape,
-                   glm::vec4    bbox,
-                   const Array *p_noise_x,
-                   const Array *p_noise_y,
-                   bool         use_bvh)
+Array sdf_2d_graph(const Graph  &graph,
+                   glm::ivec2    shape,
+                   const UvRect &uv_rect,
+                   const Array  *p_noise_x,
+                   const Array  *p_noise_y,
+                   bool          use_bvh)
 {
   if (use_bvh)
-    return sdf_2d_graph_bvh(graph, shape, bbox, p_noise_x, p_noise_y);
+    return sdf_2d_graph_bvh(graph, shape, uv_rect, p_noise_x, p_noise_y);
 
-  return sdf_2d_graph_brute_force(graph, shape, bbox, p_noise_x, p_noise_y);
+  return sdf_2d_graph_brute_force(graph, shape, uv_rect, p_noise_x, p_noise_y);
 }
 
-Array sdf_2d_graph_brute_force(const Graph &graph,
-                               glm::ivec2   shape,
-                               glm::vec4    bbox,
-                               const Array *p_noise_x,
-                               const Array *p_noise_y)
+Array sdf_2d_graph_brute_force(const Graph  &graph,
+                               glm::ivec2    shape,
+                               const UvRect &uv_rect,
+                               const Array  *p_noise_x,
+                               const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -126,7 +126,7 @@ Array sdf_2d_graph_brute_force(const Graph &graph,
 
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
 #pragma omp parallel for collapse(2) schedule(static)
   for (int j = 0; j < shape.y; ++j)
@@ -158,11 +158,11 @@ Array sdf_2d_graph_brute_force(const Graph &graph,
   return sdf;
 }
 
-Array sdf_2d_graph_bvh(const Graph &graph,
-                       glm::ivec2   shape,
-                       glm::vec4    bbox,
-                       const Array *p_noise_x,
-                       const Array *p_noise_y)
+Array sdf_2d_graph_bvh(const Graph  &graph,
+                       glm::ivec2    shape,
+                       const UvRect &uv_rect,
+                       const Array  *p_noise_x,
+                       const Array  *p_noise_y)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -207,7 +207,7 @@ Array sdf_2d_graph_bvh(const Graph &graph,
 
   std::vector<float> xg(shape.x);
   std::vector<float> yg(shape.y);
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
 #pragma omp parallel for collapse(2) schedule(static)
   for (int j = 0; j < shape.y; ++j)

@@ -11,6 +11,8 @@
 
 #include "highmap/array.hpp"
 #include "highmap/boundary.hpp"
+#include "highmap/spatial/bbox2d.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 #include <unordered_map>
 
@@ -30,17 +32,7 @@ class TerrainTriMesh
 {
 public:
   /** @brief Axis-aligned 2D bounding box. */
-  struct BoundingBox
-  {
-    glm::vec2 min;
-    glm::vec2 max;
-
-    /** @brief Check whether a point lies inside the box. */
-    bool contains(const glm::vec2 &p) const;
-
-    /** @brief Clamp a point to the box. */
-    glm::vec2 clamp(const glm::vec2 &p) const;
-  };
+  using BoundingBox = BBox2D;
 
   /** @brief Undirected edge between two vertices. */
   struct Edge
@@ -359,7 +351,7 @@ public:
   /** @brief Rasterize the mesh into an array. */
   Array to_array(const glm::ivec2         &shape,
                  const std::vector<float> &values = {},
-                 const glm::vec4          &bbox = {0.f, 1.f, 0.f, 1.f}) const;
+                 const BBox2D             &bbox = BBox2D::unit()) const;
 
   /** @brief Export vertices to CSV. */
   void to_csv(const std::string &fname) const;
@@ -385,22 +377,12 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap(const Array &z,
                                                         int max_triangles = 0,
                                                         int max_points = 0);
 
-/** @brief Generate a random terrain mesh from a heightmap. */
+/** @brief Generate a random terrain mesh from a heightmap tile. */
 TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const Array  &z,
-    int           control_points_count,
-    std::uint32_t seed);
+    const Array   &z,
+    int            control_points_count,
+    std::uint32_t  seed,
+    const UvTile  &region = UvTile::unit(),
+    ICommunicator *p_comm = nullptr);
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-/** @brief Generate a random terrain mesh from a heightmap VirtualArray. */
-TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const ComputeMode  &cm,
-    const VirtualArray &z,
-    int                 control_points_count,
-    std::uint32_t       seed);
-
-} // namespace hmap::va

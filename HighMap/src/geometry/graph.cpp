@@ -899,9 +899,9 @@ void Graph::set_edge_weight(int u, int v, float weight)
   }
 }
 
-void Graph::to_array(Array    &array,
-                     glm::vec4 bbox,
-                     bool      color_by_edge_weight) const
+void Graph::to_array(Array        &array,
+                     const BBox2D &bbox,
+                     bool          color_by_edge_weight) const
 {
   if (!validate_non_empty(array)) return;
 
@@ -924,7 +924,7 @@ void Graph::to_array(Array    &array,
 }
 
 void Graph::to_array_fractalize(Array        &array,
-                                glm::vec4     bbox,
+                                const BBox2D &bbox,
                                 int           iterations,
                                 std::uint32_t seed,
                                 float         sigma,
@@ -965,14 +965,19 @@ void Graph::to_array_fractalize(Array        &array,
   }
 }
 
-Array Graph::to_array_sdf(glm::ivec2 shape,
-                          glm::vec4  bbox,
-                          Array     *p_noise_x,
-                          Array     *p_noise_y,
-                          glm::vec4  bbox_array) const
+Array Graph::to_array_sdf(glm::ivec2    shape,
+                          const BBox2D &bbox,
+                          Array        *p_noise_x,
+                          Array        *p_noise_y,
+                          const BBox2D &bbox_array) const
 {
   (void)bbox;
-  return sdf_2d_graph(*this, shape, bbox_array, p_noise_x, p_noise_y, true);
+  return sdf_2d_graph(*this,
+                      shape,
+                      UvRect::from_vec4(bbox_array.to_vec4()),
+                      p_noise_x,
+                      p_noise_y,
+                      true);
 }
 
 void Graph::to_csv(const std::string &fname_xy,

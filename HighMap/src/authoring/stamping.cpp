@@ -32,7 +32,7 @@ Array stamping(glm::ivec2                shape,
                float                     k_smoothing,
                bool                      kernel_flip,
                bool                      kernel_rotate,
-               glm::vec4                 bbox_array)
+               const UvRect             &uv_rect_array)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -45,7 +45,7 @@ Array stamping(glm::ivec2                shape,
   // normalized node coordinates
   std::vector<float> xrs = xr;
   std::vector<float> yrs = yr;
-  rescale_points_to_unit_square(xrs, yrs, bbox_array);
+  rescale_points_to_unit_square(xrs, yrs, uv_rect_array.to_bbox2d());
 
   // --- define blending function
 

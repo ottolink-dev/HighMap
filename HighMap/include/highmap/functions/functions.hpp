@@ -14,6 +14,7 @@
  * @copyright Copyright (c) 2023
  */
 #pragma once
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <functional>
@@ -24,6 +25,7 @@
 #include "highmap/array.hpp"
 #include "highmap/math/constants.hpp"
 #include "highmap/math/core.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 /**
  * @typedef HMAP_FCT_XY_TYPE
@@ -50,8 +52,8 @@ namespace hmap
  *               2D position.
  */
 std::function<float(float, float)> make_xy_function_from_array(
-    const Array     &array,
-    const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+    const Array  &array,
+    const BBox2D &bbox = BBox2D::unit());
 
 /**
  * @enum NoiseType
@@ -299,11 +301,11 @@ public:
   QuadSurfaceFunction(float c00, float c10, float c01, float c11);
 
 protected:
-  float     c00;  ///< Bottom-left value.
-  float     c10;  ///< Bottom-right value.
-  float     c01;  ///< Top-left value.
-  float     c11;  ///< Top-right value.
-  glm::vec4 bbox; ///< Domain bounding box.
+  float  c00;  ///< Bottom-left value.
+  float  c10;  ///< Bottom-right value.
+  float  c01;  ///< Top-left value.
+  float  c11;  ///< Top-right value.
+  BBox2D bbox; ///< Domain bounding box.
 };
 
 /**
@@ -1693,6 +1695,99 @@ public:
 
 protected:
   float k_smoothing; ///< Smoothing parameter.
+};
+
+/**
+ * @class FbmSlopeFunction
+ * @brief Slope-weighted FBM layering function class.
+ *
+ * Modulates higher-octave amplitude by the accumulated low-frequency gradient
+ * norm so that flat areas remain smooth while steep slopes develop rugosity.
+ */
+template <typename BaseFn>
+class FbmSlopeFunction : public GenericFractalFunction<BaseFn>
+{
+public:
+  float operator()(float x, float y, float ctrl_param = 0.f) const;
+
+  /**
+   * @brief Construct a new Fbm Slope Function object.
+   *
+   * @param base           Base noise function.
+   * @param octaves        Number of octaves.
+   * @param weight         Octave weighting.
+   * @param persistence    Octave persistence.
+   * @param lacunarity     Defines the wavenumber ratio between each octave.
+   * @param gradient_scale Gradient scale influence.
+   * @param slope_power    Exponent controlling slope transition sharpness.
+   * @param octave_blend   Rate at which higher octaves become slope-masked.
+   * @param bias_angle     Preferred slope direction angle in degrees.
+   * @param bias_strength  Directional bias strength in [0, 1].
+   */
+  FbmSlopeFunction(BaseFn base,
+                   int    octaves,
+                   float  weight,
+                   float  persistence,
+                   float  lacunarity,
+                   float  gradient_scale,
+                   float  slope_power,
+                   float  octave_blend,
+                   float  bias_angle = 0.f,
+                   float  bias_strength = 0.f);
+
+  /**
+   * @brief Set the directional bias.
+   *
+   * @param new_bias_angle    Preferred slope direction angle in degrees.
+   * @param new_bias_strength Directional bias strength in [0, 1].
+   */
+  void set_bias(float new_bias_angle, float new_bias_strength)
+  {
+    this->bias_angle = new_bias_angle;
+    this->bias_strength = std::clamp(new_bias_strength, 0.f, 1.f);
+    float theta = new_bias_angle * 3.14159265358979323846f / 180.f;
+    this->bias_cos = std::cos(theta);
+    this->bias_sin = std::sin(theta);
+  }
+
+  /**
+   * @brief Set the gradient scale.
+   *
+   * @param new_gradient_scale New gradient scale.
+   */
+  void set_gradient_scale(float new_gradient_scale)
+  {
+    this->gradient_scale = new_gradient_scale;
+  }
+
+  /**
+   * @brief Set the slope power.
+   *
+   * @param new_slope_power New slope power.
+   */
+  void set_slope_power(float new_slope_power)
+  {
+    this->slope_power = new_slope_power;
+  }
+
+  /**
+   * @brief Set the octave blend rate.
+   *
+   * @param new_octave_blend New octave blend rate.
+   */
+  void set_octave_blend(float new_octave_blend)
+  {
+    this->octave_blend = new_octave_blend;
+  }
+
+protected:
+  float gradient_scale;      ///< Gradient scale influence.
+  float slope_power;         ///< Exponent controlling slope transition sharpness.
+  float octave_blend;        ///< Rate at which higher octaves become slope-masked.
+  float bias_angle = 0.f;    ///< Preferred slope direction angle in degrees.
+  float bias_strength = 0.f; ///< Directional bias strength in [0, 1].
+  float bias_cos = 1.f;      ///< Cosine of directional bias angle.
+  float bias_sin = 0.f;      ///< Sine of directional bias angle.
 };
 
 /**

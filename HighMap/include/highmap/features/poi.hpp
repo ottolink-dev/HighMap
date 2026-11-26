@@ -64,16 +64,16 @@ struct PointOfInterest
  */
 struct PoiGenerationOptions
 {
-  int   scale_radius = 8;                ///< Neighborhood radius for local metrics.
-  float prominence = 0.05f;              ///< Minimum elevation prominence over neighborhood.
-  float threshold = 0.5f;                ///< Score / suitability acceptance threshold in [0, 1].
-  float min_distance = 0.05f;            ///< Minimum Euclidean separation distance between points.
-  size_t max_points = 50;                ///< Maximum number of points to generate.
-  float  border_margin = 0.02f;          ///< Exclusion margin near bounding box edges.
-  std::uint32_t seed = 1337;             ///< PRNG seed for deterministic generation and jitter.
-  float jitter = 0.0f;                   ///< Stochastic displacement ratio in [0, 1].
-  const Array *p_mask = nullptr;         ///< Optional exclusion / region-of-interest mask.
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Domain bounding box {xmin, xmax, ymin, ymax}.
+  int scale_radius = 8;          ///< Neighborhood radius for local metrics.
+  float prominence = 0.05f;      ///< Minimum elevation prominence over neighborhood.
+  float threshold = 0.5f;        ///< Score / suitability acceptance threshold in [0, 1].
+  float min_distance = 0.05f;    ///< Minimum Euclidean separation distance between points.
+  size_t max_points = 50;        ///< Maximum number of points to generate.
+  float border_margin = 0.02f;   ///< Exclusion margin near bounding box edges.
+  std::uint32_t seed = 1337;     ///< PRNG seed for deterministic generation and jitter.
+  float jitter = 0.0f;           ///< Stochastic displacement ratio in [0, 1].
+  const Array *p_mask = nullptr; ///< Optional exclusion / region-of-interest mask.
+  BBox2D bbox = BBox2D::unit();  ///< Domain bounding box.
 };
 
 // ============================================================================

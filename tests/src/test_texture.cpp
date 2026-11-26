@@ -267,7 +267,7 @@ TEST(TextureColorize, TerrainTextureBasic)
                                         nullptr,
                                         nullptr,
                                         params,
-                                        glm::vec4(0.f, 0.f, 1.f, 1.f),
+                                        BBox2D::unit(),
                                         &wrong_noise);
   EXPECT_TRUE(tex_invalid.is_empty());
 
@@ -277,7 +277,7 @@ TEST(TextureColorize, TerrainTextureBasic)
                                              nullptr,
                                              nullptr,
                                              params,
-                                             glm::vec4(0.f, 0.f, 1.f, 1.f),
+                                             BBox2D::unit(),
                                              &custom_noise);
   EXPECT_EQ(tex_custom_noise.shape, shape);
   EXPECT_EQ(tex_custom_noise.num_channels(), 4);

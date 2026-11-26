@@ -26,10 +26,10 @@
 #include "highmap/operator.hpp"
 #include "highmap/primitives/random.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/transform.hpp"
 #include "highmap/vectors.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 #define NSIGMA 2
 
@@ -994,11 +994,11 @@ void smooth_cone(Array &array, int ir, const Array *p_mask)
   apply_with_mask(array, p_mask, [&](Array &a) { smooth_cone(a, ir); });
 }
 
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask,
-                   const TileRegion &region,
-                   ICommunicator    &comm)
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask,
+                   const UvTile  &region,
+                   ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;

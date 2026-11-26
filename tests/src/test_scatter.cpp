@@ -139,7 +139,7 @@ TEST(ScatterFieldTest, FilterByClassAndBbox)
   ScatterField filtered = field.filter_by_class(1u);
   EXPECT_EQ(filtered.size(), 2u);
 
-  glm::vec4 bbox = field.get_bbox();
+  glm::vec4 bbox = field.get_bbox().to_vec4();
   EXPECT_TRUE(float_eq(bbox.x, 1.f));
   EXPECT_TRUE(float_eq(bbox.y, 3.f));
   EXPECT_TRUE(float_eq(bbox.z, 1.f));
@@ -153,11 +153,17 @@ TEST(ScatterFieldTest, PackInterstitial)
   field.push_back(ScatterItem(glm::vec3(0.2f, 0.5f, 0.f), 0u, 0.1f));
   field.push_back(ScatterItem(glm::vec3(0.8f, 0.5f, 0.f), 0u, 0.1f));
 
-  size_t    original_count = field.size();
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f};
+  size_t original_count = field.size();
+  BBox2D bbox(0.f, 1.f, 0.f, 1.f);
 
   // 1. Pack without density (uniform)
-  field.pack_interstitial(20, {}, 0.01f, 0.02f, 1u, 42, bbox);
+  field.pack_interstitial(20,
+                          {},
+                          0.01f,
+                          0.02f,
+                          1u,
+                          42,
+                          UvRect::from_bbox2d(bbox));
 
   EXPECT_GT(field.size(), original_count);
   EXPECT_EQ(field[0].radius, 0.1f);
@@ -166,7 +172,13 @@ TEST(ScatterFieldTest, PackInterstitial)
   // 2. Pack with density map
   Array  density({32, 32}, 1.0f);
   size_t count_before_density = field.size();
-  field.pack_interstitial(20, density, 0.005f, 0.01f, 2u, 101, bbox);
+  field.pack_interstitial(20,
+                          density,
+                          0.005f,
+                          0.01f,
+                          2u,
+                          101,
+                          UvRect::from_bbox2d(bbox));
   EXPECT_GT(field.size(), count_before_density);
 }
 
@@ -290,14 +302,14 @@ TEST(ScatterFieldTest, SetElevationFromTerrain)
     for (int i = 0; i < 3; ++i)
       elevation(i, j) = static_cast<float>(i) * 50.f;
 
-  glm::vec4 bbox = {0.f, 10.f, 0.f, 10.f};
+  BBox2D bbox(0.f, 10.f, 0.f, 10.f);
 
   ScatterField field;
   field.push_back(ScatterItem(0.f, 5.f, 0.f));
   field.push_back(ScatterItem(5.f, 5.f, 0.f));
   field.push_back(ScatterItem(10.f, 5.f, 0.f));
 
-  field.set_elevation_from_terrain(elevation, bbox);
+  field.set_elevation_from_terrain(elevation, UvRect::from_bbox2d(bbox));
 
   EXPECT_TRUE(float_eq(field[0].position.z, 0.f));
   EXPECT_TRUE(float_eq(field[1].position.z, 50.f));
@@ -607,7 +619,7 @@ TEST(ScatterFieldTest, MergeScatterFieldsWithBbox)
                            0.5f)); // inside non-overlapping region of f1
   f1.push_back(
       ScatterItem(8.f, 5.f, 0.f, 10u, 0.5f)); // inside overlap region with f2
-  glm::vec4 bbox1 = {0.f, 10.f, 0.f, 10.f};
+  BBox2D bbox1(0.f, 10.f, 0.f, 10.f);
 
   // Field 2 covers [6, 16] x [0, 10]
   ScatterField f2;
@@ -626,7 +638,7 @@ TEST(ScatterFieldTest, MergeScatterFieldsWithBbox)
                            0.f,
                            20u,
                            0.8f)); // outside bbox2 -> should be discarded
-  glm::vec4 bbox2 = {6.f, 16.f, 0.f, 10.f};
+  BBox2D bbox2(6.f, 16.f, 0.f, 10.f);
 
   // Field 3 covers [12, 22] x [0, 10]
   ScatterField f3;
@@ -640,7 +652,7 @@ TEST(ScatterFieldTest, MergeScatterFieldsWithBbox)
                            0.f,
                            30u,
                            1.0f)); // inside non-overlapping region of f3
-  glm::vec4 bbox3 = {12.f, 22.f, 0.f, 10.f};
+  BBox2D bbox3(12.f, 22.f, 0.f, 10.f);
 
   // Merge with merge_by_class = true
   ScatterField merged = merge_scatter_fields({f1, f2, f3},

@@ -38,25 +38,25 @@ namespace hmap
  * **Result**
  * @image html ex_caldera.png
  */
-Array caldera(glm::ivec2   shape,
-              float        radius,
-              float        sigma_inner,
-              float        sigma_outer,
-              float        z_bottom,
-              const Array *p_noise,
-              float        noise_r_amp,
-              float        noise_ratio_z,
-              glm::vec2    center = {0.5f, 0.5f},
-              glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+Array caldera(glm::ivec2    shape,
+              float         radius,
+              float         sigma_inner,
+              float         sigma_outer,
+              float         z_bottom,
+              const Array  *p_noise,
+              float         noise_r_amp,
+              float         noise_ratio_z,
+              glm::vec2     center = {0.5f, 0.5f},
+              const UvRect &uv_rect = UvRect::unit());
 
 /// @overload
-Array caldera(glm::ivec2 shape,
-              float      radius,
-              float      sigma_inner,
-              float      sigma_outer,
-              float      z_bottom,
-              glm::vec2  center = {0.5f, 0.5f},
-              glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f});
+Array caldera(glm::ivec2    shape,
+              float         radius,
+              float         sigma_inner,
+              float         sigma_outer,
+              float         z_bottom,
+              glm::vec2     center = {0.5f, 0.5f},
+              const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a procedural circus (glacial cirque / amphitheatre basin)
@@ -87,19 +87,19 @@ Array caldera(glm::ivec2 shape,
  * **Result**
  * @image html ex_circus.png
  */
-Array circus(glm::ivec2   shape,
-             float        radius = 0.4f,
-             float        angle = 0.f,
-             float        exit_width = 0.35f,
-             float        exit_depth = 0.f,
-             float        center_depth = 0.1f,
-             float        ridge_height = 1.f,
-             float        ridge_width = 0.15f,
-             float        outer_falloff = 2.f,
-             const Array *p_noise_r = nullptr,
-             glm::vec2    center = {0.5f, 0.5f},
-             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
-             Array       *p_mask = nullptr);
+Array circus(glm::ivec2    shape,
+             float         radius = 0.4f,
+             float         angle = 0.f,
+             float         exit_width = 0.35f,
+             float         exit_depth = 0.f,
+             float         center_depth = 0.1f,
+             float         ridge_height = 1.f,
+             float         ridge_width = 0.15f,
+             float         outer_falloff = 2.f,
+             const Array  *p_noise_r = nullptr,
+             glm::vec2     center = {0.5f, 0.5f},
+             const UvRect &uv_rect = UvRect::unit(),
+             Array        *p_mask = nullptr);
 
 /**
  * @brief Generate a procedural impact crater heightmap.
@@ -137,34 +137,34 @@ Array circus(glm::ivec2   shape,
  * **Result**
  * @image html ex_crater.png
  */
-Array crater(glm::ivec2   shape,
-             float        radius,
-             glm::vec2    center = {0.5f, 0.5f},
-             float        angle = 30.f, // degs,
-             float        inner_depth = 0.1f,
-             float        inner_exp = 3.f,
-             float        lip_height = 0.02f,
-             float        lip_extent = 0.25f,
-             float        lip_exp = 2.f,
-             float        asym_ratio = 0.8f,
-             float        central_peak_height = 0.01f,
-             float        central_peak_extent = 0.4f,
-             int          n_terraces = 0,
-             float        terrace_extent = 0.1f,
-             float        terrace_exp = 2.f,
-             float        terrace_persistence = 0.5f,
-             const Array *p_noise_r = nullptr,
-             glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
-             Array       *p_crater_mask = nullptr,
-             Array       *p_inner_crater_mask = nullptr);
+Array crater(glm::ivec2    shape,
+             float         radius,
+             glm::vec2     center = {0.5f, 0.5f},
+             float         angle = 30.f, // degs,
+             float         inner_depth = 0.1f,
+             float         inner_exp = 3.f,
+             float         lip_height = 0.02f,
+             float         lip_extent = 0.25f,
+             float         lip_exp = 2.f,
+             float         asym_ratio = 0.8f,
+             float         central_peak_height = 0.01f,
+             float         central_peak_extent = 0.4f,
+             int           n_terraces = 0,
+             float         terrace_extent = 0.1f,
+             float         terrace_exp = 2.f,
+             float         terrace_persistence = 0.5f,
+             const Array  *p_noise_r = nullptr,
+             const UvRect &uv_rect = UvRect::unit(),
+             Array        *p_crater_mask = nullptr,
+             Array        *p_inner_crater_mask = nullptr);
 
 /**
  * @brief Generate a field of procedural impact craters from explicit centers
- *        and radii.
+ * and radii.
  *
- * Uses a KD-tree over crater centers to evaluate only nearby craters per
- * pixel, and scales cavity depth, lip height, and central peak height
- * proportionally to each crater's radius.
+ * Uses a KD-tree over crater centers to evaluate only nearby craters per pixel,
+ * and scales cavity depth, lip height, and central peak height proportionally
+ * to each crater's radius.
  *
  * @param  shape               Output array shape.
  * @param  centers             Crater center positions in world coordinates.
@@ -206,10 +206,10 @@ Array crater_field(glm::ivec2                    shape,
                    float                         terrace_exp = 2.f,
                    float                         terrace_persistence = 0.5f,
                    const Array                  *p_noise_r = nullptr,
-                   glm::vec4                     bbox = {0.f, 1.f, 0.f, 1.f},
+                   const UvRect                 &uv_rect = UvRect::unit(),
                    Array                        *p_crater_mask = nullptr,
                    Array                        *p_inner_crater_mask = nullptr,
-                   bool                          scale_elevation_with_radius = true);
+                   bool scale_elevation_with_radius = true);
 
 /**
  * @brief Generate a field of randomly distributed procedural impact craters.
@@ -243,29 +243,29 @@ Array crater_field(glm::ivec2                    shape,
  * @param  p_inner_crater_mask Optional output inner crater mask.
  * @return                     Generated crater field heightmap.
  */
-Array crater_field(glm::ivec2   shape,
-                   uint         seed,
-                   int          n_craters,
-                   float        r_min = 0.02f,
-                   float        r_max = 0.2f,
-                   float        angle = 30.f,
-                   float        inner_depth = 0.5f,
-                   float        inner_exp = 3.f,
-                   float        lip_height = 0.1f,
-                   float        lip_extent = 0.25f,
-                   float        lip_exp = 2.f,
-                   float        asym_ratio = 0.8f,
-                   float        central_peak_height = 0.05f,
-                   float        central_peak_extent = 0.4f,
-                   int          n_terraces = 0,
-                   float        terrace_extent = 0.1f,
-                   float        terrace_exp = 2.f,
-                   float        terrace_persistence = 0.5f,
-                   const Array *p_noise_r = nullptr,
-                   glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
-                   Array       *p_crater_mask = nullptr,
-                   Array       *p_inner_crater_mask = nullptr,
-                   bool         scale_elevation_with_radius = true);
+Array crater_field(glm::ivec2    shape,
+                   uint          seed,
+                   int           n_craters,
+                   float         r_min = 0.02f,
+                   float         r_max = 0.2f,
+                   float         angle = 30.f,
+                   float         inner_depth = 0.5f,
+                   float         inner_exp = 3.f,
+                   float         lip_height = 0.1f,
+                   float         lip_extent = 0.25f,
+                   float         lip_exp = 2.f,
+                   float         asym_ratio = 0.8f,
+                   float         central_peak_height = 0.05f,
+                   float         central_peak_extent = 0.4f,
+                   int           n_terraces = 0,
+                   float         terrace_extent = 0.1f,
+                   float         terrace_exp = 2.f,
+                   float         terrace_persistence = 0.5f,
+                   const Array  *p_noise_r = nullptr,
+                   const UvRect &uv_rect = UvRect::unit(),
+                   Array        *p_crater_mask = nullptr,
+                   Array        *p_inner_crater_mask = nullptr,
+                   bool          scale_elevation_with_radius = true);
 
 /**
  * @brief Generates a 2D island mask by perturbing a radial boundary with noise.
@@ -306,7 +306,7 @@ Array island_land_mask(glm::ivec2       shape,
                        float            persistence = 0.5f,
                        float            lacunarity = 2.f,
                        const glm::vec2 &center = {0.5f, 0.5f},
-                       const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                       const BBox2D    &bbox = BBox2D::unit());
 
 /**
  * @brief Generates a land mask of an island chain scattered along a path.
@@ -359,7 +359,7 @@ Array island_chain_land_mask(glm::ivec2    shape,
                              float         weight = 0.f,
                              float         persistence = 0.5f,
                              float         lacunarity = 2.f,
-                             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a rift-shaped primitive.
@@ -416,7 +416,7 @@ Array rift(glm::ivec2    shape,
            const Array  *p_noise_r = nullptr,
            const Array  *p_noise_offset = nullptr,
            glm::vec2     center = {0.5f, 0.5f},
-           glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f},
+           const UvRect &uv_rect = UvRect::unit(),
            Array        *p_rift_mask = nullptr,
            Array        *p_bottom_mask = nullptr);
 
@@ -453,21 +453,21 @@ Array rift(glm::ivec2    shape,
  * **Result**
  * @image html ex_valley_head.png
  */
-Array valley_head(glm::ivec2   shape,
-                  float        angle = 0.f,
-                  float        min_depth = 0.f,
-                  float        max_depth = 0.2f,
-                  float        min_width = 0.02f,
-                  float        max_width = 0.15f,
-                  float        depth_length = 0.5f,
-                  float        width_length = 0.5f,
-                  float        development_power = 2.f,
-                  float        profile_power = 1.3f,
-                  const Array *p_noise_offset = nullptr,
-                  const Array *p_noise_r = nullptr,
-                  glm::vec2    center = {0.5f, 0.5f},
-                  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f},
-                  Array       *p_mask = nullptr);
+Array valley_head(glm::ivec2    shape,
+                  float         angle = 0.f,
+                  float         min_depth = 0.f,
+                  float         max_depth = 0.2f,
+                  float         min_width = 0.02f,
+                  float         max_width = 0.15f,
+                  float         depth_length = 0.5f,
+                  float         width_length = 0.5f,
+                  float         development_power = 2.f,
+                  float         profile_power = 1.3f,
+                  const Array  *p_noise_offset = nullptr,
+                  const Array  *p_noise_r = nullptr,
+                  glm::vec2     center = {0.5f, 0.5f},
+                  const UvRect &uv_rect = UvRect::unit(),
+                  Array        *p_mask = nullptr);
 
 } // namespace hmap
 
@@ -519,7 +519,7 @@ Array badlands(glm::ivec2    shape,
                float         base_noise_amp = 0.2f,
                const Array  *p_noise_x = nullptr,
                const Array  *p_noise_y = nullptr,
-               glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+               const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a synthetic procedural terrain resembling basaltic
@@ -621,7 +621,7 @@ Array basalt_field(glm::ivec2    shape,
                    float         bias = 0.f,
                    const Array  *p_noise_x = nullptr,
                    const Array  *p_noise_y = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates an island heightmap from a land mask using radial profiles,
@@ -816,7 +816,7 @@ Array mountain_cone(glm::ivec2    shape,
                     glm::vec2     center = {0.5f, 0.5f},
                     const Array  *p_noise_x = nullptr,
                     const Array  *p_noise_y = nullptr,
-                    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a synthetic mountain-like inselberg (isolated hill)
@@ -880,7 +880,7 @@ Array mountain_inselberg(glm::ivec2    shape,
                          glm::vec2     center = {0.5f, 0.5f},
                          const Array  *p_noise_x = nullptr,
                          const Array  *p_noise_y = nullptr,
-                         glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                         const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a heightmap representing a radial mountain range.
@@ -946,7 +946,7 @@ Array mountain_range_radial(glm::ivec2    shape,
                             const Array  *p_noise_x = nullptr,
                             const Array  *p_noise_y = nullptr,
                             const Array  *p_angle = nullptr,
-                            glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                            const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a mountain-like heightmap with a flattened (stump-shaped)
@@ -1008,7 +1008,7 @@ Array mountain_stump(glm::ivec2    shape,
                      glm::vec2     center = {0.5f, 0.5f},
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a synthetic "Tibesti" mountain heightmap.
@@ -1070,7 +1070,7 @@ Array mountain_tibesti(glm::ivec2    shape,
                        glm::vec2     center = {0.5f, 0.5f},
                        const Array  *p_noise_x = nullptr,
                        const Array  *p_noise_y = nullptr,
-                       glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                       const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a tectonic plate–like heightfield using Voronoi FBM and
@@ -1110,7 +1110,7 @@ Array plates(glm::ivec2    shape,
              float         kw_multiplier = 2.f,
              int           octaves = 8,
              float         rugosity = 0.f,
-             glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a synthetic "shattered peak" terrain heightmap.
@@ -1173,6 +1173,6 @@ Array shattered_peak(glm::ivec2    shape,
                      glm::vec2     center = {0.5f, 0.5f},
                      const Array  *p_noise_x = nullptr,
                      const Array  *p_noise_y = nullptr,
-                     glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                     const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu

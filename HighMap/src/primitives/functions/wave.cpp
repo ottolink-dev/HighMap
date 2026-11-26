@@ -10,16 +10,16 @@
 namespace hmap
 {
 
-Array wave_dune(glm::ivec2   shape,
-                float        kw,
-                float        angle,
-                float        xtop,
-                float        xbottom,
-                float        phase_shift,
-                const Array *p_noise_x,
-                const Array *p_noise_y,
-                glm::vec2    center,
-                glm::vec4    bbox)
+Array wave_dune(glm::ivec2    shape,
+                float         kw,
+                float         angle,
+                float         xtop,
+                float         xbottom,
+                float         phase_shift,
+                const Array  *p_noise_x,
+                const Array  *p_noise_y,
+                glm::vec2     center,
+                const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -34,7 +34,7 @@ Array wave_dune(glm::ivec2   shape,
                                                     center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -43,14 +43,14 @@ Array wave_dune(glm::ivec2   shape,
   return array;
 }
 
-Array wave_sine(glm::ivec2   shape,
-                float        kw,
-                float        angle,
-                float        phase_shift,
-                const Array *p_noise_x,
-                const Array *p_noise_y,
-                glm::vec2    center,
-                glm::vec4    bbox)
+Array wave_sine(glm::ivec2    shape,
+                float         kw,
+                float         angle,
+                float         phase_shift,
+                const Array  *p_noise_x,
+                const Array  *p_noise_y,
+                glm::vec2     center,
+                const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -63,7 +63,7 @@ Array wave_sine(glm::ivec2   shape,
                                                     center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -72,14 +72,14 @@ Array wave_sine(glm::ivec2   shape,
   return array;
 }
 
-Array wave_square(glm::ivec2   shape,
-                  float        kw,
-                  float        angle,
-                  float        phase_shift,
-                  const Array *p_noise_x,
-                  const Array *p_noise_y,
-                  glm::vec2    center,
-                  glm::vec4    bbox)
+Array wave_square(glm::ivec2    shape,
+                  float         kw,
+                  float         angle,
+                  float         phase_shift,
+                  const Array  *p_noise_x,
+                  const Array  *p_noise_y,
+                  glm::vec2     center,
+                  const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -92,7 +92,7 @@ Array wave_square(glm::ivec2   shape,
                                                         center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,
@@ -101,15 +101,15 @@ Array wave_square(glm::ivec2   shape,
   return array;
 }
 
-Array wave_triangular(glm::ivec2   shape,
-                      float        kw,
-                      float        angle,
-                      float        slant_ratio,
-                      float        phase_shift,
-                      const Array *p_noise_x,
-                      const Array *p_noise_y,
-                      glm::vec2    center,
-                      glm::vec4    bbox)
+Array wave_triangular(glm::ivec2    shape,
+                      float         kw,
+                      float         angle,
+                      float         slant_ratio,
+                      float         phase_shift,
+                      const Array  *p_noise_x,
+                      const Array  *p_noise_y,
+                      glm::vec2     center,
+                      const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -123,7 +123,7 @@ Array wave_triangular(glm::ivec2   shape,
                                                                 center);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                p_noise_x,
                                p_noise_y,

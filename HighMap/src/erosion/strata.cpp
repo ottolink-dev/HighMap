@@ -40,7 +40,7 @@ void strata(Array           &z,
             bool             apply_ridge_mask,
             float            mask_gamma,
             const Array     *p_mask,
-            const glm::vec4 &bbox)
+            const UvRect    &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
@@ -74,7 +74,7 @@ void strata(Array           &z,
                      apply_ridge_mask ? 1 : 0,
                      mask_gamma,
                      p_mask ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("z");
   run.execute({z.shape.x, z.shape.y});
@@ -93,7 +93,7 @@ void strata_cells(Array        &z,
                   float         occurence_probability,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return;
@@ -126,7 +126,7 @@ void strata_cells(Array        &z,
                      p_mask ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("z");
   run.execute({z.shape.x, z.shape.y});
@@ -146,7 +146,7 @@ void strata_cells(Array        &z,
                   float         occurence_probability,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  const UvRect &uv_rect)
 {
   apply_with_mask(z,
                   p_mask,
@@ -164,7 +164,7 @@ void strata_cells(Array        &z,
                                  occurence_probability,
                                  p_noise_x,
                                  p_noise_y,
-                                 bbox);
+                                 uv_rect);
                   });
 }
 
@@ -184,7 +184,7 @@ void strata_cells_fbm(Array        &z,
                       float         lacunarity,
                       const Array  *p_noise_x,
                       const Array  *p_noise_y,
-                      glm::vec4     bbox)
+                      const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return;
@@ -209,7 +209,7 @@ void strata_cells_fbm(Array        &z,
                                             nullptr,
                                             nullptr,
                                             nullptr,
-                                            bbox);
+                                            uv_rect);
 
     dy = default_noise_amp * gpu::noise_fbm(hmap::NoiseType::SIMPLEX2,
                                             z.shape,
@@ -222,7 +222,7 @@ void strata_cells_fbm(Array        &z,
                                             nullptr,
                                             nullptr,
                                             nullptr,
-                                            bbox);
+                                            uv_rect);
 
     p_noise_x = &dx;
     p_noise_y = &dy;
@@ -247,7 +247,7 @@ void strata_cells_fbm(Array        &z,
                  occurence_probability,
                  p_noise_x,
                  p_noise_y,
-                 bbox);
+                 uv_rect);
 
     a *= persistence;
     m *= lacunarity;
@@ -271,7 +271,7 @@ void strata_cells_fbm(Array        &z,
                       float         lacunarity,
                       const Array  *p_noise_x,
                       const Array  *p_noise_y,
-                      glm::vec4     bbox)
+                      const UvRect &uv_rect)
 {
   apply_with_mask(z,
                   p_mask,
@@ -293,7 +293,7 @@ void strata_cells_fbm(Array        &z,
                                      lacunarity,
                                      p_noise_x,
                                      p_noise_y,
-                                     bbox);
+                                     uv_rect);
                   });
 }
 
@@ -306,7 +306,7 @@ void strata_terrace(Array        &z,
                     float         slope,
                     float         angle,
                     const Array  *p_noise,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise && !validate_same_shape(z, *p_noise)) return;
@@ -326,7 +326,7 @@ void strata_terrace(Array        &z,
                      slope,
                      angle,
                      p_noise ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("z");
   run.execute({z.shape.x, z.shape.y});
@@ -343,7 +343,7 @@ void strata_terrace(Array        &z,
                     float         slope,
                     float         angle,
                     const Array  *p_noise,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   apply_with_mask(z,
                   p_mask,
@@ -358,7 +358,7 @@ void strata_terrace(Array        &z,
                                    slope,
                                    angle,
                                    p_noise,
-                                   bbox);
+                                   uv_rect);
                   });
 }
 

@@ -60,7 +60,7 @@ int select_canonical_segment(const Point  &p_min,
                              std::uint32_t seed,
                              const Array  *p_weights,
                              const Array  *p_mask,
-                             glm::vec4     bbox)
+                             const BBox2D &bbox)
 {
   Point m = get_midpoint(p_min, p_max);
   Point m0 = get_midpoint(p_min, m);
@@ -69,8 +69,14 @@ int select_canonical_segment(const Point  &p_min,
   // Mask constraint: if mask is provided, avoid forbidden regions
   if (p_mask)
   {
-    bool valid0 = p_mask->get_value_nearest(m0.x, m0.y, bbox) > 0.5f;
-    bool valid1 = p_mask->get_value_nearest(m1.x, m1.y, bbox) > 0.5f;
+    bool valid0 = p_mask->get_value_nearest(m0.x,
+                                            m0.y,
+                                            UvRect::from_vec4(bbox.to_vec4())) >
+                  0.5f;
+    bool valid1 = p_mask->get_value_nearest(m1.x,
+                                            m1.y,
+                                            UvRect::from_vec4(bbox.to_vec4())) >
+                  0.5f;
 
     if (valid0 && !valid1) return 0;
     if (valid1 && !valid0) return 1;
@@ -88,10 +94,16 @@ int select_canonical_segment(const Point  &p_min,
   float p0 = 0.5f;
   if (p_weights)
   {
-    float w0 = std::max(0.0001f,
-                        p_weights->get_value_nearest(m0.x, m0.y, bbox));
-    float w1 = std::max(0.0001f,
-                        p_weights->get_value_nearest(m1.x, m1.y, bbox));
+    float w0 = std::max(
+        0.0001f,
+        p_weights->get_value_nearest(m0.x,
+                                     m0.y,
+                                     UvRect::from_vec4(bbox.to_vec4())));
+    float w1 = std::max(
+        0.0001f,
+        p_weights->get_value_nearest(m1.x,
+                                     m1.y,
+                                     UvRect::from_vec4(bbox.to_vec4())));
     p0 = w0 / (w0 + w1);
   }
 
@@ -105,7 +117,7 @@ int select_edge_segment(const Point  &p_start,
                         std::uint32_t seed,
                         const Array  *p_weights,
                         const Array  *p_mask,
-                        glm::vec4     bbox)
+                        const BBox2D &bbox)
 {
   bool start_is_min = (p_start.x < p_end.x) ||
                       (p_start.x == p_end.x && p_start.y <= p_end.y);
@@ -129,7 +141,7 @@ std::vector<Point> subdivide_edge_squiggle(const Point  &p1,
                                            std::uint32_t seed,
                                            const Array  *p_weights,
                                            const Array  *p_mask,
-                                           glm::vec4     bbox)
+                                           const BBox2D &bbox)
 {
   Point m_in = get_midpoint(p1, apex);
   Point m_out = get_midpoint(p2, apex);
@@ -174,7 +186,7 @@ Path squiggle(const Path   &path,
               int           orientation,
               const Array  *p_weights,
               const Array  *p_mask,
-              glm::vec4     bbox)
+              const BBox2D &bbox)
 {
   if (p_weights && !validate_non_empty(*p_weights)) return path;
   if (p_mask && !validate_non_empty(*p_mask)) return path;
@@ -290,7 +302,7 @@ std::vector<Path> squiggle_branches(const Path   &path,
                                     int           orientation,
                                     const Array  *p_weights,
                                     const Array  *p_mask,
-                                    glm::vec4     bbox)
+                                    const BBox2D &bbox)
 {
   if (p_weights && !validate_non_empty(*p_weights)) return {path};
   if (p_mask && !validate_non_empty(*p_mask)) return {path};

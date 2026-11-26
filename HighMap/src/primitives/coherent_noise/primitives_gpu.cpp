@@ -56,7 +56,7 @@ Array gabor_wave(glm::ivec2    shape,
                  std::uint32_t seed,
                  const Array  &angle,
                  float         angle_spread_ratio,
-                 glm::vec4     bbox)
+                 const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_same_shape(shape, angle)) return Array(shape);
@@ -74,7 +74,7 @@ Array gabor_wave(glm::ivec2    shape,
                      kw.y,
                      seed,
                      angle_spread_ratio,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -87,14 +87,14 @@ Array gabor_wave(glm::ivec2    shape,
                  std::uint32_t seed,
                  float         angle,
                  float         angle_spread_ratio,
-                 glm::vec4     bbox)
+                 const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
   Array array(shape);
   Array array_angle(shape, angle);
 
-  array = gabor_wave(shape, kw, seed, array_angle, angle_spread_ratio, bbox);
+  array = gabor_wave(shape, kw, seed, array_angle, angle_spread_ratio, uv_rect);
 
   return array;
 }
@@ -111,7 +111,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                      const Array  *p_ctrl_param,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_same_shape(shape, angle)) return Array(shape);
@@ -144,7 +144,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("angle");
   run.execute({array.shape.x, array.shape.y});
@@ -165,7 +165,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                      const Array  *p_ctrl_param,
                      const Array  *p_noise_x,
                      const Array  *p_noise_y,
-                     glm::vec4     bbox)
+                     const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -188,7 +188,7 @@ Array gabor_wave_fbm(glm::ivec2    shape,
                          p_ctrl_param,
                          p_noise_x,
                          p_noise_y,
-                         bbox);
+                         uv_rect);
 
   return array;
 }
@@ -210,7 +210,7 @@ Array gavoronoise(glm::ivec2    shape,
                   const Array  *p_ctrl_param,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_same_shape(shape, angle)) return Array(shape);
@@ -249,7 +249,7 @@ Array gavoronoise(glm::ivec2    shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("angle");
   run.execute({array.shape.x, array.shape.y});
@@ -275,7 +275,7 @@ Array gavoronoise(glm::ivec2    shape,
                   const Array  *p_ctrl_param,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -303,7 +303,7 @@ Array gavoronoise(glm::ivec2    shape,
                       p_ctrl_param,
                       p_noise_x,
                       p_noise_y,
-                      bbox);
+                      uv_rect);
 
   return array;
 }
@@ -323,7 +323,7 @@ Array gavoronoise(const Array  &base,
                   const Array  *p_ctrl_param,
                   const Array  *p_noise_x,
                   const Array  *p_noise_y,
-                  glm::vec4     bbox)
+                  const UvRect &uv_rect)
 {
   if (!validate_non_empty(base)) return Array();
   if (p_ctrl_param && !validate_same_shape(base, *p_ctrl_param))
@@ -364,7 +364,7 @@ Array gavoronoise(const Array  &base,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -386,7 +386,7 @@ Array hemisphere_field(glm::ivec2    shape,
                        const Array  *p_noise_distance,
                        const Array  *p_density_multiplier,
                        const Array  *p_size_multiplier,
-                       glm::vec4     bbox)
+                       const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -428,7 +428,7 @@ Array hemisphere_field(glm::ivec2    shape,
                      p_noise_distance ? 1 : 0,
                      p_density_multiplier ? 1 : 0,
                      p_size_multiplier ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});
@@ -454,7 +454,7 @@ Array hemisphere_field_fbm(glm::ivec2    shape,
                            const Array  *p_noise_distance,
                            const Array  *p_density_multiplier,
                            const Array  *p_size_multiplier,
-                           glm::vec4     bbox)
+                           const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -499,7 +499,7 @@ Array hemisphere_field_fbm(glm::ivec2    shape,
                      p_noise_distance ? 1 : 0,
                      p_density_multiplier ? 1 : 0,
                      p_size_multiplier ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});
@@ -523,7 +523,7 @@ Array mountain_range_radial(glm::ivec2    shape,
                             const Array  *p_noise_x,
                             const Array  *p_noise_y,
                             const Array  *p_angle,
-                            glm::vec4     bbox)
+                            const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -560,7 +560,7 @@ Array mountain_range_radial(glm::ivec2    shape,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
                      p_angle ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -576,7 +576,7 @@ Array noise(NoiseType     noise_type,
             std::uint32_t seed,
             const Array  *p_noise_x,
             const Array  *p_noise_y,
-            glm::vec4     bbox,
+            const UvRect &uv_rect,
             glm::ivec2    period,
             float         angle,
             float         stretch)
@@ -605,7 +605,7 @@ Array noise(NoiseType     noise_type,
                      p_noise_y ? 1 : 0,
                      period.x,
                      period.y,
-                     bbox,
+                     uv_rect,
                      angle,
                      stretch);
 
@@ -627,7 +627,7 @@ Array noise_fbm(NoiseType     noise_type,
                 const Array  *p_ctrl_param,
                 const Array  *p_noise_x,
                 const Array  *p_noise_y,
-                glm::vec4     bbox,
+                const UvRect &uv_rect,
                 glm::ivec2    period,
                 float         angle,
                 float         stretch,
@@ -665,7 +665,78 @@ Array noise_fbm(NoiseType     noise_type,
                      p_noise_y ? 1 : 0,
                      period.x,
                      period.y,
-                     bbox,
+                     uv_rect,
+                     angle,
+                     stretch,
+                     stretch_decay);
+
+  run.write_buffer("array");
+  run.execute({array.shape.x, array.shape.y});
+  run.read_buffer("array");
+
+  return array;
+}
+
+Array noise_slope(NoiseType     noise_type,
+                  glm::ivec2    shape,
+                  glm::vec2     kw,
+                  std::uint32_t seed,
+                  int           octaves,
+                  float         weight,
+                  float         persistence,
+                  float         lacunarity,
+                  float         gradient_scale,
+                  float         slope_power,
+                  float         octave_blend,
+                  float         bias_angle,
+                  float         bias_strength,
+                  const Array  *p_ctrl_param,
+                  const Array  *p_noise_x,
+                  const Array  *p_noise_y,
+                  const UvRect &uv_rect,
+                  glm::ivec2    period,
+                  float         angle,
+                  float         stretch,
+                  float         stretch_decay)
+{
+  if (!validate_shape(shape)) return Array();
+  if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
+    return Array(shape);
+  if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
+  if (p_noise_y && !validate_same_shape(shape, *p_noise_y)) return Array(shape);
+
+  Array array(shape);
+
+  int noise_id = static_cast<int>(noise_type);
+
+  auto run = clwrapper::Run("noise_slope");
+
+  run.bind_buffer<float>("array", array.vector);
+  helper_bind_optional_buffer(run, "ctrl_param", p_ctrl_param);
+  helper_bind_optional_buffer(run, "noise_x", p_noise_x);
+  helper_bind_optional_buffer(run, "noise_y", p_noise_y);
+
+  run.bind_arguments(array.shape.x,
+                     array.shape.y,
+                     noise_id,
+                     kw.x,
+                     kw.y,
+                     seed,
+                     octaves,
+                     weight,
+                     persistence,
+                     lacunarity,
+                     gradient_scale,
+                     slope_power,
+                     octave_blend,
+                     bias_angle,
+                     bias_strength,
+                     p_ctrl_param ? 1 : 0,
+                     p_noise_x ? 1 : 0,
+                     p_noise_y ? 1 : 0,
+                     period.x,
+                     period.y,
+                     uv_rect,
                      angle,
                      stretch,
                      stretch_decay);
@@ -694,7 +765,7 @@ Array polygon_field(glm::ivec2    shape,
                     const Array  *p_noise_distance,
                     const Array  *p_density_multiplier,
                     const Array  *p_size_multiplier,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -739,7 +810,7 @@ Array polygon_field(glm::ivec2    shape,
                      p_noise_distance ? 1 : 0,
                      p_density_multiplier ? 1 : 0,
                      p_size_multiplier ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});
@@ -768,7 +839,7 @@ Array polygon_field_fbm(glm::ivec2    shape,
                         const Array  *p_noise_distance,
                         const Array  *p_density_multiplier,
                         const Array  *p_size_multiplier,
-                        glm::vec4     bbox)
+                        const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -816,7 +887,7 @@ Array polygon_field_fbm(glm::ivec2    shape,
                      p_noise_distance ? 1 : 0,
                      p_density_multiplier ? 1 : 0,
                      p_size_multiplier ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.write_buffer("array");
   run.execute({array.shape.x, array.shape.y});
@@ -835,8 +906,8 @@ Array vorolines(glm::ivec2        shape,
                 VoronoiReturnType return_type,
                 const Array      *p_noise_x,
                 const Array      *p_noise_y,
-                glm::vec4         bbox,
-                glm::vec4         bbox_points)
+                const UvRect     &uv_rect,
+                const UvRect     &uv_rect_points)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -845,10 +916,13 @@ Array vorolines(glm::ivec2        shape,
   // --- generate random set of points
 
   // density is the number of pts per unit surface
-  int npoints = static_cast<int>(density * (bbox_points.y - bbox_points.x) *
-                                 (bbox_points.w - bbox_points.z));
+  int npoints = static_cast<int>(density *
+                                 (uv_rect_points.u_max - uv_rect_points.u_min) *
+                                 (uv_rect_points.v_max - uv_rect_points.v_min));
   npoints = std::max(1, npoints);
-  Cloud cloud = Cloud(npoints, seed, bbox_points);
+  Cloud cloud = Cloud(npoints,
+                      seed,
+                      BBox2D::from_vec4(uv_rect_points.to_vec4()));
 
   std::vector<float> xp = cloud.get_x();
   std::vector<float> yp = cloud.get_y();
@@ -900,7 +974,7 @@ Array vorolines(glm::ivec2        shape,
                      (int)return_type,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -922,8 +996,8 @@ Array vorolines_fbm(glm::ivec2        shape,
                     float             lacunarity,
                     const Array      *p_noise_x,
                     const Array      *p_noise_y,
-                    glm::vec4         bbox,
-                    glm::vec4         bbox_points)
+                    const UvRect     &uv_rect,
+                    const UvRect     &uv_rect_points)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -945,8 +1019,8 @@ Array vorolines_fbm(glm::ivec2        shape,
                         return_type,
                         p_noise_x,
                         p_noise_y,
-                        bbox,
-                        bbox_points);
+                        uv_rect,
+                        uv_rect_points);
 
     n += v * na;
     na *= (1.f - weight) + weight * minimum(v + 1.f, 2.f) * 0.5f;
@@ -968,7 +1042,7 @@ Array voronoi(glm::ivec2        shape,
               const Array      *p_ctrl_param,
               const Array      *p_noise_x,
               const Array      *p_noise_y,
-              glm::vec4         bbox)
+              const UvRect     &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -999,7 +1073,7 @@ Array voronoi(glm::ivec2        shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1022,7 +1096,7 @@ Array voronoi_fbm(glm::ivec2        shape,
                   const Array      *p_ctrl_param,
                   const Array      *p_noise_x,
                   const Array      *p_noise_y,
-                  glm::vec4         bbox)
+                  const UvRect     &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -1057,7 +1131,7 @@ Array voronoi_fbm(glm::ivec2        shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1072,7 +1146,7 @@ Array voronoise(glm::ivec2    shape,
                 std::uint32_t seed,
                 const Array  *p_noise_x,
                 const Array  *p_noise_y,
-                glm::vec4     bbox)
+                const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -1096,7 +1170,7 @@ Array voronoise(glm::ivec2    shape,
                      seed,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1116,7 +1190,7 @@ Array voronoise_fbm(glm::ivec2    shape,
                     const Array  *p_ctrl_param,
                     const Array  *p_noise_x,
                     const Array  *p_noise_y,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -1148,7 +1222,7 @@ Array voronoise_fbm(glm::ivec2    shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1164,7 +1238,7 @@ Array voronoi_edge_distance(glm::ivec2    shape,
                             const Array  *p_ctrl_param,
                             const Array  *p_noise_x,
                             const Array  *p_noise_y,
-                            glm::vec4     bbox)
+                            const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -1192,7 +1266,7 @@ Array voronoi_edge_distance(glm::ivec2    shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1209,8 +1283,8 @@ Array vororand(glm::ivec2        shape,
                VoronoiReturnType return_type,
                const Array      *p_noise_x,
                const Array      *p_noise_y,
-               glm::vec4         bbox,
-               glm::vec4         bbox_points)
+               const UvRect     &uv_rect,
+               const UvRect     &uv_rect_points)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array(shape);
@@ -1221,16 +1295,19 @@ Array vororand(glm::ivec2        shape,
   // TODO adjust extension with respect to the density?
 
   // take a bounding box a bit larger to reduce border effects
-  float     lx = variability * (bbox_points.y - bbox_points.x);
-  float     ly = variability * (bbox_points.w - bbox_points.z);
-  glm::vec4 bbox_points_mod = adjust(bbox_points, -lx, lx, -ly, ly);
+  float        lx = variability * (uv_rect_points.u_max - uv_rect_points.u_min);
+  float        ly = variability * (uv_rect_points.v_max - uv_rect_points.v_min);
+  const UvRect uv_rect_points_mod = UvRect::from_vec4(
+      adjust(uv_rect_points.to_vec4(), -lx, lx, -ly, ly));
 
   // density is the number of pts per unit surface
-  int npoints = static_cast<int>(density *
-                                 (bbox_points_mod.y - bbox_points_mod.x) *
-                                 (bbox_points_mod.w - bbox_points_mod.z));
+  int npoints = static_cast<int>(
+      density * (uv_rect_points_mod.u_max - uv_rect_points_mod.u_min) *
+      (uv_rect_points_mod.v_max - uv_rect_points_mod.v_min));
   npoints = std::max(1, npoints);
-  Cloud cloud = Cloud(npoints, seed, bbox_points_mod);
+  Cloud cloud = Cloud(npoints,
+                      seed,
+                      BBox2D::from_vec4(uv_rect_points_mod.to_vec4()));
 
   std::vector<float> xp = cloud.get_x();
   std::vector<float> yp = cloud.get_y();
@@ -1245,7 +1322,7 @@ Array vororand(glm::ivec2        shape,
                          return_type,
                          p_noise_x,
                          p_noise_y,
-                         bbox);
+                         uv_rect);
 
   return array;
 }
@@ -1258,7 +1335,7 @@ Array vororand(glm::ivec2                shape,
                VoronoiReturnType         return_type,
                const Array              *p_noise_x,
                const Array              *p_noise_y,
-               glm::vec4                 bbox)
+               const UvRect             &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (!validate_non_empty(xp, "xp") || !validate_non_empty(yp, "yp") ||
@@ -1290,7 +1367,7 @@ Array vororand(glm::ivec2                shape,
                      (int)return_type,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");
@@ -1311,7 +1388,7 @@ Array wavelet_noise(glm::ivec2    shape,
                     const Array  *p_ctrl_param,
                     const Array  *p_noise_x,
                     const Array  *p_noise_y,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -1343,7 +1420,7 @@ Array wavelet_noise(glm::ivec2    shape,
                      p_ctrl_param ? 1 : 0,
                      p_noise_x ? 1 : 0,
                      p_noise_y ? 1 : 0,
-                     bbox);
+                     uv_rect);
 
   run.execute({array.shape.x, array.shape.y});
   run.read_buffer("array");

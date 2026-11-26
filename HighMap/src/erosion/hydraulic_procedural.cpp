@@ -44,7 +44,7 @@ void hydraulic_procedural(Array         &z,
                           const Array   *p_noise_x,
                           const Array   *p_noise_y,
                           Array         *p_ridge_mask,
-                          glm::vec4      bbox)
+                          const UvRect  &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_kp_multiplier && !validate_same_shape(z, *p_kp_multiplier)) return;
@@ -81,7 +81,7 @@ void hydraulic_procedural(Array         &z,
                                     nullptr,
                                     nullptr,
                                     nullptr,
-                                    bbox);
+                                    uv_rect);
 
     dy = noise_amp * gpu::noise_fbm(hmap::NoiseType::SIMPLEX2,
                                     z.shape,
@@ -94,7 +94,7 @@ void hydraulic_procedural(Array         &z,
                                     nullptr,
                                     nullptr,
                                     nullptr,
-                                    bbox);
+                                    uv_rect);
 
     p_noise_x = &dx;
     p_noise_y = &dy;
@@ -117,7 +117,7 @@ void hydraulic_procedural(Array         &z,
                                  p_noise_y,
                                  &modulus,
                                  /* p_angle_jump_mask */ nullptr,
-                                 bbox);
+                                 uv_rect);
 
   // add optional local or global angle shifts
   if (angle_shift != 0.) phase += angle_shift / 180.f * M_PI;
@@ -222,7 +222,7 @@ void hydraulic_procedural_fbm(Array         &z,
                               const Array   *p_noise_x,
                               const Array   *p_noise_y,
                               Array         *p_ridge_mask,
-                              glm::vec4      bbox)
+                              const UvRect  &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_kp_multiplier && !validate_same_shape(z, *p_kp_multiplier)) return;
@@ -263,7 +263,7 @@ void hydraulic_procedural_fbm(Array         &z,
                                     p_noise_x,
                                     p_noise_y,
                                     &ridge_mask_current,
-                                    bbox);
+                                    uv_rect);
 
     ridge_mask += a * ridge_mask_current;
     a_sum += a;
@@ -300,7 +300,7 @@ void hydraulic_procedural_fbm(Array         &z,
                               const Array   *p_noise_x,
                               const Array   *p_noise_y,
                               Array         *p_ridge_mask,
-                              glm::vec4      bbox)
+                              const UvRect  &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_mask && !validate_same_shape(z, *p_mask)) return;
@@ -335,7 +335,7 @@ void hydraulic_procedural_fbm(Array         &z,
                              p_noise_x,
                              p_noise_y,
                              p_ridge_mask,
-                             bbox);
+                             uv_rect);
   }
   else
   {
@@ -364,7 +364,7 @@ void hydraulic_procedural_fbm(Array         &z,
                              p_noise_x,
                              p_noise_y,
                              p_ridge_mask,
-                             bbox);
+                             uv_rect);
     z = lerp(z, z_f, *(p_mask));
   }
 }

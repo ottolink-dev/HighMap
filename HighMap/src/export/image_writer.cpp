@@ -13,7 +13,7 @@
 #include "highmap/export/opencv_writer.hpp"
 #include "highmap/export/openexr_writer.hpp"
 #include "highmap/internal/string_utils.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 #include <ctype.h>
 
@@ -32,7 +32,7 @@ bool ImageWriter::write_chunk(int                       offset_x,
   return this->write_chunk(offset_x, offset_y, channels[0]);
 }
 
-bool ImageWriter::write_tile(const TileRegion &region, const Array &data)
+bool ImageWriter::write_tile(const UvTile &region, const Array &data)
 {
   int core_x = region.key.tx * this->config().tile_shape.x;
   int core_y = region.key.ty * this->config().tile_shape.y;
@@ -54,7 +54,7 @@ bool ImageWriter::write_tile(const TileRegion &region, const Array &data)
   return this->write_chunk(core_x, core_y, data);
 }
 
-bool ImageWriter::write_tile(const TileRegion         &region,
+bool ImageWriter::write_tile(const UvTile             &region,
                              const std::vector<Array> &channels)
 {
   int core_x = region.key.tx * this->config().tile_shape.x;

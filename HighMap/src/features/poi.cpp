@@ -308,10 +308,10 @@ std::vector<PointOfInterest> generate_points_from_score_field(
   Array slope = gradient_norm(heightmap);
   Array aspect_map = gradient_angle(heightmap);
 
-  float xmin = options.bbox.x;
-  float xmax = options.bbox.y;
-  float ymin = options.bbox.z;
-  float ymax = options.bbox.w;
+  float xmin = options.bbox.min.x;
+  float xmax = options.bbox.max.x;
+  float ymin = options.bbox.min.y;
+  float ymax = options.bbox.max.y;
   float dx_domain = xmax - xmin;
   float dy_domain = ymax - ymin;
 
@@ -440,19 +440,21 @@ std::vector<PointOfInterest> generate_points_from_score_field(
       continue;
     }
 
-    PointOfInterest poi{
-        .position = candidate_pos,
-        .score = cand.score,
-        .elevation = heightmap.get_value_bilinear(candidate_pos.x,
-                                                  candidate_pos.y,
-                                                  options.bbox),
-        .slope = slope.get_value_bilinear(candidate_pos.x,
-                                          candidate_pos.y,
-                                          options.bbox),
-        .aspect = aspect_map.get_value_bilinear(candidate_pos.x,
-                                                candidate_pos.y,
-                                                options.bbox),
-        .type = type};
+    PointOfInterest poi{.position = candidate_pos,
+                        .score = cand.score,
+                        .elevation = heightmap.get_value_bilinear(
+                            candidate_pos.x,
+                            candidate_pos.y,
+                            UvRect::from_vec4(options.bbox.to_vec4())),
+                        .slope = slope.get_value_bilinear(
+                            candidate_pos.x,
+                            candidate_pos.y,
+                            UvRect::from_vec4(options.bbox.to_vec4())),
+                        .aspect = aspect_map.get_value_bilinear(
+                            candidate_pos.x,
+                            candidate_pos.y,
+                            UvRect::from_vec4(options.bbox.to_vec4())),
+                        .type = type};
 
     selected_pois.push_back(poi);
   }

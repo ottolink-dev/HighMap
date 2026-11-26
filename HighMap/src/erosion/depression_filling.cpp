@@ -10,21 +10,21 @@
 #include "highmap/erosion/depression_filling.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/internal/validation.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
 
-void depression_filling(Array            &z,
-                        int               iterations,
-                        float             epsilon,
-                        bool              outflow_left,
-                        bool              outflow_right,
-                        bool              outflow_bottom,
-                        bool              outflow_top,
-                        const TileRegion &region,
-                        ICommunicator    &comm)
+void depression_filling(Array         &z,
+                        int            iterations,
+                        float          epsilon,
+                        bool           outflow_left,
+                        bool           outflow_right,
+                        bool           outflow_bottom,
+                        bool           outflow_top,
+                        const UvTile  &region,
+                        ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return;
 
@@ -104,10 +104,10 @@ void depression_filling(Array            &z,
   const int   ny = z.shape.y;
 
   // Domain boundary vs inner tile boundary
-  bool tile_outflow_l = region.is_west_boundary() ? outflow_left : true;
-  bool tile_outflow_r = region.is_east_boundary() ? outflow_right : true;
-  bool tile_outflow_b = region.is_south_boundary() ? outflow_bottom : true;
-  bool tile_outflow_t = region.is_north_boundary() ? outflow_top : true;
+  bool tile_outflow_l = region.is_left_border() ? outflow_left : true;
+  bool tile_outflow_r = region.is_right_border() ? outflow_right : true;
+  bool tile_outflow_b = region.is_bottom_border() ? outflow_bottom : true;
+  bool tile_outflow_t = region.is_top_border() ? outflow_top : true;
 
   int i_min = tile_outflow_l ? 1 : 0;
   int i_max = tile_outflow_r ? nx - 1 : nx;

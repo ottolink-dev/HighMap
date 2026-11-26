@@ -28,7 +28,7 @@ static void BM_rock_simulation_physics(benchmark::State &state)
   RockDistribution dist(0u, 0.0005f, 0.005f, 4.0f);
 
   RockSeedingOptions seed_opts;
-  seed_opts.bbox = {0.f, 1.f, 0.f, 1.f};
+  seed_opts.bbox = BBox2D::unit();
   seed_opts.distribution = dist;
   seed_opts.seed = 42;
 
@@ -38,7 +38,7 @@ static void BM_rock_simulation_physics(benchmark::State &state)
                                     seed_opts);
 
   RockSimulationOptions sim_opts;
-  sim_opts.bbox = {0.f, 1.f, 0.f, 1.f};
+  sim_opts.bbox = BBox2D::unit();
   sim_opts.time_step = 0.005f;
   sim_opts.max_steps = 500;
   sim_opts.gravity = 9.81f;

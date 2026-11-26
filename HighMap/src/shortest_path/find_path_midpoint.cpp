@@ -180,13 +180,13 @@ void find_path_midpoint(const Array      &z,
   }
 }
 
-Path find_path_midpoint(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
-                        glm::vec4    bbox,
-                        float        offset_ratio,
-                        int          max_it,
-                        int          steps)
+Path find_path_midpoint(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
+                        const UvRect &uv_rect,
+                        float         offset_ratio,
+                        int           max_it,
+                        int           steps)
 {
   if (!validate_non_empty(z)) return Path();
 
@@ -200,15 +200,15 @@ Path find_path_midpoint(const Array &z,
   std::vector<Point> points;
   points.reserve(indices.size());
 
-  const float lx = bbox.y - bbox.x;
-  const float ly = bbox.w - bbox.z;
+  const float lx = uv_rect.u_max - uv_rect.u_min;
+  const float ly = uv_rect.v_max - uv_rect.v_min;
   const float denom_x = (z.shape.x > 1) ? float(z.shape.x - 1) : 1.f;
   const float denom_y = (z.shape.y > 1) ? float(z.shape.y - 1) : 1.f;
 
   for (const auto &p : indices)
   {
-    float px = (float(p.x) / denom_x) * lx + bbox.x;
-    float py = (float(p.y) / denom_y) * ly + bbox.z;
+    float px = (float(p.x) / denom_x) * lx + uv_rect.u_min;
+    float py = (float(p.y) / denom_y) * ly + uv_rect.v_min;
     float pv = z(p);
 
     points.emplace_back(px, py, pv);

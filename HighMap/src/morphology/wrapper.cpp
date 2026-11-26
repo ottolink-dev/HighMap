@@ -9,10 +9,10 @@
 namespace hmap
 {
 
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
-                              MinMaxKernel        kernel_type)
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
+                              MinMaxKernel              kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 
@@ -62,10 +62,10 @@ Array morphological_operators(const Array        &array,
 namespace hmap::gpu
 {
 
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
-                              MinMaxKernel        kernel_type)
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
+                              MinMaxKernel              kernel_type)
 {
   if (!validate_non_empty(array)) return Array();
 

@@ -94,3 +94,31 @@ The scattering system handles the distribution of discrete objects over a terrai
 - `hmap::ScatterField`: Container providing spatial operations (collision pruning, density maps, elevation projection).
 - `hmap::Forest`: Scattering container for vegetation and growth models.
 - `hmap::RockField`: Scattering container for rock and debris placement.
+
+## 6. Spatial Coordinates: UV, BBox, and CoordFrame
+
+HighMap distinguishes three complementary 2D spatial representations depending on whether coordinates are normalized, axis-aligned in world space, or oriented:
+
+| Concept | Type | Coordinate Space | Rotation | Primary Use |
+| :--- | :--- | :--- | :--- | :--- |
+| **UV** | `hmap::UvRect` | Normalized $[0, 1]^2$ | No | Tiling (`VirtualArray`, `VirtualTexture`), texture/UV slicing |
+| **BBox** | `hmap::BBox2D` | World / domain space | No | Axis-aligned bounds (`Cloud`, `Path`, `Graph`, function domains) |
+| **CoordFrame** | `hmap::CoordFrame` | World + local $[0, 1]^2$ | Yes | Oriented regions, stamps, and local-to-global transforms |
+
+### UV (`[0, 1]^2` Normalized Domain)
+
+UV coordinates $(u, v) \in [0, 1]^2$ represent a normalized, resolution-independent unit square. `VirtualArray` and `VirtualTexture` canonically span $[0, 1]^2$ in UV space, and each tile carries its own `UvRect` slice.
+
+![UV Space [0, 1]^2](../../images/spatial_uv.svg)
+
+### BBox (`BBox2D` Axis-Aligned Bounding Box)
+
+A bounding box defines an axis-aligned rectangular region in world or domain coordinates using `(xmin, xmax, ymin, ymax)`. It is used for spatial extents of geometric primitives (`Cloud`, `Path`, `Graph`), evaluation domains, and fast overlap checks.
+
+![BBox2D Axis-Aligned Bounding Box](../../images/spatial_bbox.svg)
+
+### CoordFrame (`CoordFrame` Oriented Local Frame)
+
+`hmap::CoordFrame` defines an oriented 2D coordinate frame with an `origin`, `size`, and `rotation_angle`. It maps between local unit coordinates $(r_x, r_y) \in [0, 1]^2$ (`map_to_global_coords`) and global world coordinates $(g_x, g_y)$ (`map_to_relative_coords`), and can compute its enclosing axis-aligned bounding box via `compute_bounding_box()`.
+
+![CoordFrame Oriented Local Frame](../../images/spatial_coordframe.svg)

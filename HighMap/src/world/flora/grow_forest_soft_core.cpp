@@ -30,9 +30,9 @@ Forest grow_forest_soft_core(const Forest               &forest,
                              const InteractionMatrix    &repulsion_strengths,
                              size_t                      target_count,
                              const Array                &max_radius_scale,
-                             float            max_radius_scale_strength,
-                             uint32_t         seed,
-                             const glm::vec4 &bbox)
+                             float         max_radius_scale_strength,
+                             uint32_t      seed,
+                             const BBox2D &bbox)
 {
   if (forest.empty()) return Forest();
 
@@ -116,8 +116,8 @@ Forest grow_forest_soft_core(const Forest               &forest,
 
   auto compute_cell = [&](float x, float y) -> std::pair<int, int>
   {
-    int gx = static_cast<int>(std::floor((x - bbox.x) / cell_size));
-    int gy = static_cast<int>(std::floor((y - bbox.z) / cell_size));
+    int gx = static_cast<int>(std::floor((x - bbox.min.x) / cell_size));
+    int gy = static_cast<int>(std::floor((y - bbox.min.y) / cell_size));
     return {gx, gy};
   };
 
