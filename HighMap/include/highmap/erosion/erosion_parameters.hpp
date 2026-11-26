@@ -66,8 +66,6 @@ struct MiseParams
   bool extrapolate_border = true; // extrapolate border cells from
                                   // interior
   std::uint32_t seed = 1;         // random seed
-  int           threads = 0;      // thread count (0 = hardware
-                                  // concurrency)
   bool exact_flood = false;       // exact priority queue instead of
                                   // buckets
 };
