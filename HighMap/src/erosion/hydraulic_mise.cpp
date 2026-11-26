@@ -800,9 +800,7 @@ Array flow_map_impl(const Array   &z,
   G.accumulate(z, rain, 1.f);
 
   const float inv = 1.f / (float)flow.vector.size();
-
-  for (size_t i = 0; i < flow.vector.size(); ++i)
-    flow.vector[i] = G.area.vector[i] * inv;
+  flow = G.area * inv;
 
   return flow;
 }
@@ -837,7 +835,7 @@ void hydraulic_mise(Array            &z,
 
   const Array z0 = z;
   Array       sediment(z.shape);
-  const float zfloor = *std::min_element(z0.vector.begin(), z0.vector.end());
+  const float zfloor = z0.min();
 
   // setup outlet buffer if provided
   std::vector<uint8_t> outlet_bytes;
@@ -900,11 +898,8 @@ void hydraulic_mise(Array            &z,
         const std::vector<float> kernel = {0.25f, 0.5f, 0.25f};
         Array b = convolve1d_j(convolve1d_i(d, kernel), kernel);
 
-        for (size_t i = 0; i < n; ++i)
-          z.vector[i] = std::max(zfloor,
-                                 before.vector[i] + d.vector[i] +
-                                     params.antialias *
-                                         (b.vector[i] - d.vector[i]));
+        z = before + d + params.antialias * (b - d);
+        clamp_min(z, zfloor);
       }
     }
     else
@@ -963,12 +958,7 @@ void hydraulic_mise(Array            &z,
         }
       }
 
-      if (p_bedrock_ptr)
-      {
-        for (size_t i = 0; i < n; ++i)
-          z.vector[i] = std::max(z.vector[i],
-                                 std::min(z0.vector[i], p_bedrock_ptr[i]));
-      }
+      if (p_bedrock) clamp_min(z, minimum(z0, *p_bedrock));
     }
 
     share *= params.share_ratio;
@@ -1000,12 +990,7 @@ void hydraulic_mise(Array            &z,
       if (p_outlet_ptr[i]) restore(i);
   }
 
-  if (p_bedrock_ptr)
-  {
-    for (size_t i = 0; i < n; ++i)
-      z.vector[i] = std::max(z.vector[i],
-                             std::min(z0.vector[i], p_bedrock_ptr[i]));
-  }
+  if (p_bedrock) clamp_min(z, minimum(z0, *p_bedrock));
 
   if (params.extrapolate_border)
   {
