@@ -10,9 +10,9 @@
 #include <glm/vec4.hpp>
 
 #include "highmap/array.hpp"
-#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/boundary.hpp"
 #include "highmap/spatial/bbox2d.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 
 #include <unordered_map>
 

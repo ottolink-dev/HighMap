@@ -30,10 +30,10 @@ namespace hmap
  */
 struct ForestSeedingOptions
 {
-  BBox2D bbox = BBox2D{}; ///< Bounding box {xmin, xmax, ymin, ymax}.
-  uint32_t seed = 0;                     ///< Random number generator seed.
-  float    exclusion_threshold = 0.f;    ///< Threshold for exclusion map masking.
-  std::vector<Species> species = {};     ///< Optional Species definitions.
+  BBox2D   bbox = BBox2D{};           ///< Bounding box {xmin, xmax, ymin, ymax}.
+  uint32_t seed = 0;                  ///< Random number generator seed.
+  float    exclusion_threshold = 0.f; ///< Threshold for exclusion map masking.
+  std::vector<Species> species = {};  ///< Optional Species definitions.
 };
 
 // ============================================================================

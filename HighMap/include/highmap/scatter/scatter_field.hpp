@@ -254,12 +254,12 @@ public:
    * @param seed     Random seed for candidate sampling.
    * @param bbox     Domain bounding box {xmin, xmax, ymin, ymax}.
    */
-  void pack_interstitial(size_t           count,
-                         const Array     &density = {},
-                         float            r_min = 5e-4f,
-                         float            r_max = 2e-3f,
-                         uint32_t         class_id = 0,
-                         uint32_t         seed = 0,
+  void pack_interstitial(size_t        count,
+                         const Array  &density = {},
+                         float         r_min = 5e-4f,
+                         float         r_max = 2e-3f,
+                         uint32_t      class_id = 0,
+                         uint32_t      seed = 0,
                          const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
@@ -291,9 +291,9 @@ public:
    * @param seed         Random seed for reproducible pruning.
    * @param bbox         Bounding box defining the domain of the density mask.
    */
-  void prune_density(const Array     &density_mask,
-                     float            target_ratio = 0.8f,
-                     uint32_t         seed = 0,
+  void prune_density(const Array  &density_mask,
+                     float         target_ratio = 0.8f,
+                     uint32_t      seed = 0,
                      const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
@@ -372,7 +372,7 @@ public:
    * @param elevation Terrain heightmap array.
    * @param bbox      Bounding box defining the domain of the elevation array.
    */
-  void set_elevation_from_terrain(const Array     &elevation,
+  void set_elevation_from_terrain(const Array  &elevation,
                                   const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
   /**
@@ -442,7 +442,7 @@ public:
                      std::optional<uint32_t> class_id = std::nullopt,
                      Array                  *p_rock_map = nullptr,
                      uint32_t                seed = 0,
-                     const UvRect &uv_rect = UvRect::unit()) const;
+                     const UvRect           &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Exports the items to a CSV file (x, y, z, class_id, radius).
@@ -461,10 +461,10 @@ public:
    * @return            std::vector<uint8_t> Interleaved RGB 8-bit image data
    *                    (size = width * height * 3).
    */
-  std::vector<uint8_t> to_img_8bit(glm::ivec2   shape,
-                                   const Array &background = {},
+  std::vector<uint8_t> to_img_8bit(glm::ivec2    shape,
+                                   const Array  &background = {},
                                    const UvRect &uv_rect = UvRect::unit(),
-                                   bool         flip_y = false) const;
+                                   bool          flip_y = false) const;
 
   /**
    * @brief Exports the items to a PLY file with radius and class as custom
@@ -484,7 +484,7 @@ public:
   void to_png(const std::string &fname,
               glm::ivec2         shape,
               const Array       &background = {},
-              const UvRect &uv_rect = UvRect::unit()) const;
+              const UvRect      &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Returns a multi-line formatted summary string of the scatter field.
@@ -553,6 +553,6 @@ Array scatter_field_to_heightmap(
     std::optional<uint32_t> class_id = std::nullopt,
     Array                  *p_rock_map = nullptr,
     uint32_t                seed = 0,
-    const UvRect &uv_rect = UvRect::unit());
+    const UvRect           &uv_rect = UvRect::unit());
 
 } // namespace hmap

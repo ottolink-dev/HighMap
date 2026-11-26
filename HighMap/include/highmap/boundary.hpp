@@ -105,7 +105,7 @@ void falloff(Array           &array,
              float            strength = 1.f,
              DistanceFunction dist_fct = DistanceFunction::EUCLIDIAN,
              const Array     *p_noise = nullptr,
-             const UvRect &uv_rect = UvRect::unit());
+             const UvRect    &uv_rect = UvRect::unit());
 
 /**
  * @brief Fills the border values of an array (e.g., `i = 0`, `j = 0`, etc.)
@@ -304,9 +304,9 @@ void set_borders(Array     &array,
  * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
  *                      {0.f, 1.f, 0.f, 1.f}.
  */
-void set_borders(Array    &array,
-                 glm::vec4 border_values,
-                 glm::vec4 buffer_sizes,
+void set_borders(Array        &array,
+                 glm::vec4     border_values,
+                 glm::vec4     buffer_sizes,
                  const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -338,9 +338,9 @@ void set_borders(Array &array, float border_values, int buffer_sizes);
  * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
  *                      {0.f, 1.f, 0.f, 1.f}.
  */
-void set_borders(Array    &array,
-                 float     border_values,
-                 float     buffer_sizes,
+void set_borders(Array        &array,
+                 float         border_values,
+                 float         buffer_sizes,
                  const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -403,6 +403,6 @@ void zeroed_edges(Array        &array,
                   glm::vec2            center = {0.5f, 0.5f},
                   float                radius = 0.5f,
                   const Array         *p_noise_r = nullptr,
-                  const UvRect &uv_rect = UvRect::unit());
+                  const UvRect        &uv_rect = UvRect::unit());
 
 } // namespace hmap

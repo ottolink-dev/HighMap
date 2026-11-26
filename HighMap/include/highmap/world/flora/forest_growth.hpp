@@ -199,7 +199,7 @@ Forest grow_forest_competition_nn(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const BBox2D &bbox = BBox2D{});
+    const BBox2D               &bbox = BBox2D{});
 
 /**
  * @brief Adjusts tree radii based on Voronoi cell areas and species competition
@@ -246,7 +246,7 @@ Forest grow_forest_competition_voronoi(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const BBox2D &bbox = BBox2D{});
+    const BBox2D               &bbox = BBox2D{});
 
 /**
  * @brief Simulates iterative plant growth with neighborhood competition and
@@ -317,8 +317,8 @@ Forest grow_forest_soft_core(const Forest               &forest,
                              const InteractionMatrix &repulsion_strengths = {},
                              size_t                   target_count = 0,
                              const Array             &max_radius_scale = {},
-                             float            max_radius_scale_strength = 1.0f,
-                             uint32_t         seed = 0,
+                             float         max_radius_scale_strength = 1.0f,
+                             uint32_t      seed = 0,
                              const BBox2D &bbox = BBox2D{});
 
 /**
@@ -328,15 +328,15 @@ Forest grow_forest_soft_core(const Forest               &forest,
  */
 struct ForestScaleSampler
 {
-  const Array *scale_array = nullptr;
+  const Array  *scale_array = nullptr;
   const BBox2D &bbox = BBox2D{};
-  float        strength = 1.0f;
-  float        bbox_dx = 1.0f;
-  float        bbox_dy = 1.0f;
-  bool         active = false;
+  float         strength = 1.0f;
+  float         bbox_dx = 1.0f;
+  float         bbox_dy = 1.0f;
+  bool          active = false;
 
-  ForestScaleSampler(const Array     &array,
-                     float            strength_factor,
+  ForestScaleSampler(const Array  &array,
+                     float         strength_factor,
                      const BBox2D &bounds);
 
   float sample(float x, float y) const;

@@ -18,9 +18,9 @@
 #pragma once
 
 #include "highmap/array.hpp"
-#include "highmap/spatial/uv_rect.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/spatial/uv_rect.hpp"
 
 namespace hmap
 {
@@ -214,13 +214,13 @@ std::vector<float> logspace(float start,
  * @image html ex_fill_array_using_xy_function.png
  */
 template <typename Fn>
-void fill_array_using_xy_function(Array       &array,
+void fill_array_using_xy_function(Array        &array,
                                   const UvRect &uv_rect,
-                                  const Array *p_ctrl_param,
-                                  const Array *p_noise_x,
-                                  const Array *p_noise_y,
-                                  const Array *p_stretching,
-                                  Fn         &&fct_xy);
+                                  const Array  *p_ctrl_param,
+                                  const Array  *p_noise_x,
+                                  const Array  *p_noise_y,
+                                  const Array  *p_stretching,
+                                  Fn          &&fct_xy);
 
 /**
  * @brief Fill an array using a scalar function based on (x, y) coordinates with
@@ -256,14 +256,14 @@ void fill_array_using_xy_function(Array       &array,
 
 /// @overload
 template <typename Fn>
-void fill_array_using_xy_function(Array       &array,
+void fill_array_using_xy_function(Array        &array,
                                   const UvRect &uv_rect,
-                                  const Array *p_ctrl_param,
-                                  const Array *p_noise_x,
-                                  const Array *p_noise_y,
-                                  const Array *p_stretching,
-                                  Fn         &&fct_xy,
-                                  int          subsampling);
+                                  const Array  *p_ctrl_param,
+                                  const Array  *p_noise_x,
+                                  const Array  *p_noise_y,
+                                  const Array  *p_stretching,
+                                  Fn          &&fct_xy,
+                                  int           subsampling);
 
 /**
  * @brief Find the vertical cut path with the minimum cost using dynamic

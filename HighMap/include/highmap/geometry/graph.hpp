@@ -317,9 +317,9 @@ public:
    * @param bbox                 Bounding box for projection.
    * @param color_by_edge_weight Color lines by edge weight if true.
    */
-  void to_array(Array    &array,
+  void to_array(Array        &array,
                 const BBox2D &bbox,
-                bool      color_by_edge_weight = true) const;
+                bool          color_by_edge_weight = true) const;
 
   /**
    * @brief Apply fractalization to graph edges and project to an array.
@@ -349,10 +349,10 @@ public:
    * @param  bbox_array Output array bounding box.
    * @return            Array SDF array.
    */
-  Array to_array_sdf(glm::ivec2 shape,
+  Array to_array_sdf(glm::ivec2    shape,
                      const BBox2D &bbox,
-                     Array     *p_noise_x = nullptr,
-                     Array     *p_noise_y = nullptr,
+                     Array        *p_noise_x = nullptr,
+                     Array        *p_noise_y = nullptr,
                      const BBox2D &bbox_array = BBox2D{}) const;
 
   /**

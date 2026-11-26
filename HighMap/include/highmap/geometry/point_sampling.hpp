@@ -77,7 +77,7 @@ std::array<std::pair<float, float>, 2> bbox_to_ranges2d(const BBox2D &bbox);
 void expand_points_domain(std::vector<float> &x,
                           std::vector<float> &y,
                           std::vector<float> &value,
-                          const BBox2D &bbox = BBox2D{});
+                          const BBox2D       &bbox = BBox2D{});
 
 /**
  * @brief Expand the grid by adding points on the boundaries of the bounding
@@ -91,8 +91,8 @@ void expand_points_domain(std::vector<float> &x,
 void expand_points_at_domain_boundaries(std::vector<float> &x,
                                         std::vector<float> &y,
                                         std::vector<float> &value,
-                                        const BBox2D &bbox = BBox2D{},
-                                        float     boundary_value = 0.f);
+                                        const BBox2D       &bbox = BBox2D{},
+                                        float boundary_value = 0.f);
 
 /**
  * @brief Expand the grid by adding four points at the corner of the bounding
@@ -106,8 +106,8 @@ void expand_points_at_domain_boundaries(std::vector<float> &x,
 void expand_points_domain_corners(std::vector<float> &x,
                                   std::vector<float> &y,
                                   std::vector<float> &value,
-                                  const BBox2D &bbox = BBox2D{},
-                                  float     corner_value = 0.f);
+                                  const BBox2D       &bbox = BBox2D{},
+                                  float               corner_value = 0.f);
 
 /**
  * @brief Create a continuous 2D function from a sampled array.
@@ -155,7 +155,7 @@ std::array<std::vector<float>, 2> random_points(
     size_t                     count,
     std::uint32_t              seed,
     const PointSamplingMethod &method = PointSamplingMethod::RND_RANDOM,
-    const BBox2D &bbox = BBox2D{});
+    const BBox2D              &bbox = BBox2D{});
 
 /**
  * @brief Generates random 2D points within a bounding box based on a density
@@ -172,9 +172,9 @@ std::array<std::vector<float>, 2> random_points(
  * @return         A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_density(
-    size_t           count,
-    const Array     &density,
-    std::uint32_t    seed,
+    size_t        count,
+    const Array  &density,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -192,9 +192,9 @@ std::array<std::vector<float>, 2> random_points_density(
  * @return       A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_inverse_sampling(
-    size_t           count,
-    const Array     &array,
-    std::uint32_t    seed,
+    size_t        count,
+    const Array  &array,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -211,8 +211,8 @@ std::array<std::vector<float>, 2> random_points_inverse_sampling(
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance(
-    float            min_dist,
-    std::uint32_t    seed,
+    float         min_dist,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -232,10 +232,10 @@ std::array<std::vector<float>, 2> random_points_distance(
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance(
-    float            min_dist,
-    float            max_dist,
-    const Array     &density,
-    std::uint32_t    seed,
+    float         min_dist,
+    float         max_dist,
+    const Array  &density,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -255,10 +255,10 @@ std::array<std::vector<float>, 2> random_points_distance(
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance_power_law(
-    float            dist_min,
-    float            dist_max,
-    float            alpha,
-    std::uint32_t    seed,
+    float         dist_min,
+    float         dist_max,
+    float         alpha,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -278,10 +278,10 @@ std::array<std::vector<float>, 2> random_points_distance_power_law(
  * @return          A pair of float vectors {x_coords, y_coords}.
  */
 std::array<std::vector<float>, 2> random_points_distance_weibull(
-    float            dist_min,
-    float            lambda,
-    float            k,
-    std::uint32_t    seed,
+    float         dist_min,
+    float         lambda,
+    float         k,
+    std::uint32_t seed,
     const BBox2D &bbox = BBox2D{});
 
 /**
@@ -305,7 +305,7 @@ std::array<std::vector<float>, 2> random_points_jittered(
     const glm::vec2 &jitter_amount,
     const glm::vec2 &stagger_ratio,
     std::uint32_t    seed,
-    const BBox2D &bbox = BBox2D{});
+    const BBox2D    &bbox = BBox2D{});
 
 /**
  * @brief Remove grid points that are outside a given bounding box.
@@ -317,7 +317,7 @@ std::array<std::vector<float>, 2> random_points_jittered(
 void remove_points_outside_bbox(std::vector<float> &x,
                                 std::vector<float> &y,
                                 std::vector<float> &value,
-                                const BBox2D &bbox = BBox2D{});
+                                const BBox2D       &bbox = BBox2D{});
 
 /**
  * @brief Rescale coordinate (x, y) so that they fit in a unit-square box based

@@ -23,9 +23,9 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/spatial/bbox2d.hpp"
 #include "highmap/math/constants.hpp"
 #include "highmap/math/core.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 /**
  * @typedef HMAP_FCT_XY_TYPE
@@ -52,7 +52,7 @@ namespace hmap
  *               2D position.
  */
 std::function<float(float, float)> make_xy_function_from_array(
-    const Array     &array,
+    const Array  &array,
     const BBox2D &bbox = BBox2D::unit());
 
 /**
@@ -301,10 +301,10 @@ public:
   QuadSurfaceFunction(float c00, float c10, float c01, float c11);
 
 protected:
-  float     c00;  ///< Bottom-left value.
-  float     c10;  ///< Bottom-right value.
-  float     c01;  ///< Top-left value.
-  float     c11;  ///< Top-right value.
+  float  c00;  ///< Bottom-left value.
+  float  c10;  ///< Bottom-right value.
+  float  c01;  ///< Top-left value.
+  float  c11;  ///< Top-right value.
   BBox2D bbox; ///< Domain bounding box.
 };
 

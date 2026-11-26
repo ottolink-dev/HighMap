@@ -134,7 +134,7 @@ public:
    */
   Cloud(const std::vector<glm::ivec2> &indices,
         const glm::ivec2              &shape,
-        const BBox2D &bbox = BBox2D{});
+        const BBox2D                  &bbox = BBox2D{});
 
   /**
    * @brief  Constructs a new Cloud object from lists of xyz data as glm::vec3.
@@ -276,8 +276,7 @@ public:
    * @param bbox  The bounding box that defines the mapping from the cloud
    *              points' coordinates to the array's coordinates.
    */
-  void set_values_from_array(const Array     &array,
-                             const BBox2D &bbox = BBox2D{});
+  void set_values_from_array(const Array &array, const BBox2D &bbox = BBox2D{});
 
   /**
    * @brief Set the values of the cloud points from an array, using a given
@@ -292,9 +291,9 @@ public:
    *                 ArraySampling::AS_POINT.
    * @param bbox     Bounding box mapping the point coordinates to the array.
    */
-  void set_values_from_array(const Array     &array,
-                             ArraySampling    sampling,
-                             float            radius = 0.f,
+  void set_values_from_array(const Array  &array,
+                             ArraySampling sampling,
+                             float         radius = 0.f,
                              const BBox2D &bbox = BBox2D{});
 
   /**
@@ -306,8 +305,7 @@ public:
    *
    * @param bbox Bounding box in the format {xmin, xmax, ymin, ymax}.
    */
-  void set_values_from_border_distance(
-      const BBox2D &bbox = BBox2D{});
+  void set_values_from_border_distance(const BBox2D &bbox = BBox2D{});
 
   /**
    * @brief Set the values of the cloud points based on the distance to the
@@ -541,7 +539,7 @@ public:
    *                        to the average point spacing.
    */
   void snap_points_to_bounding_box(const BBox2D &bbox = BBox2D{},
-                                   float            tolerance_ratio = 1.f);
+                                   float         tolerance_ratio = 1.f);
 
   // ==========================================================================
   //  Conversion / IO
@@ -614,11 +612,11 @@ public:
    * @image html ex_cloud_to_array_interp.png
    */
   void to_array_interp(Array                &array,
-                       const BBox2D &bbox = BBox2D{},
+                       const BBox2D         &bbox = BBox2D{},
                        InterpolationMethod2D interpolation_method =
                            InterpolationMethod2D::ITP2D_DELAUNAY,
-                       const Array *p_noise_x = nullptr,
-                       const Array *p_noise_y = nullptr,
+                       const Array  *p_noise_x = nullptr,
+                       const Array  *p_noise_y = nullptr,
                        const BBox2D &bbox_array = BBox2D{}) const;
 
   /**
@@ -651,7 +649,7 @@ public:
    */
   void to_png(const std::string &fname,
               int                cmap,
-              const BBox2D &bbox = BBox2D{},
+              const BBox2D      &bbox = BBox2D{},
               int                depth = 0,
               glm::ivec2         shape = {512, 512}) const;
 
@@ -707,8 +705,8 @@ bool has_duplicates(const Cloud &cloud, float eps = 1e-9f, bool xy_only = true);
  * @return       std::vector<float> A vector containing the interpolated values
  *               for each point.
  */
-std::vector<float> interpolate_values_from_array(const Cloud &cloud,
-                                                 const Array &array,
+std::vector<float> interpolate_values_from_array(const Cloud  &cloud,
+                                                 const Array  &array,
                                                  const BBox2D &bbox);
 
 /**
@@ -756,7 +754,7 @@ Cloud random_cloud(
     size_t                     count,
     std::uint32_t              seed,
     const PointSamplingMethod &method = PointSamplingMethod::RND_LHS,
-    const BBox2D &bbox = BBox2D{});
+    const BBox2D              &bbox = BBox2D{});
 
 /**
  * @brief Generates a random cloud of points based on a spatial density map.
@@ -781,9 +779,9 @@ Cloud random_cloud(
  * @image html ex_point_sampling2.png
  * @image html ex_point_sampling3.png
  */
-Cloud random_cloud_density(size_t           count,
-                           const Array     &density,
-                           std::uint32_t    seed,
+Cloud random_cloud_density(size_t        count,
+                           const Array  &density,
+                           std::uint32_t seed,
                            const BBox2D &bbox = BBox2D{});
 
 /**
@@ -798,11 +796,10 @@ Cloud random_cloud_density(size_t           count,
  *                 1.f}.
  * @return         A Cloud containing the generated points.
  */
-Cloud random_cloud_inverse_sampling(
-    size_t           count,
-    const Array     &density,
-    std::uint32_t    seed,
-    const BBox2D &bbox = BBox2D{});
+Cloud random_cloud_inverse_sampling(size_t        count,
+                                    const Array  &density,
+                                    std::uint32_t seed,
+                                    const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Generates a random cloud of points separated by at least a given
@@ -827,8 +824,8 @@ Cloud random_cloud_inverse_sampling(
  * @image html ex_point_sampling2.png
  * @image html ex_point_sampling3.png
  */
-Cloud random_cloud_distance(float            min_dist,
-                            std::uint32_t    seed,
+Cloud random_cloud_distance(float         min_dist,
+                            std::uint32_t seed,
                             const BBox2D &bbox = BBox2D{});
 
 /**
@@ -856,10 +853,10 @@ Cloud random_cloud_distance(float            min_dist,
  * @image html ex_point_sampling2.png
  * @image html ex_point_sampling3.png
  */
-Cloud random_cloud_distance(float            min_dist,
-                            float            max_dist,
-                            const Array     &density,
-                            std::uint32_t    seed,
+Cloud random_cloud_distance(float         min_dist,
+                            float         max_dist,
+                            const Array  &density,
+                            std::uint32_t seed,
                             const BBox2D &bbox = BBox2D{});
 
 /**
@@ -887,12 +884,11 @@ Cloud random_cloud_distance(float            min_dist,
  * @image html ex_point_sampling2.png
  * @image html ex_point_sampling3.png
  */
-Cloud random_cloud_distance_power_law(
-    float            dist_min,
-    float            dist_max,
-    float            alpha,
-    std::uint32_t    seed,
-    const BBox2D &bbox = BBox2D{});
+Cloud random_cloud_distance_power_law(float         dist_min,
+                                      float         dist_max,
+                                      float         alpha,
+                                      std::uint32_t seed,
+                                      const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Generates a random cloud of points with distances drawn from a Weibull
@@ -919,12 +915,11 @@ Cloud random_cloud_distance_power_law(
  * @image html ex_point_sampling2.png
  * @image html ex_point_sampling3.png
  */
-Cloud random_cloud_distance_weibull(
-    float            dist_min,
-    float            lambda,
-    float            k,
-    std::uint32_t    seed,
-    const BBox2D &bbox = BBox2D{});
+Cloud random_cloud_distance_weibull(float         dist_min,
+                                    float         lambda,
+                                    float         k,
+                                    std::uint32_t seed,
+                                    const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Generates a jittered grid cloud of points.
@@ -955,7 +950,7 @@ Cloud random_cloud_jittered(size_t           count,
                             const glm::vec2 &jitter_amount,
                             const glm::vec2 &stagger_ratio,
                             std::uint32_t    seed,
-                            const BBox2D &bbox = BBox2D{});
+                            const BBox2D    &bbox = BBox2D{});
 
 /**
  * @brief Filter a point cloud using rejection sampling based on a density mask.
@@ -971,9 +966,9 @@ Cloud random_cloud_jittered(size_t           count,
  * @param bbox         Bounding box `(xmin, ymin, xmax, ymax)` defining the
  *                     spatial extent of the density mask in world coordinates.
  */
-void rejection_filter_density(Cloud           &cloud,
-                              const Array     &density_mask,
-                              std::uint32_t    seed,
+void rejection_filter_density(Cloud        &cloud,
+                              const Array  &density_mask,
+                              std::uint32_t seed,
                               const BBox2D &bbox = BBox2D{});
 
 /**

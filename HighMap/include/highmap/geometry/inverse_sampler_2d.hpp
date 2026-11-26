@@ -48,8 +48,8 @@ public:
    * @param bbox    Bounding box (xmin, xmax, ymin, ymax). Defaults to unit
    *                square.
    */
-  InverseSampler2D(const Array     &density,
-                   std::uint32_t    seed = 0,
+  InverseSampler2D(const Array  &density,
+                   std::uint32_t seed = 0,
                    const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
@@ -142,8 +142,8 @@ public:
    * @param seed    Random number generator seed.
    * @param bbox    Bounding box (xmin, xmax, ymin, ymax).
    */
-  void reset(const Array     &density,
-             std::uint32_t    seed = 0,
+  void reset(const Array  &density,
+             std::uint32_t seed = 0,
              const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
@@ -177,7 +177,7 @@ public:
 
 private:
   Array                                 density_;
-  BBox2D bbox_ = BBox2D{};
+  BBox2D                                bbox_ = BBox2D{};
   std::vector<float>                    row_sums_;
   std::vector<float>                    r_cdf_;
   std::mt19937                          rng_{0};

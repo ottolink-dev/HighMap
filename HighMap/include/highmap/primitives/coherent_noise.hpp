@@ -96,18 +96,18 @@ Array dendry(glm::ivec2                                       shape,
              glm::vec2                                        kw,
              std::uint32_t                                    seed,
              const std::function<float(float, float, float)> &noise_function,
-             float        noise_function_offset = 0.f,
-             float        noise_function_scaling = 1.f,
-             float        eps = 0.05,
-             int          resolution = 1,
-             float        displacement = 0.075,
-             int          primitives_resolution_steps = 3,
-             float        slope_power = 2.f,
-             float        noise_amplitude_proportion = 0.01,
-             bool         add_control_function = true,
-             float        control_function_overlap = 0.5f,
-             const Array *p_noise_x = nullptr,
-             const Array *p_noise_y = nullptr,
+             float         noise_function_offset = 0.f,
+             float         noise_function_scaling = 1.f,
+             float         eps = 0.05,
+             int           resolution = 1,
+             float         displacement = 0.075,
+             int           primitives_resolution_steps = 3,
+             float         slope_power = 2.f,
+             float         noise_amplitude_proportion = 0.01,
+             bool          add_control_function = true,
+             float         control_function_overlap = 0.5f,
+             const Array  *p_noise_x = nullptr,
+             const Array  *p_noise_y = nullptr,
              const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -963,7 +963,7 @@ Array phasor(PhasorProfile   phasor_profile,
              const Array    *p_angle = nullptr,
              const Array    *p_noise_x = nullptr,
              const Array    *p_noise_y = nullptr,
-             const UvRect &uv_rect = UvRect::unit());
+             const UvRect   &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a multi-octave (fBm) phasor-based pattern.
@@ -1012,7 +1012,7 @@ Array phasor_fbm(PhasorProfile   phasor_profile,
                  const Array    *p_angle = nullptr,
                  const Array    *p_noise_x = nullptr,
                  const Array    *p_noise_y = nullptr,
-                 const UvRect &uv_rect = UvRect::unit());
+                 const UvRect   &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi-based pattern where cells are defined by proximity
@@ -1069,8 +1069,8 @@ Array vorolines(glm::ivec2        shape,
                 VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                 const Array      *p_noise_x = nullptr,
                 const Array      *p_noise_y = nullptr,
-                const UvRect &uv_rect = UvRect::unit(),
-                const UvRect &uv_rect_points = UvRect::unit());
+                const UvRect     &uv_rect = UvRect::unit(),
+                const UvRect     &uv_rect_points = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi-based pattern using distances to lines defined by
@@ -1142,7 +1142,7 @@ Array vorolines_fbm(
     float             lacunarity = 2.f,
     const Array      *p_noise_x = nullptr,
     const Array      *p_noise_y = nullptr,
-    const UvRect &uv_rect = UvRect::unit(),
+    const UvRect     &uv_rect = UvRect::unit(),
     const UvRect     &uv_rect_points = UvRect::unit());
 
 /**
@@ -1197,7 +1197,7 @@ Array voronoi(glm::ivec2        shape,
               const Array      *p_ctrl_param = nullptr,
               const Array      *p_noise_x = nullptr,
               const Array      *p_noise_y = nullptr,
-              const UvRect &uv_rect = UvRect::unit());
+              const UvRect     &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates a Voronoi diagram in a 2D array with configurable
@@ -1262,7 +1262,7 @@ Array voronoi_fbm(glm::ivec2        shape,
                   const Array      *p_ctrl_param = nullptr,
                   const Array      *p_noise_x = nullptr,
                   const Array      *p_noise_y = nullptr,
-                  const UvRect &uv_rect = UvRect::unit());
+                  const UvRect     &uv_rect = UvRect::unit());
 
 /**
  * @brief Computes the Voronoi edge distance.
@@ -1445,7 +1445,7 @@ Array vororand(glm::ivec2        shape,
                VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                const Array      *p_noise_x = nullptr,
                const Array      *p_noise_y = nullptr,
-               const UvRect &uv_rect = UvRect::unit(),
+               const UvRect     &uv_rect = UvRect::unit(),
                const UvRect     &uv_rect_points = UvRect::unit());
 
 Array vororand(glm::ivec2                shape,
@@ -1456,7 +1456,7 @@ Array vororand(glm::ivec2                shape,
                VoronoiReturnType return_type = VoronoiReturnType::F1_SQUARED,
                const Array      *p_noise_x = nullptr,
                const Array      *p_noise_y = nullptr,
-               const UvRect &uv_rect = UvRect::unit());
+               const UvRect     &uv_rect = UvRect::unit());
 
 /**
  * @brief Generates 2D wavelet noise using an OpenCL kernel.

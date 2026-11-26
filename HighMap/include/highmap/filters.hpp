@@ -78,7 +78,7 @@ Array bulkify(const Array         &z,
               const Array         *p_noise_x = nullptr,
               const Array         *p_noise_y = nullptr,
               glm::vec2            center = {0.5f, 0.5f},
-              const UvRect &uv_rect = UvRect::unit());
+              const UvRect        &uv_rect = UvRect::unit());
 
 /**
  * @brief Applies a canyonize filter to a heightmap.
@@ -3055,13 +3055,13 @@ Array voronoi_shrink(const Array  &array,
  *
  * @return               Filtered array with shrunken Voronoi cells.
  */
-Array voronoi_shrink(const Array &array,
-                     const Cloud &cloud,
-                     float        shrink_factor = 0.8f,
-                     float        fill_value = 0.f,
-                     const Array *p_mask = nullptr,
-                     const Array *p_noise_x = nullptr,
-                     const Array *p_noise_y = nullptr,
+Array voronoi_shrink(const Array  &array,
+                     const Cloud  &cloud,
+                     float         shrink_factor = 0.8f,
+                     float         fill_value = 0.f,
+                     const Array  *p_mask = nullptr,
+                     const Array  *p_noise_x = nullptr,
+                     const Array  *p_noise_y = nullptr,
                      const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -3089,7 +3089,7 @@ Array voronoi_shrink(const Array              &array,
                      const Array              *p_mask = nullptr,
                      const Array              *p_noise_x = nullptr,
                      const Array              *p_noise_y = nullptr,
-                     const UvRect &uv_rect = UvRect::unit());
+                     const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief Apply a Voronoi shrinker filter using a list of glm::vec2 coordinates.
@@ -3117,6 +3117,6 @@ Array voronoi_shrink(const Array                  &array,
                      const Array                  *p_mask = nullptr,
                      const Array                  *p_noise_x = nullptr,
                      const Array                  *p_noise_y = nullptr,
-                     const UvRect &uv_rect = UvRect::unit());
+                     const UvRect                 &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu

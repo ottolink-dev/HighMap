@@ -84,11 +84,11 @@ void flip_ud(Array &array);
  * **Result**
  * @image html ex_radial_displacement_to_xy.png
  * */
-void radial_displacement_to_xy(const Array &dr,
-                               Array       &dx,
-                               Array       &dy,
-                               float        smoothing = 1.f,
-                               glm::vec2    center = {0.5f, 0.5f},
+void radial_displacement_to_xy(const Array  &dr,
+                               Array        &dx,
+                               Array        &dy,
+                               float         smoothing = 1.f,
+                               glm::vec2     center = {0.5f, 0.5f},
                                const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -231,12 +231,12 @@ Array symmetrize(
  * **Result**
  * @image html ex_translate.png
  */
-Array translate(const Array &array,
-                float        dx,
-                float        dy,
-                bool         periodic = false,
-                const Array *p_noise_x = nullptr,
-                const Array *p_noise_y = nullptr,
+Array translate(const Array  &array,
+                float         dx,
+                float         dy,
+                bool          periodic = false,
+                const Array  *p_noise_x = nullptr,
+                const Array  *p_noise_y = nullptr,
                 const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -297,12 +297,12 @@ Array transpose(const Array &array);
  * **Result**
  * @image html ex_zoom.png
  */
-Array zoom(const Array &array,
-           float        zoom_factor,
-           bool         periodic = false,
-           glm::vec2    center = {0.5f, 0.5f},
-           const Array *p_noise_x = nullptr,
-           const Array *p_noise_y = nullptr,
+Array zoom(const Array  &array,
+           float         zoom_factor,
+           bool          periodic = false,
+           glm::vec2     center = {0.5f, 0.5f},
+           const Array  *p_noise_x = nullptr,
+           const Array  *p_noise_y = nullptr,
            const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap

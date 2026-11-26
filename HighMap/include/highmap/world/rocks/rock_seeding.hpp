@@ -29,10 +29,10 @@ namespace hmap
  */
 struct RockSeedingOptions
 {
-  BBox2D bbox = BBox2D::unit(); ///< Domain bounding box.
-  uint32_t  seed = 0;                    ///< Random number generator seed.
-  float     exclusion_threshold = 0.f;   ///< Threshold for exclusion map masking.
-  RockDistribution distribution = {};    ///< Rock size & power-law distribution traits.
+  BBox2D   bbox = BBox2D::unit();     ///< Domain bounding box.
+  uint32_t seed = 0;                  ///< Random number generator seed.
+  float    exclusion_threshold = 0.f; ///< Threshold for exclusion map masking.
+  RockDistribution distribution = {}; ///< Rock size & power-law distribution traits.
 };
 
 // ============================================================================

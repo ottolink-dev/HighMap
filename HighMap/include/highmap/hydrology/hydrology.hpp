@@ -449,7 +449,7 @@ Array flow_accumulation_dinf_perturbed(
     std::uint32_t  seed,
     float          amp,
     const Array   *p_perturb_scaling = nullptr,
-    const UvRect &uv_rect = UvRect::unit(),
+    const UvRect  &uv_rect = UvRect::unit(),
     int            iterations = 0,
     const UvTile  &region = {},
     ICommunicator &comm = SingleArrayComm::instance());
@@ -869,21 +869,21 @@ Path flow_stream(const TerrainTriMesh    &mesh,
  * **Result**
  * @image html ex_generate_riverbed.png
  */
-Array generate_riverbed(const Path &path,
-                        glm::ivec2  shape,
+Array generate_riverbed(const Path   &path,
+                        glm::ivec2    shape,
                         const UvRect &uv_rect = UvRect::unit(),
-                        bool        bezier_smoothing = false,
-                        float       depth_start = 0.01f,
-                        float       depth_end = 1.f,
-                        float       slope_start = 64.f,
-                        float       slope_end = 32.f,
-                        float       shape_exponent_start = 1.f,
-                        float       shape_exponent_end = 10.f,
-                        float       k_smoothing = 0.5f,
-                        int         post_filter_ir = 0,
-                        Array      *p_noise_x = nullptr,
-                        Array      *p_noise_y = nullptr,
-                        Array      *p_noise_r = nullptr);
+                        bool          bezier_smoothing = false,
+                        float         depth_start = 0.01f,
+                        float         depth_end = 1.f,
+                        float         slope_start = 64.f,
+                        float         slope_end = 32.f,
+                        float         shape_exponent_start = 1.f,
+                        float         shape_exponent_end = 10.f,
+                        float         k_smoothing = 0.5f,
+                        int           post_filter_ir = 0,
+                        Array        *p_noise_x = nullptr,
+                        Array        *p_noise_y = nullptr,
+                        Array        *p_noise_r = nullptr);
 
 /**
  * @brief Convert a collection of hydrology flow paths into a connected Graph.
@@ -1350,21 +1350,21 @@ Array flow_simulation_viscous(
     ICommunicator &comm = SingleArrayComm::instance());
 
 /*! @brief See hmap::generate_riverbed */
-Array generate_riverbed(const Path &path,
-                        glm::ivec2  shape,
+Array generate_riverbed(const Path   &path,
+                        glm::ivec2    shape,
                         const UvRect &uv_rect = UvRect::unit(),
-                        bool        bezier_smoothing = false,
-                        float       depth_start = 0.01f,
-                        float       depth_end = 1.f,
-                        float       slope_start = 64.f,
-                        float       slope_end = 32.f,
-                        float       shape_exponent_start = 1.f,
-                        float       shape_exponent_end = 10.f,
-                        float       k_smoothing = 0.5f,
-                        int         post_filter_ir = 0,
-                        Array      *p_noise_x = nullptr,
-                        Array      *p_noise_y = nullptr,
-                        Array      *p_noise_r = nullptr);
+                        bool          bezier_smoothing = false,
+                        float         depth_start = 0.01f,
+                        float         depth_end = 1.f,
+                        float         slope_start = 64.f,
+                        float         slope_end = 32.f,
+                        float         shape_exponent_start = 1.f,
+                        float         shape_exponent_end = 10.f,
+                        float         k_smoothing = 0.5f,
+                        int           post_filter_ir = 0,
+                        Array        *p_noise_x = nullptr,
+                        Array        *p_noise_y = nullptr,
+                        Array        *p_noise_r = nullptr);
 
 /**
  * @brief Generates fine-scale snow mantle accumulation over terrain.

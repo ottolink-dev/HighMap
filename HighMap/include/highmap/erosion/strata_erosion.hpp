@@ -108,7 +108,7 @@ void rifts(Array           &z,
            const Array     *p_noise_y = nullptr,
            const Array     *p_mask = nullptr,
            const glm::vec2 &center = {0.5f, 0.5f},
-           const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
+           const UvRect    &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Perform sediment deposition combined with thermal erosion.
@@ -222,7 +222,7 @@ void strata(Array           &z,
             bool             apply_ridge_mask = true,
             float            mask_gamma = 0.4f,
             const Array     *p_mask = nullptr,
-            const UvRect &uv_rect = {0.f, 1.f, 0.f, 1.f});
+            const UvRect    &uv_rect = {0.f, 1.f, 0.f, 1.f});
 
 /**
  * @brief Applies procedural stratified cell displacement to a heightmap.

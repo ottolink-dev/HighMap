@@ -57,13 +57,13 @@ struct VirtualArray;
  *
  * @see                     Array::find_path_dijkstra
  */
-Path dijkstra(const Path  &path,
-              const Array &array,
+Path dijkstra(const Path   &path,
+              const Array  &array,
               const UvRect &uv_rect,
-              float        elevation_ratio = 0.f,
-              float        distance_exponent = 0.5f,
-              float        upward_penalization = 0.1f,
-              Array       *p_mask_nogo = nullptr);
+              float         elevation_ratio = 0.f,
+              float         distance_exponent = 0.5f,
+              float         upward_penalization = 0.1f,
+              Array        *p_mask_nogo = nullptr);
 
 /**
  * @brief Find a Dijkstra-based cut path between two domain boundaries.
@@ -141,12 +141,12 @@ Path find_cut_path_dijkstra(const Array   &z,
  * by recursively subdividing and perturbing a segment. The result is a natural,
  * irregular path defined by normalized (x, y) coordinates and elevations.
  *
- * @param  z               Heightmap array.
- * @param  start           Start boundary.
- * @param  end             End boundary.
- * @param  seed            Random seed.
- * @param  midp_iterations Number of subdivision steps.
- * @param  midp_sigma      Displacement amplitude.
+ * @param  z                     Heightmap array.
+ * @param  start                 Start boundary.
+ * @param  end                   End boundary.
+ * @param  seed                  Random seed.
+ * @param  midp_iterations       Number of subdivision steps.
+ * @param  midp_sigma            Displacement amplitude.
  *
  * @param  favor_boundary_center Favor points near the center of the boundary.
  * @param  favor_lower_elevation Favor lower elevation points on the boundary.
@@ -154,7 +154,8 @@ Path find_cut_path_dijkstra(const Array   &z,
  * @param  region                Tile region metadata.
  * @param  comm                  Tiled communicator instance.
  *
- * @return                 Path with normalized coordinates and elevations.
+ * @return                       Path with normalized coordinates and
+ *                               elevations.
  *
  * **Example**
  * @include ex_find_cut_path.cpp
@@ -346,15 +347,15 @@ std::vector<glm::ivec2> find_path_dijkstra(
  * @return                     Path with coordinates and sampled elevation
  *                             values.
  */
-Path find_path_dijkstra(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
+Path find_path_dijkstra(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
                         const UvRect &uv_rect,
-                        float        elevation_ratio = 0.1f,
-                        float        distance_exponent = 2.f,
-                        float        upward_penalization = 0.1f,
-                        const Array *p_mask_nogo = nullptr,
-                        const Array *p_node_weights = nullptr);
+                        float         elevation_ratio = 0.1f,
+                        float         distance_exponent = 2.f,
+                        float         upward_penalization = 0.1f,
+                        const Array  *p_mask_nogo = nullptr,
+                        const Array  *p_node_weights = nullptr);
 
 /**
  * @brief Compute a path between two points using iterative midpoint refinement.
@@ -421,13 +422,13 @@ void find_path_midpoint(const Array      &z,
  *
  * @return              Path with coordinates and sampled elevation values.
  */
-Path find_path_midpoint(const Array &z,
-                        glm::ivec2   ij_start,
-                        glm::ivec2   ij_end,
+Path find_path_midpoint(const Array  &z,
+                        glm::ivec2    ij_start,
+                        glm::ivec2    ij_end,
                         const UvRect &uv_rect,
-                        float        offset_ratio = 0.2f,
-                        int          max_it = 0,
-                        int          steps = 16);
+                        float         offset_ratio = 0.2f,
+                        int           max_it = 0,
+                        int           steps = 16);
 
 /**
  * @brief Finds a shortest path on a 2D grid using a fast coarse-to-fine
@@ -530,18 +531,18 @@ std::vector<glm::ivec2> find_path_multiscale(const Array &z,
  * @return                     Path containing coordinates and sampled elevation
  *                             values.
  */
-Path find_path_multiscale(const Array &z,
-                          glm::ivec2   ij_start,
-                          glm::ivec2   ij_end,
+Path find_path_multiscale(const Array  &z,
+                          glm::ivec2    ij_start,
+                          glm::ivec2    ij_end,
                           const UvRect &uv_rect,
-                          int          n_levels = 3,
-                          int          corridor_radius = 4,
-                          float        corridor_decay = 1.f,
-                          float        elevation_ratio = 0.1f,
-                          float        distance_exponent = 2.f,
-                          float        upward_penalization = 0.1f,
-                          const Array *p_mask_nogo = nullptr,
-                          bool         use_astar = false,
-                          bool         smooth_path = false);
+                          int           n_levels = 3,
+                          int           corridor_radius = 4,
+                          float         corridor_decay = 1.f,
+                          float         elevation_ratio = 0.1f,
+                          float         distance_exponent = 2.f,
+                          float         upward_penalization = 0.1f,
+                          const Array  *p_mask_nogo = nullptr,
+                          bool          use_astar = false,
+                          bool          smooth_path = false);
 
 } // namespace hmap

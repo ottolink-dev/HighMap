@@ -11,13 +11,13 @@ namespace hmap
 {
 
 template <typename Fn>
-void fill_array_using_xy_function(Array       &array,
+void fill_array_using_xy_function(Array        &array,
                                   const UvRect &uv_rect,
-                                  const Array *p_ctrl_param,
-                                  const Array *p_noise_x,
-                                  const Array *p_noise_y,
-                                  const Array *p_stretching,
-                                  Fn         &&fct_xy)
+                                  const Array  *p_ctrl_param,
+                                  const Array  *p_noise_x,
+                                  const Array  *p_noise_y,
+                                  const Array  *p_stretching,
+                                  Fn          &&fct_xy)
 {
   if (!validate_non_empty(array)) return;
   if (p_ctrl_param && !validate_same_shape(array, *p_ctrl_param)) return;
@@ -104,14 +104,14 @@ void fill_array_using_xy_function(Array       &array,
 }
 
 template <typename Fn>
-void fill_array_using_xy_function(Array       &array,
+void fill_array_using_xy_function(Array        &array,
                                   const UvRect &uv_rect,
-                                  const Array *p_ctrl_param,
-                                  const Array *p_noise_x,
-                                  const Array *p_noise_y,
-                                  const Array *p_stretching,
-                                  Fn         &&fct_xy,
-                                  int          subsampling)
+                                  const Array  *p_ctrl_param,
+                                  const Array  *p_noise_x,
+                                  const Array  *p_noise_y,
+                                  const Array  *p_stretching,
+                                  Fn          &&fct_xy,
+                                  int           subsampling)
 {
   if (!validate_non_empty(array)) return;
   if (p_ctrl_param && !validate_same_shape(array, *p_ctrl_param)) return;

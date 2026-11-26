@@ -192,7 +192,7 @@ Array base_elevation(glm::ivec2                             shape,
                      float                                  width_factor = 1.f,
                      const Array                           *p_noise_x = nullptr,
                      const Array                           *p_noise_y = nullptr,
-                     const Array *p_stretching = nullptr,
+                     const Array  *p_stretching = nullptr,
                      const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -436,11 +436,11 @@ Array ridgelines(glm::ivec2                shape,
                  float                     k_smoothing = 1.f,
                  float                     width = 0.1f,
                  float                     vmin = 0.f,
-                 const UvRect &uv_rect = UvRect::unit(),
+                 const UvRect             &uv_rect = UvRect::unit(),
                  const Array              *p_noise_x = nullptr,
                  const Array              *p_noise_y = nullptr,
                  const Array              *p_stretching = nullptr,
-                 const UvRect &uv_rect_array = UvRect::unit());
+                 const UvRect             &uv_rect_array = UvRect::unit());
 
 /**
  * @brief Generate a heightmap based on a set of ridgelines with quadratic
@@ -500,7 +500,7 @@ Array ridgelines_bezier(glm::ivec2                shape,
                         float                     k_smoothing = 1.f,
                         float                     width = 0.1f,
                         float                     vmin = 0.f,
-                        const UvRect &uv_rect = UvRect::unit(),
+                        const UvRect             &uv_rect = UvRect::unit(),
                         const Array              *p_noise_x = nullptr,
                         const Array              *p_noise_y = nullptr,
                         const Array              *p_stretching = nullptr,
@@ -644,6 +644,6 @@ Array stamping(glm::ivec2                shape,
                float                     k_smoothing = 0.1f,
                bool                      kernel_flip = true,
                bool                      kernel_rotate = false,
-               const UvRect &uv_rect_array = UvRect::unit());
+               const UvRect             &uv_rect_array = UvRect::unit());
 
 } // namespace hmap

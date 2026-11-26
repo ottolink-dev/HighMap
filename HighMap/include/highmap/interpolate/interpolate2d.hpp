@@ -240,7 +240,7 @@ Array interpolate2d(glm::ivec2                shape,
                     InterpolationMethod2D     interpolation_method,
                     const Array              *p_noise_x = nullptr,
                     const Array              *p_noise_y = nullptr,
-                    const UvRect &uv_rect = UvRect::unit());
+                    const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief 2D interpolation using the Delaunay triangulation method.
@@ -266,8 +266,8 @@ Array interpolate2d_delaunay(glm::ivec2                shape,
                              const std::vector<float> &values,
                              const Array              *p_noise_x = nullptr,
                              const Array              *p_noise_y = nullptr,
-                             const UvRect &uv_rect = UvRect::unit(),
-                             float     fill_value = 0.f);
+                             const UvRect             &uv_rect = UvRect::unit(),
+                             float                     fill_value = 0.f);
 
 /**
  * @brief 2D interpolation using a smoother version of the Delaunay
@@ -277,11 +277,11 @@ Array interpolate2d_delaunay_gradient(glm::ivec2                shape,
                                       const std::vector<float> &x,
                                       const std::vector<float> &y,
                                       const std::vector<float> &values,
-                                      const Array *p_noise_x = nullptr,
-                                      const Array *p_noise_y = nullptr,
+                                      const Array  *p_noise_x = nullptr,
+                                      const Array  *p_noise_y = nullptr,
                                       const UvRect &uv_rect = UvRect::unit(),
-                                      float        fill_value = 0.f,
-                                      float        gradient_scaling = 1.f);
+                                      float         fill_value = 0.f,
+                                      float         gradient_scaling = 1.f);
 
 /**
  * @brief 2D interpolation using the Gaussian kernel method.
@@ -292,9 +292,9 @@ Array interpolate2d_gaussian(glm::ivec2                shape,
                              const std::vector<float> &values,
                              const Array              *p_noise_x = nullptr,
                              const Array              *p_noise_y = nullptr,
-                             const UvRect &uv_rect = UvRect::unit(),
-                             float     sigma = 0.05f,
-                             float     radius = 0.f);
+                             const UvRect             &uv_rect = UvRect::unit(),
+                             float                     sigma = 0.05f,
+                             float                     radius = 0.f);
 
 /**
  * @brief 2D interpolation using the IDW method.
@@ -305,7 +305,7 @@ Array interpolate2d_idw(glm::ivec2                shape,
                         const std::vector<float> &values,
                         const Array              *p_noise_x = nullptr,
                         const Array              *p_noise_y = nullptr,
-                        const UvRect &uv_rect = UvRect::unit(),
+                        const UvRect             &uv_rect = UvRect::unit(),
                         float                     distance_exp = 2.f,
                         float                     radius = 0.f);
 
@@ -332,7 +332,7 @@ Array interpolate2d_nearest(glm::ivec2                shape,
                             const std::vector<float> &values,
                             const Array              *p_noise_x = nullptr,
                             const Array              *p_noise_y = nullptr,
-                            const UvRect &uv_rect = UvRect::unit());
+                            const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief 2D interpolation using the Natural Neighbor Interpolation method.
@@ -343,7 +343,7 @@ Array interpolate2d_nni(glm::ivec2                shape,
                         const std::vector<float> &values,
                         const Array              *p_noise_x = nullptr,
                         const Array              *p_noise_y = nullptr,
-                        const UvRect &uv_rect = UvRect::unit());
+                        const UvRect             &uv_rect = UvRect::unit());
 
 } // namespace hmap
 

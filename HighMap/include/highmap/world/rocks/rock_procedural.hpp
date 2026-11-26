@@ -11,8 +11,8 @@
 #include <cstddef>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/spatial/uv_tile.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/world/rocks/rock_field.hpp"
 #include "highmap/world/rocks/rock_seeding.hpp"
 
@@ -50,18 +50,18 @@ namespace hmap
  * @param  bbox                 Domain bounding box for tiled bulkify synthesis.
  * @return                      Array Computed density array in [0, 1].
  */
-Array build_rock_density(const Array &heightmap,
-                         float        max_slope = 0.05f,
-                         float        bulkify_amp = 0.01f,
-                         float        weight_elev = 1.0f,
-                         float        weight_slope = 1.0f,
-                         float        weight_rivers = 1.0f,
-                         float        river_talus_ref = 0.1f,
-                         float        river_clipping_ratio = 1000.0f,
-                         const Array &secondary_density = {},
-                         float        weight_secondary = 1.0f,
-                         const Array &exclusion_mask = {},
-                         float        exclusion_threshold = 0.f,
+Array build_rock_density(const Array  &heightmap,
+                         float         max_slope = 0.05f,
+                         float         bulkify_amp = 0.01f,
+                         float         weight_elev = 1.0f,
+                         float         weight_slope = 1.0f,
+                         float         weight_rivers = 1.0f,
+                         float         river_talus_ref = 0.1f,
+                         float         river_clipping_ratio = 1000.0f,
+                         const Array  &secondary_density = {},
+                         float         weight_secondary = 1.0f,
+                         const Array  &exclusion_mask = {},
+                         float         exclusion_threshold = 0.f,
                          const BBox2D &bbox = BBox2D{});
 
 /**
@@ -101,18 +101,19 @@ Array build_rock_density(const Array &heightmap,
  *                                 reduction.
  * @return                         RockField Placed rocks.
  */
-RockField place_rocks_procedural(size_t       rock_count,
-                                 const Array &elevation,
-                                 float        min_elev = 0.f,
-                                 float        max_elev = 0.9f,
-                                 float        max_slope = 1.f,
-                                 const Array &density = {},
-                                 const Array &exclusion = {},
-                                 float        size_slope_weight = 0.f,
-                                 float        size_elevation_gain = 1.f,
-                                 float        size_elevation_exponent = 1.f,
-                                 const RockSeedingOptions &options = {},
-                                 const UvTile             &region = UvTile::unit(),
-                                 ICommunicator &comm = SingleArrayComm::instance());
+RockField place_rocks_procedural(
+    size_t                    rock_count,
+    const Array              &elevation,
+    float                     min_elev = 0.f,
+    float                     max_elev = 0.9f,
+    float                     max_slope = 1.f,
+    const Array              &density = {},
+    const Array              &exclusion = {},
+    float                     size_slope_weight = 0.f,
+    float                     size_elevation_gain = 1.f,
+    float                     size_elevation_exponent = 1.f,
+    const RockSeedingOptions &options = {},
+    const UvTile             &region = UvTile::unit(),
+    ICommunicator            &comm = SingleArrayComm::instance());
 
 } // namespace hmap

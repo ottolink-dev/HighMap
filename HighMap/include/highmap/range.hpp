@@ -223,13 +223,13 @@ void clamp_max_smooth(Array &array, const Array &vmax, float k = 0.2f);
  * **Result**
  * @image html ex_clamp.png
  */
-void clamp_oblique_plane(Array    &array,
-                         float     vmax,
-                         float     angle,
-                         float     slope,
-                         bool      use_max_operator = true, // min if not
-                         float     k = 0.f,
-                         glm::vec2 center = {0.5f, 0.5f},
+void clamp_oblique_plane(Array        &array,
+                         float         vmax,
+                         float         angle,
+                         float         slope,
+                         bool          use_max_operator = true, // min if not
+                         float         k = 0.f,
+                         glm::vec2     center = {0.5f, 0.5f},
                          const BBox2D &bbox = BBox2D::unit());
 
 /**

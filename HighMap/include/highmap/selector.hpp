@@ -260,8 +260,8 @@ Array select_interval(const Array &array, float value1, float value2);
  * **Result**
  * @image html ex_select_inward_outward_slope.png
  */
-Array select_inward_outward_slope(const Array &array,
-                                  glm::vec2    center = {0.5f, 0.5f},
+Array select_inward_outward_slope(const Array  &array,
+                                  glm::vec2     center = {0.5f, 0.5f},
                                   const BBox2D &bbox = BBox2D::unit());
 
 /**

@@ -44,45 +44,45 @@ namespace hmap
  * **Result**
  * @image html ex_sdf_polyline.png
  */
-Array sdf_2d_polyline(const Path  &path,
-                      glm::ivec2   shape,
+Array sdf_2d_polyline(const Path   &path,
+                      glm::ivec2    shape,
                       const UvRect &uv_rect = UvRect::unit(),
-                      const Array *p_noise_x = nullptr,
-                      const Array *p_noise_y = nullptr,
-                      bool         use_bvh = true);
+                      const Array  *p_noise_x = nullptr,
+                      const Array  *p_noise_y = nullptr,
+                      bool          use_bvh = true);
 
-Array sdf_2d_polyline_brute_force(const Path  &path,
-                                  glm::ivec2   shape,
+Array sdf_2d_polyline_brute_force(const Path   &path,
+                                  glm::ivec2    shape,
                                   const UvRect &uv_rect = UvRect::unit(),
-                                  const Array *p_noise_x = nullptr,
-                                  const Array *p_noise_y = nullptr);
+                                  const Array  *p_noise_x = nullptr,
+                                  const Array  *p_noise_y = nullptr);
 
-Array sdf_2d_polyline_bvh(const Path  &path,
-                          glm::ivec2   shape,
+Array sdf_2d_polyline_bvh(const Path   &path,
+                          glm::ivec2    shape,
                           const UvRect &uv_rect = UvRect::unit(),
-                          const Array *p_noise_x = nullptr,
-                          const Array *p_noise_y = nullptr);
+                          const Array  *p_noise_x = nullptr,
+                          const Array  *p_noise_y = nullptr);
 
 /*! @brief See hmap::sdf_2d_polyline, with a Bezier approximation of the path.
  */
-Array sdf_2d_polyline_bezier(const Path  &path,
-                             glm::ivec2   shape,
+Array sdf_2d_polyline_bezier(const Path   &path,
+                             glm::ivec2    shape,
                              const UvRect &uv_rect = UvRect::unit(),
-                             const Array *p_noise_x = nullptr,
-                             const Array *p_noise_y = nullptr,
-                             bool         use_bvh = true);
+                             const Array  *p_noise_x = nullptr,
+                             const Array  *p_noise_y = nullptr,
+                             bool          use_bvh = true);
 
-Array sdf_2d_polyline_bezier_brute_force(const Path &path,
-                                         glm::ivec2  shape,
+Array sdf_2d_polyline_bezier_brute_force(const Path   &path,
+                                         glm::ivec2    shape,
                                          const UvRect &uv_rect = UvRect::unit(),
-                                         const Array *p_noise_x = nullptr,
-                                         const Array *p_noise_y = nullptr);
+                                         const Array  *p_noise_x = nullptr,
+                                         const Array  *p_noise_y = nullptr);
 
-Array sdf_2d_polyline_bezier_bvh(const Path  &path,
-                                 glm::ivec2   shape,
+Array sdf_2d_polyline_bezier_bvh(const Path   &path,
+                                 glm::ivec2    shape,
                                  const UvRect &uv_rect = UvRect::unit(),
-                                 const Array *p_noise_x = nullptr,
-                                 const Array *p_noise_y = nullptr);
+                                 const Array  *p_noise_x = nullptr,
+                                 const Array  *p_noise_y = nullptr);
 
 /**
  * @brief Computes the 2D unsigned distance field to a graph network.
@@ -101,24 +101,24 @@ Array sdf_2d_polyline_bezier_bvh(const Path  &path,
  * @param  use_bvh   Whether to use BVH spatial acceleration (default: true).
  * @return           Array containing Euclidean distance to the graph network.
  */
-Array sdf_2d_graph(const Graph &graph,
-                   glm::ivec2   shape,
+Array sdf_2d_graph(const Graph  &graph,
+                   glm::ivec2    shape,
                    const UvRect &uv_rect = UvRect::unit(),
-                   const Array *p_noise_x = nullptr,
-                   const Array *p_noise_y = nullptr,
-                   bool         use_bvh = true);
+                   const Array  *p_noise_x = nullptr,
+                   const Array  *p_noise_y = nullptr,
+                   bool          use_bvh = true);
 
-Array sdf_2d_graph_brute_force(const Graph &graph,
-                               glm::ivec2   shape,
+Array sdf_2d_graph_brute_force(const Graph  &graph,
+                               glm::ivec2    shape,
                                const UvRect &uv_rect = UvRect::unit(),
-                               const Array *p_noise_x = nullptr,
-                               const Array *p_noise_y = nullptr);
+                               const Array  *p_noise_x = nullptr,
+                               const Array  *p_noise_y = nullptr);
 
-Array sdf_2d_graph_bvh(const Graph &graph,
-                       glm::ivec2   shape,
+Array sdf_2d_graph_bvh(const Graph  &graph,
+                       glm::ivec2    shape,
                        const UvRect &uv_rect = UvRect::unit(),
-                       const Array *p_noise_x = nullptr,
-                       const Array *p_noise_y = nullptr);
+                       const Array  *p_noise_x = nullptr,
+                       const Array  *p_noise_y = nullptr);
 
 } // namespace hmap
 
@@ -126,17 +126,17 @@ namespace hmap::gpu
 {
 
 /*! @brief See hmap::sdf_2d_polyline */
-Array sdf_2d_polyline(const Path  &path,
-                      glm::ivec2   shape,
+Array sdf_2d_polyline(const Path   &path,
+                      glm::ivec2    shape,
                       const UvRect &uv_rect = UvRect::unit(),
-                      const Array *p_noise_x = nullptr,
-                      const Array *p_noise_y = nullptr);
+                      const Array  *p_noise_x = nullptr,
+                      const Array  *p_noise_y = nullptr);
 
 /*! @brief See hmap::sdf_2d_polyline_bezier */
-Array sdf_2d_polyline_bezier(const Path  &path,
-                             glm::ivec2   shape,
+Array sdf_2d_polyline_bezier(const Path   &path,
+                             glm::ivec2    shape,
                              const UvRect &uv_rect = UvRect::unit(),
-                             const Array *p_noise_x = nullptr,
-                             const Array *p_noise_y = nullptr);
+                             const Array  *p_noise_x = nullptr,
+                             const Array  *p_noise_y = nullptr);
 
 } // namespace hmap::gpu
