@@ -133,6 +133,8 @@ Forest seed_forest_clusters(size_t                      species_count,
  * @param  k_neighbors        Number of nearest spatial neighbors used to
  *                            extract compactness features.
  * @param  options            Seeding options.
+ * @param  region             UvTile descriptor for tiled domain positioning.
+ * @param  comm               Communicator for collective density reduction.
  * @return                    Forest Sampled forest container.
  */
 Forest seed_forest_kmeans(size_t                      species_count,
@@ -141,6 +143,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
                           const Array                &exclusion,
                           float                       cluster_randomness = 0.0f,
                           size_t                      k_neighbors = 4,
-                          const ForestSeedingOptions &options = {});
+                          const ForestSeedingOptions &options = {},
+                          const UvTile               &region = UvTile::unit(),
+                          ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap

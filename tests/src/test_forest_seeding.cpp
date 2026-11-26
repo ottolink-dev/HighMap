@@ -1331,3 +1331,92 @@ TEST(ForestSeedingTest, CompareNonTiledAndTiledSeedForestClusters)
     EXPECT_FALSE(tree.position.x >= 55.0f && tree.position.y >= 55.0f);
   }
 }
+
+TEST(ForestSeedingTest, CompareNonTiledAndTiledSeedForestKmeans)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::ivec2 tile_shape = {32, 32};
+  int        halo = 0;
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
+
+  Array density_arr(shape, 1.0f);
+  Array exclusion_arr(shape, 0.0f);
+
+  // Exclude top-right quadrant
+  for (int j = 32; j < 64; ++j)
+    for (int i = 32; i < 64; ++i)
+      exclusion_arr(i, j) = 1.0f;
+
+  ForestSeedingOptions options;
+  options.seed = 42;
+  options.bbox = bbox;
+  options.exclusion_threshold = 0.5f;
+
+  size_t species_count = 3;
+  size_t tree_count = 120;
+
+  // 1. Non-tiled execution
+  Forest non_tiled = seed_forest_kmeans(species_count,
+                                        tree_count,
+                                        density_arr,
+                                        exclusion_arr,
+                                        0.1f,
+                                        4,
+                                        options);
+
+  // 2. Tiled execution via VirtualArray + for_each_tile + comm
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+  VirtualArray density_va(shape, tile_shape, halo);
+  VirtualArray exclusion_va(shape, tile_shape, halo);
+  density_va.from_array(density_arr, cm);
+  exclusion_va.from_array(exclusion_arr, cm);
+
+  glm::ivec2                num_tiles = density_va.get_max_tiles();
+  int                       total_tiles = num_tiles.x * num_tiles.y;
+  std::vector<ScatterField> tile_fields(total_tiles);
+  std::vector<BBox2D>       tile_bboxs(total_tiles);
+
+  for_each_tile(
+      {&density_va, &exclusion_va},
+      {},
+      [&](const std::vector<const Array *> &p_arrays_in,
+          std::vector<Array *> &,
+          const UvTile  &region,
+          ICommunicator &comm)
+      {
+        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
+        tile_bboxs[tile_index] = BBox2D(
+            bbox.min.x + region.uv_rect.u_min * (bbox.max.x - bbox.min.x),
+            bbox.min.x + region.uv_rect.u_max * (bbox.max.x - bbox.min.x),
+            bbox.min.y + region.uv_rect.v_min * (bbox.max.y - bbox.min.y),
+            bbox.min.y + region.uv_rect.v_max * (bbox.max.y - bbox.min.y));
+        tile_fields[tile_index] = seed_forest_kmeans(species_count,
+                                                     tree_count,
+                                                     *p_arrays_in[0],
+                                                     *p_arrays_in[1],
+                                                     0.1f,
+                                                     4,
+                                                     options,
+                                                     region,
+                                                     comm);
+      },
+      cm);
+
+  Forest tiled(merge_scatter_fields(tile_fields, tile_bboxs, true));
+
+  EXPECT_GT(non_tiled.size(), 0u);
+  EXPECT_GT(tiled.size(), 0u);
+  EXPECT_NEAR(static_cast<double>(tiled.size()),
+              static_cast<double>(non_tiled.size()),
+              20.0);
+
+  for (const auto &tree : tiled)
+  {
+    EXPECT_GE(tree.position.x, bbox.min.x);
+    EXPECT_LE(tree.position.x, bbox.max.x);
+    EXPECT_GE(tree.position.y, bbox.min.y);
+    EXPECT_LE(tree.position.y, bbox.max.y);
+    EXPECT_LT(tree.class_id, species_count);
+    EXPECT_FALSE(tree.position.x >= 55.0f && tree.position.y >= 55.0f);
+  }
+}

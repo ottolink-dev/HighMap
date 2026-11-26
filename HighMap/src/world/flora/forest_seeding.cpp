@@ -323,7 +323,9 @@ Forest seed_forest_kmeans(size_t                      species_count,
                           const Array                &exclusion,
                           float                       cluster_randomness,
                           size_t                      k_neighbors,
-                          const ForestSeedingOptions &options)
+                          const ForestSeedingOptions &options,
+                          const UvTile               &region,
+                          ICommunicator              &comm)
 {
   // validate inputs
   if (species_count == 0 || tree_count == 0 || !validate_non_empty(density))
@@ -332,6 +334,11 @@ Forest seed_forest_kmeans(size_t                      species_count,
   float width = options.bbox.max.x - options.bbox.min.x;
   float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return Forest();
+
+  BBox2D local_bbox(options.bbox.min.x + region.uv_rect.u_min * width,
+                    options.bbox.min.x + region.uv_rect.u_max * width,
+                    options.bbox.min.y + region.uv_rect.v_min * height,
+                    options.bbox.min.y + region.uv_rect.v_max * height);
 
   // --- Modulate Density by Exclusion Map
 
@@ -352,7 +359,26 @@ Forest seed_forest_kmeans(size_t                      species_count,
       }
   }
 
-  InverseSampler2D sampler(effective_density, options.seed, options.bbox);
+  // --- Collective Density Reduction & Local Tree Quota
+
+  float local_sum = effective_density.sum();
+  float total_sum = comm.all_reduce(local_sum, ReduceOp::Sum);
+  if (total_sum <= 1e-7f) return Forest();
+
+  size_t local_tree_count = tree_count;
+  if (comm.size() > 1)
+  {
+    local_tree_count = static_cast<size_t>(
+        std::round(static_cast<float>(tree_count) * (local_sum / total_sum)));
+  }
+  if (local_tree_count == 0) return Forest();
+
+  uint32_t local_seed = (comm.size() > 1)
+                            ? (options.seed +
+                               static_cast<uint32_t>(comm.rank()) * 1999u + 17u)
+                            : options.seed;
+
+  InverseSampler2D sampler(effective_density, local_seed, local_bbox);
   if (sampler.get_total_weight() <= 1e-7f) return Forest();
 
   // --- Sample Coordinates Using 2D Inverse Sampling
@@ -366,7 +392,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
   }
 
   // generate candidate point positions based on the 2d probability density
-  auto   samples = sampler.sample(tree_count);
+  auto   samples = sampler.sample(local_tree_count);
   size_t actual_count = samples[0].size();
   if (actual_count == 0) return Forest();
 
@@ -448,7 +474,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
 
     if (rand_amount > 0.0f)
     {
-      std::mt19937                          rng(options.seed + 1);
+      std::mt19937                          rng(local_seed + 1);
       std::uniform_real_distribution<float> dist_uni(-0.5f, 0.5f);
 
       float span_min = std::max(1e-6f, max_dmin - min_dmin);
