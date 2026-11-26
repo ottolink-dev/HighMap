@@ -15,6 +15,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/world/flora/forest.hpp"
 #include "highmap/world/flora/species.hpp"
 
@@ -271,6 +272,8 @@ Forest grow_forest_competition_voronoi(
  *                                   plants.
  * @param  bbox                      Spatial bounding box for sampling
  *                                   max_radius_scale.
+ * @param  region                    UvTile descriptor for tiled domain
+ *                                   positioning.
  * @return                           Forest Grown and thinned forest container.
  */
 Forest grow_forest_iterative(const Forest               &forest,
@@ -279,9 +282,10 @@ Forest grow_forest_iterative(const Forest               &forest,
                              float                       growth_rate = 0.1f,
                              const InteractionMatrix &competition_matrix = {},
                              const Array             &max_radius_scale = {},
-                             float            max_radius_scale_strength = 1.0f,
-                             bool             prune_unviable = true,
-                             const BBox2D &bbox = BBox2D{});
+                             float         max_radius_scale_strength = 1.0f,
+                             bool          prune_unviable = true,
+                             const BBox2D &bbox = BBox2D{},
+                             const UvTile &region = UvTile::unit());
 
 /**
  * @brief Performs multi-species Strauss soft-core growth and thinning on an

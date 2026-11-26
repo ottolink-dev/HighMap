@@ -4,8 +4,12 @@
 #pragma once
 
 #include <cstdint>
+#include <vector>
 
 #include "highmap/array.hpp"
+#include "highmap/interpolate/interpolate2d.hpp"
+#include "highmap/terrain_tri_mesh.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
 {
@@ -414,6 +418,119 @@ void hydraulic_stream_log_multiscale(Array        &z,
                                      float         warp = 0.35f,
                                      std::uint32_t seed = 1);
 
+/**
+ * @brief Perform hydraulic erosion on a triangulated terrain mesh.
+ *
+ * Iteratively updates elevations using a drainage model with uplift, slope
+ * constraints, and spatially varying erodibility.
+ *
+ * @param mesh           Input/output terrain mesh.
+ * @param erodibility    Per-vertex erodibility coefficients.
+ * @param max_slope      Per-vertex maximum slope constraint.
+ * @param m_exp          Exponent controlling flow response.
+ * @param uplift_rate    Constant uplift applied each iteration.
+ * @param tolerance      Convergence threshold on elevation updates.
+ * @param max_iterations Maximum number of erosion iterations.
+ *
+ * **Example**
+ * @include ex_hydraulic_saleve.cpp
+ *
+ * **Result**
+ * @image html ex_hydraulic_saleve.png
+ */
+// this function is going to be removed at some point
+[[deprecated("This function is going to be removed at some point.")]]
+void hydraulic_saleve(TerrainTriMesh           &mesh,
+                      const std::vector<float> &erodibility,
+                      const std::vector<float> &max_slope,
+                      float                     m_exp = 0.8f,
+                      float                     uplift_rate = 1.f,
+                      float                     tolerance = 1e-3f,
+                      int                       max_iterations = 200,
+                      float                     noise_strength = 0.f,
+                      std::uint32_t             seed = 0,
+                      bool  enable_post_slope_limiter = false,
+                      float post_slope_limit = 0.f,
+                      bool  enable_post_smoothing = false);
+
+/**
+ * @brief Apply hydraulic erosion to a heightmap using an adaptive mesh.
+ *
+ * Converts the input heightmap to a triangulated mesh, performs erosion, and
+ * interpolates the result back to a grid.
+ *
+ * @param  z                        Input heightmap.
+ * @param  seed                     Random seed for point sampling.
+ * @param  control_points_count     Number of mesh control points.
+ * @param  m_exp                    Flow response exponent.
+ * @param  uplift_rate              Constant uplift per iteration.
+ * @param  tolerance                Convergence threshold.
+ * @param  max_iterations           Maximum number of iterations.
+ * @param  smin                     Minimum slope constraint.
+ * @param  smax                     Maximum slope constraint.
+ * @param  strength                 Blending factor between original and eroded
+ *                                  terrain.
+ * @param  scale_erodibility_with_z Modulate erodibility with elevation.
+ * @param  erodibility_distrib_exp  Exponent for erodibility distribution.
+ * @param  p_noise_x                Optional X displacement field.
+ * @param  p_noise_y                Optional Y displacement field.
+ *
+ * @return                          Eroded heightmap.
+ *
+ * **Example**
+ * @include ex_hydraulic_saleve.cpp
+ *
+ * **Result**
+ * @image html ex_hydraulic_saleve.png
+ */
+// this function is going to be removed at some point
+[[deprecated("This function is going to be removed at some point.")]]
+Array hydraulic_saleve(const Array          &z,
+                       std::uint32_t         seed,
+                       size_t                control_points_count = 10000,
+                       float                 m_exp = 0.8f,
+                       float                 uplift_rate = 1.f,
+                       float                 tolerance = 1e-3f,
+                       int                   max_iterations = 200,
+                       float                 smin = 0.f,
+                       float                 smax = 6.f,
+                       float                 strength = 0.5f,
+                       bool                  scale_erodibility_with_z = true,
+                       float                 erodibility_distrib_exp = 1.f,
+                       float                 noise_strength = 0.f,
+                       bool                  enable_post_slope_limiter = false,
+                       float                 post_slope_limit = 0.f,
+                       bool                  enable_post_smoothing = false,
+                       InterpolationMethod2D interpolation_method =
+                           InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+                       const Array *p_noise_x = nullptr,
+                       const Array *p_noise_y = nullptr);
+
+/// @overload
+// this function is going to be removed at some point
+[[deprecated("This function is going to be removed at some point.")]]
+Array hydraulic_saleve(const Array          &z,
+                       const Array          *p_mask,
+                       std::uint32_t         seed,
+                       size_t                control_points_count = 10000,
+                       float                 m_exp = 0.8f,
+                       float                 uplift_rate = 1.f,
+                       float                 tolerance = 1e-3f,
+                       int                   max_iterations = 200,
+                       float                 smin = 0.f,
+                       float                 smax = 6.f,
+                       float                 strength = 0.5f,
+                       bool                  scale_erodibility_with_z = true,
+                       float                 erodibility_distrib_exp = 1.f,
+                       float                 noise_strength = 0.f,
+                       bool                  enable_post_slope_limiter = false,
+                       float                 post_slope_limit = 0.f,
+                       bool                  enable_post_smoothing = false,
+                       InterpolationMethod2D interpolation_method =
+                           InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+                       const Array *p_noise_x = nullptr,
+                       const Array *p_noise_y = nullptr);
+
 } // namespace hmap
 
 namespace hmap::gpu
@@ -454,3 +571,36 @@ void hydraulic_musgrave(Array &z,
                         float  evap_rate = 0.01f);
 
 } // namespace hmap::gpu
+
+namespace hmap::va
+{
+
+// --- Deprecated VirtualArray Hydraulic Functions
+
+// this function is going to be removed at some point
+[[deprecated("This function is going to be removed at some point.")]]
+VirtualArray hydraulic_saleve(
+    const ComputeMode    &cm,
+    const VirtualArray   &z,
+    std::uint32_t         seed,
+    size_t                control_points_count = 10000,
+    float                 m_exp = 0.8f,
+    float                 uplift_rate = 1.f,
+    float                 tolerance = 1e-3f,
+    int                   max_iterations = 200,
+    float                 smin = 0.f,
+    float                 smax = 6.f,
+    float                 strength = 0.5f,
+    bool                  scale_erodibility_with_z = true,
+    float                 erodibility_distrib_exp = 1.f,
+    float                 noise_strength = 0.f,
+    bool                  enable_post_slope_limiter = false,
+    float                 post_slope_limit = 0.f,
+    bool                  enable_post_smoothing = false,
+    InterpolationMethod2D interpolation_method =
+        InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT,
+    const VirtualArray *p_noise_x = nullptr,
+    const VirtualArray *p_noise_y = nullptr,
+    const VirtualArray *p_mask = nullptr);
+
+} // namespace hmap::va

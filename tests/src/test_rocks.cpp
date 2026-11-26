@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/world/rocks.hpp"
 
 #include <gtest/gtest.h>
@@ -134,8 +135,6 @@ TEST(RockFieldTest, VirtualArraySeeding)
   ComputeMode  cm;
   density.fill(1.0f, cm);
 
-  VirtualArray exclusion;
-
   RockSeedingOptions options;
   options.seed = 42;
   options.bbox = bbox;
@@ -143,11 +142,35 @@ TEST(RockFieldTest, VirtualArraySeeding)
 
   size_t target_count = 60;
 
-  RockField field = hmap::va::seed_rock_field(target_count,
-                                              density,
-                                              exclusion,
-                                              options,
-                                              cm);
+  glm::ivec2                num_tiles = density.get_max_tiles();
+  int                       total_tiles = num_tiles.x * num_tiles.y;
+  std::vector<ScatterField> tile_fields(total_tiles);
+  std::vector<BBox2D>       tile_bboxs(total_tiles);
+
+  for_each_tile(
+      {&density},
+      {},
+      [&](const std::vector<const Array *> &p_arrays_in,
+          std::vector<Array *> &,
+          const UvTile  &region,
+          ICommunicator &comm)
+      {
+        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
+        tile_bboxs[tile_index] = BBox2D(
+            bbox.min.x + region.uv_rect.u_min * (bbox.max.x - bbox.min.x),
+            bbox.min.x + region.uv_rect.u_max * (bbox.max.x - bbox.min.x),
+            bbox.min.y + region.uv_rect.v_min * (bbox.max.y - bbox.min.y),
+            bbox.min.y + region.uv_rect.v_max * (bbox.max.y - bbox.min.y));
+        tile_fields[tile_index] = seed_rock_field(target_count,
+                                                  *p_arrays_in[0],
+                                                  {},
+                                                  options,
+                                                  region,
+                                                  comm);
+      },
+      cm);
+
+  RockField field(merge_scatter_fields(tile_fields, tile_bboxs, true));
 
   EXPECT_GT(field.size(), 0u);
   EXPECT_LE(field.size(), target_count);
@@ -163,64 +186,92 @@ TEST(RockFieldTest, VirtualArraySeeding)
   }
 }
 
-TEST(RockFieldTest, VirtualArrayExclusionMask)
+TEST(RockFieldTest, TiledNonTiledComparison)
 {
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  BBox2D     bbox(0.0f, 1.0f, 0.0f, 1.0f);
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
 
-  VirtualArray density(shape, tile_shape, halo);
-  VirtualArray exclusion(shape, tile_shape, halo);
-  ComputeMode  cm;
-  density.fill(1.0f, cm);
-  exclusion.fill(0.0f, cm);
+  Array density_arr(shape, 1.0f);
+  Array exclusion_arr(shape, 0.0f);
 
-  // Exclude top half (y >= 0.5)
-  Array excl_array(shape, 0.0f);
+  // Exclude top-right quadrant (x >= 50, y >= 50)
   for (int j = 32; j < 64; ++j)
   {
-    for (int i = 0; i < 64; ++i)
+    for (int i = 32; i < 64; ++i)
     {
-      excl_array(i, j) = 1.0f;
+      exclusion_arr(i, j) = 1.0f;
     }
   }
-  exclusion.from_array(excl_array, cm);
 
   RockSeedingOptions options;
-  options.seed = 123;
+  options.seed = 42;
   options.bbox = bbox;
   options.exclusion_threshold = 0.5f;
+  options.distribution = RockDistribution(1u, 0.5f, 2.0f, 2.0f);
 
-  RockField field = hmap::va::seed_rock_field(60,
-                                              density,
-                                              exclusion,
-                                              options,
-                                              cm);
+  size_t rock_count = 120;
 
-  EXPECT_GT(field.size(), 0u);
+  // 1. Non-tiled execution
+  RockField non_tiled = seed_rock_field(rock_count,
+                                        density_arr,
+                                        exclusion_arr,
+                                        options);
 
-  for (const auto &rock : field)
+  // 2. Tiled execution via VirtualArray + for_each_tile + comm
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+  VirtualArray density_va(shape, tile_shape, halo);
+  VirtualArray exclusion_va(shape, tile_shape, halo);
+  density_va.from_array(density_arr, cm);
+  exclusion_va.from_array(exclusion_arr, cm);
+
+  glm::ivec2                num_tiles = density_va.get_max_tiles();
+  int                       total_tiles = num_tiles.x * num_tiles.y;
+  std::vector<ScatterField> tile_fields(total_tiles);
+  std::vector<BBox2D>       tile_bboxs(total_tiles);
+
+  for_each_tile(
+      {&density_va, &exclusion_va},
+      {},
+      [&](const std::vector<const Array *> &p_arrays_in,
+          std::vector<Array *> &,
+          const UvTile  &region,
+          ICommunicator &comm)
+      {
+        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
+        tile_bboxs[tile_index] = BBox2D(
+            bbox.min.x + region.uv_rect.u_min * (bbox.max.x - bbox.min.x),
+            bbox.min.x + region.uv_rect.u_max * (bbox.max.x - bbox.min.x),
+            bbox.min.y + region.uv_rect.v_min * (bbox.max.y - bbox.min.y),
+            bbox.min.y + region.uv_rect.v_max * (bbox.max.y - bbox.min.y));
+        tile_fields[tile_index] = seed_rock_field(rock_count,
+                                                  *p_arrays_in[0],
+                                                  *p_arrays_in[1],
+                                                  options,
+                                                  region,
+                                                  comm);
+      },
+      cm);
+
+  RockField tiled(merge_scatter_fields(tile_fields, tile_bboxs, true));
+
+  EXPECT_GT(non_tiled.size(), 0u);
+  EXPECT_GT(tiled.size(), 0u);
+  EXPECT_NEAR(static_cast<double>(tiled.size()),
+              static_cast<double>(non_tiled.size()),
+              45.0);
+
+  for (const auto &rock : tiled)
   {
-    EXPECT_LT(rock.position.y, 0.55f);
+    EXPECT_GE(rock.position.x, bbox.min.x);
+    EXPECT_LE(rock.position.x, bbox.max.x);
+    EXPECT_GE(rock.position.y, bbox.min.y);
+    EXPECT_LE(rock.position.y, bbox.max.y);
+    EXPECT_GE(rock.radius, 0.5f);
+    EXPECT_LE(rock.radius, 2.0f);
+    EXPECT_FALSE(rock.position.x >= 50.0f && rock.position.y >= 50.0f);
   }
-}
-
-TEST(RockFieldTest, VirtualArrayEmptyAndZeroDensity)
-{
-  VirtualArray empty_va;
-  ComputeMode  cm;
-
-  RockField f1 = hmap::va::seed_rock_field(50, empty_va);
-  EXPECT_EQ(f1.size(), 0u);
-
-  glm::ivec2   shape = {32, 32};
-  glm::ivec2   tile_shape = {16, 16};
-  VirtualArray zero_density(shape, tile_shape, 2);
-  zero_density.fill(0.0f, cm);
-
-  RockField f2 = hmap::va::seed_rock_field(50, zero_density);
-  EXPECT_EQ(f2.size(), 0u);
 }
 
 // --- Rock Simulation GPU Tests
@@ -691,18 +742,42 @@ TEST(RockProceduralTest, VirtualArrayBasicExecution)
 
   size_t rock_count = 80;
 
-  RockField field = hmap::va::place_rocks_procedural(rock_count,
-                                                     elevation,
-                                                     0.f,
-                                                     1.f,
-                                                     1.f,
-                                                     {},
-                                                     {},
-                                                     0.f,
-                                                     1.f,
-                                                     1.f,
-                                                     options,
-                                                     cm);
+  glm::ivec2                num_tiles = elevation.get_max_tiles();
+  int                       total_tiles = num_tiles.x * num_tiles.y;
+  std::vector<ScatterField> tile_fields(total_tiles);
+  std::vector<BBox2D>       tile_bboxs(total_tiles);
+
+  for_each_tile(
+      {&elevation},
+      {},
+      [&](const std::vector<const Array *> &p_arrays_in,
+          std::vector<Array *> &,
+          const UvTile  &region,
+          ICommunicator &comm)
+      {
+        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
+        tile_bboxs[tile_index] = BBox2D(
+            bbox.min.x + region.uv_rect.u_min * (bbox.max.x - bbox.min.x),
+            bbox.min.x + region.uv_rect.u_max * (bbox.max.x - bbox.min.x),
+            bbox.min.y + region.uv_rect.v_min * (bbox.max.y - bbox.min.y),
+            bbox.min.y + region.uv_rect.v_max * (bbox.max.y - bbox.min.y));
+        tile_fields[tile_index] = place_rocks_procedural(rock_count,
+                                                         *p_arrays_in[0],
+                                                         0.f,
+                                                         1.f,
+                                                         1.f,
+                                                         {},
+                                                         {},
+                                                         0.f,
+                                                         1.f,
+                                                         1.f,
+                                                         options,
+                                                         region,
+                                                         comm);
+      },
+      cm);
+
+  RockField field(merge_scatter_fields(tile_fields, tile_bboxs, true));
 
   EXPECT_GT(field.size(), 0u);
   EXPECT_NEAR(static_cast<double>(field.size()),
@@ -721,85 +796,110 @@ TEST(RockProceduralTest, VirtualArrayBasicExecution)
   }
 }
 
-TEST(RockProceduralTest, VirtualArrayExclusionMask)
+TEST(RockProceduralTest, TiledNonTiledComparison)
 {
   glm::ivec2 shape = {64, 64};
   glm::ivec2 tile_shape = {32, 32};
   int        halo = 4;
-  BBox2D     bbox(0.0f, 1.0f, 0.0f, 1.0f);
+  BBox2D     bbox(0.0f, 100.0f, 0.0f, 100.0f);
 
-  VirtualArray elevation(shape, tile_shape, halo);
-  VirtualArray exclusion(shape, tile_shape, halo);
-  ComputeMode  cm;
-  elevation.fill(0.3f, cm);
-  exclusion.fill(0.0f, cm);
+  Array elevation_arr(shape, 0.4f);
+  Array density_arr(shape, 1.0f);
+  Array exclusion_arr(shape, 0.0f);
 
-  // Exclude top half (y >= 0.5)
-  Array excl_array(shape, 0.0f);
+  // Exclude top-right quadrant (x >= 50, y >= 50)
   for (int j = 32; j < 64; ++j)
   {
-    for (int i = 0; i < 64; ++i)
+    for (int i = 32; i < 64; ++i)
     {
-      excl_array(i, j) = 1.0f;
+      exclusion_arr(i, j) = 1.0f;
     }
   }
-  exclusion.from_array(excl_array, cm);
 
   RockSeedingOptions options;
-  options.seed = 123;
+  options.seed = 42;
   options.bbox = bbox;
   options.exclusion_threshold = 0.5f;
+  options.distribution = RockDistribution(0u, 0.5f, 2.0f, 1.5f);
 
-  RockField field = hmap::va::place_rocks_procedural(60,
-                                                     elevation,
-                                                     0.f,
-                                                     1.f,
-                                                     1.f,
-                                                     {},
-                                                     exclusion,
-                                                     0.f,
-                                                     1.f,
-                                                     1.f,
-                                                     options,
-                                                     cm);
+  size_t rock_count = 120;
 
-  EXPECT_GT(field.size(), 0u);
+  // 1. Non-tiled execution
+  RockField non_tiled = place_rocks_procedural(rock_count,
+                                               elevation_arr,
+                                               0.f,
+                                               1.f,
+                                               1.f,
+                                               density_arr,
+                                               exclusion_arr,
+                                               0.f,
+                                               1.f,
+                                               1.f,
+                                               options);
 
-  for (const auto &rock : field)
+  // 2. Tiled execution via VirtualArray + for_each_tile + comm
+  ComputeMode  cm{.mode = ForEachMode::VA_SEQUENTIAL};
+  VirtualArray elevation_va(shape, tile_shape, halo);
+  VirtualArray density_va(shape, tile_shape, halo);
+  VirtualArray exclusion_va(shape, tile_shape, halo);
+  elevation_va.from_array(elevation_arr, cm);
+  density_va.from_array(density_arr, cm);
+  exclusion_va.from_array(exclusion_arr, cm);
+
+  glm::ivec2                num_tiles = elevation_va.get_max_tiles();
+  int                       total_tiles = num_tiles.x * num_tiles.y;
+  std::vector<ScatterField> tile_fields(total_tiles);
+  std::vector<BBox2D>       tile_bboxs(total_tiles);
+
+  for_each_tile(
+      {&elevation_va, &density_va, &exclusion_va},
+      {},
+      [&](const std::vector<const Array *> &p_arrays_in,
+          std::vector<Array *> &,
+          const UvTile  &region,
+          ICommunicator &comm)
+      {
+        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
+        tile_bboxs[tile_index] = BBox2D(
+            bbox.min.x + region.uv_rect.u_min * (bbox.max.x - bbox.min.x),
+            bbox.min.x + region.uv_rect.u_max * (bbox.max.x - bbox.min.x),
+            bbox.min.y + region.uv_rect.v_min * (bbox.max.y - bbox.min.y),
+            bbox.min.y + region.uv_rect.v_max * (bbox.max.y - bbox.min.y));
+        tile_fields[tile_index] = place_rocks_procedural(rock_count,
+                                                         *p_arrays_in[0],
+                                                         0.f,
+                                                         1.f,
+                                                         1.f,
+                                                         *p_arrays_in[1],
+                                                         *p_arrays_in[2],
+                                                         0.f,
+                                                         1.f,
+                                                         1.f,
+                                                         options,
+                                                         region,
+                                                         comm);
+      },
+      cm);
+
+  RockField tiled(merge_scatter_fields(tile_fields, tile_bboxs, true));
+
+  EXPECT_GT(non_tiled.size(), 0u);
+  EXPECT_GT(tiled.size(), 0u);
+  EXPECT_NEAR(static_cast<double>(tiled.size()),
+              static_cast<double>(non_tiled.size()),
+              45.0);
+
+  for (const auto &rock : tiled)
   {
-    EXPECT_LT(rock.position.y, 0.55f);
+    EXPECT_GE(rock.position.x, bbox.min.x);
+    EXPECT_LE(rock.position.x, bbox.max.x);
+    EXPECT_GE(rock.position.y, bbox.min.y);
+    EXPECT_LE(rock.position.y, bbox.max.y);
+    EXPECT_NEAR(rock.position.z, 0.4f, 1e-4f);
+    EXPECT_GE(rock.radius, 0.5f);
+    EXPECT_LE(rock.radius, 2.0f);
+    EXPECT_FALSE(rock.position.x >= 50.0f && rock.position.y >= 50.0f);
   }
-}
-
-TEST(RockProceduralTest, VirtualArrayEmptyAndZeroDensity)
-{
-  VirtualArray empty_va;
-  ComputeMode  cm;
-
-  RockField f1 = hmap::va::place_rocks_procedural(50, empty_va);
-  EXPECT_EQ(f1.size(), 0u);
-
-  glm::ivec2   shape = {32, 32};
-  glm::ivec2   tile_shape = {16, 16};
-  VirtualArray elevation(shape, tile_shape, 2);
-  elevation.fill(0.5f, cm);
-
-  VirtualArray zero_density(shape, tile_shape, 2);
-  zero_density.fill(0.0f, cm);
-
-  RockField f2 = hmap::va::place_rocks_procedural(50,
-                                                  elevation,
-                                                  0.f,
-                                                  1.f,
-                                                  1.f,
-                                                  zero_density,
-                                                  {},
-                                                  0.f,
-                                                  1.f,
-                                                  1.f,
-                                                  {},
-                                                  cm);
-  EXPECT_EQ(f2.size(), 0u);
 }
 
 TEST(RockDensityTest, TiledBoundingBox)

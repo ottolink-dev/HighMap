@@ -3120,19 +3120,3 @@ Array voronoi_shrink(const Array                  &array,
                      const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap::gpu
-
-namespace hmap::va
-{
-
-/*! @brief See hmap::smooth_cpulse */
-void smooth_cpulse(VirtualArray       &array,
-                   int                 ir,
-                   const VirtualArray *p_mask,
-                   const ComputeMode  &cm);
-
-/// @overload
-VirtualArray smooth_cpulse(const VirtualArray &array,
-                           int                 ir,
-                           const VirtualArray *p_mask,
-                           const ComputeMode  &cm);
-} // namespace hmap::va
