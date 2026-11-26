@@ -168,9 +168,20 @@ RockField place_rocks_procedural(size_t       rock_count,
                                  float        size_slope_weight,
                                  float        size_elevation_gain,
                                  float        size_elevation_exponent,
-                                 const RockSeedingOptions &options)
+                                 const RockSeedingOptions &options,
+                                 const UvTile             &region,
+                                 ICommunicator            &comm)
 {
   if (rock_count == 0 || !validate_non_empty(elevation)) return RockField();
+
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
+  if (width <= 1e-7f || height <= 1e-7f) return RockField();
+
+  BBox2D local_bbox(options.bbox.min.x + region.uv_rect.u_min * width,
+                    options.bbox.min.x + region.uv_rect.u_max * width,
+                    options.bbox.min.y + region.uv_rect.v_min * height,
+                    options.bbox.min.y + region.uv_rect.v_max * height);
 
   // --- Density map: use user density if supplied, otherwise flat density equal
   // to 1
@@ -179,12 +190,51 @@ RockField place_rocks_procedural(size_t       rock_count,
   bool  has_density = !density.vector.empty() || density.shape.x > 0;
   if (has_density)
   {
+    if (!validate_non_empty(density) ||
+        !validate_same_shape(elevation, density))
+      return RockField();
     target_density = density;
   }
   else
   {
     target_density = Array(elevation.shape, 1.0f);
   }
+
+  // --- Modulate density by exclusion map for collective quota calculation
+
+  Array effective_density = target_density;
+  bool  has_exclusion = !exclusion.vector.empty() || exclusion.shape.x > 0;
+  if (has_exclusion)
+  {
+    if (!validate_non_empty(exclusion) ||
+        !validate_same_shape(elevation, exclusion))
+      return RockField();
+
+    for (int j = 0; j < effective_density.shape.y; ++j)
+      for (int i = 0; i < effective_density.shape.x; ++i)
+      {
+        if (exclusion(i, j) > options.exclusion_threshold)
+          effective_density(i, j) = 0.0f;
+      }
+  }
+
+  // --- Collective density reduction & local rock quota
+
+  float local_sum = effective_density.sum();
+  float total_sum = comm.all_reduce(local_sum, ReduceOp::Sum);
+  if (total_sum <= 1e-7f) return RockField();
+
+  size_t local_rock_count = rock_count;
+  if (comm.size() > 1)
+  {
+    local_rock_count = static_cast<size_t>(
+        std::round(static_cast<float>(rock_count) * (local_sum / total_sum)));
+  }
+  if (local_rock_count == 0) return RockField();
+
+  uint32_t local_seed = (comm.size() > 1)
+                            ? options.seed + static_cast<uint32_t>(comm.rank())
+                            : options.seed;
 
   // --- Normalized elevation and slope
 
@@ -196,13 +246,13 @@ RockField place_rocks_procedural(size_t       rock_count,
   // --- Sample positions
 
   ScatterSeedingOptions scatter_opts;
-  scatter_opts.bbox = options.bbox;
-  scatter_opts.seed = options.seed;
-  scatter_opts.exclusion_threshold = 0.f;
+  scatter_opts.bbox = local_bbox;
+  scatter_opts.seed = local_seed;
+  scatter_opts.exclusion_threshold = options.exclusion_threshold;
   scatter_opts.default_radius = options.distribution.radius_min;
 
   ScatterField field = seed_scatter_clusters(1,
-                                             rock_count,
+                                             local_rock_count,
                                              target_density,
                                              exclusion,
                                              0.05f,
@@ -219,15 +269,16 @@ RockField place_rocks_procedural(size_t       rock_count,
                                     options.distribution.radius_max);
   const float alpha = std::max(options.distribution.power_law_alpha, 1e-3f);
 
-  std::mt19937                          gen(options.seed);
+  std::mt19937                          gen(local_seed);
   std::uniform_real_distribution<float> dis(0.f, 1.f);
+
+  const UvRect local_uv_rect = UvRect::from_vec4(local_bbox.to_vec4());
 
   for (auto &rock : rock_field)
   {
-    const float e = z_norm.get_value_bilinear(
-        rock.position.x,
-        rock.position.y,
-        UvRect::from_vec4(options.bbox.to_vec4()));
+    const float e = z_norm.get_value_bilinear(rock.position.x,
+                                              rock.position.y,
+                                              local_uv_rect);
 
     const float t = std::clamp(size_elevation_gain *
                                    std::pow(1.f - e, size_elevation_exponent),
@@ -235,10 +286,9 @@ RockField place_rocks_procedural(size_t       rock_count,
                                1.f);
 
     // steep slopes reduce the maximum rock size
-    const float s = slope.get_value_bilinear(
-        rock.position.x,
-        rock.position.y,
-        UvRect::from_vec4(options.bbox.to_vec4()));
+    const float s = slope.get_value_bilinear(rock.position.x,
+                                             rock.position.y,
+                                             local_uv_rect);
 
     const float slope_factor = 1.f -
                                std::clamp(size_slope_weight, 0.f, 1.f) * s;
@@ -255,202 +305,12 @@ RockField place_rocks_procedural(size_t       rock_count,
 
     rock.radius = std::clamp(radius, radius_min, local_radius_max);
     rock.class_id = options.distribution.class_id;
-    rock.position.z = elevation.get_value_bilinear(
-        rock.position.x,
-        rock.position.y,
-        UvRect::from_vec4(options.bbox.to_vec4()));
+    rock.position.z = elevation.get_value_bilinear(rock.position.x,
+                                                   rock.position.y,
+                                                   local_uv_rect);
   }
 
   return rock_field;
 }
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-RockField place_rocks_procedural(size_t              rock_count,
-                                 const VirtualArray &elevation,
-                                 float               min_elev,
-                                 float               max_elev,
-                                 float               max_slope,
-                                 const VirtualArray &density,
-                                 const VirtualArray &exclusion,
-                                 float               size_slope_weight,
-                                 float               size_elevation_gain,
-                                 float               size_elevation_exponent,
-                                 const RockSeedingOptions &options,
-                                 const ComputeMode        &cm)
-{
-  // --- Validate inputs
-
-  if (rock_count == 0 || elevation.empty())
-  {
-    return RockField();
-  }
-
-  bool has_density = (density.storage != nullptr) &&
-                     (density.shape.x > 0 && density.shape.y > 0);
-
-  if (has_density)
-  {
-    if (density.shape != elevation.shape ||
-        density.tile_shape != elevation.tile_shape)
-    {
-      hmap::log::warn(
-          "Density VirtualArray shape mismatch with elevation VirtualArray");
-      return RockField();
-    }
-  }
-
-  bool has_exclusion = (exclusion.storage != nullptr) &&
-                       (exclusion.shape.x > 0 && exclusion.shape.y > 0);
-
-  if (has_exclusion)
-  {
-    if (exclusion.shape != elevation.shape ||
-        exclusion.tile_shape != elevation.tile_shape)
-    {
-      hmap::log::warn(
-          "Exclusion VirtualArray shape mismatch with elevation VirtualArray");
-      return RockField();
-    }
-  }
-
-  glm::ivec2 num_tiles = elevation.get_max_tiles();
-  int        total_tiles = num_tiles.x * num_tiles.y;
-
-  if (total_tiles == 0) return RockField();
-
-  // --- Compute Density Sums per Tile and Global Inner Sum
-
-  const VirtualArray *p_density_va = has_density ? &density : nullptr;
-  const VirtualArray *p_exclusion_va = has_exclusion ? &exclusion : nullptr;
-
-  std::vector<float> tile_full_sums;
-  float              total_inner_sum = 0.f;
-
-  if (has_density)
-  {
-    sum_per_tile(density,
-                 tile_full_sums,
-                 &total_inner_sum,
-                 p_exclusion_va,
-                 options.exclusion_threshold,
-                 cm);
-  }
-  else
-  {
-    // Uniform density: count valid cells per tile
-    tile_full_sums.assign(total_tiles, 0.f);
-
-    hmap::for_each_tile(
-        {&elevation, p_exclusion_va},
-        {},
-        [&](const std::vector<const Array *> &p_arrays_in,
-            std::vector<Array *> &,
-            const UvTile &region)
-        {
-          const auto [p_elev_tile, p_excl_tile] = unpack<2>(p_arrays_in);
-
-          int tile_index = region.key.ty * num_tiles.x + region.key.tx;
-
-          float tile_full_sum = 0.f;
-          float tile_inner_sum = 0.f;
-
-          const glm::ivec4 &halo = region.halo;
-          int               shape_x = region.shape.x;
-          int               shape_y = region.shape.y;
-
-          for (int j = 0; j < shape_y; ++j)
-          {
-            bool is_inner_y = (j >= halo.z && j < shape_y - halo.w);
-
-            for (int i = 0; i < shape_x; ++i)
-            {
-              float val = 1.0f;
-
-              if (p_excl_tile &&
-                  (*p_excl_tile)(i, j) > options.exclusion_threshold)
-              {
-                val = 0.0f;
-              }
-
-              if (val > 0.0f)
-              {
-                tile_full_sum += val;
-
-                if (is_inner_y && i >= halo.x && i < shape_x - halo.y)
-                {
-                  tile_inner_sum += val;
-                }
-              }
-            }
-          }
-
-          tile_full_sums[tile_index] = tile_full_sum;
-          total_inner_sum += tile_inner_sum;
-        },
-        cm);
-  }
-
-  if (total_inner_sum <= 1e-7f) return RockField();
-
-  // --- Generate Sub-RockFields per Tile
-
-  std::vector<ScatterField> tile_fields(total_tiles);
-  std::vector<BBox2D>       tile_bboxs(total_tiles);
-
-  hmap::for_each_tile(
-      {&elevation, p_density_va, p_exclusion_va},
-      {},
-      [&](const std::vector<const Array *> &p_arrays_in,
-          std::vector<Array *> &,
-          const UvTile &region)
-      {
-        const auto [p_elev_tile, p_density_tile, p_excl_tile] = unpack<3>(
-            p_arrays_in);
-
-        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
-
-        tile_bboxs[tile_index] = region.uv_rect.to_bbox2d();
-
-        float  tile_sum = tile_full_sums[tile_index];
-        size_t tile_rock_count = static_cast<size_t>(std::round(
-            static_cast<float>(rock_count) * (tile_sum / total_inner_sum)));
-
-        if (tile_rock_count == 0)
-        {
-          return;
-        }
-
-        RockSeedingOptions tile_options = options;
-        tile_options.bbox = region.uv_rect.to_bbox2d();
-        tile_options.seed = options.seed +
-                            static_cast<uint32_t>(tile_index) * 1999u + 17u;
-
-        RockField tile_rock_field = hmap::place_rocks_procedural(
-            tile_rock_count,
-            *p_elev_tile,
-            min_elev,
-            max_elev,
-            max_slope,
-            p_density_tile ? *p_density_tile : Array(),
-            p_excl_tile ? *p_excl_tile : Array(),
-            size_slope_weight,
-            size_elevation_gain,
-            size_elevation_exponent,
-            tile_options);
-
-        tile_fields[tile_index] = std::move(tile_rock_field);
-      },
-      cm);
-
-  // --- Merge RockFields with Bounding Box Overlap Resolution
-
-  ScatterField merged = merge_scatter_fields(tile_fields, tile_bboxs, true);
-
-  return RockField(std::move(merged));
-}
-
-} // namespace hmap::va
