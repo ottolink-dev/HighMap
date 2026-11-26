@@ -252,7 +252,7 @@ var namespacehmap_1_1gpu =
     [ "wavelet_noise", "namespacehmap_1_1gpu.html#ad56c16fd1788fd4e3e2cbfed3e0c658a", null ],
     [ "hemisphere_field", "namespacehmap_1_1gpu.html#a1f1e040f55a11b5d16aa39ec085a8de8", null ],
     [ "hemisphere_field_fbm", "namespacehmap_1_1gpu.html#aaa8aa15632d9357ab0aa950a79f9dc43", null ],
-    [ "multisteps", "namespacehmap_1_1gpu.html#a342e86d5f5b6da70427e3c66c25b419d", null ],
+    [ "multisteps", "namespacehmap_1_1gpu.html#a4ce73a2eef313a245bbe81f115695a6b", null ],
     [ "polygon_field", "namespacehmap_1_1gpu.html#a30f04fcf8db8fc9f598512e2565b2097", null ],
     [ "polygon_field_fbm", "namespacehmap_1_1gpu.html#ac2e387d456fe40964470f0ffad41a105", null ],
     [ "badlands", "namespacehmap_1_1gpu.html#af7198bc1659fd8f381019bdfd6a20c70", null ],

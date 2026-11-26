@@ -23,7 +23,7 @@ var primitives_2functions_8hpp =
     [ "hmap::cubic_pulse", "namespacehmap.html#abf32210073cf1439bab9ec914e28ef98", null ],
     [ "hmap::disk", "namespacehmap.html#a33b6257153adabaa56e96662339fe66f", null ],
     [ "hmap::gaussian_pulse", "namespacehmap.html#a55f8bee550cd8ba1e7f5e1d9ba99935f", null ],
-    [ "hmap::multisteps", "namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855", null ],
+    [ "hmap::multisteps", "namespacehmap.html#a45a3eb72aceb3a6553063a01dc3cc0c2", null ],
     [ "hmap::paraboloid", "namespacehmap.html#af7e727801d6eb9ecc33881d8f2b95489", null ],
     [ "hmap::polar_shape", "namespacehmap.html#ac190e9360ab0710fec7df18b45307e3b", null ],
     [ "hmap::quad_surface", "namespacehmap.html#ae72abb22a290a5fe160ac3fefaa98ecd", null ],
@@ -38,7 +38,7 @@ var primitives_2functions_8hpp =
     [ "hmap::wave_triangular", "namespacehmap.html#a1119c8b4d29343f927c3ff5f0f67863e", null ],
     [ "hmap::gpu::hemisphere_field", "namespacehmap_1_1gpu.html#a1f1e040f55a11b5d16aa39ec085a8de8", null ],
     [ "hmap::gpu::hemisphere_field_fbm", "namespacehmap_1_1gpu.html#aaa8aa15632d9357ab0aa950a79f9dc43", null ],
-    [ "hmap::gpu::multisteps", "namespacehmap_1_1gpu.html#a342e86d5f5b6da70427e3c66c25b419d", null ],
+    [ "hmap::gpu::multisteps", "namespacehmap_1_1gpu.html#a4ce73a2eef313a245bbe81f115695a6b", null ],
     [ "hmap::gpu::polygon_field", "namespacehmap_1_1gpu.html#a30f04fcf8db8fc9f598512e2565b2097", null ],
     [ "hmap::gpu::polygon_field_fbm", "namespacehmap_1_1gpu.html#ac2e387d456fe40964470f0ffad41a105", null ]
 ];

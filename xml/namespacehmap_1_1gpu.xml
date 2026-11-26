@@ -19752,10 +19752,10 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
         </inbodydescription>
         <location file="HighMap/src/primitives/coherent_noise/primitives_gpu.cpp" line="440" column="7" bodyfile="HighMap/src/primitives/coherent_noise/primitives_gpu.cpp" bodystart="440" bodyend="509" declfile="HighMap/include/highmap/primitives/functions.hpp" declline="937" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1_1gpu_1a342e86d5f5b6da70427e3c66c25b419d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1_1gpu_1a4ce73a2eef313a245bbe81f115695a6b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::gpu::multisteps</definition>
-        <argsstring>(glm::ivec2 shape, float angle, std::uint32_t seed, glm::vec2 kw={2.f, 2.f}, float noise_amp=0.1f, float noise_rugosity=0.f, bool noise_inflate=true, float r=1.2f, int nsteps=8, float elevation_exponent=0.7f, float shape_gain=4.f, float scale=0.5f, float outer_slope=0.1f, const Array *p_ctrl_param=nullptr, const glm::vec2 &amp;center={0.5f, 0.5f}, const glm::vec4 &amp;bbox={0.f, 1.f, 0.f, 1.f})</argsstring>
+        <argsstring>(glm::ivec2 shape, float angle, std::uint32_t seed, glm::vec2 kw={2.f, 2.f}, float noise_amp=0.1f, float noise_rugosity=0.f, bool noise_inflate=true, float r=1.2f, int nsteps=8, float elevation_exponent=0.7f, float shape_gain=4.f, float scale=0.5f, float outer_slope=0.1f, const Array *p_ctrl_param=nullptr, const glm::vec2 &amp;center={0.5f, 0.5f}, const BBox2D &amp;bbox=BBox2D::unit())</argsstring>
         <name>multisteps</name>
         <qualifiedname>hmap::gpu::multisteps</qualifiedname>
         <param>
@@ -19831,15 +19831,15 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
           <defval>{0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.5<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
         </param>
         <param>
-          <type>const glm::vec4 &amp;</type>
+          <type>const <ref refid="structhmap_1_1BBox2D" kindref="compound">BBox2D</ref> &amp;</type>
           <declname>bbox</declname>
-          <defval>{0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 0.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>, 1.<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref>}</defval>
+          <defval><ref refid="structhmap_1_1BBox2D_1a774922e6b45626ab401057f33b8fbeda" kindref="member">BBox2D::unit</ref>()</defval>
         </param>
         <briefdescription>
 <para>GPU-accelerated multi-step height generation with procedural noise. </para>
         </briefdescription>
         <detaileddescription>
-<para>Builds the same multi-step profile as the CPU version but injects a Voronoi-FBM noise field to modulate the step positions. Noise can be inflated or deflated and is projected onto the step axis before being passed to the CPU <ref refid="namespacehmap_1_1gpu_1a342e86d5f5b6da70427e3c66c25b419d" kindref="member">multisteps()</ref> implementation.</para>
+<para>Builds the same multi-step profile as the CPU version but injects a Voronoi-FBM noise field to modulate the step positions. Noise can be inflated or deflated and is projected onto the step axis before being passed to the CPU <ref refid="namespacehmap_1_1gpu_1a4ce73a2eef313a245bbe81f115695a6b" kindref="member">multisteps()</ref> implementation.</para>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>shape</parametername>
@@ -19979,11 +19979,11 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1aeeb8f48ea78cb59de79c16ab28d1d855" kindref="member">hmap::multisteps</ref>(shape,<sp/>10.f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1a45a3eb72aceb3a6553063a01dc3cc0c2" kindref="member">hmap::multisteps</ref>(shape,<sp/>10.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>with<sp/>built-in<sp/>default<sp/>noise</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a342e86d5f5b6da70427e3c66c25b419d" kindref="member">hmap::gpu::multisteps</ref>(shape,<sp/>10.f,<sp/>seed);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z2<sp/>=<sp/><ref refid="namespacehmap_1_1gpu_1a4ce73a2eef313a245bbe81f115695a6b" kindref="member">hmap::gpu::multisteps</ref>(shape,<sp/>10.f,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_multisteps.png&quot;</highlight><highlight class="normal">,<sp/>{z1,<sp/>z2},<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143" kindref="member">hmap::Cmap::INFERNO</ref>);</highlight></codeline>
 <codeline><highlight class="normal">}</highlight></codeline>
@@ -21323,7 +21323,7 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius<sp/>=<sp/>0.3f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>displacement<sp/>=<sp/>0.2f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195" kindref="member">hmap::NoiseType</ref><sp/>noise_type<sp/>=<sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80" kindref="member">hmap::NoiseType::SIMPLEX2S</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><sp/><sp/><sp/><sp/>land_mask<sp/>=<sp/><ref refid="namespacehmap_1a8f68239db7ea7bdf2177e0290f4fd250" kindref="member">hmap::island_land_mask</ref>(shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><sp/><sp/><sp/><sp/>land_mask<sp/>=<sp/><ref refid="namespacehmap_1a51ce1ef89239ff316e4be95e30f73589" kindref="member">hmap::island_land_mask</ref>(shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>displacement,</highlight></codeline>
@@ -21727,7 +21727,7 @@ This function leverages an OpenCL kernel to compute the GavoroNoise values on th
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius<sp/>=<sp/>0.3f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>displacement<sp/>=<sp/>0.2f;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195" kindref="member">hmap::NoiseType</ref><sp/>noise_type<sp/>=<sp/><ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a03f4fca6bab010831c1e90a0cce9dd80" kindref="member">hmap::NoiseType::SIMPLEX2S</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><sp/><sp/><sp/><sp/>land_mask<sp/>=<sp/><ref refid="namespacehmap_1a8f68239db7ea7bdf2177e0290f4fd250" kindref="member">hmap::island_land_mask</ref>(shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><sp/><sp/><sp/><sp/>land_mask<sp/>=<sp/><ref refid="namespacehmap_1a51ce1ef89239ff316e4be95e30f73589" kindref="member">hmap::island_land_mask</ref>(shape,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>displacement,</highlight></codeline>

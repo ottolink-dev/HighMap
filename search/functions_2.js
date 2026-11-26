@@ -59,7 +59,7 @@ var searchData=
   ['colorize_5fvec2_56',['colorize_vec2',['../namespacehmap.html#a5fb3aceed8d4fd9bb613218bd224159b',1,'hmap']]],
   ['compare_57',['compare',['../namespacehmap.html#acafd15472972fb139c59071c091741cf',1,'hmap']]],
   ['compute_5fbbox_58',['compute_bbox',['../classhmap_1_1CoordFrame.html#ab6548ada59baf8bc9d8cef2fb5b1267c',1,'hmap::CoordFrame']]],
-  ['compute_5fbounding_5fbox_59',['compute_bounding_box',['../classhmap_1_1CoordFrame.html#a8d816754189a8244628bd4c6eefaf09c',1,'hmap::CoordFrame']]],
+  ['compute_5fbounding_5fbox_59',['compute_bounding_box',['../classhmap_1_1CoordFrame.html#ae1ee91f28035cd37f8e1b26be8e1aabc',1,'hmap::CoordFrame']]],
   ['compute_5fdistance_5fto_5foutlet_60',['compute_distance_to_outlet',['../classhmap_1_1Graph.html#a54a9c0555a9d6056771ec940cbea37cd',1,'hmap::Graph']]],
   ['compute_5fflow_5faccumulation_61',['compute_flow_accumulation',['../classhmap_1_1Graph.html#a11f688454a89eef4f83c01ed8a1c90fb',1,'hmap::Graph']]],
   ['compute_5fgradient_62',['compute_gradient',['../namespacehmap.html#ad97b6a0082efd4063f7839c95a51b294',1,'hmap']]],

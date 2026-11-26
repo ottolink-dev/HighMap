@@ -410,7 +410,7 @@
 <codeline lineno="399"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Generate<sp/>Sub-RockFields<sp/>per<sp/>Tile</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="400"><highlight class="normal"></highlight></codeline>
 <codeline lineno="401"><highlight class="normal"><sp/><sp/>std::vector&lt;ScatterField&gt;<sp/>tile_fields(total_tiles);</highlight></codeline>
-<codeline lineno="402"><highlight class="normal"><sp/><sp/>std::vector&lt;glm::vec4&gt;<sp/><sp/><sp/><sp/>tile_bboxs(total_tiles);</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/>std::vector&lt;BBox2D&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs(total_tiles);</highlight></codeline>
 <codeline lineno="403"><highlight class="normal"></highlight></codeline>
 <codeline lineno="404"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
 <codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;elevation,<sp/>p_density_va,<sp/>p_exclusion_va},</highlight></codeline>
@@ -424,7 +424,7 @@
 <codeline lineno="413"><highlight class="normal"></highlight></codeline>
 <codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tile_index<sp/>=<sp/>region.key.ty<sp/>*<sp/>num_tiles.x<sp/>+<sp/>region.key.tx;</highlight></codeline>
 <codeline lineno="415"><highlight class="normal"></highlight></codeline>
-<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs[tile_index]<sp/>=<sp/>region.uv_rect.to_vec4();</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs[tile_index]<sp/>=<sp/>region.uv_rect.to_bbox2d();</highlight></codeline>
 <codeline lineno="417"><highlight class="normal"></highlight></codeline>
 <codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/>tile_sum<sp/>=<sp/>tile_full_sums[tile_index];</highlight></codeline>
 <codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tile_rock_count<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::round(</highlight></codeline>
@@ -436,7 +436,7 @@
 <codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="426"><highlight class="normal"></highlight></codeline>
 <codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RockSeedingOptions<sp/>tile_options<sp/>=<sp/>options;</highlight></codeline>
-<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.bbox<sp/>=<sp/>BBox2D(region.uv_rect.to_vec4());</highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.bbox<sp/>=<sp/>region.uv_rect.to_bbox2d();</highlight></codeline>
 <codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.seed<sp/>=<sp/>options.seed<sp/>+</highlight></codeline>
 <codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(tile_index)<sp/>*<sp/>1999u<sp/>+<sp/>17u;</highlight></codeline>
 <codeline lineno="431"><highlight class="normal"></highlight></codeline>

@@ -125,7 +125,7 @@ var searchData=
   ['compression_122',['compression',['../structhmap_1_1ImageWriterConfig.html#ab6e00e3fe5dc9baa354785c317cea9b8',1,'hmap::ImageWriterConfig']]],
   ['computation_123',['BVH2D Spatial Indexing for Path SDF Computation',['../md_docs_2content_2dev_2investigations_2bvh2d__path__sdf.html',1,'']]],
   ['compute_5fbbox_124',['compute_bbox',['../classhmap_1_1CoordFrame.html#ab6548ada59baf8bc9d8cef2fb5b1267c',1,'hmap::CoordFrame']]],
-  ['compute_5fbounding_5fbox_125',['compute_bounding_box',['../classhmap_1_1CoordFrame.html#a8d816754189a8244628bd4c6eefaf09c',1,'hmap::CoordFrame']]],
+  ['compute_5fbounding_5fbox_125',['compute_bounding_box',['../classhmap_1_1CoordFrame.html#ae1ee91f28035cd37f8e1b26be8e1aabc',1,'hmap::CoordFrame']]],
   ['compute_5fdistance_5fto_5foutlet_126',['compute_distance_to_outlet',['../classhmap_1_1Graph.html#a54a9c0555a9d6056771ec940cbea37cd',1,'hmap::Graph']]],
   ['compute_5fflow_5faccumulation_127',['compute_flow_accumulation',['../classhmap_1_1Graph.html#a11f688454a89eef4f83c01ed8a1c90fb',1,'hmap::Graph']]],
   ['compute_5fgradient_128',['compute_gradient',['../namespacehmap.html#ad97b6a0082efd4063f7839c95a51b294',1,'hmap']]],

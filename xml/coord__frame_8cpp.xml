@@ -39,7 +39,7 @@
 <codeline lineno="29"><highlight class="normal"><sp/><sp/>this-&gt;set_rotation_angle(rotation_angle);</highlight></codeline>
 <codeline lineno="30"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="31"><highlight class="normal"></highlight></codeline>
-<codeline lineno="32"><highlight class="normal">glm::vec4<sp/>CoordFrame::compute_bounding_box()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">BBox2D<sp/>CoordFrame::compute_bounding_box()</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="33"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
 <codeline lineno="34"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Define<sp/>the<sp/>four<sp/>corners<sp/>relative<sp/>to<sp/>the<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="35"><highlight class="normal"><sp/><sp/>std::pair&lt;float,<sp/>float&gt;<sp/>corners[4]<sp/>=<sp/>{{0.f,<sp/>0.f},</highlight></codeline>
@@ -64,7 +64,7 @@
 <codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/>max_y<sp/>=<sp/>std::max(max_y,<sp/>g.y);</highlight></codeline>
 <codeline lineno="55"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
 <codeline lineno="56"><highlight class="normal"></highlight></codeline>
-<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>glm::vec4(min_x,<sp/>max_x,<sp/>min_y,<sp/>max_y);</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>BBox2D(min_x,<sp/>max_x,<sp/>min_y,<sp/>max_y);</highlight></codeline>
 <codeline lineno="58"><highlight class="normal">}</highlight></codeline>
 <codeline lineno="59"><highlight class="normal"></highlight></codeline>
 <codeline lineno="60"><highlight class="normal">AffineTransform2D<sp/>CoordFrame::compute_relative_transform(</highlight></codeline>
@@ -130,99 +130,100 @@
 <codeline lineno="120"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>determine<sp/>if<sp/>a<sp/>point<sp/>(x,<sp/>y)<sp/>is<sp/>within<sp/>the<sp/>rotated<sp/>terrain</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CoordFrame::intersects(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CoordFrame<sp/>&amp;other)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
 <codeline lineno="122"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/>b1<sp/>=<sp/>this-&gt;compute_bounding_box();</highlight></codeline>
-<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/>b2<sp/>=<sp/>other.compute_bounding_box();</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BBox2D<sp/>b1<sp/>=<sp/>this-&gt;compute_bounding_box();</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>BBox2D<sp/>b2<sp/>=<sp/>other.compute_bounding_box();</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"></highlight></codeline>
-<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(b1.y<sp/>&lt;<sp/>b2.x<sp/>||<sp/>b2.y<sp/>&lt;<sp/>b1.x<sp/>||<sp/>b1.w<sp/>&lt;<sp/>b2.z<sp/>||<sp/>b2.w<sp/>&lt;<sp/>b1.z);</highlight></codeline>
-<codeline lineno="127"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="128"><highlight class="normal"></highlight></codeline>
-<codeline lineno="129"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CoordFrame::is_point_within(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="130"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="131"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
-<codeline lineno="132"><highlight class="normal"></highlight></codeline>
-<codeline lineno="133"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>the<sp/>unrotated<sp/>point<sp/>is<sp/>within<sp/>the<sp/>unrotated<sp/>bounds</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;is_unit_point_within(rel.x,<sp/>rel.y);</highlight></codeline>
-<codeline lineno="135"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="136"><highlight class="normal"></highlight></codeline>
-<codeline lineno="137"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CoordFrame::is_unit_point_within(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="138"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="139"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(rx<sp/>&gt;=<sp/>0.f<sp/>&amp;&amp;<sp/>rx<sp/>&lt;=<sp/>1.f<sp/>&amp;&amp;<sp/>ry<sp/>&gt;=<sp/>0.f<sp/>&amp;&amp;<sp/>ry<sp/>&lt;=<sp/>1.f);</highlight></codeline>
-<codeline lineno="140"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="141"><highlight class="normal"></highlight></codeline>
-<codeline lineno="142"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>set<sp/>the<sp/>rotation<sp/>angle<sp/>and<sp/>update<sp/>cos_angle<sp/>and<sp/>sin_angle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="143"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CoordFrame::set_rotation_angle(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>new_angle)</highlight></codeline>
-<codeline lineno="144"><highlight class="normal">{</highlight></codeline>
-<codeline lineno="145"><highlight class="normal"><sp/><sp/>this-&gt;rotation_angle<sp/>=<sp/>new_angle;</highlight></codeline>
-<codeline lineno="146"><highlight class="normal"></highlight></codeline>
-<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>angle_rad<sp/>=<sp/>this-&gt;rotation_angle<sp/>*<sp/>M_PI<sp/>/<sp/>180.0f;</highlight></codeline>
-<codeline lineno="148"><highlight class="normal"></highlight></codeline>
-<codeline lineno="149"><highlight class="normal"><sp/><sp/>this-&gt;cos_angle<sp/>=<sp/>std::cos(angle_rad);</highlight></codeline>
-<codeline lineno="150"><highlight class="normal"><sp/><sp/>this-&gt;sin_angle<sp/>=<sp/>std::sin(angle_rad);</highlight></codeline>
-<codeline lineno="151"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="152"><highlight class="normal"></highlight></codeline>
-<codeline lineno="153"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_global_coords(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="154"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="155"><highlight class="normal"><sp/><sp/>rx<sp/>*=<sp/>this-&gt;size.x;</highlight></codeline>
-<codeline lineno="156"><highlight class="normal"><sp/><sp/>ry<sp/>*=<sp/>this-&gt;size.y;</highlight></codeline>
-<codeline lineno="157"><highlight class="normal"></highlight></codeline>
-<codeline lineno="158"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx<sp/>=<sp/>this-&gt;origin.x<sp/>+<sp/>rx<sp/>*<sp/>this-&gt;cos_angle<sp/>-<sp/>ry<sp/>*<sp/>this-&gt;sin_angle;</highlight></codeline>
-<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy<sp/>=<sp/>this-&gt;origin.y<sp/>+<sp/>rx<sp/>*<sp/>this-&gt;sin_angle<sp/>+<sp/>ry<sp/>*<sp/>this-&gt;cos_angle;</highlight></codeline>
-<codeline lineno="160"><highlight class="normal"></highlight></codeline>
-<codeline lineno="161"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>glm::vec2(gx,<sp/>gy);</highlight></codeline>
-<codeline lineno="162"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="163"><highlight class="normal"></highlight></codeline>
-<codeline lineno="164"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>apply<sp/>inverse<sp/>rotation<sp/>to<sp/>a<sp/>point<sp/>relative<sp/>to<sp/>the<sp/>terrain<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="165"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_relative_coords(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="166"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="167"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Translate<sp/>the<sp/>point<sp/>to<sp/>be<sp/>relative<sp/>to<sp/>the<sp/>terrain&apos;s<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="168"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>translated<sp/>=<sp/>glm::vec2(gx,<sp/>gy)<sp/>-<sp/>this-&gt;origin;</highlight></codeline>
-<codeline lineno="169"><highlight class="normal"></highlight></codeline>
-<codeline lineno="170"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Unrotate<sp/>the<sp/>point<sp/>using<sp/>precomputed<sp/>cos_angle<sp/>and<sp/>sin_angle</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>unrotated_x<sp/>=<sp/>translated.x<sp/>*<sp/>this-&gt;cos_angle<sp/>+</highlight></codeline>
-<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>translated.y<sp/>*<sp/>this-&gt;sin_angle;</highlight></codeline>
-<codeline lineno="173"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>unrotated_y<sp/>=<sp/>-translated.x<sp/>*<sp/>this-&gt;sin_angle<sp/>+</highlight></codeline>
-<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>translated.y<sp/>*<sp/>this-&gt;cos_angle;</highlight></codeline>
-<codeline lineno="175"><highlight class="normal"></highlight></codeline>
-<codeline lineno="176"><highlight class="normal"><sp/><sp/>unrotated_x<sp/>/=<sp/>this-&gt;size.x;</highlight></codeline>
-<codeline lineno="177"><highlight class="normal"><sp/><sp/>unrotated_y<sp/>/=<sp/>this-&gt;size.y;</highlight></codeline>
-<codeline lineno="178"><highlight class="normal"></highlight></codeline>
-<codeline lineno="179"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>glm::vec2(unrotated_x,<sp/>unrotated_y);</highlight></codeline>
-<codeline lineno="180"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="181"><highlight class="normal"></highlight></codeline>
-<codeline lineno="182"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_relative_coords(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CoordFrame<sp/>&amp;other,</highlight></codeline>
-<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx,</highlight></codeline>
-<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="185"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="186"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;compute_relative_transform(other).apply(rx,<sp/>ry);</highlight></codeline>
-<codeline lineno="187"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="188"><highlight class="normal"></highlight></codeline>
-<codeline lineno="189"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_distance_to_edges(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="190"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="191"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>switch<sp/>to<sp/>unit-square<sp/>coordinates</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="192"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
-<codeline lineno="193"><highlight class="normal"></highlight></codeline>
-<codeline lineno="194"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>distances<sp/>to<sp/>the<sp/>4<sp/>edges,<sp/>times<sp/>2<sp/>to<sp/>get<sp/>something<sp/>in<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dmin<sp/>=<sp/>2.f<sp/>*<sp/>std::min(1.f<sp/>-<sp/>rel.y,</highlight></codeline>
-<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::min(rel.y,<sp/>std::min(rel.x,<sp/>1.f<sp/>-<sp/>rel.x)));</highlight></codeline>
-<codeline lineno="197"><highlight class="normal"></highlight></codeline>
-<codeline lineno="198"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dmin;</highlight></codeline>
-<codeline lineno="199"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="200"><highlight class="normal"></highlight></codeline>
-<codeline lineno="201"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_shape_factor(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="202"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="203"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>switch<sp/>to<sp/>unit-square<sp/>coordinates</highlight><highlight class="normal"></highlight></codeline>
-<codeline lineno="204"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
-<codeline lineno="205"><highlight class="normal"></highlight></codeline>
-<codeline lineno="206"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;normalized_shape_factor_rel(rel.x,<sp/>rel.y);</highlight></codeline>
-<codeline lineno="207"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="208"><highlight class="normal"></highlight></codeline>
-<codeline lineno="209"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_shape_factor_rel(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
-<codeline lineno="210"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
-<codeline lineno="211"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>256.f<sp/>*<sp/>rx<sp/>*<sp/>rx<sp/>*<sp/>(1.f<sp/>-<sp/>rx)<sp/>*<sp/>(1.f<sp/>-<sp/>rx)<sp/>*<sp/>ry<sp/>*<sp/>ry<sp/>*<sp/>(1.f<sp/>-<sp/>ry)<sp/>*</highlight></codeline>
-<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1.f<sp/>-<sp/>ry);</highlight></codeline>
-<codeline lineno="213"><highlight class="normal">}</highlight></codeline>
-<codeline lineno="214"><highlight class="normal"></highlight></codeline>
-<codeline lineno="215"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>!(b1.max.x<sp/>&lt;<sp/>b2.min.x<sp/>||<sp/>b2.max.x<sp/>&lt;<sp/>b1.min.x<sp/>||<sp/>b1.max.y<sp/>&lt;<sp/>b2.min.y<sp/>||</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2.max.y<sp/>&lt;<sp/>b1.min.y);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"></highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CoordFrame::is_point_within(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="131"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"></highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Check<sp/>if<sp/>the<sp/>unrotated<sp/>point<sp/>is<sp/>within<sp/>the<sp/>unrotated<sp/>bounds</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;is_unit_point_within(rel.x,<sp/>rel.y);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/>CoordFrame::is_unit_point_within(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="139"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(rx<sp/>&gt;=<sp/>0.f<sp/>&amp;&amp;<sp/>rx<sp/>&lt;=<sp/>1.f<sp/>&amp;&amp;<sp/>ry<sp/>&gt;=<sp/>0.f<sp/>&amp;&amp;<sp/>ry<sp/>&lt;=<sp/>1.f);</highlight></codeline>
+<codeline lineno="141"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>set<sp/>the<sp/>rotation<sp/>angle<sp/>and<sp/>update<sp/>cos_angle<sp/>and<sp/>sin_angle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>CoordFrame::set_rotation_angle(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>new_angle)</highlight></codeline>
+<codeline lineno="145"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/>this-&gt;rotation_angle<sp/>=<sp/>new_angle;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"></highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>angle_rad<sp/>=<sp/>this-&gt;rotation_angle<sp/>*<sp/>M_PI<sp/>/<sp/>180.0f;</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>this-&gt;cos_angle<sp/>=<sp/>std::cos(angle_rad);</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/>this-&gt;sin_angle<sp/>=<sp/>std::sin(angle_rad);</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_global_coords(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="155"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/>rx<sp/>*=<sp/>this-&gt;size.x;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/>ry<sp/>*=<sp/>this-&gt;size.y;</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx<sp/>=<sp/>this-&gt;origin.x<sp/>+<sp/>rx<sp/>*<sp/>this-&gt;cos_angle<sp/>-<sp/>ry<sp/>*<sp/>this-&gt;sin_angle;</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy<sp/>=<sp/>this-&gt;origin.y<sp/>+<sp/>rx<sp/>*<sp/>this-&gt;sin_angle<sp/>+<sp/>ry<sp/>*<sp/>this-&gt;cos_angle;</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"></highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>glm::vec2(gx,<sp/>gy);</highlight></codeline>
+<codeline lineno="163"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Method<sp/>to<sp/>apply<sp/>inverse<sp/>rotation<sp/>to<sp/>a<sp/>point<sp/>relative<sp/>to<sp/>the<sp/>terrain<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_relative_coords(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="167"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Translate<sp/>the<sp/>point<sp/>to<sp/>be<sp/>relative<sp/>to<sp/>the<sp/>terrain&apos;s<sp/>origin</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>translated<sp/>=<sp/>glm::vec2(gx,<sp/>gy)<sp/>-<sp/>this-&gt;origin;</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"></highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>Unrotate<sp/>the<sp/>point<sp/>using<sp/>precomputed<sp/>cos_angle<sp/>and<sp/>sin_angle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>unrotated_x<sp/>=<sp/>translated.x<sp/>*<sp/>this-&gt;cos_angle<sp/>+</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>translated.y<sp/>*<sp/>this-&gt;sin_angle;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>unrotated_y<sp/>=<sp/>-translated.x<sp/>*<sp/>this-&gt;sin_angle<sp/>+</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>translated.y<sp/>*<sp/>this-&gt;cos_angle;</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/>unrotated_x<sp/>/=<sp/>this-&gt;size.x;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/>unrotated_y<sp/>/=<sp/>this-&gt;size.y;</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>glm::vec2(unrotated_x,<sp/>unrotated_y);</highlight></codeline>
+<codeline lineno="181"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal">glm::vec2<sp/>CoordFrame::map_to_relative_coords(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>CoordFrame<sp/>&amp;other,</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>rx,</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="186"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;compute_relative_transform(other).apply(rx,<sp/>ry);</highlight></codeline>
+<codeline lineno="188"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_distance_to_edges(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="191"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>switch<sp/>to<sp/>unit-square<sp/>coordinates</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>distances<sp/>to<sp/>the<sp/>4<sp/>edges,<sp/>times<sp/>2<sp/>to<sp/>get<sp/>something<sp/>in<sp/>[0,<sp/>1]</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>dmin<sp/>=<sp/>2.f<sp/>*<sp/>std::min(1.f<sp/>-<sp/>rel.y,</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::min(rel.y,<sp/>std::min(rel.x,<sp/>1.f<sp/>-<sp/>rel.x)));</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>dmin;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_shape_factor(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>gy)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="203"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>switch<sp/>to<sp/>unit-square<sp/>coordinates</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/>glm::vec2<sp/>rel<sp/>=<sp/>this-&gt;map_to_relative_coords(gx,<sp/>gy);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"></highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>this-&gt;normalized_shape_factor_rel(rel.x,<sp/>rel.y);</highlight></codeline>
+<codeline lineno="208"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"></highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CoordFrame::normalized_shape_factor_rel(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rx,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>ry)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="211"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>256.f<sp/>*<sp/>rx<sp/>*<sp/>rx<sp/>*<sp/>(1.f<sp/>-<sp/>rx)<sp/>*<sp/>(1.f<sp/>-<sp/>rx)<sp/>*<sp/>ry<sp/>*<sp/>ry<sp/>*<sp/>(1.f<sp/>-<sp/>ry)<sp/>*</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(1.f<sp/>-<sp/>ry);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"></highlight></codeline>
+<codeline lineno="216"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
     </programlisting>
     <location file="HighMap/src/coord_frame/coord_frame.cpp"/>
   </compounddef>

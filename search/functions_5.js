@@ -83,11 +83,12 @@ var searchData=
   ['from_5farray_5fbicubic_80',['from_array_bicubic',['../structhmap_1_1VirtualArray.html#a7753aef78b80e55ac2114ec8970ba765',1,'hmap::VirtualArray']]],
   ['from_5farray_5fbilinear_81',['from_array_bilinear',['../structhmap_1_1VirtualArray.html#a6b79aa001d876e725effb0e5659ffc44',1,'hmap::VirtualArray']]],
   ['from_5farrays_82',['from_arrays',['../classhmap_1_1VirtualTexture.html#a26d24df0ac625d8b46c78f45e06638a9',1,'hmap::VirtualTexture']]],
-  ['from_5fcsv_83',['from_csv',['../classhmap_1_1Cloud.html#a45c0878a8bcc06335e6afeb8c786a3e0',1,'hmap::Cloud']]],
-  ['from_5ffile_84',['from_file',['../classhmap_1_1Array.html#a000acd474d036adfa4e5e334139788ce',1,'hmap::Array']]],
-  ['from_5fnumpy_85',['from_numpy',['../classhmap_1_1Array.html#a61b4eb10e50548b12cfd0cb2f9eddde1',1,'hmap::Array']]],
-  ['from_5fradii_86',['from_radii',['../structhmap_1_1InteractionMatrix.html#a181a06017f7a95bfb1839cd1dc40ac74',1,'hmap::InteractionMatrix']]],
-  ['from_5fspecies_87',['from_species',['../structhmap_1_1InteractionMatrix.html#ab5f8f3591c9edeed91e083a4f69db595',1,'hmap::InteractionMatrix']]],
-  ['from_5fvec4_88',['from_vec4',['../structhmap_1_1BBox2D.html#ad8cc48d4dab37bb2b1f908d3ea3c64b1',1,'hmap::BBox2D::from_vec4()'],['../structhmap_1_1UvRect.html#adccbf5e5a7010795e2ccd7a036520b79',1,'hmap::UvRect::from_vec4()']]],
-  ['front_89',['front',['../classhmap_1_1CellPath.html#a5df555221e02f580ee1e0266e9ddcbb0',1,'hmap::CellPath::front()'],['../classhmap_1_1CellPath.html#a57da0455ee07fa09d52db9f3cdea232b',1,'hmap::CellPath::front() const'],['../classhmap_1_1Cloud.html#a8cae222f807dfaab9f9bf5d75493da0b',1,'hmap::Cloud::front()'],['../classhmap_1_1Cloud.html#a78fbf9591f4e985df41a448c835e8213',1,'hmap::Cloud::front() const'],['../classhmap_1_1ScatterField.html#ae3eaa626c3d98a542059589c785bed98',1,'hmap::ScatterField::front()'],['../classhmap_1_1ScatterField.html#a6c14d17b251be666bbb20a797210894a',1,'hmap::ScatterField::front() const']]]
+  ['from_5fbbox2d_83',['from_bbox2d',['../structhmap_1_1UvRect.html#a72688e2c144037e6a2902740e67d5cb8',1,'hmap::UvRect']]],
+  ['from_5fcsv_84',['from_csv',['../classhmap_1_1Cloud.html#a45c0878a8bcc06335e6afeb8c786a3e0',1,'hmap::Cloud']]],
+  ['from_5ffile_85',['from_file',['../classhmap_1_1Array.html#a000acd474d036adfa4e5e334139788ce',1,'hmap::Array']]],
+  ['from_5fnumpy_86',['from_numpy',['../classhmap_1_1Array.html#a61b4eb10e50548b12cfd0cb2f9eddde1',1,'hmap::Array']]],
+  ['from_5fradii_87',['from_radii',['../structhmap_1_1InteractionMatrix.html#a181a06017f7a95bfb1839cd1dc40ac74',1,'hmap::InteractionMatrix']]],
+  ['from_5fspecies_88',['from_species',['../structhmap_1_1InteractionMatrix.html#ab5f8f3591c9edeed91e083a4f69db595',1,'hmap::InteractionMatrix']]],
+  ['from_5fvec4_89',['from_vec4',['../structhmap_1_1BBox2D.html#ad8cc48d4dab37bb2b1f908d3ea3c64b1',1,'hmap::BBox2D::from_vec4()'],['../structhmap_1_1UvRect.html#adccbf5e5a7010795e2ccd7a036520b79',1,'hmap::UvRect::from_vec4()']]],
+  ['front_90',['front',['../classhmap_1_1CellPath.html#a5df555221e02f580ee1e0266e9ddcbb0',1,'hmap::CellPath::front()'],['../classhmap_1_1CellPath.html#a57da0455ee07fa09d52db9f3cdea232b',1,'hmap::CellPath::front() const'],['../classhmap_1_1Cloud.html#a8cae222f807dfaab9f9bf5d75493da0b',1,'hmap::Cloud::front()'],['../classhmap_1_1Cloud.html#a78fbf9591f4e985df41a448c835e8213',1,'hmap::Cloud::front() const'],['../classhmap_1_1ScatterField.html#ae3eaa626c3d98a542059589c785bed98',1,'hmap::ScatterField::front()'],['../classhmap_1_1ScatterField.html#a6c14d17b251be666bbb20a797210894a',1,'hmap::ScatterField::front() const']]]
 ];

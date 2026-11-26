@@ -9,7 +9,7 @@ var searchData=
   ['make_5fpointwise_5ffunction_5ffrom_5farray_6',['make_pointwise_function_from_array',['../namespacehmap.html#aff70a7b5e5c5b8011a82545528c2532e',1,'hmap']]],
   ['make_5fstorage_7',['make_storage',['../namespacehmap.html#a43075b5f93cea5525adb69b8d6990683',1,'hmap']]],
   ['make_5funique_5ftemp_5fdir_8',['make_unique_temp_dir',['../namespacehmap.html#a0a506d871b395e49e6175499dfa1e903',1,'hmap']]],
-  ['make_5fxy_5ffunction_5ffrom_5farray_9',['make_xy_function_from_array',['../namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a',1,'hmap']]],
+  ['make_5fxy_5ffunction_5ffrom_5farray_9',['make_xy_function_from_array',['../namespacehmap.html#a3af768293b6ac4b1c084a3271264e73b',1,'hmap']]],
   ['map_5fto_5fglobal_5fcoords_10',['map_to_global_coords',['../classhmap_1_1CoordFrame.html#a3c9a2d05acd75d7dd6117263861d3cff',1,'hmap::CoordFrame']]],
   ['map_5fto_5frelative_5fcoords_11',['map_to_relative_coords',['../classhmap_1_1CoordFrame.html#aeac43550d5345f7d1b16a469b906fefb',1,'hmap::CoordFrame::map_to_relative_coords(float gx, float gy) const'],['../classhmap_1_1CoordFrame.html#adff56b9f76f008e28fd9de6ddf02e96f',1,'hmap::CoordFrame::map_to_relative_coords(const CoordFrame &amp;other, float rx, float ry) const']]],
   ['mat_12',['Mat',['../structhmap_1_1Mat.html#aa469721a9114946e5346e95029a5f5dd',1,'hmap::Mat::Mat()=default'],['../structhmap_1_1Mat.html#a6a0451aafcbc5205d7f6bbe534092a9a',1,'hmap::Mat::Mat(glm::ivec2 shape)'],['../structhmap_1_1Mat.html#a83bf076cc0c3e6dd8911e05a2b95592e',1,'hmap::Mat::Mat(glm::ivec2 shape, T value)']]],
@@ -28,7 +28,7 @@ var searchData=
   ['median_5fpseudo_25',['median_pseudo',['../namespacehmap.html#a14eb6b7d304484c8cbb231b672851491',1,'hmap::median_pseudo()'],['../namespacehmap_1_1gpu.html#ad899151ee039affa2137db4a0e01be56',1,'hmap::gpu::median_pseudo()']]],
   ['merge_5fcloud_26',['merge_cloud',['../namespacehmap.html#abd7c616c225d31eb2fd4e3ff023e3ed5',1,'hmap']]],
   ['merge_5fclouds_27',['merge_clouds',['../namespacehmap.html#afc6e9a8850aaebd3cca94aefb3c54114',1,'hmap']]],
-  ['merge_5fscatter_5ffields_28',['merge_scatter_fields',['../namespacehmap.html#a8563414bbbec0c8c61ddad2fd3a358aa',1,'hmap::merge_scatter_fields(const std::vector&lt; ScatterField &gt; &amp;fields, bool merge_by_class=true)'],['../namespacehmap.html#a09487a4f97ee60322dc0b237309896ed',1,'hmap::merge_scatter_fields(const std::vector&lt; ScatterField &gt; &amp;fields, const std::vector&lt; glm::vec4 &gt; &amp;bboxs, bool merge_by_class=true)']]],
+  ['merge_5fscatter_5ffields_28',['merge_scatter_fields',['../namespacehmap.html#a8563414bbbec0c8c61ddad2fd3a358aa',1,'hmap::merge_scatter_fields(const std::vector&lt; ScatterField &gt; &amp;fields, bool merge_by_class=true)'],['../namespacehmap.html#ab4941c3560b97ab54bf8590dd2696222',1,'hmap::merge_scatter_fields(const std::vector&lt; ScatterField &gt; &amp;fields, const std::vector&lt; BBox2D &gt; &amp;bboxs, bool merge_by_class=true)']]],
   ['merge_5fwater_5fdepths_29',['merge_water_depths',['../namespacehmap.html#a64fbc0261e13ea842762efd3ac6bcc53',1,'hmap']]],
   ['midpoint_30',['midpoint',['../namespacehmap.html#a520a1e42c4e492e81b334914807abc22',1,'hmap']]],
   ['min_31',['min',['../classhmap_1_1Array.html#a9636778a72fa18be1bf20fba816f6c4d',1,'hmap::Array::min()'],['../classhmap_1_1Texture.html#a088a66adf2c1770d3d00585c1c708bc9',1,'hmap::Texture::min()'],['../structhmap_1_1VirtualArray.html#a86a3950c3cb912d82c694a752bb20f4c',1,'hmap::VirtualArray::min()']]],
@@ -51,5 +51,5 @@ var searchData=
   ['mountain_5ftibesti_48',['mountain_tibesti',['../namespacehmap_1_1gpu.html#a74c9a65023238d80f948e579e680f707',1,'hmap::gpu']]],
   ['moving_5faverage_49',['moving_average',['../namespacehmap.html#a31a4797a24a40eff0c53d17040327abe',1,'hmap']]],
   ['mudslide_50',['mudslide',['../namespacehmap_1_1gpu.html#a3faa3e769849fbcc7784d130c05f99a2',1,'hmap::gpu::mudslide(Array &amp;z, const Array &amp;landslide_mask, float depth, int iterations, float depth_map_exponent=0.5f, float viscosity_law_power=1.5f, Array *p_depth_end=nullptr, Array *p_depth_init=nullptr)'],['../namespacehmap_1_1gpu.html#ac726e3e56563a153c2c62f0603d53381',1,'hmap::gpu::mudslide(Array &amp;z, float talus_limit, float depth, int iterations, float depth_map_exponent=0.5f, float viscosity_law_power=1.5f, Array *p_depth_end=nullptr, Array *p_depth_init=nullptr)']]],
-  ['multisteps_51',['multisteps',['../namespacehmap.html#aeeb8f48ea78cb59de79c16ab28d1d855',1,'hmap::multisteps()'],['../namespacehmap_1_1gpu.html#a342e86d5f5b6da70427e3c66c25b419d',1,'hmap::gpu::multisteps()']]]
+  ['multisteps_51',['multisteps',['../namespacehmap.html#a45a3eb72aceb3a6553063a01dc3cc0c2',1,'hmap::multisteps()'],['../namespacehmap_1_1gpu.html#a4ce73a2eef313a245bbe81f115695a6b',1,'hmap::gpu::multisteps()']]]
 ];

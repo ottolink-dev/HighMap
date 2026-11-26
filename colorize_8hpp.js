@@ -33,5 +33,5 @@ var colorize_8hpp =
     [ "hmap::shade_color", "namespacehmap.html#a54eb8ce4196d73517024dbe2af5af81b", null ],
     [ "hmap::shade_color", "namespacehmap.html#a473177c74de27a056808d861d35eb1f3", null ],
     [ "hmap::shade_topographic_residual", "namespacehmap.html#aa26e98751bbe16f0223c8c117a35ec6e", null ],
-    [ "hmap::terrain_texture", "namespacehmap.html#aad001c1f08de81a941f331183f2ab619", null ]
+    [ "hmap::terrain_texture", "namespacehmap.html#a266ebf5aec193f5859cd1d2d12b3d8de", null ]
 ];

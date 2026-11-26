@@ -13,7 +13,7 @@ var points_8cpp =
     [ "hmap::interp_bspline", "namespacehmap.html#af148c924b422baa2e359e0788b7392d0", null ],
     [ "hmap::interp_catmullrom", "namespacehmap.html#ac7a93fe9501041332e1ff7a128742c6f", null ],
     [ "hmap::interp_decasteljau", "namespacehmap.html#aab4ce9b01f013efdc3dd817da4177737", null ],
-    [ "hmap::intersect_bounding_boxes", "namespacehmap.html#a2a5f48139d9b848a69795131fb04002d", null ],
+    [ "hmap::intersect_bounding_boxes", "namespacehmap.html#add4fb2cd3422d06533599c999cda3cc7", null ],
     [ "hmap::is_point_within_bounding_box", "namespacehmap.html#a0f9a2d56ba169ed71a30d8c07a940a80", null ],
     [ "hmap::is_point_within_bounding_box", "namespacehmap.html#a81b40e7a75da8e5143b1666c41bc200b", null ],
     [ "hmap::lerp", "namespacehmap.html#ac14815cf025b7430d31d08125a5c6f0d", null ],

@@ -9,6 +9,6 @@ var scatter__field_8hpp =
       [ "hmap::SCATTER_SHAPE_SMOOTH_DOME", "namespacehmap.html#a1074c818c371781872a62a556c98b3d3a710d6a87d2fd947015798fd22218ae25", null ]
     ] ],
     [ "hmap::merge_scatter_fields", "namespacehmap.html#a8563414bbbec0c8c61ddad2fd3a358aa", null ],
-    [ "hmap::merge_scatter_fields", "namespacehmap.html#a09487a4f97ee60322dc0b237309896ed", null ],
+    [ "hmap::merge_scatter_fields", "namespacehmap.html#ab4941c3560b97ab54bf8590dd2696222", null ],
     [ "hmap::scatter_field_to_heightmap", "namespacehmap.html#ad07e82273feb6a9b2c6f498ee6c581e0", null ]
 ];

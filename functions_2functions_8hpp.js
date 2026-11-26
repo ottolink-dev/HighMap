@@ -53,6 +53,6 @@ var functions_2functions_8hpp =
       [ "hmap::WORLEY_DOUBLE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a1d1ba101960a8a8234df2d16ac305d45", null ],
       [ "hmap::WORLEY_VALUE", "namespacehmap.html#ab8197c4c7a85dacb616fee7a7d0df195a803cca1f65b9596dbde7c54039773a39", null ]
     ] ],
-    [ "hmap::make_xy_function_from_array", "namespacehmap.html#a84ca1f41de32e4beacb10787127b4b8a", null ],
+    [ "hmap::make_xy_function_from_array", "namespacehmap.html#a3af768293b6ac4b1c084a3271264e73b", null ],
     [ "hmap::with_noise_function", "namespacehmap.html#affd2220de085a60e3052a80a376e0c47", null ]
 ];

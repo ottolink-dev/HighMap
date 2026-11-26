@@ -8,7 +8,7 @@ var classhmap_1_1CoordFrame =
     [ "set_origin", "classhmap_1_1CoordFrame.html#a222b1c7967bcff3c088d2c210dd15036", null ],
     [ "set_size", "classhmap_1_1CoordFrame.html#a6666eb25c743ed5c2f07cc8f12dbf052", null ],
     [ "set_rotation_angle", "classhmap_1_1CoordFrame.html#a309642c71a4058665a48427b0c9248fc", null ],
-    [ "compute_bounding_box", "classhmap_1_1CoordFrame.html#a8d816754189a8244628bd4c6eefaf09c", null ],
+    [ "compute_bounding_box", "classhmap_1_1CoordFrame.html#ae1ee91f28035cd37f8e1b26be8e1aabc", null ],
     [ "compute_bbox", "classhmap_1_1CoordFrame.html#ab6548ada59baf8bc9d8cef2fb5b1267c", null ],
     [ "intersects", "classhmap_1_1CoordFrame.html#a6c80292ee841eb15b3725585139bc9e3", null ],
     [ "is_point_within", "classhmap_1_1CoordFrame.html#a712f76df08417fcffc44b704e4ddd1be", null ],

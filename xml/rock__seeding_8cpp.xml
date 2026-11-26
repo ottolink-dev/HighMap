@@ -117,7 +117,7 @@
 <codeline lineno="106"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Generate<sp/>Sub-RockFields<sp/>per<sp/>Tile</highlight><highlight class="normal"></highlight></codeline>
 <codeline lineno="107"><highlight class="normal"></highlight></codeline>
 <codeline lineno="108"><highlight class="normal"><sp/><sp/>std::vector&lt;ScatterField&gt;<sp/>tile_fields(total_tiles);</highlight></codeline>
-<codeline lineno="109"><highlight class="normal"><sp/><sp/>std::vector&lt;glm::vec4&gt;<sp/><sp/><sp/><sp/>tile_bboxs(total_tiles);</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/>std::vector&lt;BBox2D&gt;<sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs(total_tiles);</highlight></codeline>
 <codeline lineno="110"><highlight class="normal"></highlight></codeline>
 <codeline lineno="111"><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a1025088e008bb5709c8f88bc025ab1cb" kindref="member">hmap::for_each_tile</ref>(</highlight></codeline>
 <codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{&amp;density,<sp/>p_exclusion_va},</highlight></codeline>
@@ -130,7 +130,7 @@
 <codeline lineno="119"><highlight class="normal"></highlight></codeline>
 <codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>tile_index<sp/>=<sp/>region.key.ty<sp/>*<sp/>num_tiles.x<sp/>+<sp/>region.key.tx;</highlight></codeline>
 <codeline lineno="121"><highlight class="normal"></highlight></codeline>
-<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs[tile_index]<sp/>=<sp/>region.uv_rect.to_vec4();</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_bboxs[tile_index]<sp/>=<sp/>region.uv_rect.to_bbox2d();</highlight></codeline>
 <codeline lineno="123"><highlight class="normal"></highlight></codeline>
 <codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/>tile_sum<sp/>=<sp/>tile_full_sums[tile_index];</highlight></codeline>
 <codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tile_rock_count<sp/>=<sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="keywordtype">size_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(std::round(</highlight></codeline>
@@ -142,7 +142,7 @@
 <codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
 <codeline lineno="132"><highlight class="normal"></highlight></codeline>
 <codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>RockSeedingOptions<sp/>tile_options<sp/>=<sp/>options;</highlight></codeline>
-<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.bbox<sp/>=<sp/>region.uv_rect.to_vec4();</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.bbox<sp/>=<sp/>region.uv_rect.to_bbox2d();</highlight></codeline>
 <codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tile_options.seed<sp/>=<sp/>options.seed<sp/>+</highlight></codeline>
 <codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static_cast&lt;</highlight><highlight class="normal">uint32_t</highlight><highlight class="keyword">&gt;</highlight><highlight class="normal">(tile_index)<sp/>*<sp/>1999u<sp/>+<sp/>17u;</highlight></codeline>
 <codeline lineno="137"><highlight class="normal"></highlight></codeline>
