@@ -4,5 +4,5 @@ var dijsktra_8cpp =
     [ "hmap::find_path_dijkstra", "namespacehmap.html#ada562827a55a9d58e5fda3aee355eb2c", null ],
     [ "hmap::find_path_dijkstra", "namespacehmap.html#abc177c4e25817f2a86f3814bbc634055", null ],
     [ "hmap::find_path_dijkstra", "namespacehmap.html#a14bdc38c20e9a8f09629abf75304e567", null ],
-    [ "hmap::va::find_path_dijkstra", "namespacehmap_1_1va.html#a996f3a9161ae2f85e2ef1d257dd43349", null ]
+    [ "hmap::find_path_dijkstra", "namespacehmap.html#a2fbc7cf6f3823f26d664b84f263cc223", null ]
 ];

@@ -2260,13 +2260,17 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 <tr class="memdesc:a73ba305b4bddf744368a107525bb3c81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide the path by adding points based on the lowest elevation difference between each pair of edge endpoints.  <br /></td></tr>
 <tr class="memitem:ad1515214ffa088f61ffc374b68d670f8" id="r_ad1515214ffa088f61ffc374b68d670f8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1515214ffa088f61ffc374b68d670f8">find_cut_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> start, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> end, float dijk_elevation_ratio=0.9<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float dijk_distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float dijk_upward_penalization=100.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool favor_domain_center=false)</td></tr>
 <tr class="memdesc:ad1515214ffa088f61ffc374b68d670f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a Dijkstra-based cut path between two domain boundaries.  <br /></td></tr>
-<tr class="memitem:a2c463175bb90319f83de452c2b55ac2b" id="r_a2c463175bb90319f83de452c2b55ac2b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2c463175bb90319f83de452c2b55ac2b">find_cut_path_midpoint</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> start, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> end, std::uint32_t seed, float offset_ratio=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int steps=16, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true)</td></tr>
-<tr class="memdesc:a2c463175bb90319f83de452c2b55ac2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a stochastic cut path using midpoint displacement.  <br /></td></tr>
+<tr class="memitem:ab7606c2660f5eeb7db5a3eecfd7ca5e0" id="r_ab7606c2660f5eeb7db5a3eecfd7ca5e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab7606c2660f5eeb7db5a3eecfd7ca5e0">find_cut_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> start, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> end, std::uint32_t seed, size_t control_points_count=2048, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool favor_domain_center=false, const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;region=<a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>(), <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
+<tr class="memdesc:ab7606c2660f5eeb7db5a3eecfd7ca5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a cut path across a heightmap using a random triangular mesh and Dijkstra shortest path search (tileable).  <br /></td></tr>
+<tr class="memitem:a94afef64b95f67e4b58439f137c886cb" id="r_a94afef64b95f67e4b58439f137c886cb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a94afef64b95f67e4b58439f137c886cb">find_cut_path_midpoint</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> start, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> end, std::uint32_t seed, float offset_ratio=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int steps=16, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;region=<a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>(), <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
+<tr class="memdesc:a94afef64b95f67e4b58439f137c886cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a stochastic cut path using midpoint displacement.  <br /></td></tr>
 <tr class="memitem:a3e877482c194619d1bf1dc398766fe66" id="r_a3e877482c194619d1bf1dc398766fe66"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3e877482c194619d1bf1dc398766fe66">find_cut_path_multiscale</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> start, <a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a> end, int n_levels=3, int corridor_radius=4, float corridor_decay=1.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float dijk_elevation_ratio=0.9<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float dijk_distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float dijk_upward_penalization=100.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool use_astar=false, bool smooth_path=false)</td></tr>
 <tr class="memdesc:a3e877482c194619d1bf1dc398766fe66"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find a fast coarse-to-fine multiscale cut path between two domain boundaries.  <br /></td></tr>
 <tr class="memitem:ada562827a55a9d58e5fda3aee355eb2c" id="r_ada562827a55a9d58e5fda3aee355eb2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ada562827a55a9d58e5fda3aee355eb2c">find_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 ij_start, glm::ivec2 ij_end, std::vector&lt; int &gt; &amp;i_path, std::vector&lt; int &gt; &amp;j_path, float elevation_ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask_nogo=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_node_weights=nullptr)</td></tr>
 <tr class="memdesc:ada562827a55a9d58e5fda3aee355eb2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Finds the path with the lowest elevation and elevation difference between two points in a 2D array using Dijkstra's algorithm.  <br /></td></tr>
 <tr class="memitem:a2a890c5d4fc9c8f55ed89b881c380617" id="r_a2a890c5d4fc9c8f55ed89b881c380617"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2a890c5d4fc9c8f55ed89b881c380617">find_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 ij_start, std::vector&lt; glm::ivec2 &gt; ij_end_list, std::vector&lt; std::vector&lt; int &gt; &gt; &amp;i_path_list, std::vector&lt; std::vector&lt; int &gt; &gt; &amp;j_path_list, float elevation_ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask_nogo=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_node_weights=nullptr)</td></tr>
+<tr class="memitem:a2fbc7cf6f3823f26d664b84f263cc223" id="r_a2fbc7cf6f3823f26d664b84f263cc223"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2fbc7cf6f3823f26d664b84f263cc223">find_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::vec2 start, glm::vec2 end, std::uint32_t seed, size_t control_points_count=2048, bool favor_domain_center=false, const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;region=<a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>(), <a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;comm=<a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>())</td></tr>
+<tr class="memdesc:a2fbc7cf6f3823f26d664b84f263cc223"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a path between two points across a heightmap using a random triangular mesh and Dijkstra shortest path search (tileable).  <br /></td></tr>
 <tr class="memitem:abc177c4e25817f2a86f3814bbc634055" id="r_abc177c4e25817f2a86f3814bbc634055"><td class="memItemLeft" align="right" valign="top">std::vector&lt; glm::ivec2 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abc177c4e25817f2a86f3814bbc634055">find_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 ij_start, glm::ivec2 ij_end, float elevation_ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask_nogo=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_node_weights=nullptr)</td></tr>
 <tr class="memdesc:abc177c4e25817f2a86f3814bbc634055"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload of find_path_dijkstra returning a vector of grid indices.  <br /></td></tr>
 <tr class="memitem:a14bdc38c20e9a8f09629abf75304e567" id="r_a14bdc38c20e9a8f09629abf75304e567"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Path.html">Path</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a14bdc38c20e9a8f09629abf75304e567">find_path_dijkstra</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, glm::ivec2 ij_start, glm::ivec2 ij_end, const <a class="el" href="structhmap_1_1UvRect.html">UvRect</a> &amp;uv_rect, float elevation_ratio=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_mask_nogo=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_node_weights=nullptr)</td></tr>
@@ -8376,7 +8380,7 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="ttc" id="anamespacehmap_html_a2affc745bc33b7555352665745741f90ac0cd381f8918df73dd4bc6df1190d7ba"><div class="ttname"><a href="#a2affc745bc33b7555352665745741f90ac0cd381f8918df73dd4bc6df1190d7ba">hmap::RP_GAIN</a></div><div class="ttdeci">@ RP_GAIN</div><div class="ttdef"><b>Definition</b> profiles.hpp:52</div></div>
 <div class="ttc" id="anamespacehmap_html_a503c81c6f38031b62d4d72130f102e8f"><div class="ttname"><a href="#a503c81c6f38031b62d4d72130f102e8f">hmap::flatbed_carve</a></div><div class="ttdeci">void flatbed_carve(Array &amp;z, const Path &amp;path, float bottom_extent=32.f, float vmin=0.1f, float depth=0.05f, float falloff_distance=128.f, float outer_slope=0.1f, bool preserve_bedshape=true, RadialProfile radial_profile=RadialProfile::RP_GAIN, float radial_profile_parameter=2.f, Array *p_falloff_mask=nullptr, const Array *p_noise_r=nullptr, const UvRect &amp;uv_rect=UvRect::unit())</div><div class="ttdoc">Blends a flatbed carve into an existing heightmap.</div><div class="ttdef"><b>Definition</b> flatbed_carve.cpp:120</div></div>
 <div class="ttc" id="anamespacehmap_html_a862fef5e0387bea9358648fc7aa5680b"><div class="ttname"><a href="#a862fef5e0387bea9358648fc7aa5680b">hmap::decimate_vw</a></div><div class="ttdeci">Path decimate_vw(const Path &amp;path, int n_points_target=3)</div><div class="ttdoc">Simplifies the current path using the Visvalingam-Whyatt algorithm.</div><div class="ttdef"><b>Definition</b> path_functions.cpp:206</div></div>
-<div class="ttc" id="anamespacehmap_html_ad1515214ffa088f61ffc374b68d670f8"><div class="ttname"><a href="#ad1515214ffa088f61ffc374b68d670f8">hmap::find_cut_path_dijkstra</a></div><div class="ttdeci">Path find_cut_path_dijkstra(const Array &amp;z, DomainBoundary start, DomainBoundary end, float dijk_elevation_ratio=0.9f, float dijk_distance_exponent=2.f, float dijk_upward_penalization=100.f, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool favor_domain_center=false)</div><div class="ttdoc">Find a Dijkstra-based cut path between two domain boundaries.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:18</div></div>
+<div class="ttc" id="anamespacehmap_html_ad1515214ffa088f61ffc374b68d670f8"><div class="ttname"><a href="#ad1515214ffa088f61ffc374b68d670f8">hmap::find_cut_path_dijkstra</a></div><div class="ttdeci">Path find_cut_path_dijkstra(const Array &amp;z, DomainBoundary start, DomainBoundary end, float dijk_elevation_ratio=0.9f, float dijk_distance_exponent=2.f, float dijk_upward_penalization=100.f, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool favor_domain_center=false)</div><div class="ttdoc">Find a Dijkstra-based cut path between two domain boundaries.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:17</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_flatbed_carve.png" alt=""/>
 </div>
@@ -8537,7 +8541,7 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- create path</span></div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path = <a class="code hl_function" href="#a2c463175bb90319f83de452c2b55ac2b">hmap::find_cut_path_midpoint</a>(</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path = <a class="code hl_function" href="#a94afef64b95f67e4b58439f137c886cb">hmap::find_cut_path_midpoint</a>(</div>
 <div class="line">      z1,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eea760545322569136cd3be89e004ab10d4">hmap::DomainBoundary::BOUNDARY_LEFT</a>,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eeadb9a04ab3508704543b5dd43ae495fe7">hmap::DomainBoundary::BOUNDARY_RIGHT</a>,</div>
@@ -8572,8 +8576,8 @@ spacing</span> at their farthest interior point, or sink by the same amount when
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_trench.png&quot;</span>, {z1, z2, z3}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>, <span class="keyword">true</span>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a2c463175bb90319f83de452c2b55ac2b"><div class="ttname"><a href="#a2c463175bb90319f83de452c2b55ac2b">hmap::find_cut_path_midpoint</a></div><div class="ttdeci">Path find_cut_path_midpoint(const Array &amp;z, DomainBoundary start, DomainBoundary end, std::uint32_t seed, float offset_ratio=0.2f, int steps=16, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true)</div><div class="ttdoc">Generate a stochastic cut path using midpoint displacement.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:90</div></div>
 <div class="ttc" id="anamespacehmap_html_a8eb3b37f9c2d4832fa1e0645bc69ac22"><div class="ttname"><a href="#a8eb3b37f9c2d4832fa1e0645bc69ac22">hmap::init_openmp</a></div><div class="ttdeci">bool init_openmp(int num_threads=-1)</div><div class="ttdef"><b>Definition</b> openmp.cpp:14</div></div>
+<div class="ttc" id="anamespacehmap_html_a94afef64b95f67e4b58439f137c886cb"><div class="ttname"><a href="#a94afef64b95f67e4b58439f137c886cb">hmap::find_cut_path_midpoint</a></div><div class="ttdeci">Path find_cut_path_midpoint(const Array &amp;z, DomainBoundary start, DomainBoundary end, std::uint32_t seed, float offset_ratio=0.2f, int steps=16, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, const UvTile &amp;region=UvTile::unit(), ICommunicator &amp;comm=SingleArrayComm::instance())</div><div class="ttdoc">Generate a stochastic cut path using midpoint displacement.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:150</div></div>
 <div class="ttc" id="anamespacehmap_html_aa93edf684d68d948c71cadf70171760b"><div class="ttname"><a href="#aa93edf684d68d948c71cadf70171760b">hmap::trench</a></div><div class="ttdeci">void trench(Array &amp;z, const Path &amp;path, float width, bool enable_width_depth_scaling=true, bool enable_width_distance_scaling=true, bool enable_width_curvature_scaling=false, float curvature_radius_min=1.f, float curv_width_ratio_min=0.5f, float curv_width_ratio_max=2.f, RadialProfile radial_profile=RadialProfile::RP_SMOOTHSTEP_UPPER, float radial_profile_parameter=2.f, ElevationLongitudinalProfile longitudinal_profile=ElevationLongitudinalProfile::ELP_DECREASING, float elevation_shift=-0.05f, float shift_ramp_start_ratio=0.f, float shift_ramp_end_ratio=0.f, float min_slope=0.001f, size_t k_neighbors=8, const Array *p_noise_r=nullptr, Array *p_bending_mask=nullptr, int tile_size=32, const UvRect &amp;uv_rect=UvRect::unit())</div><div class="ttdoc">Carves a trench along a given path into a heightmap.</div><div class="ttdef"><b>Definition</b> trench.cpp:538</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_trench.png" alt=""/>
@@ -52761,7 +52765,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 </div>
 </div>
 <a id="ad1515214ffa088f61ffc374b68d670f8" name="ad1515214ffa088f61ffc374b68d670f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1515214ffa088f61ffc374b68d670f8">&#9670;&#160;</a></span>find_cut_path_dijkstra()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1515214ffa088f61ffc374b68d670f8">&#9670;&#160;</a></span>find_cut_path_dijkstra() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -52858,7 +52862,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> zp = path.<a class="code hl_function" href="classhmap_1_1Path.html#a584e8b744dcfaddc8f161bc2fbc62bd1">to_array</a>(shape);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// greedy midpoint</span></div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path2 = <a class="code hl_function" href="#a2c463175bb90319f83de452c2b55ac2b">hmap::find_cut_path_midpoint</a>(</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path2 = <a class="code hl_function" href="#a94afef64b95f67e4b58439f137c886cb">hmap::find_cut_path_midpoint</a>(</div>
 <div class="line">      z,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eea760545322569136cd3be89e004ab10d4">hmap::DomainBoundary::BOUNDARY_LEFT</a>,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eeadb9a04ab3508704543b5dd43ae495fe7">hmap::DomainBoundary::BOUNDARY_RIGHT</a>,</div>
@@ -52876,15 +52880,100 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">                          {z, zp, zp2, zp3},</div>
 <div class="line">                          <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369afd0b9cd53cbae62c25ef686ba527d143">hmap::Cmap::INFERNO</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a3e877482c194619d1bf1dc398766fe66"><div class="ttname"><a href="#a3e877482c194619d1bf1dc398766fe66">hmap::find_cut_path_multiscale</a></div><div class="ttdeci">Path find_cut_path_multiscale(const Array &amp;z, DomainBoundary start, DomainBoundary end, int n_levels=3, int corridor_radius=4, float corridor_decay=1.f, float dijk_elevation_ratio=0.9f, float dijk_distance_exponent=2.f, float dijk_upward_penalization=100.f, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool use_astar=false, bool smooth_path=false)</div><div class="ttdoc">Find a fast coarse-to-fine multiscale cut path between two domain boundaries.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:130</div></div>
+<div class="ttc" id="anamespacehmap_html_a3e877482c194619d1bf1dc398766fe66"><div class="ttname"><a href="#a3e877482c194619d1bf1dc398766fe66">hmap::find_cut_path_multiscale</a></div><div class="ttdeci">Path find_cut_path_multiscale(const Array &amp;z, DomainBoundary start, DomainBoundary end, int n_levels=3, int corridor_radius=4, float corridor_decay=1.f, float dijk_elevation_ratio=0.9f, float dijk_distance_exponent=2.f, float dijk_upward_penalization=100.f, std::uint32_t seed=0, bool favor_boundary_center=true, bool favor_lower_elevation=true, bool favor_sinks=true, bool use_astar=false, bool smooth_path=false)</div><div class="ttdoc">Find a fast coarse-to-fine multiscale cut path between two domain boundaries.</div><div class="ttdef"><b>Definition</b> find_cut_path.cpp:193</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_find_cut_path.png" alt=""/>
 </div>
  
 </div>
 </div>
-<a id="a2c463175bb90319f83de452c2b55ac2b" name="a2c463175bb90319f83de452c2b55ac2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c463175bb90319f83de452c2b55ac2b">&#9670;&#160;</a></span>find_cut_path_midpoint()</h2>
+<a id="ab7606c2660f5eeb7db5a3eecfd7ca5e0" name="ab7606c2660f5eeb7db5a3eecfd7ca5e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7606c2660f5eeb7db5a3eecfd7ca5e0">&#9670;&#160;</a></span>find_cut_path_dijkstra() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Path.html">Path</a> hmap::find_cut_path_dijkstra </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a></td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1ba9d4ce7afe3309f8ae8e617f7154ee">DomainBoundary</a></td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>control_points_count</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2048</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_boundary_center</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_lower_elevation</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_sinks</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_domain_center</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>comm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>()</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a cut path across a heightmap using a random triangular mesh and Dijkstra shortest path search (tileable). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>Heightmap array (or tile). </td></tr>
+    <tr><td class="paramname">start</td><td>Start boundary. </td></tr>
+    <tr><td class="paramname">end</td><td>End boundary. </td></tr>
+    <tr><td class="paramname">seed</td><td>Random seed for mesh point generation. </td></tr>
+    <tr><td class="paramname">control_points_count</td><td>Number of control points sampled for the mesh. </td></tr>
+    <tr><td class="paramname">favor_boundary_center</td><td>Favor points near the center of the boundary. </td></tr>
+    <tr><td class="paramname">favor_lower_elevation</td><td>Favor lower elevation points on the boundary. </td></tr>
+    <tr><td class="paramname">favor_sinks</td><td>Favor local depressions. </td></tr>
+    <tr><td class="paramname">favor_domain_center</td><td>Favor passing through the center of the domain. </td></tr>
+    <tr><td class="paramname">region</td><td>Tile region metadata. </td></tr>
+    <tr><td class="paramname">comm</td><td>Tiled communicator instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Path.html" title="Represents an ordered set of points in 2D, forming a polyline (open or closed).">Path</a> containing normalized 3D coordinates and elevations (empty on non-root ranks). </dd></dl>
+
+</div>
+</div>
+<a id="a94afef64b95f67e4b58439f137c886cb" name="a94afef64b95f67e4b58439f137c886cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94afef64b95f67e4b58439f137c886cb">&#9670;&#160;</a></span>find_cut_path_midpoint()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -52932,7 +53021,17 @@ off" values that fall below the threshold, which can be useful for filtering out
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_sinks</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>&#160;)</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_sinks</em></span><span class="paramdefsep"> = </span><span class="paramdefval">true</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>comm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>()</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -52947,6 +53046,11 @@ off" values that fall below the threshold, which can be useful for filtering out
     <tr><td class="paramname">seed</td><td>Random seed. </td></tr>
     <tr><td class="paramname">midp_iterations</td><td>Number of subdivision steps. </td></tr>
     <tr><td class="paramname">midp_sigma</td><td>Displacement amplitude.</td></tr>
+    <tr><td class="paramname">favor_boundary_center</td><td>Favor points near the center of the boundary. </td></tr>
+    <tr><td class="paramname">favor_lower_elevation</td><td>Favor lower elevation points on the boundary. </td></tr>
+    <tr><td class="paramname">favor_sinks</td><td>Favor local depressions. </td></tr>
+    <tr><td class="paramname">region</td><td>Tile region metadata. </td></tr>
+    <tr><td class="paramname">comm</td><td>Tiled communicator instance.</td></tr>
   </table>
   </dd>
 </dl>
@@ -52970,7 +53074,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> zp = path.<a class="code hl_function" href="classhmap_1_1Path.html#a584e8b744dcfaddc8f161bc2fbc62bd1">to_array</a>(shape);</div>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// greedy midpoint</span></div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path2 = <a class="code hl_function" href="#a2c463175bb90319f83de452c2b55ac2b">hmap::find_cut_path_midpoint</a>(</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path2 = <a class="code hl_function" href="#a94afef64b95f67e4b58439f137c886cb">hmap::find_cut_path_midpoint</a>(</div>
 <div class="line">      z,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eea760545322569136cd3be89e004ab10d4">hmap::DomainBoundary::BOUNDARY_LEFT</a>,</div>
 <div class="line">      <a class="code hl_enumvalue" href="#a1ba9d4ce7afe3309f8ae8e617f7154eeadb9a04ab3508704543b5dd43ae495fe7">hmap::DomainBoundary::BOUNDARY_RIGHT</a>,</div>
@@ -53105,7 +53209,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 </div>
 </div>
 <a id="ada562827a55a9d58e5fda3aee355eb2c" name="ada562827a55a9d58e5fda3aee355eb2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada562827a55a9d58e5fda3aee355eb2c">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ada562827a55a9d58e5fda3aee355eb2c">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -53224,7 +53328,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 </div>
 </div>
 <a id="a2a890c5d4fc9c8f55ed89b881c380617" name="a2a890c5d4fc9c8f55ed89b881c380617"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a890c5d4fc9c8f55ed89b881c380617">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a890c5d4fc9c8f55ed89b881c380617">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -53284,8 +53388,75 @@ off" values that fall below the threshold, which can be useful for filtering out
 
 </div>
 </div>
+<a id="a2fbc7cf6f3823f26d664b84f263cc223" name="a2fbc7cf6f3823f26d664b84f263cc223"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fbc7cf6f3823f26d664b84f263cc223">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classhmap_1_1Path.html">Path</a> hmap::find_path_dijkstra </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>z</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>start</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">glm::vec2</td>          <td class="paramname"><span class="paramname"><em>end</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::uint32_t</td>          <td class="paramname"><span class="paramname"><em>seed</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>control_points_count</em></span><span class="paramdefsep"> = </span><span class="paramdefval">2048</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>favor_domain_center</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structhmap_1_1UvTile.html">UvTile</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>region</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="structhmap_1_1UvTile.html#acac98391a9428457ac4d8f3cca886c4e">UvTile::unit</a>()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classhmap_1_1ICommunicator.html">ICommunicator</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>comm</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="classhmap_1_1SingleArrayComm.html#a4cc8e4cdcf75624d4dbf641f4da8435a">SingleArrayComm::instance</a>()</span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a path between two points across a heightmap using a random triangular mesh and Dijkstra shortest path search (tileable). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">z</td><td>Heightmap array (or tile). </td></tr>
+    <tr><td class="paramname">start</td><td>Start coordinates (x, y) in [0, 1]. </td></tr>
+    <tr><td class="paramname">end</td><td>End coordinates (x, y) in [0, 1]. </td></tr>
+    <tr><td class="paramname">seed</td><td>Random seed for mesh point generation. </td></tr>
+    <tr><td class="paramname">control_points_count</td><td>Number of control points sampled for the mesh. </td></tr>
+    <tr><td class="paramname">favor_domain_center</td><td>Favor passing through the center of the domain. </td></tr>
+    <tr><td class="paramname">region</td><td>Tile region metadata. </td></tr>
+    <tr><td class="paramname">comm</td><td>Tiled communicator instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classhmap_1_1Path.html" title="Represents an ordered set of points in 2D, forming a polyline (open or closed).">Path</a> containing 3D coordinates and elevations (empty on non-root ranks). </dd></dl>
+
+</div>
+</div>
 <a id="abc177c4e25817f2a86f3814bbc634055" name="abc177c4e25817f2a86f3814bbc634055"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc177c4e25817f2a86f3814bbc634055">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abc177c4e25817f2a86f3814bbc634055">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[4/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -53352,7 +53523,7 @@ off" values that fall below the threshold, which can be useful for filtering out
 </div>
 </div>
 <a id="a14bdc38c20e9a8f09629abf75304e567" name="a14bdc38c20e9a8f09629abf75304e567"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14bdc38c20e9a8f09629abf75304e567">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a14bdc38c20e9a8f09629abf75304e567">&#9670;&#160;</a></span>find_path_dijkstra() <span class="overload">[5/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
