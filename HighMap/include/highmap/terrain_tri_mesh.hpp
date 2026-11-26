@@ -10,6 +10,7 @@
 #include <glm/vec4.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/boundary.hpp"
 #include "highmap/spatial/bbox2d.hpp"
 
@@ -376,22 +377,12 @@ TerrainTriMesh generate_terrain_tri_mesh_from_heightmap(const Array &z,
                                                         int max_triangles = 0,
                                                         int max_points = 0);
 
-/** @brief Generate a random terrain mesh from a heightmap. */
+/** @brief Generate a random terrain mesh from a heightmap tile. */
 TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const Array  &z,
-    int           control_points_count,
-    std::uint32_t seed);
+    const Array   &z,
+    int            control_points_count,
+    std::uint32_t  seed,
+    const UvTile  &region = UvTile::unit(),
+    ICommunicator *p_comm = nullptr);
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-/** @brief Generate a random terrain mesh from a heightmap VirtualArray. */
-TerrainTriMesh generate_terrain_tri_mesh_from_heightmap_random(
-    const ComputeMode  &cm,
-    const VirtualArray &z,
-    int                 control_points_count,
-    std::uint32_t       seed);
-
-} // namespace hmap::va

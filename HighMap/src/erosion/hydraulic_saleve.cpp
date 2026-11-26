@@ -277,11 +277,29 @@ VirtualArray hydraulic_saleve(const ComputeMode    &cm,
 
   // --- generate triangle mesh
 
-  TerrainTriMesh mesh = va::generate_terrain_tri_mesh_from_heightmap_random(
-      cm,
-      z,
-      control_points_count,
-      seed);
+  TerrainTriMesh mesh;
+
+  hmap::for_each_tile(
+      {&z},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile &region,
+          ICommunicator      &comm)
+      {
+        auto [pa_z] = unpack<1>(p_arrays_in);
+
+        TerrainTriMesh tile_mesh =
+            hmap::generate_terrain_tri_mesh_from_heightmap_random(
+                *pa_z,
+                control_points_count,
+                seed,
+                region,
+                &comm);
+
+        if (comm.rank() == 0) mesh = std::move(tile_mesh);
+      },
+      cm);
 
   // --- spatial parameters
 
