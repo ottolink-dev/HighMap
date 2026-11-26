@@ -2,9 +2,6 @@ var hydraulic__erosion_8hpp =
 [
     [ "hmap::hydraulic_mise", "namespacehmap.html#a7b0c1711fe9d99ae8bb573e099ddd5c8", null ],
     [ "hmap::hydraulic_mise", "namespacehmap.html#a7596adf5cfdf28ff37dbf1dcda09bb75", null ],
-    [ "hmap::hydraulic_saleve", "namespacehmap.html#ada51d6f53d06fa3a592223e5f6137e03", null ],
-    [ "hmap::hydraulic_saleve", "namespacehmap.html#a437dbeb7f3349ea6b5622ffcf5d3b6a3", null ],
-    [ "hmap::hydraulic_saleve", "namespacehmap.html#a5ec83fc1497f653486bc4cc22ecee87b", null ],
     [ "hmap::gpu::deposition_fill_holes", "namespacehmap_1_1gpu.html#a8497e2fce595293ea07e68eac1e5bce2", null ],
     [ "hmap::gpu::deposition_fill_holes", "namespacehmap_1_1gpu.html#a67fee4e11fb0b003d0ebb091e85533fe", null ],
     [ "hmap::gpu::hydraulic_particle", "namespacehmap_1_1gpu.html#a76acb93bf5aed29444816b7a03202f94", null ],
@@ -26,6 +23,5 @@ var hydraulic__erosion_8hpp =
     [ "hmap::gpu::hydraulic_stream_log_multiscale", "namespacehmap_1_1gpu.html#a4d3af5c9b4e93ddbf5bcc37ea41c6df4", null ],
     [ "hmap::gpu::hydraulic_stream_log_multiscale", "namespacehmap_1_1gpu.html#a1d7d7824eaac491f9f5f4c79d7b41d0a", null ],
     [ "hmap::gpu::hydraulic_vpipes", "namespacehmap_1_1gpu.html#a548895d6665a5466b8541122338b59a9", null ],
-    [ "hmap::va::hydraulic_mise", "namespacehmap_1_1va.html#a39ee127fce3d8250c7423d10a80ce890", null ],
-    [ "hmap::va::hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
+    [ "hmap::va::hydraulic_mise", "namespacehmap_1_1va.html#a39ee127fce3d8250c7423d10a80ce890", null ]
 ];

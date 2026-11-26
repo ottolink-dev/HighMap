@@ -15,132 +15,134 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{forest_8hpp}{highmap/world/flora/forest.hpp}}"{}}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{species_8hpp}{highmap/world/flora/species.hpp}}"{}}}
-\DoxyCodeLine{00020\ }
-\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
-\DoxyCodeLine{00022\ }
-\DoxyCodeLine{00023\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
-\DoxyCodeLine{00024\ \{}
-\DoxyCodeLine{00025\ }
-\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}}
-\DoxyCodeLine{00032\ \{}
-\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a5c525d07269bf6ca6696d6030c32a57f}{size}}\ =\ 0;\ \ \ \ }
-\DoxyCodeLine{00034\ \ \ std::vector<float>\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a7c486745d36fc7e001b88d6d0f3ae1fe}{values}}\ =\ \{\};\ }
-\DoxyCodeLine{00035\ }
-\DoxyCodeLine{00036\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//\ \ Constructors}}
-\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00039\ }
-\DoxyCodeLine{00040\ \ \ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00041\ }
-\DoxyCodeLine{00048\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}(\textcolor{keywordtype}{size\_t}\ num\_species,\ \textcolor{keywordtype}{float}\ default\_val\ =\ 0.0f);}
-\DoxyCodeLine{00049\ }
-\DoxyCodeLine{00050\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ \ Accessors\ \&\ Mutators}}
-\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00053\ }
-\DoxyCodeLine{00058\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aaa44f8ba46b2b974d4040d709168346f}{fill}}(\textcolor{keywordtype}{float}\ value);}
-\DoxyCodeLine{00059\ }
-\DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a27bf16b58ba7ab1d5cd2056cc2ece7bc}{get}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00067\ }
-\DoxyCodeLine{00074\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a4b30fc4963599c21faf102847a0a3a76}{set}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2,\ \textcolor{keywordtype}{float}\ value);}
-\DoxyCodeLine{00075\ }
-\DoxyCodeLine{00082\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aa66fb98eb4a53c6d6a0539aae4fbe1fe}{set\_symmetric}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2,\ \textcolor{keywordtype}{float}\ value);}
-\DoxyCodeLine{00083\ }
-\DoxyCodeLine{00084\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ \ Factory\ Methods}}
-\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ ==========================================================================}}
-\DoxyCodeLine{00087\ }
-\DoxyCodeLine{00095\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a05683075e2c249c4b67a1f6bcaf5d683}{diagonal}}(\textcolor{keyword}{const}\ std::vector<float>\ \&diag,}
-\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ off\_diag\_val\ =\ 0.0f);}
-\DoxyCodeLine{00097\ }
-\DoxyCodeLine{00109\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a181a06017f7a95bfb1839cd1dc40ac74}{from\_radii}}(\textcolor{keyword}{const}\ std::vector<float>\ \&radii,}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ multiplier\ =\ 2.0f);}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00124\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_ab5f8f3591c9edeed91e083a4f69db595}{from\_species}}(\textcolor{keyword}{const}\ std::vector<Species>\ \&species,}
-\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ multiplier\ =\ 2.0f);}
-\DoxyCodeLine{00126\ }
-\DoxyCodeLine{00141\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8191d72780f41cbec47426753a2d91b9}{random}}(\textcolor{keywordtype}{size\_t}\ \ \ num\_species,}
-\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed,}
-\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ random\_offset\ =\ 0.1f,}
-\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ symmetric\ =\ \textcolor{keyword}{true});}
-\DoxyCodeLine{00145\ }
-\DoxyCodeLine{00152\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8a04335b100cac5a44d4eefb1419db6d}{uniform}}(\textcolor{keywordtype}{size\_t}\ num\_species,\ \textcolor{keywordtype}{float}\ val);}
-\DoxyCodeLine{00153\ \};}
-\DoxyCodeLine{00154\ }
-\DoxyCodeLine{00155\ \textcolor{comment}{//\ ============================================================================}}
-\DoxyCodeLine{00156\ \textcolor{comment}{//\ \ Growth\ \&\ Thinning\ Functions\ (Alphabetically\ Sorted)}}
-\DoxyCodeLine{00157\ \textcolor{comment}{//\ ============================================================================}}
-\DoxyCodeLine{00158\ }
-\DoxyCodeLine{00194\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_af3586ede746fd5b974f46bd380be27f7}{grow\_forest\_competition\_nn}}(}
-\DoxyCodeLine{00195\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
-\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
-\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{const}\ InteractionMatrix\ \ \ \ \&competition\_matrix\ =\ \{\},}
-\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
-\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
-\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
-\DoxyCodeLine{00202\ }
-\DoxyCodeLine{00241\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a63d76b7a93cc74693f051008505e85a0}{grow\_forest\_competition\_voronoi}}(}
-\DoxyCodeLine{00242\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
-\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
-\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \ \ \ \&competition\_matrix\ =\ \{\},}
-\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
-\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
-\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
-\DoxyCodeLine{00249\ }
-\DoxyCodeLine{00276\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a9a7212b4837ef20871bae09fff0db5d8}{grow\_forest\_iterative}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
-\DoxyCodeLine{00277\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
-\DoxyCodeLine{00278\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterations\ =\ 10,}
-\DoxyCodeLine{00279\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ growth\_rate\ =\ 0.1f,}
-\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&competition\_matrix\ =\ \{\},}
-\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
-\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
-\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
-\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
-\DoxyCodeLine{00285\ }
-\DoxyCodeLine{00310\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_ad9ba5b804dd6b07d43780db0a310a462}{grow\_forest\_soft\_core}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
-\DoxyCodeLine{00311\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
-\DoxyCodeLine{00312\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&repulsion\_distances\ =\ \{\},}
-\DoxyCodeLine{00313\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&repulsion\_strengths\ =\ \{\},}
-\DoxyCodeLine{00314\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_count\ =\ 0,}
-\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
-\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
-\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ seed\ =\ 0,}
-\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
-\DoxyCodeLine{00319\ }
-\DoxyCodeLine{00325\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_aeb6d11068365974b8ef3fcf2623a7def}{ForestScaleSampler}}}
-\DoxyCodeLine{00326\ \{}
-\DoxyCodeLine{00327\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00328\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a380e42bbc9c1cde916ee1a8cc5b9ecbb}{bbox}}\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\};}
-\DoxyCodeLine{00329\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a1df5b468312e12c0231a886268158907}{strength}}\ =\ 1.0f;}
-\DoxyCodeLine{00330\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}}\ =\ 1.0f;}
-\DoxyCodeLine{00331\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}}\ =\ 1.0f;}
-\DoxyCodeLine{00332\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ab0f487da4890a5e22f38a55b41003bb6}{active}}\ =\ \textcolor{keyword}{false};}
-\DoxyCodeLine{00333\ }
-\DoxyCodeLine{00334\ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_aeb6d11068365974b8ef3fcf2623a7def}{ForestScaleSampler}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \&array,}
-\DoxyCodeLine{00335\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ strength\_factor,}
-\DoxyCodeLine{00336\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bounds);}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uv__tile_8hpp}{highmap/spatial/uv\_tile.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{forest_8hpp}{highmap/world/flora/forest.hpp}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{species_8hpp}{highmap/world/flora/species.hpp}}"{}}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00032\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}}
+\DoxyCodeLine{00033\ \{}
+\DoxyCodeLine{00034\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a5c525d07269bf6ca6696d6030c32a57f}{size}}\ =\ 0;\ \ \ \ }
+\DoxyCodeLine{00035\ \ \ std::vector<float>\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a7c486745d36fc7e001b88d6d0f3ae1fe}{values}}\ =\ \{\};\ }
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00038\ \ \ \textcolor{comment}{//\ \ Constructors}}
+\DoxyCodeLine{00039\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00049\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}(\textcolor{keywordtype}{size\_t}\ num\_species,\ \textcolor{keywordtype}{float}\ default\_val\ =\ 0.0f);}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00052\ \ \ \textcolor{comment}{//\ \ Accessors\ \&\ Mutators}}
+\DoxyCodeLine{00053\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aaa44f8ba46b2b974d4040d709168346f}{fill}}(\textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00067\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a27bf16b58ba7ab1d5cd2056cc2ece7bc}{get}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00075\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a4b30fc4963599c21faf102847a0a3a76}{set}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2,\ \textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_aa66fb98eb4a53c6d6a0539aae4fbe1fe}{set\_symmetric}}(\textcolor{keywordtype}{size\_t}\ s1,\ \textcolor{keywordtype}{size\_t}\ s2,\ \textcolor{keywordtype}{float}\ value);}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00086\ \ \ \textcolor{comment}{//\ \ Factory\ Methods}}
+\DoxyCodeLine{00087\ \ \ \textcolor{comment}{//\ ==========================================================================}}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00096\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a05683075e2c249c4b67a1f6bcaf5d683}{diagonal}}(\textcolor{keyword}{const}\ std::vector<float>\ \&diag,}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ off\_diag\_val\ =\ 0.0f);}
+\DoxyCodeLine{00098\ }
+\DoxyCodeLine{00110\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a181a06017f7a95bfb1839cd1dc40ac74}{from\_radii}}(\textcolor{keyword}{const}\ std::vector<float>\ \&radii,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ multiplier\ =\ 2.0f);}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00125\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_ab5f8f3591c9edeed91e083a4f69db595}{from\_species}}(\textcolor{keyword}{const}\ std::vector<Species>\ \&species,}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ multiplier\ =\ 2.0f);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00142\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8191d72780f41cbec47426753a2d91b9}{random}}(\textcolor{keywordtype}{size\_t}\ \ \ num\_species,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ seed,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ random\_offset\ =\ 0.1f,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ symmetric\ =\ \textcolor{keyword}{true});}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00153\ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a2baa48e0ec4a6b532f28bdc546d1fea2}{InteractionMatrix}}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix_a8a04335b100cac5a44d4eefb1419db6d}{uniform}}(\textcolor{keywordtype}{size\_t}\ num\_species,\ \textcolor{keywordtype}{float}\ val);}
+\DoxyCodeLine{00154\ \};}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00157\ \textcolor{comment}{//\ \ Growth\ \&\ Thinning\ Functions\ (Alphabetically\ Sorted)}}
+\DoxyCodeLine{00158\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00159\ }
+\DoxyCodeLine{00195\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_af3586ede746fd5b974f46bd380be27f7}{grow\_forest\_competition\_nn}}(}
+\DoxyCodeLine{00196\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
+\DoxyCodeLine{00197\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
+\DoxyCodeLine{00198\ \ \ \ \ \textcolor{keyword}{const}\ InteractionMatrix\ \ \ \ \&competition\_matrix\ =\ \{\},}
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
+\DoxyCodeLine{00200\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
+\DoxyCodeLine{00201\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00202\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00242\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a63d76b7a93cc74693f051008505e85a0}{grow\_forest\_competition\_voronoi}}(}
+\DoxyCodeLine{00243\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
+\DoxyCodeLine{00244\ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
+\DoxyCodeLine{00245\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \ \ \ \&competition\_matrix\ =\ \{\},}
+\DoxyCodeLine{00246\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
+\DoxyCodeLine{00247\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
+\DoxyCodeLine{00248\ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00249\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
+\DoxyCodeLine{00250\ }
+\DoxyCodeLine{00279\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_ac1ef851b5f9d1bfbf93b5d391af85cde}{grow\_forest\_iterative}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
+\DoxyCodeLine{00281\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ iterations\ =\ 10,}
+\DoxyCodeLine{00282\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ growth\_rate\ =\ 0.1f,}
+\DoxyCodeLine{00283\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&competition\_matrix\ =\ \{\},}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
+\DoxyCodeLine{00285\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
+\DoxyCodeLine{00286\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \ prune\_unviable\ =\ \textcolor{keyword}{true},}
+\DoxyCodeLine{00287\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\},}
+\DoxyCodeLine{00288\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvTile}{UvTile}}\ \&region\ =\ \mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{UvTile::unit}}());}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00314\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_ad9ba5b804dd6b07d43780db0a310a462}{grow\_forest\_soft\_core}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&forest,}
+\DoxyCodeLine{00315\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \&species\ =\ \{\},}
+\DoxyCodeLine{00316\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&repulsion\_distances\ =\ \{\},}
+\DoxyCodeLine{00317\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&repulsion\_strengths\ =\ \{\},}
+\DoxyCodeLine{00318\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ target\_count\ =\ 0,}
+\DoxyCodeLine{00319\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \&max\_radius\_scale\ =\ \{\},}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ max\_radius\_scale\_strength\ =\ 1.0f,}
+\DoxyCodeLine{00321\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ uint32\_t\ \ \ \ \ \ \ \ \ seed\ =\ 0,}
+\DoxyCodeLine{00322\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bbox\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\});}
+\DoxyCodeLine{00323\ }
+\DoxyCodeLine{00329\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_aeb6d11068365974b8ef3fcf2623a7def}{ForestScaleSampler}}}
+\DoxyCodeLine{00330\ \{}
+\DoxyCodeLine{00331\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ *\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ad4f8dd5bb78fd7cd1013c61a13cc8f04}{scale\_array}}\ =\ \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{00332\ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&\mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a380e42bbc9c1cde916ee1a8cc5b9ecbb}{bbox}}\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\};}
+\DoxyCodeLine{00333\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a1df5b468312e12c0231a886268158907}{strength}}\ =\ 1.0f;}
+\DoxyCodeLine{00334\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a5b52199da1105ede4c35127216826394}{bbox\_dx}}\ =\ 1.0f;}
+\DoxyCodeLine{00335\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_a97788d3f9626dafe95907209d15f56b4}{bbox\_dy}}\ =\ 1.0f;}
+\DoxyCodeLine{00336\ \ \ \textcolor{keywordtype}{bool}\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ab0f487da4890a5e22f38a55b41003bb6}{active}}\ =\ \textcolor{keyword}{false};}
 \DoxyCodeLine{00337\ }
-\DoxyCodeLine{00338\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ae74f404036eca9f6613ab9b148a4661a}{sample}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00339\ \};}
-\DoxyCodeLine{00340\ }
-\DoxyCodeLine{00345\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1SpeciesLookup_af4b39dcb497f91388c5fb8141ec26c94}{SpeciesLookup}}}
-\DoxyCodeLine{00346\ \{}
-\DoxyCodeLine{00347\ \ \ std::unordered\_map<uint32\_t,\ Species>\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a7e23964d24d7f40a71e0471a6329f21a}{map}};}
-\DoxyCodeLine{00348\ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structhmap_1_1SpeciesLookup_a0cdecbd556760fea134bd78adec3c90c}{list}}\ =\ \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{00349\ }
-\DoxyCodeLine{00350\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_af4b39dcb497f91388c5fb8141ec26c94}{SpeciesLookup}}(\textcolor{keyword}{const}\ std::vector<Species>\ \&species);}
-\DoxyCodeLine{00351\ }
-\DoxyCodeLine{00352\ \ \ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_ac03ce9b6b9784eadcdc1717302b9bd70}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacehmap_a527656b2ec2ff9bbc343a996ea62070e}{Tree}}\ \&tree)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00338\ \ \ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_aeb6d11068365974b8ef3fcf2623a7def}{ForestScaleSampler}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \&array,}
+\DoxyCodeLine{00339\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ strength\_factor,}
+\DoxyCodeLine{00340\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \&bounds);}
+\DoxyCodeLine{00341\ }
+\DoxyCodeLine{00342\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1ForestScaleSampler_ae74f404036eca9f6613ab9b148a4661a}{sample}}(\textcolor{keywordtype}{float}\ x,\ \textcolor{keywordtype}{float}\ y)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00343\ \};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00349\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1SpeciesLookup_af4b39dcb497f91388c5fb8141ec26c94}{SpeciesLookup}}}
+\DoxyCodeLine{00350\ \{}
+\DoxyCodeLine{00351\ \ \ std::unordered\_map<uint32\_t,\ Species>\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a7e23964d24d7f40a71e0471a6329f21a}{map}};}
+\DoxyCodeLine{00352\ \ \ \textcolor{keyword}{const}\ std::vector<Species>\ \ \ \ \ \ \ \ \ \ \ *\mbox{\hyperlink{structhmap_1_1SpeciesLookup_a0cdecbd556760fea134bd78adec3c90c}{list}}\ =\ \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{00353\ }
-\DoxyCodeLine{00354\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a53a65231e6afe2a5714426ba3d1339bf}{get\_alpha}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \ \ \ \ \ \ \ \ \ \ \&sp\_i,}
-\DoxyCodeLine{00355\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\_j,}
-\DoxyCodeLine{00356\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&matrix)\ \textcolor{keyword}{const};}
-\DoxyCodeLine{00357\ \};}
-\DoxyCodeLine{00358\ }
-\DoxyCodeLine{00359\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+\DoxyCodeLine{00354\ \ \ \textcolor{keyword}{explicit}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_af4b39dcb497f91388c5fb8141ec26c94}{SpeciesLookup}}(\textcolor{keyword}{const}\ std::vector<Species>\ \&species);}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00356\ \ \ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_ac03ce9b6b9784eadcdc1717302b9bd70}{get}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{namespacehmap_a527656b2ec2ff9bbc343a996ea62070e}{Tree}}\ \&tree)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1SpeciesLookup_a53a65231e6afe2a5714426ba3d1339bf}{get\_alpha}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1Species}{Species}}\ \ \ \ \ \ \ \ \ \ \ \&sp\_i,}
+\DoxyCodeLine{00359\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ s\_j,}
+\DoxyCodeLine{00360\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1InteractionMatrix}{InteractionMatrix}}\ \&matrix)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00361\ \};}
+\DoxyCodeLine{00362\ }
+\DoxyCodeLine{00363\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

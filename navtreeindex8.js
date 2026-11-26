@@ -216,7 +216,6 @@ var NAVTREEINDEX8 =
 "colorize_8cpp.html":[18,0,1,1,6,2],
 "colorize_8hpp.html":[18,0,1,0,0,26],
 "colorize_8hpp_source.html":[18,0,1,0,0,26],
-"colorize__virtual__texture_8cpp.html":[18,0,1,1,44,2,0],
 "colormaps_8hpp.html":[18,0,1,0,0,27],
 "colormaps_8hpp_source.html":[18,0,1,0,0,27],
 "communicator_8cpp.html":[18,0,1,1,44,3],
@@ -229,7 +228,7 @@ var NAVTREEINDEX8 =
 "connected__components_8cpp.html":[18,0,1,1,13,0],
 "constants_8hpp.html":[18,0,1,0,0,11,2],
 "constants_8hpp_source.html":[18,0,1,0,0,11,2],
-"convert__texture__channels_8cpp.html":[18,0,1,1,44,2,1],
+"convert__texture__channels_8cpp.html":[18,0,1,1,44,2,0],
 "convolve2d__svd_8cpp.html":[18,0,1,1,8,1],
 "convolve_8cpp.html":[18,0,1,1,8,0],
 "convolve_8hpp.html":[18,0,1,0,0,11,3],
@@ -249,5 +248,6 @@ var NAVTREEINDEX8 =
 "curvature__quadric_8cpp.html":[18,0,1,1,10,2],
 "dendry_8cpp.html":[18,0,1,1,28,0,0],
 "dendry__array__control__function_8cpp.html":[18,0,1,1,28,0,1],
-"dendry__array__control__function_8hpp.html":[18,0,1,0,0,14,1]
+"dendry__array__control__function_8hpp.html":[18,0,1,0,0,14,1],
+"dendry__array__control__function_8hpp_source.html":[18,0,1,0,0,14,1]
 };

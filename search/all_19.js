@@ -73,7 +73,7 @@ var searchData=
   ['pick_5fmesh_5fboundary_5fvertex_70',['pick_mesh_boundary_vertex',['../classhmap_1_1TerrainTriMesh.html#adcf186f3884969d2b85db0b2186b8d34',1,'hmap::TerrainTriMesh']]],
   ['pin_5fcount_71',['pin_count',['../structhmap_1_1LruTileEntry.html#a76d135c8f288db38c55e16c11992f5d0',1,'hmap::LruTileEntry']]],
   ['pipelines_72',['7. Buffer Shape Invariance and Nested Multiscale Pipelines',['../md_docs_2content_2dev_2tiled__communication.html#autotoc_md122',1,'']]],
-  ['place_5frocks_5fprocedural_73',['place_rocks_procedural',['../namespacehmap.html#ad344c29b6eb84464be0072663cb292b8',1,'hmap::place_rocks_procedural()'],['../namespacehmap_1_1va.html#ab63d2a6261b136e8dac7ca2080afe96f',1,'hmap::va::place_rocks_procedural()']]],
+  ['place_5frocks_5fprocedural_73',['place_rocks_procedural',['../namespacehmap.html#a771c94915dadf72f567d56ba51fa91c2',1,'hmap']]],
   ['plateau_74',['PLATEAU',['../namespacehmap.html#ade234d7bb6c23c67317077ab7a9082caa35ebc37b4c82e43d9db872fa2693f0ed',1,'hmap']]],
   ['plateau_75',['plateau',['../namespacehmap.html#a558c273680de2328f37e5df7ee598813',1,'hmap::plateau(Array &amp;array, const Array *p_mask, int ir, float factor)'],['../namespacehmap.html#a9f49d016a05aa8636bb0ff3c3d30aaf7',1,'hmap::plateau(Array &amp;array, int ir, float factor)'],['../namespacehmap_1_1gpu.html#ab92f0fe4baf9678ac1c1d6f454725038',1,'hmap::gpu::plateau(Array &amp;array, const Array *p_mask, int ir, float factor, MinMaxKernel kernel_type=MinMaxKernel::DISK)'],['../namespacehmap_1_1gpu.html#afac304e88619a3d6fb35f7ff959368dd',1,'hmap::gpu::plateau(Array &amp;array, int ir, float factor, MinMaxKernel kernel_type=MinMaxKernel::DISK)']]],
   ['plates_76',['plates',['../namespacehmap_1_1gpu.html#a3105733d4bd72c9d6236f8c0284a312b',1,'hmap::gpu']]],

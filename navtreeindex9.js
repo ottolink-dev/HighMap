@@ -1,6 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"dendry__array__control__function_8hpp_source.html":[18,0,1,0,0,14,1],
 "deposition_8cpp.html":[18,0,1,1,11,3],
 "deposition__fill__holes_8cpp.html":[18,0,1,1,11,4],
 "deprecated.html":[14],
@@ -249,5 +248,6 @@ var NAVTREEINDEX9 =
 "functions_type.html":[17,3,3],
 "functions_u.html":[17,3,0,20],
 "functions_v.html":[17,3,0,21],
-"functions_vars.html":[17,3,2]
+"functions_vars.html":[17,3,2],
+"functions_vars.html":[17,3,2,0]
 };

@@ -173,7 +173,5 @@ var filters_8hpp =
     [ "hmap::gpu::voronoi_shrink", "namespacehmap_1_1gpu.html#aee01feda82eb5018daa1c631ce63083c", null ],
     [ "hmap::gpu::voronoi_shrink", "namespacehmap_1_1gpu.html#ab2fe1c8cf35be5a9928dc84c7acec71a", null ],
     [ "hmap::gpu::voronoi_shrink", "namespacehmap_1_1gpu.html#a6333a1a4273a3e1b0aa55a945b86fb62", null ],
-    [ "hmap::gpu::voronoi_shrink", "namespacehmap_1_1gpu.html#a7ac41aa177d4f5fb79c5e2465883bd05", null ],
-    [ "hmap::va::smooth_cpulse", "namespacehmap_1_1va.html#aec2c193932c4d5d1fe00d09b81e243d8", null ],
-    [ "hmap::va::smooth_cpulse", "namespacehmap_1_1va.html#a3df8c2c762d79f38e07069e47063fade", null ]
+    [ "hmap::gpu::voronoi_shrink", "namespacehmap_1_1gpu.html#a7ac41aa177d4f5fb79c5e2465883bd05", null ]
 ];

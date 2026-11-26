@@ -15,72 +15,64 @@
 \DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <glm/glm.hpp>}}
 \DoxyCodeLine{00016\ }
 \DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{array_8hpp}{highmap/array.hpp}}"{}}}
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{virtual__array_2virtual__array_8hpp}{highmap/virtual\_array/virtual\_array.hpp}}"{}}}
-\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{forest_8hpp}{highmap/world/flora/forest.hpp}}"{}}}
-\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{species_8hpp}{highmap/world/flora/species.hpp}}"{}}}
-\DoxyCodeLine{00021\ }
-\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
-\DoxyCodeLine{00023\ \{}
-\DoxyCodeLine{00024\ }
-\DoxyCodeLine{00029\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}}
-\DoxyCodeLine{00030\ \{}
-\DoxyCodeLine{00031\ \ \ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_abf1652f1c022ef02d031c72d75098206}{bbox}}\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\};\ }
-\DoxyCodeLine{00032\ \ \ uint32\_t\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_ab808daf58fd66d7c297ba65efd2f84d6}{seed}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
-\DoxyCodeLine{00033\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_ad57213b7687a249a870f63a80157f016}{exclusion\_threshold}}\ =\ 0.f;\ \ \ \ }
-\DoxyCodeLine{00034\ \ \ std::vector<Species>\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_a9e4336ae1f61873d1126197bbe081c9b}{species}}\ =\ \{\};\ \ \ \ \ }
-\DoxyCodeLine{00035\ \};}
-\DoxyCodeLine{00036\ }
-\DoxyCodeLine{00037\ \textcolor{comment}{//\ ============================================================================}}
-\DoxyCodeLine{00038\ \textcolor{comment}{//\ \ Seeding\ Functions\ (Alphabetically\ Sorted)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{uv__tile_8hpp}{highmap/spatial/uv\_tile.hpp}}"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{communicator_8hpp}{highmap/virtual\_array/communicator.hpp}}"{}}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{virtual__array_2virtual__array_8hpp}{highmap/virtual\_array/virtual\_array.hpp}}"{}}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{forest_8hpp}{highmap/world/flora/forest.hpp}}"{}}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{species_8hpp}{highmap/world/flora/species.hpp}}"{}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00025\ \{}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}}
+\DoxyCodeLine{00032\ \{}
+\DoxyCodeLine{00033\ \ \ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_abf1652f1c022ef02d031c72d75098206}{bbox}}\ =\ \mbox{\hyperlink{structhmap_1_1BBox2D}{BBox2D}}\{\};\ }
+\DoxyCodeLine{00034\ \ \ uint32\_t\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_ab808daf58fd66d7c297ba65efd2f84d6}{seed}}\ =\ 0;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_ad57213b7687a249a870f63a80157f016}{exclusion\_threshold}}\ =\ 0.f;\ \ \ \ }
+\DoxyCodeLine{00036\ \ \ std::vector<Species>\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions_a9e4336ae1f61873d1126197bbe081c9b}{species}}\ =\ \{\};\ \ \ \ \ }
+\DoxyCodeLine{00037\ \};}
+\DoxyCodeLine{00038\ }
 \DoxyCodeLine{00039\ \textcolor{comment}{//\ ============================================================================}}
-\DoxyCodeLine{00040\ }
-\DoxyCodeLine{00073\ Array\ \mbox{\hyperlink{namespacehmap_ae7c74f46c267db50e3c562eebb118e27}{build\_tree\_density}}(\textcolor{keyword}{const}\ Array\ \&heightmap,}
-\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ min\_elev\ =\ 0.0f,}
-\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ max\_elev\ =\ 0.9f,}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ elev\_transition\_width\ =\ 0.1f,}
-\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ min\_talus\ =\ 0.003f,}
-\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ max\_talus\ =\ 0.005f,}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}\ =\ 30.0f,}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ angle\_width\ =\ 90.0f,}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_elev\ =\ 1.0f,}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_talus\ =\ 1.0f,}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_angle\ =\ 0.8f,}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_twi\ =\ 0.5f,}
-\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&secondary\_density\ =\ \{\},}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_secondary\ =\ 1.0f,}
-\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&exclusion\_mask\ =\ \{\},}
-\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ exclusion\_threshold\ =\ 0.f);}
-\DoxyCodeLine{00089\ }
-\DoxyCodeLine{00104\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a395c1a2f15f7114fac122c864a1e78e6}{seed\_forest\_clusters}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ species\_count,}
-\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tree\_count,}
-\DoxyCodeLine{00106\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&density,}
-\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&exclusion,}
-\DoxyCodeLine{00108\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_spread\ =\ 0.05f,}
-\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_per\_cluster\ =\ 8,}
-\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}\ \&options\ =\ \{\});}
-\DoxyCodeLine{00111\ }
-\DoxyCodeLine{00132\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_aa6ba2bd6f00bf38f87b87f1179dcc70a}{seed\_forest\_kmeans}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ species\_count,}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tree\_count,}
-\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&density,}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&exclusion,}
-\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_randomness\ =\ 0.0f,}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k\_neighbors\ =\ 4,}
-\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}\ \&options\ =\ \{\});}
-\DoxyCodeLine{00139\ }
-\DoxyCodeLine{00140\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
-\DoxyCodeLine{00141\ }
-\DoxyCodeLine{00142\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1va}{hmap::va}}}
-\DoxyCodeLine{00143\ \{}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00160\ Forest\ \mbox{\hyperlink{namespacehmap_1_1va_ac597da164f0981c1f45e81e2ac47c7e3}{seed\_forest\_clusters}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ species\_count,}
-\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tree\_count,}
-\DoxyCodeLine{00162\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ VirtualArray\ \ \ \ \ \ \ \ \ \&density,}
-\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ VirtualArray\ \ \ \ \ \ \ \ \ \&exclusion\ =\ \{\},}
-\DoxyCodeLine{00164\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_spread\ =\ 0.05f,}
-\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_per\_cluster\ =\ 8,}
-\DoxyCodeLine{00166\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ForestSeedingOptions\ \&options\ =\ \{\},}
-\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ ComputeMode\ \ \ \ \ \ \ \ \ \ \&cm\ =\ \{\});}
-\DoxyCodeLine{00168\ }
-\DoxyCodeLine{00169\ \}\ \textcolor{comment}{//\ namespace\ hmap::va}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//\ \ Seeding\ Functions\ (Alphabetically\ Sorted)}}
+\DoxyCodeLine{00041\ \textcolor{comment}{//\ ============================================================================}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00075\ Array\ \mbox{\hyperlink{namespacehmap_ae7c74f46c267db50e3c562eebb118e27}{build\_tree\_density}}(\textcolor{keyword}{const}\ Array\ \&heightmap,}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ min\_elev\ =\ 0.0f,}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ max\_elev\ =\ 0.9f,}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ elev\_transition\_width\ =\ 0.1f,}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ min\_talus\ =\ 0.003f,}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ max\_talus\ =\ 0.005f,}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \mbox{\hyperlink{namespacehmap_aac71bb6c14edc17967957f7918acdbdd}{angle}}\ =\ 30.0f,}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ angle\_width\ =\ 90.0f,}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_elev\ =\ 1.0f,}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_talus\ =\ 1.0f,}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_angle\ =\ 0.8f,}
+\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_twi\ =\ 0.5f,}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ Array\ \&secondary\_density\ =\ \{\},}
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ weight\_secondary\ =\ 1.0f,}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \&exclusion\_mask\ =\ \{\},}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ exclusion\_threshold\ =\ 0.f);}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00108\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a23ef52b2c995ff7b77d66858608a89a7}{seed\_forest\_clusters}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ species\_count,}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tree\_count,}
+\DoxyCodeLine{00110\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&density,}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&exclusion,}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_spread\ =\ 0.05f,}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ points\_per\_cluster\ =\ 8,}
+\DoxyCodeLine{00114\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}\ \&options\ =\ \{\},}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvTile}{UvTile}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&region\ =\ \mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{UvTile::unit}}(),}
+\DoxyCodeLine{00116\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}\ \&comm\ =\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{SingleArrayComm::instance}}());}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00140\ \mbox{\hyperlink{classhmap_1_1Forest}{Forest}}\ \mbox{\hyperlink{namespacehmap_a17e69fb55212e170d87c8eb35266035d}{seed\_forest\_kmeans}}(\textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ species\_count,}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ tree\_count,}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&density,}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{classhmap_1_1Array}{Array}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&exclusion,}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ cluster\_randomness\ =\ 0.0f,}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ k\_neighbors\ =\ 4,}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1ForestSeedingOptions}{ForestSeedingOptions}}\ \&options\ =\ \{\},}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structhmap_1_1UvTile}{UvTile}}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \&region\ =\ \mbox{\hyperlink{structhmap_1_1UvTile_acac98391a9428457ac4d8f3cca886c4e}{UvTile::unit}}(),}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classhmap_1_1ICommunicator}{ICommunicator}}\ \&comm\ =\ \mbox{\hyperlink{classhmap_1_1SingleArrayComm_a4cc8e4cdcf75624d4dbf641f4da8435a}{SingleArrayComm::instance}}());}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 
 \end{DoxyCode}

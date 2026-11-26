@@ -33,5 +33,8 @@ var test__forest__seeding_8cpp =
     [ "TEST", "test__forest__seeding_8cpp.html#a883aecf85b1ad8de213c91cca5407d9c", null ],
     [ "TEST", "test__forest__seeding_8cpp.html#a180408b83dfa4061c2e84e6c2839f5d8", null ],
     [ "TEST", "test__forest__seeding_8cpp.html#ad67032fd5289e043873117cd68f7c5f1", null ],
-    [ "TEST", "test__forest__seeding_8cpp.html#add7f5646a906ba67cfd632f2e1caa7fa", null ]
+    [ "TEST", "test__forest__seeding_8cpp.html#add7f5646a906ba67cfd632f2e1caa7fa", null ],
+    [ "TEST", "test__forest__seeding_8cpp.html#a793377040a896c3e563caa8ad7ba3d28", null ],
+    [ "TEST", "test__forest__seeding_8cpp.html#ac105d170829a8d579c594299a43ee03d", null ],
+    [ "TEST", "test__forest__seeding_8cpp.html#ab3d94ad676a54d5d874718bbc8938c24", null ]
 ];

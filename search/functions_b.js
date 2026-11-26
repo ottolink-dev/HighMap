@@ -42,5 +42,5 @@ var searchData=
   ['lorentzian_39',['lorentzian',['../namespacehmap.html#a921bc84c2e2cf76a022da0ffaaf60802',1,'hmap']]],
   ['lorentzian_5fcompact_40',['lorentzian_compact',['../namespacehmap.html#a0cfa024afb9246aaa89ec6b2e69501c3',1,'hmap']]],
   ['low_5fpass_5fhigh_5forder_41',['low_pass_high_order',['../namespacehmap.html#a81842482472ceecc660913388219bb77',1,'hmap']]],
-  ['luminance_42',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)'],['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)']]]
+  ['luminance_42',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap']]]
 ];

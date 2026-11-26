@@ -14,6 +14,10 @@ var deprecated_8hpp =
     [ "hmap::hydraulic_stream_log", "namespacehmap.html#a5cf95f6410d498f58d45e4ae0756af6d", null ],
     [ "hmap::hydraulic_stream_log_multiscale", "namespacehmap.html#ab69a441f5d85e2affdd5c8e467bcf6a3", null ],
     [ "hmap::hydraulic_stream_log_multiscale", "namespacehmap.html#ac31881d82d55b3bf461de1fe0f62c74c", null ],
+    [ "hmap::hydraulic_saleve", "namespacehmap.html#ada51d6f53d06fa3a592223e5f6137e03", null ],
+    [ "hmap::hydraulic_saleve", "namespacehmap.html#a437dbeb7f3349ea6b5622ffcf5d3b6a3", null ],
+    [ "hmap::hydraulic_saleve", "namespacehmap.html#a5ec83fc1497f653486bc4cc22ecee87b", null ],
     [ "hmap::gpu::hydraulic_musgrave", "namespacehmap_1_1gpu.html#a4f8838aa7fe59a353b60e3d03e0d5a8f", null ],
-    [ "hmap::gpu::hydraulic_musgrave", "namespacehmap_1_1gpu.html#a7b00e9d4012a7026230454d0d5528760", null ]
+    [ "hmap::gpu::hydraulic_musgrave", "namespacehmap_1_1gpu.html#a7b00e9d4012a7026230454d0d5528760", null ],
+    [ "hmap::va::hydraulic_saleve", "namespacehmap_1_1va.html#ac0d43b69e78ba45a62795d90f1f453fe", null ]
 ];

@@ -87,5 +87,5 @@ var searchData=
   ['lrate_84',['lrate',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a9d7d3bf7812591411cbb92a28f30f540',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
   ['lru_5fit_85',['lru_it',['../structhmap_1_1LruTileEntry.html#a4b419114b2a041fe2e303cf6dbea4c39',1,'hmap::LruTileEntry']]],
   ['lrutileentry_86',['LruTileEntry',['../structhmap_1_1LruTileEntry.html',1,'hmap']]],
-  ['luminance_87',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap::luminance(const Texture &amp;tex)'],['../namespacehmap.html#a051c3f6f1ceda0feaf3c36c97bd7fef9',1,'hmap::luminance(VirtualArray &amp;out, VirtualTexture &amp;tex, const ComputeMode &amp;cm)']]]
+  ['luminance_87',['luminance',['../namespacehmap.html#af57ba0aebe498d0b79b91159d7e600b5',1,'hmap']]]
 ];
