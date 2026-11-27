@@ -74,26 +74,25 @@ TEST(VirtualArrayTest, TileCoordinateMapping)
 TEST(VirtualArrayTest, TileRegionInnerBbox)
 {
   glm::ivec2   shape{64, 64};
-  glm::vec4    bbox{0.f, 64.f, 0.f, 64.f};
   glm::ivec2   tile_shape{32, 32};
   int          halo = 4;
   VirtualArray va(shape, tile_shape, halo, StorageMode::VA_RAM);
 
-  // Tile (0, 0): inner x in [0, 32], inner y in [0, 32]
+  // Tile (0, 0): inner u in [0, 0.5], inner v in [0, 0.5]
   UvTile r00 = va.tile_region_from_tile_coords(0, 0);
   UvRect inner00 = r00.core_uv_rect();
   EXPECT_NEAR(inner00.u_min, 0.f, 1e-5f);
-  EXPECT_NEAR(inner00.u_max, 32.f, 1e-5f);
+  EXPECT_NEAR(inner00.u_max, 0.5f, 1e-5f);
   EXPECT_NEAR(inner00.v_min, 0.f, 1e-5f);
-  EXPECT_NEAR(inner00.v_max, 32.f, 1e-5f);
+  EXPECT_NEAR(inner00.v_max, 0.5f, 1e-5f);
 
-  // Tile (1, 1): inner x in [32, 64], inner y in [32, 64]
+  // Tile (1, 1): inner u in [0.5, 1], inner v in [0.5, 1]
   UvTile r11 = va.tile_region_from_tile_coords(1, 1);
   UvRect inner11 = r11.core_uv_rect();
-  EXPECT_NEAR(inner11.u_min, 32.f, 1e-5f);
-  EXPECT_NEAR(inner11.u_max, 64.f, 1e-5f);
-  EXPECT_NEAR(inner11.v_min, 32.f, 1e-5f);
-  EXPECT_NEAR(inner11.v_max, 64.f, 1e-5f);
+  EXPECT_NEAR(inner11.u_min, 0.5f, 1e-5f);
+  EXPECT_NEAR(inner11.u_max, 1.f, 1e-5f);
+  EXPECT_NEAR(inner11.v_min, 0.5f, 1e-5f);
+  EXPECT_NEAR(inner11.v_max, 1.f, 1e-5f);
 }
 
 TEST(VirtualArrayTest, CellGetSet)
