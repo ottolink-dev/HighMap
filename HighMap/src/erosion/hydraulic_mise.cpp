@@ -18,6 +18,7 @@
 #include "highmap/boundary.hpp"
 #include "highmap/erosion/erosion_parameters.hpp"
 #include "highmap/erosion/hydraulic_erosion.hpp"
+#include "highmap/internal/radix_heap.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/interpolate/interpolate_array.hpp"
@@ -51,81 +52,6 @@ enum : uint8_t
 
 // --- Helper functions and structures
 
-// order-preserving mapping between IEEE-754 float and uint32_t for radix
-// sorting
-uint32_t float_key(float f)
-{
-  uint32_t u = 0;
-  std::memcpy(&u, &f, 4);
-  return (u & 0x80000000u) ? ~u : (u | 0x80000000u);
-}
-
-float key_float(uint32_t k)
-{
-  uint32_t u = (k & 0x80000000u) ? (k & 0x7fffffffu) : ~k;
-  float    f = 0.f;
-  std::memcpy(&f, &u, 4);
-  return f;
-}
-
-float next_up(float f)
-{
-  return key_float(float_key(f) + 1u);
-}
-
-// monotone priority queue (radix heap) for fast exact flood
-struct RadixHeap
-{
-  std::vector<std::pair<uint32_t, int>> bucket[33];
-  uint32_t                              last = 0;
-  size_t                                count = 0;
-
-  void clear()
-  {
-    for (auto &b : bucket)
-      b.clear();
-
-    last = 0;
-    count = 0;
-  }
-
-  static int slot(uint32_t x)
-  {
-    return (int)std::bit_width(x);
-  }
-
-  void push(uint32_t key, int idx)
-  {
-    bucket[slot(key ^ last)].emplace_back(key, idx);
-    ++count;
-  }
-
-  std::pair<uint32_t, int> pop()
-  {
-    if (bucket[0].empty())
-    {
-      int i = 1;
-      while (bucket[i].empty())
-        ++i;
-
-      uint32_t mn = 0xffffffffu;
-      for (auto &e : bucket[i])
-        mn = std::min(mn, e.first);
-
-      last = mn;
-      for (auto &e : bucket[i])
-        bucket[slot(e.first ^ last)].push_back(e);
-
-      bucket[i].clear();
-    }
-
-    auto e = bucket[0].back();
-    bucket[0].pop_back();
-    --count;
-    return e;
-  }
-};
-
 // drainage graph structure
 struct FlowGraph
 {
@@ -148,7 +74,7 @@ struct FlowGraph
   std::vector<int>    pitq; // all flooded cells, in flood order
   int                 pit_cells = 0;
 
-  RadixHeap        heap;         // exact flood
+  RadixHeap<int>   heap;         // exact flood
   std::vector<int> bhead, bnext; // bucket queue of the fast flood
 
   void resize(int nx_, int ny_)

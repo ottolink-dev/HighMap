@@ -17,6 +17,7 @@
 #include "highmap/curvature.hpp"
 #include "highmap/filters.hpp"
 #include "highmap/hydrology/hydrology.hpp"
+#include "highmap/internal/radix_heap.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/interpolate/interpolate2d.hpp"
 #include "highmap/math/array.hpp"
@@ -259,10 +260,9 @@ Array water_depth_increase_with_flooding(const Array &water_depth,
   auto in_bounds = [&](int i, int j) noexcept
   { return (unsigned)i < (unsigned)ni && (unsigned)j < (unsigned)nj; };
 
-  // max-heap: {water_surface_elevation, flat_index}
-  using Entry = std::pair<float, int>;
-  std::priority_queue<Entry> pq;
-  std::vector<bool>          visited(ni * nj, false);
+  // max-heap: {~float_key(water_surface_elevation), flat_index}
+  RadixHeap<int>    pq;
+  std::vector<bool> visited(ni * nj, false);
 
   // --- Seed: every wet cell defines a WSE
 
@@ -271,15 +271,15 @@ Array water_depth_increase_with_flooding(const Array &water_depth,
     {
       if (water_depth(i, j) <= 0.f) continue;
       const float wse = z(i, j) + water_depth(i, j) + additional_depth;
-      pq.push({wse, j * ni + i});
+      pq.push(~float_key(wse), j * ni + i);
     }
 
   // --- Single propagation pass (highest WSE settled first)
 
   while (!pq.empty())
   {
-    auto [wse, flat] = pq.top();
-    pq.pop();
+    auto [key, flat] = pq.pop();
+    const float wse = key_float(~key);
 
     if (visited[flat]) continue; // already settled at a higher WSE
     visited[flat] = true;
@@ -294,7 +294,7 @@ Array water_depth_increase_with_flooding(const Array &water_depth,
       const int flat_n = j2 * ni + i2;
       if (visited[flat_n]) continue;
       if (z(i2, j2) < wse)      // terrain is below water surface
-        pq.push({wse, flat_n}); // neighbor inherits the same WSE
+        pq.push(key, flat_n);   // neighbor inherits the same WSE
     }
   }
 

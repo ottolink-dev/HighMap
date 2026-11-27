@@ -19,6 +19,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/hydrology/drainage_basin.hpp"
+#include "highmap/internal/radix_heap.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/random.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
@@ -531,22 +532,7 @@ void DrainageBasin::remove_lakes(const std::vector<size_t> &subroot)
 
   this->roots.assign(n, this->invalid_index);
 
-  struct HeapNode
-  {
-    float  dist;
-    size_t node;
-
-    bool operator>(const HeapNode &o) const noexcept
-    {
-      return dist > o.dist;
-    }
-  };
-
-  std::vector<HeapNode> heap_storage;
-  heap_storage.reserve(n);
-
-  std::priority_queue<HeapNode, std::vector<HeapNode>, std::greater<HeapNode>>
-      heap(std::greater<HeapNode>(), std::move(heap_storage));
+  RadixHeap<size_t> heap;
 
   // count distinct lake roots (depressions)
   size_t remaining_lakes = 0;
@@ -562,7 +548,7 @@ void DrainageBasin::remove_lakes(const std::vector<size_t> &subroot)
     {
       this->roots[k] = k;
       dist[k] = 0.f;
-      heap.push({0.f, k});
+      heap.push(float_key(0.f), k);
     }
   }
 
@@ -571,11 +557,9 @@ void DrainageBasin::remove_lakes(const std::vector<size_t> &subroot)
 
   while (!heap.empty())
   {
-    HeapNode top = heap.top();
-    heap.pop();
-
-    size_t i = top.node;
+    auto [key, i] = heap.pop();
     if (visited[i]) continue;
+    float top_dist = key_float(key);
 
     visited[i] = 1;
 
@@ -618,12 +602,12 @@ void DrainageBasin::remove_lakes(const std::vector<size_t> &subroot)
         }
       }
 
-      float new_dist = top.dist + nb.distance2d;
+      float new_dist = top_dist + nb.distance2d;
 
       if (new_dist < dist[j])
       {
         dist[j] = new_dist;
-        heap.push({new_dist, j});
+        heap.push(float_key(new_dist), j);
       }
     }
 

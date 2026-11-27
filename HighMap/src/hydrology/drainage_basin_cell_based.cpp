@@ -14,6 +14,7 @@
 #include "highmap/algebra.hpp"
 #include "highmap/array.hpp"
 #include "highmap/hydrology/drainage_basin_cell_based.hpp"
+#include "highmap/internal/radix_heap.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/random.hpp"
 
@@ -115,21 +116,7 @@ void DrainageBasinCellBased::compute_receivers_priority_flood()
   this->receivers = Mat<glm::ivec2>(shape, this->null_cell);
   Mat<int> basin_id(shape, -1);
 
-  struct Node
-  {
-    int   i, j;
-    float z;
-  };
-
-  struct NodeCmp
-  {
-    bool operator()(const Node &a, const Node &b) const
-    {
-      return a.z > b.z; // min-heap
-    }
-  };
-
-  std::priority_queue<Node, std::vector<Node>, NodeCmp> pq;
+  RadixHeap<glm::ivec2> pq;
 
   int basin_counter = 0;
 
@@ -138,7 +125,7 @@ void DrainageBasinCellBased::compute_receivers_priority_flood()
   for (const auto &o : this->get_outlets())
   {
     basin_id(o) = basin_counter++;
-    pq.push({o.x, o.y, z(o)});
+    pq.push(float_key(z(o)), o);
 
     // boundary drains to itself
     this->receivers(o) = o;
@@ -148,15 +135,15 @@ void DrainageBasinCellBased::compute_receivers_priority_flood()
 
   while (!pq.empty())
   {
-    Node c = pq.top();
-    pq.pop();
+    auto [key, c] = pq.pop();
+    float cz = key_float(key);
 
-    int bc = basin_id(c.i, c.j);
+    int bc = basin_id(c.x, c.y);
 
     for (int k = 0; k < 8; ++k)
     {
-      int ni = c.i + di[k];
-      int nj = c.j + dj[k];
+      int ni = c.x + di[k];
+      int nj = c.y + dj[k];
 
       if (ni < 0 || nj < 0 || ni >= shape.x || nj >= shape.y) continue;
 
@@ -165,12 +152,12 @@ void DrainageBasinCellBased::compute_receivers_priority_flood()
         basin_id(ni, nj) = bc;
 
         float zn = z(ni, nj);
-        float zf = std::max(zn, c.z); // flood level
+        float zf = std::max(zn, cz); // flood level
 
-        pq.push({ni, nj, zf});
+        pq.push(float_key(zf), glm::ivec2(ni, nj));
 
         // FLOW: neighbor drains to current cell
-        this->receivers(ni, nj) = glm::ivec2(c.i, c.j);
+        this->receivers(ni, nj) = c;
       }
     }
   }
@@ -394,22 +381,7 @@ void DrainageBasinCellBased::remove_lakes(const Mat<glm::ivec2> &subroot)
   Mat<float>   dist(shape, std::numeric_limits<float>::max());
   this->roots = Mat<glm::ivec2>(shape, this->null_cell);
 
-  struct HeapNode
-  {
-    float      dist;
-    glm::ivec2 cell;
-
-    bool operator>(const HeapNode &o) const noexcept
-    {
-      return dist > o.dist;
-    }
-  };
-
-  std::vector<HeapNode> heap_storage;
-  heap_storage.reserve(rows * cols * 2);
-
-  std::priority_queue<HeapNode, std::vector<HeapNode>, std::greater<HeapNode>>
-      heap(std::greater<HeapNode>(), std::move(heap_storage));
+  RadixHeap<glm::ivec2> heap;
 
   size_t remaining_lakes = 0;
   for (int j = 0; j < cols; ++j)
@@ -424,17 +396,15 @@ void DrainageBasinCellBased::remove_lakes(const Mat<glm::ivec2> &subroot)
       {
         roots(i, j) = glm::ivec2(i, j);
         dist(i, j) = 0.f;
-        heap.push({0.f, glm::ivec2(i, j)});
+        heap.push(float_key(0.f), glm::ivec2(i, j));
       }
     }
 
   while (!heap.empty())
   {
-    HeapNode top = heap.top();
-    heap.pop();
-
-    glm::ivec2 p = top.cell;
+    auto [key, p] = heap.pop();
     if (visited(p)) continue;
+    float top_dist = key_float(key);
 
     visited(p) = 1;
 
@@ -469,11 +439,11 @@ void DrainageBasinCellBased::remove_lakes(const Mat<glm::ivec2> &subroot)
       }
 
       // Euclidean distance in grid units
-      float new_dist = top.dist + cd[k] + std::abs(z(ni, nj) - z(p)) * cd[k];
+      float new_dist = top_dist + cd[k] + std::abs(z(ni, nj) - z(p)) * cd[k];
       if (new_dist < dist(ni, nj))
       {
         dist(ni, nj) = new_dist;
-        heap.push({new_dist, glm::ivec2(ni, nj)});
+        heap.push(float_key(new_dist), glm::ivec2(ni, nj));
       }
     }
 
