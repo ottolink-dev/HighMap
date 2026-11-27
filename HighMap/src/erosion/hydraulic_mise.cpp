@@ -685,35 +685,30 @@ void sediment_pass(const Level      &L,
 
 // --- Talus relaxation
 
-void relax_sediment(Array &z_arr,
-                    Array &sed_arr,
+void relax_sediment(Array &z,
+                    Array &sed,
                     int    nx,
                     int    ny,
                     float  talus_cell,
                     int    iters,
-                    Array &delta_arr)
+                    Array &delta)
 {
-  auto &z = z_arr.vector;
-  auto &sed = sed_arr.vector;
-  auto &delta = delta_arr.vector;
-
   for (int it = 0; it < iters; ++it)
   {
-    std::fill(delta.begin(), delta.end(), 0.f);
+    delta = 0.f;
 
     // compute talus excess and distribute to lower neighbors
-    for (int y = 1; y < ny - 1; ++y)
-      for (int x = 1; x < nx - 1; ++x)
+    for (int j = 1; j < ny - 1; ++j)
+      for (int i = 1; i < nx - 1; ++i)
       {
-        const int i = y * nx + x;
-        if (sed[i] <= 0.f) continue;
+        if (sed(i, j) <= 0.f) continue;
 
-        const float zi = z[i];
+        const float zi = z(i, j);
         float       ex[8], sum = 0.f, mx = 0.f;
 
         for (int k = 0; k < 8; ++k)
         {
-          float e = zi - z[i + DY8[k] * nx + DX8[k]] - talus_cell * DD8[k];
+          float e = zi - z(i + DX8[k], j + DY8[k]) - talus_cell * DD8[k];
           e = e > 0.f ? e : 0.f;
           ex[k] = e;
           sum += e;
@@ -722,22 +717,21 @@ void relax_sediment(Array &z_arr,
 
         if (sum <= 0.f) continue;
 
-        const float amount = std::min(0.25f * mx, sed[i]);
-        delta[i] -= amount;
+        const float amount = std::min(0.25f * mx, sed(i, j));
+        delta(i, j) -= amount;
 
         const float s = amount / sum;
         for (int k = 0; k < 8; ++k)
-          if (ex[k] > 0.f) delta[i + DY8[k] * nx + DX8[k]] += ex[k] * s;
+          if (ex[k] > 0.f) delta(i + DX8[k], j + DY8[k]) += ex[k] * s;
       }
 
-    for (int y = 1; y < ny - 1; ++y)
-      for (int x = 1; x < nx - 1; ++x)
+    for (int j = 1; j < ny - 1; ++j)
+      for (int i = 1; i < nx - 1; ++i)
       {
-        const int   i = y * nx + x;
-        const float d = delta[i];
+        const float d = delta(i, j);
         if (d == 0.f) continue;
-        z[i] += d;
-        sed[i] = std::max(0.f, sed[i] + d);
+        z(i, j) += d;
+        sed(i, j) = std::max(0.f, sed(i, j) + d);
       }
   }
 }
@@ -908,7 +902,7 @@ void hydraulic_mise(Array            &z,
 
       Array                el, rl, bl;
       std::vector<uint8_t> ol;
-      
+
       if (p_erodibility) el = p_erodibility->resample_to_shape(coarse_shape);
       if (p_moisture_map) rl = p_moisture_map->resample_to_shape(coarse_shape);
       if (p_bedrock) bl = p_bedrock->resample_to_shape(coarse_shape);
@@ -1004,7 +998,12 @@ void hydraulic_mise(Array            &z,
 
   if (p_flow)
   {
-    *p_flow = flow_map_impl(z, nx, ny, p_moisture_map, p_outlet_ptr, params.seed);
+    *p_flow = flow_map_impl(z,
+                            nx,
+                            ny,
+                            p_moisture_map,
+                            p_outlet_ptr,
+                            params.seed);
   }
 
   if (p_erosion_map)
