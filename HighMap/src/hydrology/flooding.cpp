@@ -15,7 +15,7 @@
 #include "highmap/logger.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -33,14 +33,14 @@ Array flooding_uniform_level(const Array &z, float zref)
   return water_depth;
 }
 
-Array flooding_from_boundaries(const Array      &z,
-                               float             zref,
-                               bool              from_east,
-                               bool              from_west,
-                               bool              from_north,
-                               bool              from_south,
-                               const TileRegion &region,
-                               ICommunicator    &comm)
+Array flooding_from_boundaries(const Array   &z,
+                               float          zref,
+                               bool           from_east,
+                               bool           from_west,
+                               bool           from_north,
+                               bool           from_south,
+                               const UvTile  &region,
+                               ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -136,16 +136,16 @@ Array flooding_from_boundaries(const Array      &z,
   if (global_nx <= 0 || global_ny <= 0)
   {
     hmap::log::error(
-        "flooding_from_boundaries: invalid TileRegion global_shape ({}x{})",
+        "flooding_from_boundaries: invalid UvTile global_shape ({}x{})",
         global_nx,
         global_ny);
     return Array();
   }
 
-  bool is_east_tile = region.is_east_boundary();
-  bool is_west_tile = region.is_west_boundary();
-  bool is_north_tile = region.is_north_boundary();
-  bool is_south_tile = region.is_south_boundary();
+  bool is_east_tile = region.is_right_border();
+  bool is_west_tile = region.is_left_border();
+  bool is_north_tile = region.is_top_border();
+  bool is_south_tile = region.is_bottom_border();
 
   Array water_depth(z.shape, 0.f);
 
@@ -391,12 +391,12 @@ Array flooding_from_boundaries(const Array      &z,
   return water_depth;
 }
 
-Array flooding_from_point(const Array      &z,
-                          const int         i,
-                          const int         j,
-                          float             depth_min,
-                          const TileRegion &region,
-                          ICommunicator    &comm)
+Array flooding_from_point(const Array   &z,
+                          const int      i,
+                          const int      j,
+                          float          depth_min,
+                          const UvTile  &region,
+                          ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -448,10 +448,9 @@ Array flooding_from_point(const Array      &z,
 
   if (region.tile_shape.x <= 0 || region.tile_shape.y <= 0)
   {
-    hmap::log::error(
-        "flooding_from_point: invalid TileRegion tile_shape ({}x{})",
-        region.tile_shape.x,
-        region.tile_shape.y);
+    hmap::log::error("flooding_from_point: invalid UvTile tile_shape ({}x{})",
+                     region.tile_shape.x,
+                     region.tile_shape.y);
     return Array();
   }
 
@@ -547,7 +546,7 @@ Array flooding_from_point(const Array            &z,
                           const std::vector<int> &i,
                           const std::vector<int> &j,
                           float                   depth_min,
-                          const TileRegion       &region,
+                          const UvTile           &region,
                           ICommunicator          &comm)
 {
   if (!validate_non_empty(z)) return Array();
@@ -571,10 +570,10 @@ Array flooding_from_point(const Array            &z,
   return water_depth;
 }
 
-Array flooding_lake_system(const Array      &z,
-                           float             surface_threshold,
-                           const TileRegion &region,
-                           ICommunicator    &comm)
+Array flooding_lake_system(const Array   &z,
+                           float          surface_threshold,
+                           const UvTile  &region,
+                           ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 

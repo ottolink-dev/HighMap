@@ -18,7 +18,7 @@ Array interpolate2d(glm::ivec2                shape,
                     InterpolationMethod2D     interpolation_method,
                     const Array              *p_noise_x,
                     const Array              *p_noise_y,
-                    glm::vec4                 bbox)
+                    const UvRect             &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_x && !validate_same_shape(shape, *p_noise_x)) return Array();
@@ -34,7 +34,7 @@ Array interpolate2d(glm::ivec2                shape,
                                   values,
                                   p_noise_x,
                                   p_noise_y,
-                                  bbox);
+                                  uv_rect);
   }
 
   case InterpolationMethod2D::ITP2D_NEAREST:
@@ -45,12 +45,18 @@ Array interpolate2d(glm::ivec2                shape,
                                  values,
                                  p_noise_x,
                                  p_noise_y,
-                                 bbox);
+                                 uv_rect);
   }
 
   case InterpolationMethod2D::ITP2D_IDW:
   {
-    return interpolate2d_idw(shape, x, y, values, p_noise_x, p_noise_y, bbox);
+    return interpolate2d_idw(shape,
+                             x,
+                             y,
+                             values,
+                             p_noise_x,
+                             p_noise_y,
+                             uv_rect);
   }
 
   case InterpolationMethod2D::ITP2D_GAUSSIAN:
@@ -61,12 +67,18 @@ Array interpolate2d(glm::ivec2                shape,
                                   values,
                                   p_noise_x,
                                   p_noise_y,
-                                  bbox);
+                                  uv_rect);
   }
 
   case InterpolationMethod2D::ITP2D_NNI:
   {
-    return interpolate2d_nni(shape, x, y, values, p_noise_x, p_noise_y, bbox);
+    return interpolate2d_nni(shape,
+                             x,
+                             y,
+                             values,
+                             p_noise_x,
+                             p_noise_y,
+                             uv_rect);
   }
 
   case InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT:
@@ -77,7 +89,7 @@ Array interpolate2d(glm::ivec2                shape,
                                            values,
                                            p_noise_x,
                                            p_noise_y,
-                                           bbox);
+                                           uv_rect);
   }
 
   default: throw std::runtime_error("unknown 2D interpolation method");

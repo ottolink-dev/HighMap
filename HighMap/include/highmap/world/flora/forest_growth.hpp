@@ -15,6 +15,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/world/flora/forest.hpp"
 #include "highmap/world/flora/species.hpp"
 
@@ -198,7 +199,7 @@ Forest grow_forest_competition_nn(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
+    const BBox2D               &bbox = BBox2D{});
 
 /**
  * @brief Adjusts tree radii based on Voronoi cell areas and species competition
@@ -245,7 +246,7 @@ Forest grow_forest_competition_voronoi(
     const Array                &max_radius_scale = {},
     float                       max_radius_scale_strength = 1.0f,
     bool                        prune_unviable = true,
-    const glm::vec4            &bbox = {0.f, 1.f, 0.f, 1.f});
+    const BBox2D               &bbox = BBox2D{});
 
 /**
  * @brief Simulates iterative plant growth with neighborhood competition and
@@ -271,6 +272,8 @@ Forest grow_forest_competition_voronoi(
  *                                   plants.
  * @param  bbox                      Spatial bounding box for sampling
  *                                   max_radius_scale.
+ * @param  region                    UvTile descriptor for tiled domain
+ *                                   positioning.
  * @return                           Forest Grown and thinned forest container.
  */
 Forest grow_forest_iterative(const Forest               &forest,
@@ -279,9 +282,10 @@ Forest grow_forest_iterative(const Forest               &forest,
                              float                       growth_rate = 0.1f,
                              const InteractionMatrix &competition_matrix = {},
                              const Array             &max_radius_scale = {},
-                             float            max_radius_scale_strength = 1.0f,
-                             bool             prune_unviable = true,
-                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                             float         max_radius_scale_strength = 1.0f,
+                             bool          prune_unviable = true,
+                             const BBox2D &bbox = BBox2D{},
+                             const UvTile &region = UvTile::unit());
 
 /**
  * @brief Performs multi-species Strauss soft-core growth and thinning on an
@@ -313,9 +317,9 @@ Forest grow_forest_soft_core(const Forest               &forest,
                              const InteractionMatrix &repulsion_strengths = {},
                              size_t                   target_count = 0,
                              const Array             &max_radius_scale = {},
-                             float            max_radius_scale_strength = 1.0f,
-                             uint32_t         seed = 0,
-                             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+                             float         max_radius_scale_strength = 1.0f,
+                             uint32_t      seed = 0,
+                             const BBox2D &bbox = BBox2D{});
 
 /**
  * @struct ForestScaleSampler
@@ -324,16 +328,16 @@ Forest grow_forest_soft_core(const Forest               &forest,
  */
 struct ForestScaleSampler
 {
-  const Array *scale_array = nullptr;
-  glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f};
-  float        strength = 1.0f;
-  float        bbox_dx = 1.0f;
-  float        bbox_dy = 1.0f;
-  bool         active = false;
+  const Array  *scale_array = nullptr;
+  const BBox2D &bbox = BBox2D{};
+  float         strength = 1.0f;
+  float         bbox_dx = 1.0f;
+  float         bbox_dy = 1.0f;
+  bool          active = false;
 
-  ForestScaleSampler(const Array     &array,
-                     float            strength_factor,
-                     const glm::vec4 &bounds);
+  ForestScaleSampler(const Array  &array,
+                     float         strength_factor,
+                     const BBox2D &bounds);
 
   float sample(float x, float y) const;
 };

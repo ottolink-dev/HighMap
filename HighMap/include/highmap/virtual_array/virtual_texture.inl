@@ -17,7 +17,7 @@ void for_each_tile(VirtualTexture &tex, Func &&func, const ComputeMode &cm)
       p_vas,
       [&](const std::vector<const Array *> &,
           std::vector<Array *> &out,
-          const TileRegion     &region) { func(out, region); },
+          const UvTile         &region) { func(out, region); },
       cm);
 }
 
@@ -38,7 +38,7 @@ void for_each_tile(const VirtualTexture &tex,
       {},
       [&](const std::vector<const Array *> &in,
           std::vector<Array *> &,
-          const TileRegion &region) { func(in, region); },
+          const UvTile &region) { func(in, region); },
       cm);
 }
 
@@ -47,7 +47,7 @@ void for_each_pixel(VirtualTexture &tex, Func &&func, const ComputeMode &cm)
 {
   for_each_tile(
       tex,
-      [&](std::vector<Array *> &chs, const TileRegion &region)
+      [&](std::vector<Array *> &chs, const UvTile &region)
       {
         int w = region.shape.x;
         int h = region.shape.y;

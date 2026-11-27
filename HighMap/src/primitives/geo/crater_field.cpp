@@ -53,7 +53,7 @@ Array crater_field(glm::ivec2                    shape,
                    float                         terrace_exp,
                    float                         terrace_persistence,
                    const Array                  *p_noise_r,
-                   glm::vec4                     bbox,
+                   const UvRect                 &uv_rect,
                    Array                        *p_crater_mask,
                    Array                        *p_inner_crater_mask,
                    bool                          scale_elevation_with_radius)
@@ -157,7 +157,7 @@ Array crater_field(glm::ivec2                    shape,
 
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   for (int j = 0; j < shape.y; j++)
     for (int i = 0; i < shape.x; i++)
@@ -233,29 +233,29 @@ Array crater_field(glm::ivec2                    shape,
   return z;
 }
 
-Array crater_field(glm::ivec2   shape,
-                   uint         seed,
-                   int          n_craters,
-                   float        r_min,
-                   float        r_max,
-                   float        angle,
-                   float        inner_depth,
-                   float        inner_exp,
-                   float        lip_height,
-                   float        lip_extent,
-                   float        lip_exp,
-                   float        asym_ratio,
-                   float        central_peak_height,
-                   float        central_peak_extent,
-                   int          n_terraces,
-                   float        terrace_extent,
-                   float        terrace_exp,
-                   float        terrace_persistence,
-                   const Array *p_noise_r,
-                   glm::vec4    bbox,
-                   Array       *p_crater_mask,
-                   Array       *p_inner_crater_mask,
-                   bool         scale_elevation_with_radius)
+Array crater_field(glm::ivec2    shape,
+                   uint          seed,
+                   int           n_craters,
+                   float         r_min,
+                   float         r_max,
+                   float         angle,
+                   float         inner_depth,
+                   float         inner_exp,
+                   float         lip_height,
+                   float         lip_extent,
+                   float         lip_exp,
+                   float         asym_ratio,
+                   float         central_peak_height,
+                   float         central_peak_extent,
+                   int           n_terraces,
+                   float         terrace_extent,
+                   float         terrace_exp,
+                   float         terrace_persistence,
+                   const Array  *p_noise_r,
+                   const UvRect &uv_rect,
+                   Array        *p_crater_mask,
+                   Array        *p_inner_crater_mask,
+                   bool          scale_elevation_with_radius)
 {
   if (n_craters <= 0)
   {
@@ -279,7 +279,7 @@ Array crater_field(glm::ivec2   shape,
                         terrace_exp,
                         terrace_persistence,
                         p_noise_r,
-                        bbox,
+                        uv_rect,
                         p_crater_mask,
                         p_inner_crater_mask);
   }
@@ -316,7 +316,7 @@ Array crater_field(glm::ivec2   shape,
                       terrace_exp,
                       terrace_persistence,
                       p_noise_r,
-                      bbox,
+                      uv_rect,
                       p_crater_mask,
                       p_inner_crater_mask,
                       scale_elevation_with_radius);

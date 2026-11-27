@@ -16,10 +16,10 @@ int main(void)
 
   // --- data
 
-  hmap::VirtualArray varray1(shape, bbox, tile_shape, halo, storage_mode);
-  hmap::VirtualArray varray2(shape, bbox, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray1(shape, tile_shape, halo, storage_mode);
+  hmap::VirtualArray varray2(shape, tile_shape, halo, storage_mode);
 
-  auto lambda_noise = [](hmap::Array &tile, const hmap::TileRegion &region)
+  auto lambda_noise = [](hmap::Array &tile, const hmap::UvTile &region)
   {
     tile = hmap::noise(hmap::NoiseType::PERLIN,
                        region.shape,
@@ -27,7 +27,7 @@ int main(void)
                        0,
                        nullptr,
                        nullptr,
-                       region.bbox);
+                       region.uv_rect.to_vec4());
   };
 
   hmap::for_each_tile(varray1, lambda_noise, cm);

@@ -5,7 +5,7 @@ int main(void)
   glm::ivec2 shape = {256, 256};
   shape = {1024, 1024};
   std::uint32_t seed = 0;
-  glm::vec4     bbox = hmap::unit_square_bbox();
+  hmap::BBox2D  bbox = hmap::unit_square_bbox();
   glm::vec2     center = {0.f, 0.f};
 
   hmap::CraterFunction p(0.2f, 0.12f, 0.5f, 0.5f, center);

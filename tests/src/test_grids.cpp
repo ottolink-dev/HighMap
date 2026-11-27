@@ -53,7 +53,9 @@ TEST(Grids, RescalePointsToUnitSquare)
   std::vector<float> x = {10.f, 15.f, 20.f};
   std::vector<float> y = {5.f, 15.f};
 
-  hmap::rescale_points_to_unit_square(x, y, {10.f, 20.f, 5.f, 15.f});
+  hmap::rescale_points_to_unit_square(x,
+                                      y,
+                                      hmap::BBox2D({10.f, 20.f, 5.f, 15.f}));
 
   EXPECT_NEAR(x[0], 0.f, 1e-5f);
   EXPECT_NEAR(x[1], 0.5f, 1e-5f);
@@ -65,7 +67,9 @@ TEST(Grids, RescalePointsToUnitSquare)
   // degenerate bounding box (no div by zero)
   std::vector<float> dx = {10.f};
   std::vector<float> dy = {5.f};
-  hmap::rescale_points_to_unit_square(dx, dy, {10.f, 10.f, 5.f, 5.f});
+  hmap::rescale_points_to_unit_square(dx,
+                                      dy,
+                                      hmap::BBox2D({10.f, 10.f, 5.f, 5.f}));
   EXPECT_FALSE(std::isnan(dx[0]));
   EXPECT_FALSE(std::isnan(dy[0]));
 }

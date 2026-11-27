@@ -19,7 +19,7 @@ TEST(BVH2DPathSDF, OpenPathMatchesBruteForceAndBVH)
   path.set_closed(false);
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   Array bf = path_sdf_to_array_brute_force(path, shape, bbox);
   Array bvh = path_sdf_to_array_bvh(path, shape, bbox);
@@ -50,7 +50,7 @@ TEST(BVH2DPathSDF, ClosedPathMatchesBruteForceAndBVH)
   path.set_closed(true);
 
   glm::ivec2 shape(24, 24);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   Array bf = path_sdf_to_array_brute_force(path, shape, bbox);
   Array bvh = path_sdf_to_array_bvh(path, shape, bbox);
@@ -80,15 +80,28 @@ TEST(BVH2DPathSDF, PolylineFunctionsEquivalenceAndWarp)
   path.set_closed(false);
 
   glm::ivec2 shape(24, 24);
-  glm::vec4  bbox(1.f, 5.f, 2.f, 6.f);
+  BBox2D     bbox(1.f, 5.f, 2.f, 6.f);
 
   Array dx(shape, 0.15f);
   Array dy(shape, -0.1f);
 
-  Array bf = sdf_2d_polyline_brute_force(path, shape, bbox, &dx, &dy);
-  Array bvh = sdf_2d_polyline_bvh(path, shape, bbox, &dx, &dy);
-  Array def = sdf_2d_polyline(path, shape, bbox, &dx, &dy);
-  Array no_bvh = sdf_2d_polyline(path, shape, bbox, &dx, &dy, false);
+  Array bf = sdf_2d_polyline_brute_force(path,
+                                         shape,
+                                         UvRect::from_bbox2d(bbox),
+                                         &dx,
+                                         &dy);
+  Array bvh = sdf_2d_polyline_bvh(path,
+                                  shape,
+                                  UvRect::from_bbox2d(bbox),
+                                  &dx,
+                                  &dy);
+  Array def = sdf_2d_polyline(path, shape, UvRect::from_bbox2d(bbox), &dx, &dy);
+  Array no_bvh = sdf_2d_polyline(path,
+                                 shape,
+                                 UvRect::from_bbox2d(bbox),
+                                 &dx,
+                                 &dy,
+                                 false);
 
   ASSERT_EQ(bf.shape.x, bvh.shape.x);
   ASSERT_EQ(bf.shape.y, bvh.shape.y);
@@ -123,7 +136,7 @@ TEST(BVH2DPathSDF, ComplexMultiSegmentPathEquivalence)
   path.set_closed(false);
 
   glm::ivec2 shape(48, 48);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   Array bf = path_sdf_to_array_brute_force(path, shape, bbox);
   Array bvh = path_sdf_to_array_bvh(path, shape, bbox);
@@ -150,14 +163,18 @@ TEST(BVH2DPathSDF, BezierMatchesBruteForceAndBVH)
   path.set_closed(false);
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
-  Array bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
-  Array def = sdf_2d_polyline_bezier(path, shape, bbox);
+  Array bf = sdf_2d_polyline_bezier_brute_force(path,
+                                                shape,
+                                                UvRect::from_bbox2d(bbox));
+  Array bvh = sdf_2d_polyline_bezier_bvh(path,
+                                         shape,
+                                         UvRect::from_bbox2d(bbox));
+  Array def = sdf_2d_polyline_bezier(path, shape, UvRect::from_bbox2d(bbox));
   Array no_bvh = sdf_2d_polyline_bezier(path,
                                         shape,
-                                        bbox,
+                                        UvRect::from_bbox2d(bbox),
                                         nullptr,
                                         nullptr,
                                         false);
@@ -190,10 +207,14 @@ TEST(BVH2DPathSDF, BezierColinearPointsNoNaN)
   path.set_closed(false);
 
   glm::ivec2 shape(16, 16);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array res_bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
-  Array res_bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+  Array res_bvh = sdf_2d_polyline_bezier_bvh(path,
+                                             shape,
+                                             UvRect::from_bbox2d(bbox));
+  Array res_bf = sdf_2d_polyline_bezier_brute_force(path,
+                                                    shape,
+                                                    UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -217,11 +238,15 @@ TEST(BVH2DPathSDF, BezierClosedPathSigned)
   path.set_closed(true);
 
   glm::ivec2 shape(24, 24);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
-  Array bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
-  Array def = sdf_2d_polyline_bezier(path, shape, bbox);
+  Array bf = sdf_2d_polyline_bezier_brute_force(path,
+                                                shape,
+                                                UvRect::from_bbox2d(bbox));
+  Array bvh = sdf_2d_polyline_bezier_bvh(path,
+                                         shape,
+                                         UvRect::from_bbox2d(bbox));
+  Array def = sdf_2d_polyline_bezier(path, shape, UvRect::from_bbox2d(bbox));
 
   ASSERT_EQ(bf.shape.x, bvh.shape.x);
   ASSERT_EQ(bf.shape.y, bvh.shape.y);
@@ -252,10 +277,14 @@ TEST(BVH2DPathSDF, BezierEvenPointCountHandled)
   path.set_closed(false);
 
   glm::ivec2 shape(20, 20);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array res_bvh = sdf_2d_polyline_bezier_bvh(path, shape, bbox);
-  Array res_bf = sdf_2d_polyline_bezier_brute_force(path, shape, bbox);
+  Array res_bvh = sdf_2d_polyline_bezier_bvh(path,
+                                             shape,
+                                             UvRect::from_bbox2d(bbox));
+  Array res_bf = sdf_2d_polyline_bezier_brute_force(path,
+                                                    shape,
+                                                    UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -278,10 +307,14 @@ TEST(BVH2DPathSDF, GpuBezierMatchesCpu)
   open_path.set_closed(false);
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array cpu_open = sdf_2d_polyline_bezier(open_path, shape, bbox);
-  Array gpu_open = gpu::sdf_2d_polyline_bezier(open_path, shape, bbox);
+  Array cpu_open = sdf_2d_polyline_bezier(open_path,
+                                          shape,
+                                          UvRect::from_bbox2d(bbox));
+  Array gpu_open = gpu::sdf_2d_polyline_bezier(open_path,
+                                               shape,
+                                               UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -300,8 +333,12 @@ TEST(BVH2DPathSDF, GpuBezierMatchesCpu)
                                         {0.9f, 0.9f, 0.f}});
   colinear_path.set_closed(false);
 
-  Array cpu_colinear = sdf_2d_polyline_bezier(colinear_path, shape, bbox);
-  Array gpu_colinear = gpu::sdf_2d_polyline_bezier(colinear_path, shape, bbox);
+  Array cpu_colinear = sdf_2d_polyline_bezier(colinear_path,
+                                              shape,
+                                              UvRect::from_bbox2d(bbox));
+  Array gpu_colinear = gpu::sdf_2d_polyline_bezier(colinear_path,
+                                                   shape,
+                                                   UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -321,8 +358,12 @@ TEST(BVH2DPathSDF, GpuBezierMatchesCpu)
                                       {0.25f, 0.75f, 0.f}});
   closed_path.set_closed(true);
 
-  Array cpu_closed = sdf_2d_polyline_bezier(closed_path, shape, bbox);
-  Array gpu_closed = gpu::sdf_2d_polyline_bezier(closed_path, shape, bbox);
+  Array cpu_closed = sdf_2d_polyline_bezier(closed_path,
+                                            shape,
+                                            UvRect::from_bbox2d(bbox));
+  Array gpu_closed = gpu::sdf_2d_polyline_bezier(closed_path,
+                                                 shape,
+                                                 UvRect::from_bbox2d(bbox));
 
   EXPECT_LT(gpu_closed.min(), 0.f);
   EXPECT_GT(gpu_closed.max(), 0.f);
@@ -349,10 +390,12 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
   open_path.set_closed(false);
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   Array cpu_open = path_sdf_to_array(open_path, shape, bbox);
-  Array gpu_open = gpu::path_sdf_to_array(open_path, shape, bbox);
+  Array gpu_open = gpu::path_sdf_to_array(open_path,
+                                          shape,
+                                          UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -374,7 +417,9 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
   closed_path.set_closed(true);
 
   Array cpu_closed = path_sdf_to_array(closed_path, shape, bbox);
-  Array gpu_closed = gpu::path_sdf_to_array(closed_path, shape, bbox);
+  Array gpu_closed = gpu::path_sdf_to_array(closed_path,
+                                            shape,
+                                            UvRect::from_bbox2d(bbox));
 
   EXPECT_LT(gpu_closed.min(), 0.f);
   EXPECT_GT(gpu_closed.max(), 0.f);
@@ -396,7 +441,11 @@ TEST(BVH2DPathSDF, GpuPathSdfToArrayMatchesCpu)
   Array dy(shape, -0.03f);
 
   Array cpu_warped = path_sdf_to_array(closed_path, shape, bbox, &dx, &dy);
-  Array gpu_warped = gpu::path_sdf_to_array(closed_path, shape, bbox, &dx, &dy);
+  Array gpu_warped = gpu::path_sdf_to_array(closed_path,
+                                            shape,
+                                            UvRect::from_bbox2d(bbox),
+                                            &dx,
+                                            &dy);
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -420,7 +469,7 @@ TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
                                {0.5f, 0.5f, 0.f}});
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
   Array bf = path_sdf_bezier_to_array_brute_force(path, shape, bbox);
   Array bvh = path_sdf_bezier_to_array_bvh(path, shape, bbox);
@@ -431,7 +480,7 @@ TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
                                           nullptr,
                                           nullptr,
                                           false);
-  Array ref = sdf_2d_polyline_bezier(path, shape, bbox);
+  Array ref = sdf_2d_polyline_bezier(path, shape, UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -445,8 +494,12 @@ TEST(BVH2DPathSDF, PathSdfBezierToArrayMatchesSdf2DPolylineBezier)
   }
 
   // GPU test
-  Array gpu_res = gpu::path_sdf_bezier_to_array(path, shape, bbox);
-  Array gpu_ref = gpu::sdf_2d_polyline_bezier(path, shape, bbox);
+  Array gpu_res = gpu::path_sdf_bezier_to_array(path,
+                                                shape,
+                                                UvRect::from_bbox2d(bbox));
+  Array gpu_ref = gpu::sdf_2d_polyline_bezier(path,
+                                              shape,
+                                              UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {
@@ -472,11 +525,11 @@ TEST(BVH2DGraphSDF, MatchesBruteForceAndBVH)
   graph.add_edge(1, 3);
 
   glm::ivec2 shape(32, 32);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array bf = sdf_2d_graph_brute_force(graph, shape, bbox);
-  Array bvh = sdf_2d_graph_bvh(graph, shape, bbox);
-  Array def = sdf_2d_graph(graph, shape, bbox);
+  Array bf = sdf_2d_graph_brute_force(graph, shape, UvRect::from_bbox2d(bbox));
+  Array bvh = sdf_2d_graph_bvh(graph, shape, UvRect::from_bbox2d(bbox));
+  Array def = sdf_2d_graph(graph, shape, UvRect::from_bbox2d(bbox));
   Array to_arr = graph.to_array_sdf(shape, bbox);
 
   ASSERT_EQ(bf.shape.x, bvh.shape.x);
@@ -498,9 +551,9 @@ TEST(BVH2DGraphSDF, EmptyGraphYieldsLargeDistance)
 {
   Graph      graph;
   glm::ivec2 shape(16, 16);
-  glm::vec4  bbox(0.f, 1.f, 0.f, 1.f);
+  BBox2D     bbox(0.f, 1.f, 0.f, 1.f);
 
-  Array res = sdf_2d_graph(graph, shape, bbox);
+  Array res = sdf_2d_graph(graph, shape, UvRect::from_bbox2d(bbox));
 
   for (int j = 0; j < shape.y; ++j)
   {

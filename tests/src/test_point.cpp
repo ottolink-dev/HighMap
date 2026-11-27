@@ -234,7 +234,7 @@ TEST(PointTest, PointInsideBoundingBox)
 {
   Point p(0.5f, 0.5f, 0.f);
 
-  glm::vec4 bbox{0, 1, 0, 1};
+  BBox2D bbox(0, 1, 0, 1);
 
   EXPECT_TRUE(is_point_within_bounding_box(p, bbox));
 }
@@ -243,7 +243,7 @@ TEST(PointTest, PointOutsideBoundingBox)
 {
   Point p(2.f, 0.5f, 0.f);
 
-  glm::vec4 bbox{0, 1, 0, 1};
+  BBox2D bbox(0, 1, 0, 1);
 
   EXPECT_FALSE(is_point_within_bounding_box(p, bbox));
 }

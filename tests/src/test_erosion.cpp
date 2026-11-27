@@ -1,3 +1,4 @@
+#include "highmap/colormaps.hpp"
 #include "highmap/erosion.hpp"
 #include "highmap/export/image.hpp"
 #include "highmap/hydrology/hydrology.hpp"
@@ -453,7 +454,7 @@ TEST(HydraulicMise, VirtualArrayComparison)
       .stride = 1,
   };
 
-  VirtualArray z_va(shape, bbox, tile_shape, halo, StorageMode::VA_RAM);
+  VirtualArray z_va(shape, tile_shape, halo, StorageMode::VA_RAM);
   z_va.from_array(z0, cm);
 
   // Cut-off resolution set to 64 so that tileable computation path is triggered
@@ -724,7 +725,7 @@ TEST(AeolianErosionGPU, TiledDistributedExecution)
         {&z_out},
         [&](std::vector<const Array *> p_arrays_in,
             std::vector<Array *>       p_arrays_out,
-            const TileRegion          &region,
+            const UvTile              &region,
             ICommunicator             &comm)
         {
           auto [pa_z] = unpack<1>(p_arrays_in);

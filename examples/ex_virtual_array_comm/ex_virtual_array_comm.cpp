@@ -37,7 +37,7 @@ int main()
 
   hmap::for_each_tile(
       va_raw,
-      [&](hmap::Array &tile, const hmap::TileRegion &)
+      [&](hmap::Array &tile, const hmap::UvTile &)
       { hmap::smooth_cpulse(tile, ir); },
       cm);
 
@@ -50,7 +50,7 @@ int main()
 
   hmap::for_each_tile(
       va_post_sync,
-      [&](hmap::Array &tile, const hmap::TileRegion &)
+      [&](hmap::Array &tile, const hmap::UvTile &)
       { hmap::smooth_cpulse(tile, ir); },
       cm);
 
@@ -64,9 +64,9 @@ int main()
 
   hmap::for_each_tile(
       va_comm_sync,
-      [&](hmap::Array            &tile,
-          const hmap::TileRegion &region,
-          hmap::ICommunicator    &comm)
+      [&](hmap::Array         &tile,
+          const hmap::UvTile  &region,
+          hmap::ICommunicator &comm)
       {
         // Demonstrator: smooth_cpulse using communicator to sync overlap
         // buffers

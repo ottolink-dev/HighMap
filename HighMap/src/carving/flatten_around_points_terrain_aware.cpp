@@ -30,7 +30,7 @@ void flatten_around_points_terrain_aware(Array                    &z,
                                          RadialProfile radial_profile,
                                          float         profile_param,
                                          Array        *p_mask,
-                                         glm::vec4     bbox)
+                                         const UvRect &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (!validate_non_empty(xp)) return;
@@ -47,9 +47,11 @@ void flatten_around_points_terrain_aware(Array                    &z,
   const int nx = z.shape.x;
   const int ny = z.shape.y;
 
-  // cell size in bbox units (guard against single-cell axes)
-  const float dx = nx > 1 ? (bbox.y - bbox.x) / float(nx - 1) : 1.f;
-  const float dy = ny > 1 ? (bbox.w - bbox.z) / float(ny - 1) : 1.f;
+  // cell size in uv_rect units (guard against single-cell axes)
+  const float dx = nx > 1 ? (uv_rect.u_max - uv_rect.u_min) / float(nx - 1)
+                          : 1.f;
+  const float dy = ny > 1 ? (uv_rect.v_max - uv_rect.v_min) / float(ny - 1)
+                          : 1.f;
 
   auto profile_fct = get_radial_profile_function(radial_profile, profile_param);
 
@@ -83,8 +85,8 @@ void flatten_around_points_terrain_aware(Array                    &z,
     if (r <= 0.f) continue;
 
     // seed cell
-    const int si = int(std::round((xp[k] - bbox.x) / dx));
-    const int sj = int(std::round((yp[k] - bbox.z) / dy));
+    const int si = int(std::round((xp[k] - uv_rect.u_min) / dx));
+    const int sj = int(std::round((yp[k] - uv_rect.v_min) / dy));
 
     if (si < 0 || si >= nx || sj < 0 || sj >= ny) continue;
 
@@ -139,8 +141,8 @@ void flatten_around_points_terrain_aware(Array                    &z,
         if (zn > z_limit) continue;
 
         // geometric extent limit
-        const float ex = bbox.x + float(ni) * dx - xp[k];
-        const float ey = bbox.z + float(nj) * dy - yp[k];
+        const float ex = uv_rect.u_min + float(ni) * dx - xp[k];
+        const float ey = uv_rect.v_min + float(nj) * dy - yp[k];
 
         if (ex * ex + ey * ey > r * r) continue;
 
@@ -201,7 +203,7 @@ void flatten_around_points_terrain_aware(Array                    &z,
                                          RadialProfile radial_profile,
                                          float         profile_param,
                                          Array        *p_mask,
-                                         glm::vec4     bbox)
+                                         const UvRect &uv_rect)
 {
   const std::vector<float> radii(xp.size(), radius);
 
@@ -218,7 +220,7 @@ void flatten_around_points_terrain_aware(Array                    &z,
                                       radial_profile,
                                       profile_param,
                                       p_mask,
-                                      bbox);
+                                      uv_rect);
 }
 
 } // namespace hmap

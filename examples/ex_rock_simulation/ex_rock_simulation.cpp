@@ -42,7 +42,7 @@ int main(void)
   hmap::RockDistribution dist(0u, 0.0005f, 0.002f, 4.f);
 
   hmap::RockSimulationOptions options;
-  options.bbox = {0.f, 1.f, 0.f, 1.f};
+  options.bbox = hmap::BBox2D::unit();
   options.time_step = 0.005f;
   options.max_steps = int(8.f * 128);
   options.gravity = 9.81f;

@@ -18,8 +18,8 @@
 #include "highmap/opencl/gpu_opencl.hpp"
 #include "highmap/operator.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap::gpu
 {
@@ -511,11 +511,11 @@ void shrink(Array       &array,
                   [&](Array &a) { gpu::shrink(a, kernel, iterations); });
 }
 
-void smooth_cpulse(Array            &array,
-                   int               ir,
-                   const Array      *p_mask,
-                   const TileRegion &region,
-                   ICommunicator    &comm)
+void smooth_cpulse(Array         &array,
+                   int            ir,
+                   const Array   *p_mask,
+                   const UvTile  &region,
+                   ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;

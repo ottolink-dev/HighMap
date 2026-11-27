@@ -16,7 +16,7 @@
 
 #include "highmap/array.hpp"
 #include "highmap/internal/string_utils.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 
 #include <unordered_map>
@@ -93,7 +93,7 @@ StorageMode DiskLruTileStorage::get_mode() const
   return this->mode;
 }
 
-Array &DiskLruTileStorage::get_tile(const TileRegion &region)
+Array &DiskLruTileStorage::get_tile(const UvTile &region)
 {
   std::lock_guard<std::mutex> lock(this->mutex);
   const TileKey              &key = region.key;
@@ -129,7 +129,7 @@ Array &DiskLruTileStorage::get_tile(const TileRegion &region)
   return inserted_it->second.value;
 }
 
-void DiskLruTileStorage::release_tile(const TileRegion &region)
+void DiskLruTileStorage::release_tile(const UvTile &region)
 {
   std::lock_guard<std::mutex> lock(this->mutex);
   auto                        it = this->tiles.find(region.key);
@@ -185,7 +185,7 @@ std::string DiskLruTileStorage::info_string() const
                                                          : "DiskLRU (Full)";
 }
 
-Array DiskLruTileStorage::load_tile_from_disk(const TileRegion &region)
+Array DiskLruTileStorage::load_tile_from_disk(const UvTile &region)
 {
   Array tile(region.shape);
   auto  path = this->tile_path(region.key);

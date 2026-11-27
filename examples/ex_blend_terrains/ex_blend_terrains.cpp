@@ -105,10 +105,9 @@ int main(void)
                        hmap::TerrainBlendMode::TBM_POISSON,
                        0.15f);
 
-  hmap::export_banner_png(
-      "ex_blend_terrains0.png",
-      {lower, z_max, z_max_smooth, z_dist, z_aligned_dist},
-      hmap::Cmap::TERRAIN);
+  hmap::export_banner_png("ex_blend_terrains0.png",
+                          {lower, z_max, z_max_smooth, z_dist, z_aligned_dist},
+                          hmap::Cmap::TERRAIN);
 
   hmap::export_banner_png(
       "ex_blend_terrains1.png",

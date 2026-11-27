@@ -21,8 +21,8 @@
 #include "highmap/array.hpp"
 #include "highmap/kernels.hpp"
 #include "highmap/local_metrics.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 namespace hmap
 {
@@ -37,6 +37,26 @@ enum DistanceTransformType : int
   DT_MANHATTAN, ///< Manhattan distance transform.
   DT_JFA,       ///< Approximate (JFA) distance transform.
 };
+
+/**
+ * \brief Types of base morphology operators.
+ */
+// clang-format off
+enum MorphologyOperation : int
+{
+	MO_BORDER,    //!< Extract border of structures.
+	MO_CLOSING,   //!< Dilation followed by erosion (fills small holes).
+	MO_DILATION,  //!< Expand structures (local maximum).
+	MO_EROSION,   //!< Shrink structures (local minimum).
+	MO_OPENING,   //!< Erosion followed by dilation (removes small objects).
+	MO_BLACK_HAT, //!< Difference between closing and input (dark features).
+	MO_TOP_HAT,   //!< Difference between input and opening (bright features).
+	MO_GRADIENT,  //!< Difference between dilation and erosion (edge magnitude).
+	MO_LAPLACIAN, //!< Second-order operator highlighting ridges and valleys.
+	MO_CLOSING_BY_RECONSTRUCTION,
+	MO_OPENING_BY_RECONSTRUCTION,
+};
+// clang-format on
 
 /**
  * @brief Remove connected components smaller than a given size threshold.
@@ -191,10 +211,10 @@ Array dilation_expand_min_value_border_only(const Array &array);
  *
  * See unit tests: @ref test_distance_transform.cpp
  */
-Array distance_transform(const Array      &array,
-                         bool              return_squared_distance = false,
-                         const TileRegion &region = TileRegion::dummy(),
-                         ICommunicator    &comm = SingleArrayComm::instance());
+Array distance_transform(const Array   &array,
+                         bool           return_squared_distance = false,
+                         const UvTile  &region = UvTile::dummy(),
+                         ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Calculates an approximate distance transform of the input array.
@@ -604,6 +624,27 @@ Array signed_distance_transform(const Array &array, int prefilter_ir = 0);
  */
 Array skeleton(const Array &array, bool zero_at_borders = true);
 
+// ==========================================================================
+//  Wrapper
+// ==========================================================================
+
+/**
+ * @brief Apply a morphological operation to the input array using a square
+ * kernel.
+ *
+ * Dispatches to the selected morphological operator (e.g. erosion, dilation,
+ * opening, closing, gradient, etc.).
+ *
+ * @param  array     Input array to process.
+ * @param  ir        Radius of the square structuring element.
+ * @param  operation Morphological operation to apply.
+ * @return           Array Resulting array after applying the operation.
+ */
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
+                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
+
 } // namespace hmap
 
 namespace hmap::gpu
@@ -737,34 +778,9 @@ Array signed_distance_transform(const Array &array, int prefilter_ir = 0);
 /*! @brief See hmap::skeleton */
 Array skeleton(const Array &array, bool zero_at_borders = true);
 
-} // namespace hmap::gpu
-
 // ==========================================================================
 //  Wrapper
 // ==========================================================================
-
-namespace hmap
-{
-
-/**
- * \brief Types of base morphology operators.
- */
-// clang-format off
-enum MorphologyOperation : int
-{
-	MO_BORDER,    //!< Extract border of structures.
-	MO_CLOSING,   //!< Dilation followed by erosion (fills small holes).
-	MO_DILATION,  //!< Expand structures (local maximum).
-	MO_EROSION,   //!< Shrink structures (local minimum).
-	MO_OPENING,   //!< Erosion followed by dilation (removes small objects).
-	MO_BLACK_HAT, //!< Difference between closing and input (dark features).
-	MO_TOP_HAT,   //!< Difference between input and opening (bright features).
-	MO_GRADIENT,  //!< Difference between dilation and erosion (edge magnitude).
-	MO_LAPLACIAN, //!< Second-order operator highlighting ridges and valleys.
-	MO_CLOSING_BY_RECONSTRUCTION,
-	MO_OPENING_BY_RECONSTRUCTION,
-};
-// clang-format on
 
 /**
  * @brief Apply a morphological operation to the input array using a square
@@ -778,20 +794,9 @@ enum MorphologyOperation : int
  * @param  operation Morphological operation to apply.
  * @return           Array Resulting array after applying the operation.
  */
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
-                              MinMaxKernel kernel_type = MinMaxKernel::DISK);
-
-} // namespace hmap
-
-namespace hmap::gpu
-{
-
-/*! @brief See hmap::morphological_operators */
-Array morphological_operators(const Array        &array,
-                              int                 ir,
-                              MorphologyOperation operation,
+Array morphological_operators(const Array              &array,
+                              int                       ir,
+                              hmap::MorphologyOperation operation,
                               MinMaxKernel kernel_type = MinMaxKernel::DISK);
 
 } // namespace hmap::gpu

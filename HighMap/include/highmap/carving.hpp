@@ -73,7 +73,7 @@ void carve_river(
     RadialProfile radial_profile = RadialProfile::RP_SMOOTHSTEP_UPPER,
     float         radial_profile_parameter = 2.f,
     Array        *p_river_mask = nullptr,
-    glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Dig a path on a heightmap.
@@ -113,14 +113,14 @@ void carve_river(
  *                          depth of the dig. If not provided, the default depth
  *                          of 0.f is used.
  */
-void dig_path(Array    &z,
-              Path     &path,
-              int       width = 1,
-              int       decay = 2,
-              int       flattening_radius = 16,
-              bool      force_downhill = false,
-              glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f},
-              float     depth = 0.f);
+void dig_path(Array        &z,
+              Path         &path,
+              int           width = 1,
+              int           decay = 2,
+              int           flattening_radius = 16,
+              bool          force_downhill = false,
+              const UvRect &uv_rect = UvRect::unit(),
+              float         depth = 0.f);
 
 /**
  * @brief Flattens a heightmap locally around a set of reference points.
@@ -152,7 +152,7 @@ void flatten_around_points(
     RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
     float                     profile_param = 1.0f,
     Array                    *p_mask = nullptr,
-    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief Overload of flatten_around_points with a single radius shared by all
@@ -168,7 +168,7 @@ void flatten_around_points(
     RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
     float                     profile_param = 1.0f,
     Array                    *p_mask = nullptr,
-    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief Terrain-aware flattening around a set of seed points.
@@ -222,7 +222,7 @@ void flatten_around_points_terrain_aware(
     RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
     float                     profile_param = 1.f,
     Array                    *p_mask = nullptr,
-    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect             &uv_rect = UvRect::unit());
 
 /// @brief Overload with a single radius shared by all seeds.
 void flatten_around_points_terrain_aware(
@@ -239,7 +239,7 @@ void flatten_around_points_terrain_aware(
     RadialProfile             radial_profile = RadialProfile::RP_SMOOTHSTEP,
     float                     profile_param = 1.f,
     Array                    *p_mask = nullptr,
-    glm::vec4                 bbox = {0.f, 1.f, 0.f, 1.f});
+    const UvRect             &uv_rect = UvRect::unit());
 
 /**
  * @brief Blends a flatbed carve into an existing heightmap.
@@ -280,7 +280,7 @@ void flatbed_carve(Array        &z,
                    float         radial_profile_parameter = 2.f,
                    Array        *p_falloff_mask = nullptr,
                    const Array  *p_noise_r = nullptr,
-                   glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f});
+                   const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Carves a trench along a given path into a heightmap.
@@ -355,15 +355,15 @@ void trench(Array        &z,
             float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
-            float        elevation_shift = -0.05f,
-            float        shift_ramp_start_ratio = 0.f,
-            float        shift_ramp_end_ratio = 0.f,
-            float        min_slope = 0.001f,
-            size_t       k_neighbors = 8,
-            const Array *p_noise_r = nullptr,
-            Array       *p_bending_mask = nullptr,
-            int          tile_size = 32,
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            float         elevation_shift = -0.05f,
+            float         shift_ramp_start_ratio = 0.f,
+            float         shift_ramp_end_ratio = 0.f,
+            float         min_slope = 0.001f,
+            size_t        k_neighbors = 8,
+            const Array  *p_noise_r = nullptr,
+            Array        *p_bending_mask = nullptr,
+            int           tile_size = 32,
+            const UvRect &uv_rect = UvRect::unit());
 
 void trench(Array                   &z,
             const std::vector<Path> &paths,
@@ -378,15 +378,15 @@ void trench(Array                   &z,
             float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
-            float        elevation_shift = -0.05f,
-            float        shift_ramp_start_ratio = 0.f,
-            float        shift_ramp_end_ratio = 0.f,
-            float        min_slope = 0.001f,
-            size_t       k_neighbors = 8,
-            const Array *p_noise_r = nullptr,
-            Array       *p_bending_mask = nullptr,
-            int          tile_size = 32,
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            float         elevation_shift = -0.05f,
+            float         shift_ramp_start_ratio = 0.f,
+            float         shift_ramp_end_ratio = 0.f,
+            float         min_slope = 0.001f,
+            size_t        k_neighbors = 8,
+            const Array  *p_noise_r = nullptr,
+            Array        *p_bending_mask = nullptr,
+            int           tile_size = 32,
+            const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Carves river channels for an entire flow network represented by a
@@ -427,12 +427,12 @@ void trench(Array                    &z,
             float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
-            float        elevation_shift = -0.05f,
-            float        min_slope = 0.001f,
-            const Array *p_noise_r = nullptr,
-            Array       *p_bending_mask = nullptr,
-            int          tile_size = 32,
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            float         elevation_shift = -0.05f,
+            float         min_slope = 0.001f,
+            const Array  *p_noise_r = nullptr,
+            Array        *p_bending_mask = nullptr,
+            int           tile_size = 32,
+            const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Carves river channels for an entire flow network represented by a
@@ -467,11 +467,11 @@ void trench(Array        &z,
             float         radial_profile_parameter = 2.f,
             ElevationLongitudinalProfile longitudinal_profile =
                 ElevationLongitudinalProfile::ELP_DECREASING,
-            float        elevation_shift = -0.05f,
-            float        min_slope = 0.001f,
-            const Array *p_noise_r = nullptr,
-            Array       *p_bending_mask = nullptr,
-            int          tile_size = 32,
-            glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+            float         elevation_shift = -0.05f,
+            float         min_slope = 0.001f,
+            const Array  *p_noise_r = nullptr,
+            Array        *p_bending_mask = nullptr,
+            int           tile_size = 32,
+            const UvRect &uv_rect = UvRect::unit());
 
 } // namespace hmap

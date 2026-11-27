@@ -32,7 +32,7 @@ Array rift(glm::ivec2    shape,
            const Array  *p_noise_r,
            const Array  *p_noise_offset,
            glm::vec2     center,
-           glm::vec4     bbox,
+           const UvRect &uv_rect,
            Array        *p_rift_mask,
            Array        *p_bottom_mask)
 {
@@ -64,7 +64,7 @@ Array rift(glm::ivec2    shape,
   // grid
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   // main loop
   for (int j = 0; j < shape.y; j++)

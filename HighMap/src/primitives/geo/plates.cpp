@@ -25,7 +25,7 @@ Array plates(glm::ivec2    shape,
              float         kw_multiplier,
              int           octaves,
              float         rugosity,
-             glm::vec4     bbox)
+             const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -45,7 +45,7 @@ Array plates(glm::ivec2    shape,
                                                 nullptr,
                                                 nullptr,
                                                 nullptr,
-                                                bbox);
+                                                uv_rect);
 
   // base primitive
   glm::vec2         jitter(1.f, 1.f);
@@ -66,7 +66,7 @@ Array plates(glm::ivec2    shape,
                                     nullptr,
                                     &noise,
                                     nullptr,
-                                    bbox);
+                                    uv_rect);
 
   Array plates = gpu::project_talus_along_direction(voronoi,
                                                     Array(shape, talus),

@@ -15,7 +15,7 @@ int main(void)
 
   z.infos();
 
-  cv::Mat img = z.to_cv_mat();
+  cv::Mat img = hmap::to_cv_mat(z);
   cv::cvtColor(img, img, cv::COLOR_GRAY2BGR);
 
   std::vector<int> codec_params = {cv::IMWRITE_EXR_TYPE,

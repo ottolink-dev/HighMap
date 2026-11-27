@@ -143,7 +143,7 @@ TEST(SnowSimulation, TiledMinStorageLruMin)
         {&z_out, &snow_depth_out},
         [&](std::vector<const Array *> p_arrays_in,
             std::vector<Array *>       p_arrays_out,
-            const TileRegion          &region,
+            const UvTile              &region,
             ICommunicator             &comm)
         {
           auto [pa_z, pa_fall, pa_melt, pa_talus] = unpack<4>(p_arrays_in);

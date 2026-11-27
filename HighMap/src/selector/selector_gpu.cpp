@@ -37,12 +37,12 @@ Array select_cavities(const Array   &array,
   return c;
 }
 
-Array select_slope(const Array      &z,
-                   int               ir,
-                   bool              normalize,
-                   MinMaxKernel      kernel_type,
-                   const TileRegion &region,
-                   ICommunicator    &comm)
+Array select_slope(const Array   &z,
+                   int            ir,
+                   bool           normalize,
+                   MinMaxKernel   kernel_type,
+                   const UvTile  &region,
+                   ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
 

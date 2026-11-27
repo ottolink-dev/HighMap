@@ -43,8 +43,8 @@ ScatterField seed_scatter_clusters(size_t       class_count,
       !validate_non_empty(density))
     return ScatterField();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return ScatterField();
 
   // --- Modulate Density by Exclusion Map
@@ -131,12 +131,10 @@ ScatterField seed_scatter_clusters(size_t       class_count,
                                       target_s - count_for_s);
       if (pts_to_sample == 0) break;
 
-      glm::vec4 cluster_bbox = {
-          cx - cluster_spread,
-          cx + cluster_spread,
-          cy - cluster_spread,
-          cy + cluster_spread,
-      };
+      BBox2D cluster_bbox(cx - cluster_spread,
+                          cx + cluster_spread,
+                          cy - cluster_spread,
+                          cy + cluster_spread);
 
       for (size_t k = 0; k < pts_to_sample; ++k)
       {
@@ -166,8 +164,8 @@ ScatterField seed_scatter_kmeans(size_t       class_count,
   if (class_count == 0 || item_count == 0 || !validate_non_empty(density))
     return ScatterField();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return ScatterField();
 
   // --- Modulate Density by Exclusion Map

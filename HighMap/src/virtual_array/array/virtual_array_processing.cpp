@@ -8,8 +8,8 @@
 
 #include "highmap/array.hpp"
 #include "highmap/range.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/vectors.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -24,7 +24,7 @@ void VirtualArray::inverse(const ComputeMode &cm)
       {this},
       [hmax](std::vector<const hmap::Array *>,
              std::vector<hmap::Array *> p_arrays_out,
-             const TileRegion &)
+             const UvTile &)
       {
         hmap::Array *pa_out = p_arrays_out[0];
         *pa_out *= -1.f;
@@ -41,7 +41,7 @@ float VirtualArray::max(const ComputeMode &cm) const
 
   std::vector<float> max_per_tile(nt.x * nt.y);
 
-  auto lambda = [&max_per_tile](const Array &tile, const TileRegion &region)
+  auto lambda = [&max_per_tile](const Array &tile, const UvTile &region)
   {
     int tile_idx = region.linear_index();
     max_per_tile[tile_idx] = tile.max();
@@ -66,7 +66,7 @@ float VirtualArray::min(const ComputeMode &cm) const
 
   std::vector<float> min_per_tile(nt.x * nt.y);
 
-  auto lambda = [&min_per_tile](const Array &tile, const TileRegion &region)
+  auto lambda = [&min_per_tile](const Array &tile, const UvTile &region)
   {
     int tile_idx = region.linear_index();
     min_per_tile[tile_idx] = tile.min();
@@ -86,8 +86,8 @@ glm::vec2 VirtualArray::range(const ComputeMode &cm) const
   std::vector<float> max_per_tile(nt.x * nt.y);
   std::vector<float> min_per_tile(nt.x * nt.y);
 
-  auto lambda = [&max_per_tile, &min_per_tile](const Array      &tile,
-                                               const TileRegion &region)
+  auto lambda =
+      [&max_per_tile, &min_per_tile](const Array &tile, const UvTile &region)
   {
     int tile_idx = region.linear_index();
     max_per_tile[tile_idx] = tile.max();
@@ -121,7 +121,7 @@ glm::vec2 VirtualArray::range_percentile(float              p_low,
   std::vector<std::vector<size_t>> hist_per_tile(nt.x * nt.y,
                                                  std::vector<size_t>(bins, 0));
 
-  auto lambda = [&](const Array &tile, const TileRegion &region)
+  auto lambda = [&](const Array &tile, const UvTile &region)
   {
     int   tile_idx = region.linear_index();
     auto &hist = hist_per_tile[tile_idx];
@@ -189,8 +189,8 @@ void VirtualArray::remap(float vmin, float vmax, const ComputeMode &cm)
   const float lo = std::min(vmin, vmax);
   const float hi = std::max(vmin, vmax);
 
-  auto lambda = [vmin, vmax, global_min, global_max, lo, hi](Array &tile,
-                                                             const TileRegion &)
+  auto lambda =
+      [vmin, vmax, global_min, global_max, lo, hi](Array &tile, const UvTile &)
   {
     hmap::remap(tile, vmin, vmax, global_min, global_max);
     hmap::clamp(tile, lo, hi);
@@ -205,8 +205,7 @@ void VirtualArray::remap(float              vmin,
                          float              from_max,
                          const ComputeMode &cm)
 {
-  auto lambda =
-      [vmin, vmax, from_min, from_max](Array &tile, const TileRegion &)
+  auto lambda = [vmin, vmax, from_min, from_max](Array &tile, const UvTile &)
   { hmap::remap(tile, vmin, vmax, from_min, from_max); };
 
   for_each_tile(*this, lambda, cm);
@@ -220,7 +219,7 @@ float VirtualArray::sum(const ComputeMode &cm) const
 
   std::vector<float> sum_per_tile(nt.x * nt.y);
 
-  auto lambda = [&sum_per_tile](const Array &tile, const TileRegion &region)
+  auto lambda = [&sum_per_tile](const Array &tile, const UvTile &region)
   {
     // sum over the inner cells only to avoid double count
     const glm::ivec4 &h = region.halo;
@@ -251,7 +250,7 @@ std::vector<float> VirtualArray::unique_values(const ComputeMode &cm) const
 
   std::vector<std::vector<float>> unique_per_tile(nt.x * nt.y);
 
-  auto lambda = [&unique_per_tile](const Array &tile, const TileRegion &region)
+  auto lambda = [&unique_per_tile](const Array &tile, const UvTile &region)
   {
     int tile_idx = region.linear_index();
     unique_per_tile[tile_idx] = tile.unique_values();

@@ -39,12 +39,12 @@ void interpolate_array_bicubic(const Array &source,
  * @param endpoint       Whether the upper domain endpoint is included.
  * @param pixel_centered Whether coordinates are pixel-centered.
  */
-void interpolate_array_bicubic(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target,
-                               bool             endpoint = false,
-                               bool             pixel_centered = true);
+void interpolate_array_bicubic(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target,
+                               bool          endpoint = false,
+                               bool          pixel_centered = true);
 
 /**
  * @brief Resample an array to a target array using bilinear interpolation.
@@ -70,12 +70,12 @@ void interpolate_array_bilinear(const Array &source,
  * @param endpoint       Whether the upper domain endpoint is included.
  * @param pixel_centered Whether coordinates are pixel-centered.
  */
-void interpolate_array_bilinear(const Array     &source,
-                                Array           &target,
-                                const glm::vec4 &bbox_source,
-                                const glm::vec4 &bbox_target,
-                                bool             endpoint = false,
-                                bool             pixel_centered = true);
+void interpolate_array_bilinear(const Array  &source,
+                                Array        &target,
+                                const UvRect &uv_rect_source,
+                                const UvRect &uv_rect_target,
+                                bool          endpoint = false,
+                                bool          pixel_centered = true);
 
 /**
  * @brief Resample an array to a target array using nearest-neighbor
@@ -99,11 +99,11 @@ void interpolate_array_nearest(const Array &source,
  * @param bbox_target Target local bounding box {xmin, xmax, ymin, ymax}.
  * @param endpoint    Whether the upper domain endpoint is included.
  */
-void interpolate_array_nearest(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target,
-                               bool             endpoint = false);
+void interpolate_array_nearest(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target,
+                               bool          endpoint = false);
 
 /**
  * @brief Resample an array to a target shape using cubic B-spline interpolation
@@ -127,25 +127,25 @@ namespace hmap::gpu
 
 void interpolate_array_bicubic(const Array &source, Array &target);
 
-void interpolate_array_bicubic(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target);
+void interpolate_array_bicubic(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target);
 
 void interpolate_array_bilinear(const Array &source, Array &target);
 
-void interpolate_array_bilinear(const Array     &source,
-                                Array           &target,
-                                const glm::vec4 &bbox_source,
-                                const glm::vec4 &bbox_target);
+void interpolate_array_bilinear(const Array  &source,
+                                Array        &target,
+                                const UvRect &uv_rect_source,
+                                const UvRect &uv_rect_target);
 
 void interpolate_array_lagrange(const Array &source, Array &target, int order);
 
 void interpolate_array_nearest(const Array &source, Array &target);
 
-void interpolate_array_nearest(const Array     &source,
-                               Array           &target,
-                               const glm::vec4 &bbox_source,
-                               const glm::vec4 &bbox_target);
+void interpolate_array_nearest(const Array  &source,
+                               Array        &target,
+                               const UvRect &uv_rect_source,
+                               const UvRect &uv_rect_target);
 
 } // namespace hmap::gpu

@@ -38,12 +38,12 @@ void flip_ud(Array &array)
       std::swap(array(i, j), array(i, array.shape.y - j - 1));
 }
 
-void radial_displacement_to_xy(const Array &dr,
-                               Array       &dx,
-                               Array       &dy,
-                               float        smoothing,
-                               glm::vec2    center,
-                               glm::vec4    bbox)
+void radial_displacement_to_xy(const Array  &dr,
+                               Array        &dx,
+                               Array        &dy,
+                               float         smoothing,
+                               glm::vec2     center,
+                               const UvRect &uv_rect)
 {
   if (!validate_non_empty(dr)) return;
 
@@ -52,7 +52,7 @@ void radial_displacement_to_xy(const Array &dr,
   dy = Array(shape);
 
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, false); // no endpoint
+  grid_xy_vector(x, y, shape, uv_rect, false); // no endpoint
 
   for (int j = 0; j < shape.y; j++)
     for (int i = 0; i < shape.x; i++)
@@ -296,13 +296,13 @@ Array symmetrize(const Array &array,
   return out;
 }
 
-Array translate(const Array &array,
-                float        dx,
-                float        dy,
-                bool         periodic,
-                const Array *p_noise_x,
-                const Array *p_noise_y,
-                glm::vec4    bbox)
+Array translate(const Array  &array,
+                float         dx,
+                float         dy,
+                bool          periodic,
+                const Array  *p_noise_x,
+                const Array  *p_noise_y,
+                const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_noise_x && !validate_same_shape(array, *p_noise_x))
@@ -324,7 +324,7 @@ Array translate(const Array &array,
   Array array_out = Array(array.shape);
 
   fill_array_using_xy_function(array_out,
-                               bbox,
+                               uv_rect,
                                nullptr,
                                &dx_array,
                                &dy_array,
@@ -347,13 +347,13 @@ Array transpose(const Array &array)
   return array_out;
 }
 
-Array zoom(const Array &array,
-           float        zoom_factor,
-           bool         periodic,
-           glm::vec2    center,
-           const Array *p_noise_x,
-           const Array *p_noise_y,
-           glm::vec4    bbox)
+Array zoom(const Array  &array,
+           float         zoom_factor,
+           bool          periodic,
+           glm::vec2     center,
+           const Array  *p_noise_x,
+           const Array  *p_noise_y,
+           const UvRect &uv_rect)
 {
   if (!validate_non_empty(array)) return Array();
   if (p_noise_x && !validate_same_shape(array, *p_noise_x))
@@ -368,13 +368,13 @@ Array zoom(const Array &array,
 
   Array array_out = Array(array.shape);
 
-  glm::vec4 bbox2 = {bbox.x + center.x,
-                     bbox.y + center.x,
-                     bbox.z + center.y,
-                     bbox.w + center.y};
+  const UvRect uv_rect2 = {uv_rect.u_min + center.x,
+                           uv_rect.u_max + center.x,
+                           uv_rect.v_min + center.y,
+                           uv_rect.v_max + center.y};
 
   fill_array_using_xy_function(array_out,
-                               bbox2,
+                               uv_rect2,
                                nullptr,
                                p_noise_x,
                                p_noise_y,

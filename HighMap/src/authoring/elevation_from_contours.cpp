@@ -43,17 +43,17 @@ constexpr float STEP[8] =
 
 // Contour vertices converted to (float) pixel coordinates, using the same
 // mapping as Cloud::to_array.
-std::vector<glm::vec2> contour_to_pixel_coords(const Path &path,
-                                               glm::ivec2  shape,
-                                               glm::vec4   bbox)
+std::vector<glm::vec2> contour_to_pixel_coords(const Path   &path,
+                                               glm::ivec2    shape,
+                                               const UvRect &uv_rect)
 {
-  const float ai = (shape.x - 1) / (bbox.y - bbox.x);
-  const float aj = (shape.y - 1) / (bbox.w - bbox.z);
+  const float ai = (shape.x - 1) / (uv_rect.u_max - uv_rect.u_min);
+  const float aj = (shape.y - 1) / (uv_rect.v_max - uv_rect.v_min);
 
   std::vector<glm::vec2> pts;
   pts.reserve(path.size());
   for (const Point &p : path)
-    pts.emplace_back(ai * (p.x - bbox.x), aj * (p.y - bbox.z));
+    pts.emplace_back(ai * (p.x - uv_rect.u_min), aj * (p.y - uv_rect.v_min));
   return pts;
 }
 
@@ -289,7 +289,7 @@ struct ContourRaster
 
 ContourRaster rasterize_contours(const std::vector<Path> &contours,
                                  glm::ivec2               shape,
-                                 glm::vec4                bbox)
+                                 const UvRect            &uv_rect)
 {
   const int    n = (int)contours.size();
   const size_t npix = (size_t)shape.x * shape.y;
@@ -308,7 +308,7 @@ ContourRaster rasterize_contours(const std::vector<Path> &contours,
   {
     std::vector<glm::vec2> pts = contour_to_pixel_coords(contours[k],
                                                          shape,
-                                                         bbox);
+                                                         uv_rect);
 
     for (const glm::ivec2 &c :
          rasterize_outline(pts, shape, contours[k].is_closed()))
@@ -878,7 +878,7 @@ Array elevation_from_contours(glm::ivec2                shape,
                               float                     peak_ratio,
                               float                     outside_ratio,
                               bool                      smoothstep,
-                              glm::vec4                 bbox)
+                              const UvRect             &uv_rect)
 {
   // --- validation
   if (!validate_shape(shape)) return Array();
@@ -912,7 +912,7 @@ Array elevation_from_contours(glm::ivec2                shape,
   randomness = std::clamp(randomness, 0.f, 1.f);
 
   // --- rasterization, zones and nesting tree
-  const ContourRaster r = rasterize_contours(contours, shape, bbox);
+  const ContourRaster r = rasterize_contours(contours, shape, uv_rect);
 
   return synthesize_from_contour_raster(r,
                                         elevations,

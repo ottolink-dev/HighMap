@@ -18,6 +18,7 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/bbox2d.hpp"
 
 namespace hmap
 {
@@ -47,9 +48,9 @@ public:
    * @param bbox    Bounding box (xmin, xmax, ymin, ymax). Defaults to unit
    *                square.
    */
-  InverseSampler2D(const Array     &density,
-                   std::uint32_t    seed = 0,
-                   const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+  InverseSampler2D(const Array  &density,
+                   std::uint32_t seed = 0,
+                   const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
   //  Sampling
@@ -88,7 +89,7 @@ public:
    * @return                 2D point coordinates within the restricted bounding
    *                         box.
    */
-  glm::vec2 sample(const glm::vec4 &restricted_bbox);
+  glm::vec2 sample(const BBox2D &restricted_bbox);
 
   /**
    * @brief Samples a single point within a restricted bounding box with
@@ -102,7 +103,7 @@ public:
    * @return                 2D point coordinates within the restricted bounding
    *                         box.
    */
-  glm::vec2 sample(const glm::vec4 &restricted_bbox, float u, float u2);
+  glm::vec2 sample(const BBox2D &restricted_bbox, float u, float u2);
 
   // ==========================================================================
   //  Updates & Modifiers
@@ -141,9 +142,9 @@ public:
    * @param seed    Random number generator seed.
    * @param bbox    Bounding box (xmin, xmax, ymin, ymax).
    */
-  void reset(const Array     &density,
-             std::uint32_t    seed = 0,
-             const glm::vec4 &bbox = {0.f, 1.f, 0.f, 1.f});
+  void reset(const Array  &density,
+             std::uint32_t seed = 0,
+             const BBox2D &bbox = BBox2D{});
 
   // ==========================================================================
   //  Getters & Setters
@@ -152,7 +153,7 @@ public:
   /**
    * @brief Gets the bounding box.
    */
-  const glm::vec4 &get_bbox() const;
+  const BBox2D &get_bbox() const;
 
   /**
    * @brief Gets the current density array.
@@ -167,7 +168,7 @@ public:
   /**
    * @brief Sets the bounding box.
    */
-  void set_bbox(const glm::vec4 &bbox);
+  void set_bbox(const BBox2D &bbox);
 
   /**
    * @brief Sets the RNG seed.
@@ -176,7 +177,7 @@ public:
 
 private:
   Array                                 density_;
-  glm::vec4                             bbox_ = {0.f, 1.f, 0.f, 1.f};
+  BBox2D                                bbox_ = BBox2D{};
   std::vector<float>                    row_sums_;
   std::vector<float>                    r_cdf_;
   std::mt19937                          rng_{0};

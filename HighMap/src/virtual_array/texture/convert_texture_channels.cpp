@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/tile_storage.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
@@ -31,7 +31,6 @@ VirtualTexture convert_texture_channels(const VirtualTexture &src,
 
   // Create destination texture
   VirtualTexture dst(src.shape,
-                     src.bbox,
                      src.tile_shape,
                      src.halo,
                      dst_channels,
@@ -53,7 +52,7 @@ VirtualTexture convert_texture_channels(const VirtualTexture &src,
       dst_vas,
       [&](const std::vector<const Array *> &src_tiles,
           std::vector<Array *>             &dst_tiles,
-          const TileRegion                 &region)
+          const UvTile                     &region)
       {
         for (int j = 0; j < region.shape.y; ++j)
           for (int i = 0; i < region.shape.x; ++i)
@@ -67,7 +66,7 @@ VirtualTexture convert_texture_channels(const VirtualTexture &src,
   {
     for_each_tile(
         dst.channel(c),
-        [&](Array &tile, const TileRegion &region)
+        [&](Array &tile, const UvTile &region)
         {
           for (int j = 0; j < region.shape.y; ++j)
             for (int i = 0; i < region.shape.x; ++i)

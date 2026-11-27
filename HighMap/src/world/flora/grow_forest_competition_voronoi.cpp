@@ -27,7 +27,7 @@ Forest grow_forest_competition_voronoi(
     const Array                &max_radius_scale,
     float                       max_radius_scale_strength,
     bool                        prune_unviable,
-    const glm::vec4            &bbox)
+    const BBox2D               &bbox)
 {
   if (forest.empty()) return Forest();
 

@@ -19,7 +19,7 @@ Array base_elevation(glm::ivec2                             shape,
                      const Array                           *p_noise_x,
                      const Array                           *p_noise_y,
                      const Array                           *p_stretching,
-                     glm::vec4                              bbox)
+                     const UvRect                          &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
 
@@ -56,7 +56,7 @@ Array base_elevation(glm::ivec2                             shape,
 
       Array array_tmp = Array(array.shape);
       fill_array_using_xy_function(array_tmp,
-                                   bbox,
+                                   uv_rect,
                                    nullptr,
                                    p_noise_x,
                                    p_noise_y,

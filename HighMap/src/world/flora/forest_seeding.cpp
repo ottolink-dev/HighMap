@@ -156,16 +156,23 @@ Forest seed_forest_clusters(size_t                      species_count,
                             const Array                &exclusion,
                             float                       cluster_spread,
                             size_t                      points_per_cluster,
-                            const ForestSeedingOptions &options)
+                            const ForestSeedingOptions &options,
+                            const UvTile               &region,
+                            ICommunicator              &comm)
 {
   // validate inputs
   if (species_count == 0 || tree_count == 0 || points_per_cluster == 0 ||
       !validate_non_empty(density))
     return Forest();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return Forest();
+
+  BBox2D local_bbox(options.bbox.min.x + region.uv_rect.u_min * width,
+                    options.bbox.min.x + region.uv_rect.u_max * width,
+                    options.bbox.min.y + region.uv_rect.v_min * height,
+                    options.bbox.min.y + region.uv_rect.v_max * height);
 
   // --- Modulate Density by Exclusion Map
 
@@ -186,7 +193,26 @@ Forest seed_forest_clusters(size_t                      species_count,
       }
   }
 
-  InverseSampler2D sampler(effective_density, options.seed, options.bbox);
+  // --- Collective Density Reduction & Local Tree Quota
+
+  float local_sum = effective_density.sum();
+  float total_sum = comm.all_reduce(local_sum, ReduceOp::Sum);
+  if (total_sum <= 1e-7f) return Forest();
+
+  size_t local_tree_count = tree_count;
+  if (comm.size() > 1)
+  {
+    local_tree_count = static_cast<size_t>(
+        std::round(static_cast<float>(tree_count) * (local_sum / total_sum)));
+  }
+  if (local_tree_count == 0) return Forest();
+
+  uint32_t local_seed = (comm.size() > 1)
+                            ? (options.seed +
+                               static_cast<uint32_t>(comm.rank()) * 1999u + 17u)
+                            : options.seed;
+
+  InverseSampler2D sampler(effective_density, local_seed, local_bbox);
   if (sampler.get_total_weight() <= 1e-7f) return Forest();
 
   // --- Determine Species Quotas
@@ -219,22 +245,22 @@ Forest seed_forest_clusters(size_t                      species_count,
       {
         float norm_w = std::max(0.0f, effective_weights[s]) / total_w;
         species_tree_counts[s] = static_cast<size_t>(
-            std::round(static_cast<float>(tree_count) * norm_w));
+            std::round(static_cast<float>(local_tree_count) * norm_w));
         allocated += species_tree_counts[s];
       }
 
       // adjust difference due to rounding
-      if (allocated < tree_count)
-        species_tree_counts[0] += (tree_count - allocated);
-      else if (allocated > tree_count &&
-               species_tree_counts[0] >= (allocated - tree_count))
-        species_tree_counts[0] -= (allocated - tree_count);
+      if (allocated < local_tree_count)
+        species_tree_counts[0] += (local_tree_count - allocated);
+      else if (allocated > local_tree_count &&
+               species_tree_counts[0] >= (allocated - local_tree_count))
+        species_tree_counts[0] -= (allocated - local_tree_count);
     }
   }
   else
   {
-    size_t base_count = tree_count / species_count;
-    size_t remainder = tree_count % species_count;
+    size_t base_count = local_tree_count / species_count;
+    size_t remainder = local_tree_count % species_count;
     for (size_t s = 0; s < species_count; ++s)
       species_tree_counts[s] = base_count + (s < remainder ? 1 : 0);
   }
@@ -242,7 +268,7 @@ Forest seed_forest_clusters(size_t                      species_count,
   // --- Generate Clusters per Species
 
   std::vector<Tree> candidate_trees;
-  candidate_trees.reserve(tree_count);
+  candidate_trees.reserve(local_tree_count);
 
   for (size_t s = 0; s < species_count; ++s)
   {
@@ -269,12 +295,10 @@ Forest seed_forest_clusters(size_t                      species_count,
                                       target_s - count_for_s);
       if (pts_to_sample == 0) break;
 
-      glm::vec4 cluster_bbox = {
-          cx - cluster_spread,
-          cx + cluster_spread,
-          cy - cluster_spread,
-          cy + cluster_spread,
-      };
+      BBox2D cluster_bbox(cx - cluster_spread,
+                          cx + cluster_spread,
+                          cy - cluster_spread,
+                          cy + cluster_spread);
 
       for (size_t k = 0; k < pts_to_sample; ++k)
       {
@@ -299,15 +323,22 @@ Forest seed_forest_kmeans(size_t                      species_count,
                           const Array                &exclusion,
                           float                       cluster_randomness,
                           size_t                      k_neighbors,
-                          const ForestSeedingOptions &options)
+                          const ForestSeedingOptions &options,
+                          const UvTile               &region,
+                          ICommunicator              &comm)
 {
   // validate inputs
   if (species_count == 0 || tree_count == 0 || !validate_non_empty(density))
     return Forest();
 
-  float width = options.bbox.y - options.bbox.x;
-  float height = options.bbox.w - options.bbox.z;
+  float width = options.bbox.max.x - options.bbox.min.x;
+  float height = options.bbox.max.y - options.bbox.min.y;
   if (width <= 1e-7f || height <= 1e-7f) return Forest();
+
+  BBox2D local_bbox(options.bbox.min.x + region.uv_rect.u_min * width,
+                    options.bbox.min.x + region.uv_rect.u_max * width,
+                    options.bbox.min.y + region.uv_rect.v_min * height,
+                    options.bbox.min.y + region.uv_rect.v_max * height);
 
   // --- Modulate Density by Exclusion Map
 
@@ -328,7 +359,26 @@ Forest seed_forest_kmeans(size_t                      species_count,
       }
   }
 
-  InverseSampler2D sampler(effective_density, options.seed, options.bbox);
+  // --- Collective Density Reduction & Local Tree Quota
+
+  float local_sum = effective_density.sum();
+  float total_sum = comm.all_reduce(local_sum, ReduceOp::Sum);
+  if (total_sum <= 1e-7f) return Forest();
+
+  size_t local_tree_count = tree_count;
+  if (comm.size() > 1)
+  {
+    local_tree_count = static_cast<size_t>(
+        std::round(static_cast<float>(tree_count) * (local_sum / total_sum)));
+  }
+  if (local_tree_count == 0) return Forest();
+
+  uint32_t local_seed = (comm.size() > 1)
+                            ? (options.seed +
+                               static_cast<uint32_t>(comm.rank()) * 1999u + 17u)
+                            : options.seed;
+
+  InverseSampler2D sampler(effective_density, local_seed, local_bbox);
   if (sampler.get_total_weight() <= 1e-7f) return Forest();
 
   // --- Sample Coordinates Using 2D Inverse Sampling
@@ -342,7 +392,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
   }
 
   // generate candidate point positions based on the 2d probability density
-  auto   samples = sampler.sample(tree_count);
+  auto   samples = sampler.sample(local_tree_count);
   size_t actual_count = samples[0].size();
   if (actual_count == 0) return Forest();
 
@@ -424,7 +474,7 @@ Forest seed_forest_kmeans(size_t                      species_count,
 
     if (rand_amount > 0.0f)
     {
-      std::mt19937                          rng(options.seed + 1);
+      std::mt19937                          rng(local_seed + 1);
       std::uniform_real_distribution<float> dist_uni(-0.5f, 0.5f);
 
       float span_min = std::max(1e-6f, max_dmin - min_dmin);
@@ -512,112 +562,3 @@ Forest seed_forest_kmeans(size_t                      species_count,
 }
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-Forest seed_forest_clusters(size_t                      species_count,
-                            size_t                      tree_count,
-                            const VirtualArray         &density,
-                            const VirtualArray         &exclusion,
-                            float                       cluster_spread,
-                            size_t                      points_per_cluster,
-                            const ForestSeedingOptions &options,
-                            const ComputeMode          &cm)
-{
-  // --- Validate inputs
-
-  if (species_count == 0 || tree_count == 0 || points_per_cluster == 0 ||
-      density.empty())
-  {
-    return Forest();
-  }
-
-  bool has_exclusion = (exclusion.storage != nullptr) &&
-                       (exclusion.shape.x > 0 && exclusion.shape.y > 0);
-
-  if (has_exclusion)
-  {
-    if (exclusion.shape != density.shape ||
-        exclusion.tile_shape != density.tile_shape)
-    {
-      hmap::log::warn(
-          "Exclusion VirtualArray shape mismatch with density VirtualArray");
-      return Forest();
-    }
-  }
-
-  glm::ivec2 num_tiles = density.get_max_tiles();
-  int        total_tiles = num_tiles.x * num_tiles.y;
-
-  if (total_tiles == 0) return Forest();
-
-  // --- Compute Density Sums per Tile and Global Inner Sum
-
-  const VirtualArray *p_exclusion_va = has_exclusion ? &exclusion : nullptr;
-
-  std::vector<float> tile_full_sums;
-  float              total_inner_sum = 0.f;
-
-  sum_per_tile(density,
-               tile_full_sums,
-               &total_inner_sum,
-               p_exclusion_va,
-               options.exclusion_threshold,
-               cm);
-
-  if (total_inner_sum <= 1e-7f) return Forest();
-
-  // --- Generate Sub-Forests per Tile
-
-  std::vector<ScatterField> tile_fields(total_tiles);
-  std::vector<glm::vec4>    tile_bboxs(total_tiles);
-
-  hmap::for_each_tile(
-      {&density, p_exclusion_va},
-      {},
-      [&](const std::vector<const Array *> &p_arrays_in,
-          std::vector<Array *> &,
-          const TileRegion &region)
-      {
-        const auto [p_density_tile, p_exclusion_tile] = unpack<2>(p_arrays_in);
-
-        int tile_index = region.key.ty * num_tiles.x + region.key.tx;
-
-        tile_bboxs[tile_index] = region.bbox;
-
-        float  tile_sum = tile_full_sums[tile_index];
-        size_t tile_tree_count = static_cast<size_t>(std::round(
-            static_cast<float>(tree_count) * (tile_sum / total_inner_sum)));
-
-        if (tile_tree_count == 0)
-        {
-          return;
-        }
-
-        ForestSeedingOptions tile_options = options;
-        tile_options.bbox = region.bbox;
-        tile_options.seed = options.seed +
-                            static_cast<uint32_t>(tile_index) * 1999u + 17u;
-
-        Forest tile_forest = seed_forest_clusters(
-            species_count,
-            tile_tree_count,
-            *p_density_tile,
-            p_exclusion_tile ? *p_exclusion_tile : Array(),
-            cluster_spread,
-            points_per_cluster,
-            tile_options);
-
-        tile_fields[tile_index] = std::move(tile_forest);
-      },
-      cm);
-
-  // --- Merge Forests with Bounding Box Overlap Resolution
-
-  ScatterField merged = merge_scatter_fields(tile_fields, tile_bboxs, true);
-
-  return Forest(std::move(merged));
-}
-
-} // namespace hmap::va

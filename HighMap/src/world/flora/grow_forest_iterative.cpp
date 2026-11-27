@@ -28,13 +28,23 @@ Forest grow_forest_iterative(const Forest               &forest,
                              float                       growth_rate,
                              const InteractionMatrix    &competition_matrix,
                              const Array                &max_radius_scale,
-                             float            max_radius_scale_strength,
-                             bool             prune_unviable,
-                             const glm::vec4 &bbox)
+                             float         max_radius_scale_strength,
+                             bool          prune_unviable,
+                             const BBox2D &bbox,
+                             const UvTile &region)
 {
   if (forest.empty()) return Forest();
 
-  ForestScaleSampler sampler(max_radius_scale, max_radius_scale_strength, bbox);
+  float  width = bbox.max.x - bbox.min.x;
+  float  height = bbox.max.y - bbox.min.y;
+  BBox2D local_bbox(bbox.min.x + region.uv_rect.u_min * width,
+                    bbox.min.x + region.uv_rect.u_max * width,
+                    bbox.min.y + region.uv_rect.v_min * height,
+                    bbox.min.y + region.uv_rect.v_max * height);
+
+  ForestScaleSampler sampler(max_radius_scale,
+                             max_radius_scale_strength,
+                             local_bbox);
   SpeciesLookup      lookup(species);
 
   // if only 1 tree, clamp and return

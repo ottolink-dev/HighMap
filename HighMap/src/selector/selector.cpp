@@ -206,16 +206,16 @@ Array select_interval(const Array &array, float value1, float value2)
   return c;
 }
 
-Array select_inward_outward_slope(const Array &array,
-                                  glm::vec2    center,
-                                  glm::vec4    bbox)
+Array select_inward_outward_slope(const Array  &array,
+                                  glm::vec2     center,
+                                  const BBox2D &bbox)
 {
   if (!validate_non_empty(array)) return Array();
 
   Array c = Array(array.shape);
 
-  glm::vec2 shift = {bbox.x, bbox.z};
-  glm::vec2 scale = {bbox.y - bbox.x, bbox.w - bbox.z};
+  glm::vec2 shift = bbox.min;
+  glm::vec2 scale = bbox.size();
 
   int ic = (int)((center.x - shift.x) / scale.x * array.shape.x);
   int jc = (int)((center.y - shift.y) / scale.y * array.shape.y);
@@ -500,10 +500,10 @@ Array select_valley(const Array   &z,
   return out;
 }
 
-Array smooth_mask_preserve_frontier(const Array      &mask,
-                                    float             feather_width,
-                                    const TileRegion &region,
-                                    ICommunicator    &comm)
+Array smooth_mask_preserve_frontier(const Array   &mask,
+                                    float          feather_width,
+                                    const UvTile  &region,
+                                    ICommunicator &comm)
 {
   if (!validate_non_empty(mask)) return Array();
 

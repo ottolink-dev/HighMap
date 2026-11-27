@@ -24,7 +24,7 @@ struct Species
 {
   uint32_t    id = 0;                                 ///< Species identifier.
   std::string name = "";                              ///< Optional human-readable name.
-  float       radius = HMAP_DEFAULT_TREE_RADIUS;      ///< Nominal canopy / collision radius.
+  float radius = HMAP_DEFAULT_TREE_RADIUS;            ///< Nominal canopy / collision radius.
   float weight = 1.0f;                                ///< Relative abundance weight for seeding.
   float radius_min = 0.5f * HMAP_DEFAULT_TREE_RADIUS; ///< Minimum viable crown radius.
   float radius_max = 1.5f * HMAP_DEFAULT_TREE_RADIUS; ///< Maximum crown radius.

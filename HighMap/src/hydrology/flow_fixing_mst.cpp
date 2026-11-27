@@ -25,8 +25,8 @@
 #include "highmap/math/constants.hpp"
 #include "highmap/math/profiles.hpp"
 #include "highmap/shortest_path.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/terrain_tri_mesh.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 #include <format>
@@ -1072,11 +1072,29 @@ std::vector<Path> flow_fixing_mst_paths(const ComputeMode  &cm,
                                         float         upward_penalization,
                                         float         minimum_depth)
 {
-  TerrainTriMesh mesh = va::generate_terrain_tri_mesh_from_heightmap_random(
-      cm,
-      z,
-      control_points_count,
-      seed);
+  TerrainTriMesh mesh;
+
+  hmap::for_each_tile(
+      {&z},
+      {},
+      [&](std::vector<const hmap::Array *> p_arrays_in,
+          std::vector<hmap::Array *>,
+          const hmap::UvTile &region,
+          ICommunicator      &comm)
+      {
+        auto [pa_z] = unpack<1>(p_arrays_in);
+
+        TerrainTriMesh tile_mesh =
+            hmap::generate_terrain_tri_mesh_from_heightmap_random(
+                *pa_z,
+                control_points_count,
+                seed,
+                region,
+                &comm);
+
+        if (comm.rank() == 0) mesh = std::move(tile_mesh);
+      },
+      cm);
 
   return flow_fixing_mst_paths(mesh,
                                riverbed_talus,
@@ -1122,7 +1140,7 @@ VirtualArray flow_fixing_mst_triangulated(const ComputeMode  &cm,
       {&zb},
       [&](std::vector<const hmap::Array *> p_arrays_in,
           std::vector<hmap::Array *>       p_arrays_out,
-          const hmap::TileRegion          &region)
+          const hmap::UvTile              &region)
       {
         auto [pa_noise_r] = unpack<1>(p_arrays_in);
         auto [pa_zb] = unpack<1>(p_arrays_out);
@@ -1147,7 +1165,7 @@ VirtualArray flow_fixing_mst_triangulated(const ComputeMode  &cm,
                /* p_noise_r */ pa_noise_r,
                /* p_bending_mask */ nullptr,
                /* tile_size */ 32,
-               /* bbox */ region.bbox);
+               /* bbox */ region.uv_rect.to_vec4());
       },
       cm);
 

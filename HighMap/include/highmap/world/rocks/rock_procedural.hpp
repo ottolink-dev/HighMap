@@ -11,7 +11,8 @@
 #include <cstddef>
 
 #include "highmap/array.hpp"
-#include "highmap/virtual_array/virtual_array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/world/rocks/rock_field.hpp"
 #include "highmap/world/rocks/rock_seeding.hpp"
 
@@ -49,19 +50,19 @@ namespace hmap
  * @param  bbox                 Domain bounding box for tiled bulkify synthesis.
  * @return                      Array Computed density array in [0, 1].
  */
-Array build_rock_density(const Array &heightmap,
-                         float        max_slope = 0.05f,
-                         float        bulkify_amp = 0.01f,
-                         float        weight_elev = 1.0f,
-                         float        weight_slope = 1.0f,
-                         float        weight_rivers = 1.0f,
-                         float        river_talus_ref = 0.1f,
-                         float        river_clipping_ratio = 1000.0f,
-                         const Array &secondary_density = {},
-                         float        weight_secondary = 1.0f,
-                         const Array &exclusion_mask = {},
-                         float        exclusion_threshold = 0.f,
-                         glm::vec4    bbox = {0.f, 1.f, 0.f, 1.f});
+Array build_rock_density(const Array  &heightmap,
+                         float         max_slope = 0.05f,
+                         float         bulkify_amp = 0.01f,
+                         float         weight_elev = 1.0f,
+                         float         weight_slope = 1.0f,
+                         float         weight_rivers = 1.0f,
+                         float         river_talus_ref = 0.1f,
+                         float         river_clipping_ratio = 1000.0f,
+                         const Array  &secondary_density = {},
+                         float         weight_secondary = 1.0f,
+                         const Array  &exclusion_mask = {},
+                         float         exclusion_threshold = 0.f,
+                         const BBox2D &bbox = BBox2D{});
 
 /**
  * @brief Places rocks procedurally on a terrain, without physical simulation.
@@ -94,61 +95,25 @@ Array build_rock_density(const Array &heightmap,
  *                                 (1 - elevation) relation.
  * @param  options                 Seeding options (bbox, seed, exclusion
  *                                 threshold, rock distribution).
+ * @param  region                  UvTile descriptor for tiled domain
+ *                                 positioning.
+ * @param  comm                    Communicator for collective density
+ *                                 reduction.
  * @return                         RockField Placed rocks.
  */
-RockField place_rocks_procedural(size_t       rock_count,
-                                 const Array &elevation,
-                                 float        min_elev = 0.f,
-                                 float        max_elev = 0.9f,
-                                 float        max_slope = 1.f,
-                                 const Array &density = {},
-                                 const Array &exclusion = {},
-                                 float        size_slope_weight = 0.f,
-                                 float        size_elevation_gain = 1.f,
-                                 float        size_elevation_exponent = 1.f,
-                                 const RockSeedingOptions &options = {});
+RockField place_rocks_procedural(
+    size_t                    rock_count,
+    const Array              &elevation,
+    float                     min_elev = 0.f,
+    float                     max_elev = 0.9f,
+    float                     max_slope = 1.f,
+    const Array              &density = {},
+    const Array              &exclusion = {},
+    float                     size_slope_weight = 0.f,
+    float                     size_elevation_gain = 1.f,
+    float                     size_elevation_exponent = 1.f,
+    const RockSeedingOptions &options = {},
+    const UvTile             &region = UvTile::unit(),
+    ICommunicator            &comm = SingleArrayComm::instance());
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-/**
- * @brief Places rocks procedurally across a tiled VirtualArray domain using
- * local density/elevation and bounding-box-aware tile merging.
- *
- * @param  rock_count              Target number of rocks.
- * @param  elevation               Terrain elevation VirtualArray.
- * @param  min_elev                Elevation mapped to 0 in normalized
- *                                 elevation.
- * @param  max_elev                Elevation mapped to 1 in normalized
- *                                 elevation.
- * @param  max_slope               Talus threshold above which rock size is
- *                                 attenuated.
- * @param  density                 Optional user density VirtualArray (if empty,
- *                                 defaults to uniform flat density of 1).
- * @param  exclusion               Optional exclusion VirtualArray (same shape
- *                                 as elevation).
- * @param  size_slope_weight       In [0, 1], reduces maximum rock size on steep
- *                                 slopes.
- * @param  size_elevation_gain     Low-elevation influence on maximum rock size.
- * @param  size_elevation_exponent Power-law exponent of size / (1 - elevation)
- *                                 relation.
- * @param  options                 Seeding options.
- * @param  cm                      Virtual array compute mode.
- * @return                         RockField Placed rocks.
- */
-RockField place_rocks_procedural(size_t              rock_count,
-                                 const VirtualArray &elevation,
-                                 float               min_elev = 0.f,
-                                 float               max_elev = 0.9f,
-                                 float               max_slope = 1.f,
-                                 const VirtualArray &density = {},
-                                 const VirtualArray &exclusion = {},
-                                 float               size_slope_weight = 0.f,
-                                 float               size_elevation_gain = 1.f,
-                                 float size_elevation_exponent = 1.f,
-                                 const RockSeedingOptions &options = {},
-                                 const ComputeMode        &cm = {});
-
-} // namespace hmap::va

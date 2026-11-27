@@ -113,7 +113,7 @@ int main(void)
                                .trim_storage = true,
                                .stride = 1};
 
-    hmap::VirtualArray z0_va(shape, bbox, tile_shape, halo, storage_mode);
+    hmap::VirtualArray z0_va(shape, tile_shape, halo, storage_mode);
     z0_va.from_array(z0, cm);
 
     auto ze_va = hmap::va::hydraulic_saleve(

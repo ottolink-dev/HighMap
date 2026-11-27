@@ -596,14 +596,9 @@ Array topographic_residual(const Array &z,
 /*! @brief See hmap::valley_width */
 Array valley_width(const Array &z, int ir = 0, bool ridge_select = false);
 
-} // namespace hmap::gpu
-
 // ==========================================================================
 //  Wrapper
 // ==========================================================================
-
-namespace hmap::gpu
-{
 
 /**
  * \brief Types of local metrics.

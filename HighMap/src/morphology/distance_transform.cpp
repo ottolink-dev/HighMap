@@ -8,8 +8,8 @@
 #include "highmap/array.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 float f(int i, float gi)
 {
@@ -24,10 +24,10 @@ int sep(int i, int u, float gi, float gu)
 namespace hmap
 {
 
-Array distance_transform(const Array      &array,
-                         bool              return_squared_distance,
-                         const TileRegion &region,
-                         ICommunicator    &comm)
+Array distance_transform(const Array   &array,
+                         bool           return_squared_distance,
+                         const UvTile  &region,
+                         ICommunicator &comm)
 {
   if (!validate_non_empty(array)) return Array();
 

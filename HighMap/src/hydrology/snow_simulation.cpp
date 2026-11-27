@@ -18,8 +18,8 @@
 #include "highmap/math/core.hpp"
 #include "highmap/range.hpp"
 #include "highmap/selector.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/communicator.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
 
 #include <CL/opencl.hpp>
 
@@ -89,28 +89,28 @@ Array snow_melting_map(const Array &z,
 namespace hmap::gpu
 {
 
-Array snow_simulation(const Array      &z,
-                      float             snow_depth,
-                      const Array      &fall_map,
-                      const Array      &melting_map,
-                      const Array      &talus,
-                      int               iterations,
-                      float             dt,
-                      float             fall_iterations_ratio,
-                      float             k_snow,
-                      float             k_visc,
-                      float             k_melt_factor,
-                      float             k_depth_ratio,
-                      float             k_depth_slope_ratio,
-                      float             k_creep,
-                      bool              post_filter,
-                      float             thermal_talus_ratio,
-                      bool              outflow_boundaries,
-                      float             clamp_smin,
-                      bool              rebase_snow_depth_to_zero,
-                      int               sync_interval,
-                      const TileRegion &region,
-                      ICommunicator    &comm)
+Array snow_simulation(const Array   &z,
+                      float          snow_depth,
+                      const Array   &fall_map,
+                      const Array   &melting_map,
+                      const Array   &talus,
+                      int            iterations,
+                      float          dt,
+                      float          fall_iterations_ratio,
+                      float          k_snow,
+                      float          k_visc,
+                      float          k_melt_factor,
+                      float          k_depth_ratio,
+                      float          k_depth_slope_ratio,
+                      float          k_creep,
+                      bool           post_filter,
+                      float          thermal_talus_ratio,
+                      bool           outflow_boundaries,
+                      float          clamp_smin,
+                      bool           rebase_snow_depth_to_zero,
+                      int            sync_interval,
+                      const UvTile  &region,
+                      ICommunicator &comm)
 {
   if (!validate_non_empty(z)) return Array();
   if (!validate_same_shape(z, fall_map)) return Array();

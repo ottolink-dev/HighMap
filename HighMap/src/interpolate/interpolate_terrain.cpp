@@ -12,7 +12,7 @@
 #include "highmap/interpolate/interpolate_terrain.hpp"
 #include "highmap/logger.hpp"
 #include "highmap/math/core.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
 namespace hmap
@@ -30,7 +30,7 @@ struct SourcePatch
 
 SourcePatch assemble_source_patch(const VirtualArray      &h_source,
                                   const glm::ivec2        &target_shape,
-                                  const TileRegion        &target_region,
+                                  const UvTile            &target_region,
                                   const AffineTransform2D &tf)
 {
   SourcePatch patch;
@@ -96,9 +96,8 @@ SourcePatch assemble_source_patch(const VirtualArray      &h_source,
   for (int sty = sty_min; sty <= sty_max; ++sty)
     for (int stx = stx_min; stx <= stx_max; ++stx)
     {
-      const TileRegion src_reg = h_source.tile_region_from_tile_coords(stx,
-                                                                       sty);
-      const Array     &src_tile = h_source.storage->get_tile(src_reg);
+      const UvTile src_reg = h_source.tile_region_from_tile_coords(stx, sty);
+      const Array &src_tile = h_source.storage->get_tile(src_reg);
       const glm::ivec2 src_off = src_reg.global_offset();
 
       // copy only core cells of the source tile that fall inside patch
@@ -185,7 +184,7 @@ void flatten_terrain(VirtualArray       &h_source1,
                                        ? (1.f / static_cast<float>(h_source1.shape.y - 1))
                                        : 0.f;
 
-  auto lambda = [&](Array &tile, const TileRegion &region)
+  auto lambda = [&](Array &tile, const UvTile &region)
   {
     SourcePatch patch = assemble_source_patch(h_source2,
                                               h_source1.shape,
@@ -290,7 +289,7 @@ void interpolate_terrain(const VirtualArray &h_source,
 
   auto lambda = [&](const std::vector<const Array *> &,
                     std::vector<Array *> &out,
-                    const TileRegion     &region)
+                    const UvTile         &region)
   {
     Array &tile = *out[0];
     Array *p_mask_tile = p_mask ? out[1] : nullptr;

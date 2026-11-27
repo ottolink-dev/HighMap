@@ -15,6 +15,8 @@
 #include <glm/glm.hpp>
 
 #include "highmap/array.hpp"
+#include "highmap/spatial/uv_tile.hpp"
+#include "highmap/virtual_array/communicator.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/world/flora/forest.hpp"
 #include "highmap/world/flora/species.hpp"
@@ -28,10 +30,10 @@ namespace hmap
  */
 struct ForestSeedingOptions
 {
-  glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}; ///< Bounding box {xmin, xmax, ymin, ymax}.
-  uint32_t  seed = 0;                    ///< Random number generator seed.
-  float     exclusion_threshold = 0.f;   ///< Threshold for exclusion map masking.
-  std::vector<Species> species = {};     ///< Optional Species definitions.
+  BBox2D   bbox = BBox2D{};           ///< Bounding box {xmin, xmax, ymin, ymax}.
+  uint32_t seed = 0;                  ///< Random number generator seed.
+  float    exclusion_threshold = 0.f; ///< Threshold for exclusion map masking.
+  std::vector<Species> species = {};  ///< Optional Species definitions.
 };
 
 // ============================================================================
@@ -99,6 +101,8 @@ Array build_tree_density(const Array &heightmap,
  *                            cluster center.
  * @param  points_per_cluster Number of child points sampled per parent cluster.
  * @param  options            Seeding options.
+ * @param  region             UvTile descriptor for tiled domain positioning.
+ * @param  comm               Communicator for collective density reduction.
  * @return                    Forest Sampled forest container.
  */
 Forest seed_forest_clusters(size_t                      species_count,
@@ -107,7 +111,9 @@ Forest seed_forest_clusters(size_t                      species_count,
                             const Array                &exclusion,
                             float                       cluster_spread = 0.05f,
                             size_t                      points_per_cluster = 8,
-                            const ForestSeedingOptions &options = {});
+                            const ForestSeedingOptions &options = {},
+                            const UvTile               &region = UvTile::unit(),
+                            ICommunicator &comm = SingleArrayComm::instance());
 
 /**
  * @brief Generates a multi-species forest distribution using 2D inverse
@@ -127,6 +133,8 @@ Forest seed_forest_clusters(size_t                      species_count,
  * @param  k_neighbors        Number of nearest spatial neighbors used to
  *                            extract compactness features.
  * @param  options            Seeding options.
+ * @param  region             UvTile descriptor for tiled domain positioning.
+ * @param  comm               Communicator for collective density reduction.
  * @return                    Forest Sampled forest container.
  */
 Forest seed_forest_kmeans(size_t                      species_count,
@@ -135,35 +143,8 @@ Forest seed_forest_kmeans(size_t                      species_count,
                           const Array                &exclusion,
                           float                       cluster_randomness = 0.0f,
                           size_t                      k_neighbors = 4,
-                          const ForestSeedingOptions &options = {});
+                          const ForestSeedingOptions &options = {},
+                          const UvTile               &region = UvTile::unit(),
+                          ICommunicator &comm = SingleArrayComm::instance());
 
 } // namespace hmap
-
-namespace hmap::va
-{
-
-/**
- * @brief Generates a clustered forest distribution across a tiled VirtualArray
- * domain using inverse transform sampling and bounding-box-aware tile merging.
- *
- * @param  species_count      Number of distinct tree species.
- * @param  tree_count         Target total number of trees.
- * @param  density            Global density VirtualArray.
- * @param  exclusion          Optional exclusion map VirtualArray.
- * @param  cluster_spread     Half-extent of the bounding box surrounding each
- *                            cluster center.
- * @param  points_per_cluster Number of child points sampled per parent cluster.
- * @param  options            Seeding options.
- * @param  cm                 Virtual array compute mode.
- * @return                    Forest Sampled forest container.
- */
-Forest seed_forest_clusters(size_t                      species_count,
-                            size_t                      tree_count,
-                            const VirtualArray         &density,
-                            const VirtualArray         &exclusion = {},
-                            float                       cluster_spread = 0.05f,
-                            size_t                      points_per_cluster = 8,
-                            const ForestSeedingOptions &options = {},
-                            const ComputeMode          &cm = {});
-
-} // namespace hmap::va

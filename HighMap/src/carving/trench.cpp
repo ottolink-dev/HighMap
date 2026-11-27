@@ -338,7 +338,7 @@ void trench(Array                       &z,
             const Array                 *p_noise_r,
             Array                       *p_bending_mask,
             int                          tile_size,
-            glm::vec4                    bbox)
+            const UvRect                &uv_rect)
 {
   (void)k_neighbors;
   if (!validate_non_empty(z)) return;
@@ -369,8 +369,8 @@ void trench(Array                       &z,
   auto profile_fct = get_radial_profile_function(radial_profile,
                                                  radial_profile_parameter);
 
-  float dx = (bbox.y - bbox.x) / float(shape.x);
-  float dy = (bbox.w - bbox.z) / float(shape.y);
+  float dx = (uv_rect.u_max - uv_rect.u_min) / float(shape.x);
+  float dy = (uv_rect.v_max - uv_rect.v_min) / float(shape.y);
 
   Array blending_mask;
   if (p_bending_mask) blending_mask = Array(shape);
@@ -382,8 +382,11 @@ void trench(Array                       &z,
 
   BVH2D bvh(all_segments, max_effective_width);
 
-  // Check if the path intersects the current heightmap or tile bbox domain
-  AABB2D domain_aabb(bbox.x, bbox.z, bbox.y, bbox.w);
+  // Check if the path intersects the current heightmap or tile uv_rect domain
+  AABB2D domain_aabb(uv_rect.u_min,
+                     uv_rect.v_min,
+                     uv_rect.u_max,
+                     uv_rect.v_max);
   if (!bvh.root_bbox().overlaps(domain_aabb)) return;
 
   // --- Tile Spatial Partitioning using BVH2D queries
@@ -401,12 +404,12 @@ void trench(Array                       &z,
     int tx = tile_idx % num_tiles_x;
     int ty = tile_idx / num_tiles_x;
 
-    float tile_xmin = bbox.x + float(tx * actual_tile_size) * dx;
-    float tile_xmax = bbox.x +
+    float tile_xmin = uv_rect.u_min + float(tx * actual_tile_size) * dx;
+    float tile_xmax = uv_rect.u_min +
                       float(std::min((tx + 1) * actual_tile_size, shape.x)) *
                           dx;
-    float tile_ymin = bbox.z + float(ty * actual_tile_size) * dy;
-    float tile_ymax = bbox.z +
+    float tile_ymin = uv_rect.v_min + float(ty * actual_tile_size) * dy;
+    float tile_ymax = uv_rect.v_min +
                       float(std::min((ty + 1) * actual_tile_size, shape.y)) *
                           dy;
 
@@ -415,7 +418,7 @@ void trench(Array                       &z,
   }
 
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
   float max_w_sq = max_effective_width * max_effective_width;
 
@@ -552,7 +555,7 @@ void trench(Array                       &z,
             const Array                 *p_noise_r,
             Array                       *p_bending_mask,
             int                          tile_size,
-            glm::vec4                    bbox)
+            const UvRect                &uv_rect)
 {
   if (!validate_non_empty(path, "Path")) return;
 
@@ -577,7 +580,7 @@ void trench(Array                       &z,
          p_noise_r,
          p_bending_mask,
          tile_size,
-         bbox);
+         uv_rect);
 }
 
 void trench(Array                       &z,
@@ -593,7 +596,7 @@ void trench(Array                       &z,
             const Array                 *p_noise_r,
             Array                       *p_bending_mask,
             int                          tile_size,
-            glm::vec4                    bbox)
+            const UvRect                &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (p_noise_r && !validate_same_shape(z, *p_noise_r)) return;
@@ -626,8 +629,8 @@ void trench(Array                       &z,
   auto              profile_fct = get_radial_profile_function(radial_profile,
                                                  radial_profile_parameter);
 
-  float dx = (bbox.y - bbox.x) / float(shape.x);
-  float dy = (bbox.w - bbox.z) / float(shape.y);
+  float dx = (uv_rect.u_max - uv_rect.u_min) / float(shape.x);
+  float dy = (uv_rect.v_max - uv_rect.v_min) / float(shape.y);
 
   Array blending_mask;
   if (p_bending_mask) blending_mask = Array(shape);
@@ -713,7 +716,10 @@ void trench(Array                       &z,
   // Build BVH2D over all edge segments
   BVH2D bvh(all_segments, max_effective_width);
 
-  AABB2D domain_aabb(bbox.x, bbox.z, bbox.y, bbox.w);
+  AABB2D domain_aabb(uv_rect.u_min,
+                     uv_rect.v_min,
+                     uv_rect.u_max,
+                     uv_rect.v_max);
   if (!bvh.root_bbox().overlaps(domain_aabb)) return;
 
   int actual_tile_size = std::max(1, tile_size);
@@ -729,12 +735,12 @@ void trench(Array                       &z,
     int tx = tile_idx % num_tiles_x;
     int ty = tile_idx / num_tiles_x;
 
-    float tile_xmin = bbox.x + float(tx * actual_tile_size) * dx;
-    float tile_xmax = bbox.x +
+    float tile_xmin = uv_rect.u_min + float(tx * actual_tile_size) * dx;
+    float tile_xmax = uv_rect.u_min +
                       float(std::min((tx + 1) * actual_tile_size, shape.x)) *
                           dx;
-    float tile_ymin = bbox.z + float(ty * actual_tile_size) * dy;
-    float tile_ymax = bbox.z +
+    float tile_ymin = uv_rect.v_min + float(ty * actual_tile_size) * dy;
+    float tile_ymax = uv_rect.v_min +
                       float(std::min((ty + 1) * actual_tile_size, shape.y)) *
                           dy;
 
@@ -743,7 +749,7 @@ void trench(Array                       &z,
   }
 
   std::vector<float> xg, yg;
-  grid_xy_vector(xg, yg, shape, bbox, false);
+  grid_xy_vector(xg, yg, shape, uv_rect, false);
 
 #pragma omp parallel for schedule(dynamic, 8)
   for (int tile_idx = 0; tile_idx < total_tiles; ++tile_idx)
@@ -841,7 +847,7 @@ void trench(Array                       &z,
             const Array                 *p_noise_r,
             Array                       *p_bending_mask,
             int                          tile_size,
-            glm::vec4                    bbox)
+            const UvRect                &uv_rect)
 {
   std::vector<float> relative_widths = graph.compute_relative_widths(
       width_exponent);
@@ -859,7 +865,7 @@ void trench(Array                       &z,
          p_noise_r,
          p_bending_mask,
          tile_size,
-         bbox);
+         uv_rect);
 }
 
 } // namespace hmap

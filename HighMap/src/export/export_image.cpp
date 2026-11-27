@@ -11,7 +11,7 @@
 #include "highmap/export/image_writer.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/logger.hpp"
-#include "highmap/virtual_array/tile_region.hpp"
+#include "highmap/spatial/uv_tile.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 #include "highmap/virtual_array/virtual_texture.hpp"
 
@@ -143,7 +143,7 @@ bool export_virtual_array(const VirtualArray &va,
 
   for_each_tile(
       va,
-      [&](const Array &tile, const TileRegion &region)
+      [&](const Array &tile, const UvTile &region)
       { writer.write_tile(region, tile); },
       cm);
 
@@ -170,7 +170,7 @@ bool export_virtual_array(const VirtualTexture &vt,
 
   for_each_tile(
       vt,
-      [&](const std::vector<const Array *> &tiles, const TileRegion &region)
+      [&](const std::vector<const Array *> &tiles, const UvTile &region)
       {
         std::vector<Array> ch_tiles;
         ch_tiles.reserve(tiles.size());

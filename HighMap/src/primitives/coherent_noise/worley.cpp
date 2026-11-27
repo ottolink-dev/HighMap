@@ -21,7 +21,7 @@ Array worley_double(glm::ivec2    shape,
                     const Array  *p_ctrl_param,
                     const Array  *p_noise_x,
                     const Array  *p_noise_y,
-                    glm::vec4     bbox)
+                    const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_ctrl_param && !validate_same_shape(shape, *p_ctrl_param))
@@ -33,7 +33,7 @@ Array worley_double(glm::ivec2    shape,
   hmap::WorleyDoubleFunction f = hmap::WorleyDoubleFunction(kw, seed, ratio, k);
 
   fill_array_using_xy_function(array,
-                               bbox,
+                               uv_rect,
                                p_ctrl_param,
                                p_noise_x,
                                p_noise_y,

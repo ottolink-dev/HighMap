@@ -15,11 +15,9 @@
 #include <functional>
 #include <random>
 
-#include <opencv2/core.hpp>
-
 #include "highmap/algebra.hpp"
-#include "highmap/colormaps.hpp"
-#include "highmap/virtual_array/communicator.hpp"
+#include "highmap/core/communicator_interface.hpp"
+#include "highmap/spatial/uv_rect.hpp"
 
 namespace hmap
 {
@@ -586,9 +584,9 @@ public:
    *              ymin, ymax}.
    * @return      float The bilinearly interpolated value at (x, y).
    */
-  float get_value_bilinear(float     x,
-                           float     y,
-                           glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f}) const;
+  float get_value_bilinear(float         x,
+                           float         y,
+                           const UvRect &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Retrieves the nearest value at the location (x, y) within a bounded
@@ -605,7 +603,9 @@ public:
    *              to be in the form of {xmin, xmax, ymin, ymax}.
    * @return      float The nearest value at the clamped location (x, y).
    */
-  float get_value_nearest(float x, float y, glm::vec4 bbox) const;
+  float get_value_nearest(float         x,
+                          float         y,
+                          const UvRect &uv_rect = UvRect::unit()) const;
 
   /**
    * @brief Retrieves the underlying data vector.
@@ -903,28 +903,6 @@ public:
   float sum(ICommunicator &comm = SingleArrayComm::instance()) const;
 
   /**
-   * @brief Converts a 2D `Array` to an OpenCV `cv::Mat`.
-   *
-   * This function converts a 2D `Array` object into an OpenCV `cv::Mat`. The
-   * conversion process does not involve copying the data; instead, it uses
-   * pointers to the original data in the `Array`. As a result, any
-   * modifications to the `Array` will directly affect the corresponding
-   * `cv::Mat` and vice versa.
-   *
-   * @note Since this function relies on pointers to the original data, it is
-   * crucial for the user to ensure that the `Array` object remains in scope and
-   * valid for the entire lifetime of the `cv::Mat`. If the `Array` is destroyed
-   * or goes out of scope, the `cv::Mat` will reference invalid memory, which
-   * can lead to undefined behavior.
-   *
-   * @return A `cv::Mat` object that shares the data with the input `Array`.
-   *
-   * **Example**
-   * @include ex_to_cv_mat.cpp
-   */
-  cv::Mat to_cv_mat();
-
-  /**
    * @brief Export the array as an OpenEXR image file.
    *
    *        This function saves the array data as an OpenEXR image file. OpenEXR
@@ -982,7 +960,7 @@ public:
   void to_png(const std::string &fname,
               int                cmap,
               bool               hillshading = false,
-              int                depth = CV_8U) const;
+              int                depth = 0) const;
 
   /**
    * @brief Export the array as a grayscale PNG image file with specified bit
@@ -1001,7 +979,7 @@ public:
    * @include ex_to_png.cpp
    */
   void to_png_grayscale(const std::string &fname,
-                        int                depth = CV_8U,
+                        int                depth = 0,
                         float              vmin = 0.f,
                         float              vmax = 0.f) const;
 
@@ -1065,38 +1043,6 @@ size_t count_non_zero(const Array &array);
  * @return       Number of elements equal to 0.
  */
 size_t count_zero(const Array &array);
-
-/**
- * @brief Converts an OpenCV `cv::Mat` to a 2D `Array` with optional value
- * scaling to \[0, 1\].
- *
- * This function converts an OpenCV `cv::Mat` object into a 2D `Array`. The
- * conversion process creates a new `Array` object and copies the data from the
- * `cv::Mat` into this `Array`. If the `remap_values` parameter is set to `true`
- * (the default), the values in the resulting `Array` will be scaled to the
- * interval \[0, 1\]. If set to `false`, the values will be copied directly
- * without scaling. Modifications to the `Array` will not affect the original
- * `cv::Mat` and vice versa.
- *
- * @param  mat          Reference to the OpenCV `cv::Mat` object that will be
- *                      converted.
- * @param  remap_values A boolean flag indicating whether to scale the values to
- *                      \[0, 1\]. If `true`, the values will be scaled; if
- *                      `false`, they will be copied directly. Default is
- *                      `true`.
- * @return              A 2D `Array` object containing a copy of the data from
- *                      the input
- *                      `cv::Mat`, with optional scaling to the interval \[0,
- *                      1\].
- *
- * **Example**
- * @include ex_cv_mat_to_array.cpp
- */
-Array cv_mat_to_array(const cv::Mat &mat,
-                      bool           remap_values = true,
-                      bool           flip_j = false);
-
-std::string get_opencv_build_information();
 
 // ==========================================================================
 // per cell operations wrapper(s)

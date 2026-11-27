@@ -14,22 +14,22 @@
 namespace hmap
 {
 
-Array polar_shape(glm::ivec2   shape,
-                  float        rmin,
-                  float        rmax,
-                  float        aspect_ratio,
-                  float        smoothing_width,
-                  bool         square_base,
-                  float        angle,
-                  float        sector_angle,
-                  float        vmin,
-                  float        kt_value,
-                  float        kr_border,
-                  float        kr_border_ratio,
-                  const Array *p_noise_r,
-                  const Array *p_noise_theta,
-                  glm::vec2    center,
-                  glm::vec4    bbox)
+Array polar_shape(glm::ivec2    shape,
+                  float         rmin,
+                  float         rmax,
+                  float         aspect_ratio,
+                  float         smoothing_width,
+                  bool          square_base,
+                  float         angle,
+                  float         sector_angle,
+                  float         vmin,
+                  float         kt_value,
+                  float         kr_border,
+                  float         kr_border_ratio,
+                  const Array  *p_noise_r,
+                  const Array  *p_noise_theta,
+                  glm::vec2     center,
+                  const UvRect &uv_rect)
 {
   if (!validate_shape(shape)) return Array();
   if (p_noise_r && !validate_same_shape(shape, *p_noise_r)) return Array(shape);
@@ -50,7 +50,7 @@ Array polar_shape(glm::ivec2   shape,
 
   bool               endpoint = false;
   std::vector<float> x, y;
-  grid_xy_vector(x, y, shape, bbox, endpoint);
+  grid_xy_vector(x, y, shape, uv_rect, endpoint);
 
   // --- For each cell loop
 

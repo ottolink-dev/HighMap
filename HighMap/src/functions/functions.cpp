@@ -14,13 +14,13 @@ namespace hmap
 {
 
 std::function<float(float, float)> make_xy_function_from_array(
-    const Array     &array,
-    const glm::vec4 &bbox)
+    const Array  &array,
+    const BBox2D &bbox)
 {
   return [&array, &bbox](float x, float y) -> float
   {
-    x = (x - bbox.x) / (bbox.y - bbox.x);
-    y = (y - bbox.z) / (bbox.w - bbox.z);
+    x = (x - bbox.min.x) / (bbox.max.x - bbox.min.x);
+    y = (y - bbox.min.y) / (bbox.max.y - bbox.min.y);
 
     x = std::clamp(x, 0.f, 1.f);
     y = std::clamp(y, 0.f, 1.f);

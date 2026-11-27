@@ -21,7 +21,7 @@ void flatten_around_points(Array                    &z,
                            RadialProfile             radial_profile,
                            float                     profile_param,
                            Array                    *p_mask,
-                           glm::vec4                 bbox)
+                           const UvRect             &uv_rect)
 {
   if (!validate_non_empty(z)) return;
   if (!validate_non_empty(xp)) return;
@@ -38,9 +38,11 @@ void flatten_around_points(Array                    &z,
   const int nx = z.shape.x;
   const int ny = z.shape.y;
 
-  // cell size in bbox units (guard against single-cell axes)
-  const float dx = nx > 1 ? (bbox.y - bbox.x) / float(nx - 1) : 1.f;
-  const float dy = ny > 1 ? (bbox.w - bbox.z) / float(ny - 1) : 1.f;
+  // cell size in uv_rect units (guard against single-cell axes)
+  const float dx = nx > 1 ? (uv_rect.u_max - uv_rect.u_min) / float(nx - 1)
+                          : 1.f;
+  const float dy = ny > 1 ? (uv_rect.v_max - uv_rect.v_min) / float(ny - 1)
+                          : 1.f;
 
   auto profile_fct = get_radial_profile_function(radial_profile, profile_param);
 
@@ -56,18 +58,24 @@ void flatten_around_points(Array                    &z,
     if (r <= 0.f) continue;
 
     // pixel bounding box of the point influence
-    const int i_min = std::max(0, int(std::floor((xp[k] - r - bbox.x) / dx)));
-    const int i_max = std::min(nx - 1,
-                               int(std::ceil((xp[k] + r - bbox.x) / dx)));
-    const int j_min = std::max(0, int(std::floor((yp[k] - r - bbox.z) / dy)));
-    const int j_max = std::min(ny - 1,
-                               int(std::ceil((yp[k] + r - bbox.z) / dy)));
+    const int i_min = std::max(
+        0,
+        int(std::floor((xp[k] - r - uv_rect.u_min) / dx)));
+    const int i_max = std::min(
+        nx - 1,
+        int(std::ceil((xp[k] + r - uv_rect.u_min) / dx)));
+    const int j_min = std::max(
+        0,
+        int(std::floor((yp[k] - r - uv_rect.v_min) / dy)));
+    const int j_max = std::min(
+        ny - 1,
+        int(std::ceil((yp[k] + r - uv_rect.v_min) / dy)));
 
     for (int j = j_min; j <= j_max; ++j)
       for (int i = i_min; i <= i_max; ++i)
       {
-        const float ddx = bbox.x + float(i) * dx - xp[k];
-        const float ddy = bbox.z + float(j) * dy - yp[k];
+        const float ddx = uv_rect.u_min + float(i) * dx - xp[k];
+        const float ddy = uv_rect.v_min + float(j) * dy - yp[k];
         const float u = std::sqrt(ddx * ddx + ddy * ddy) / r;
 
         if (u > 1.f) continue;
@@ -111,7 +119,7 @@ void flatten_around_points(Array                    &z,
                            RadialProfile             radial_profile,
                            float                     profile_param,
                            Array                    *p_mask,
-                           glm::vec4                 bbox)
+                           const UvRect             &uv_rect)
 {
   const std::vector<float> radii(xp.size(), radius);
 
@@ -124,7 +132,7 @@ void flatten_around_points(Array                    &z,
                         radial_profile,
                         profile_param,
                         p_mask,
-                        bbox);
+                        uv_rect);
 }
 
 } // namespace hmap

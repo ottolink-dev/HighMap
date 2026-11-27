@@ -10,6 +10,14 @@ project(
 
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
+if(NOT HIGHMAP_ENABLE_OPENCV)
+  list(FILTER SOURCES EXCLUDE REGEX ".*/(opencv_wrapper|opencv_writer)\\.cpp$")
+endif()
+
+if(NOT HIGHMAP_ENABLE_LIGHTUSD)
+  list(FILTER SOURCES EXCLUDE REGEX ".*/export_usd\\.cpp$")
+endif()
+
 add_library(${PROJECT_NAME} STATIC ${SOURCES})
 
 if(HIGHMAP_ENABLE_TRACY)
@@ -46,11 +54,11 @@ target_link_libraries(
     NoiseLib
     terrain-descriptors
     OpenMP::OpenMP_CXX
-    ${OpenCV_LIBS}
+    $<$<BOOL:${HIGHMAP_ENABLE_OPENCV}>:${OpenCV_LIBS}>
     point_sampler
     clwrapper
     ${OpenCL_LIBRARIES}
-    lightusd_static
+    $<$<BOOL:${HIGHMAP_ENABLE_LIGHTUSD}>:lightusd_static>
     OpenEXR::OpenEXR
     TIFF::TIFF
     nlohmann_json::nlohmann_json

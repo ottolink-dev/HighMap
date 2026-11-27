@@ -105,7 +105,7 @@ void falloff(Array           &array,
              float            strength = 1.f,
              DistanceFunction dist_fct = DistanceFunction::EUCLIDIAN,
              const Array     *p_noise = nullptr,
-             glm::vec4        bbox = {0.f, 1.f, 0.f, 1.f});
+             const UvRect    &uv_rect = UvRect::unit());
 
 /**
  * @brief Fills the border values of an array (e.g., `i = 0`, `j = 0`, etc.)
@@ -304,10 +304,10 @@ void set_borders(Array     &array,
  * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
  *                      {0.f, 1.f, 0.f, 1.f}.
  */
-void set_borders(Array    &array,
-                 glm::vec4 border_values,
-                 glm::vec4 buffer_sizes,
-                 glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+void set_borders(Array        &array,
+                 glm::vec4     border_values,
+                 glm::vec4     buffer_sizes,
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Enforces a uniform value at all boundaries of the array.
@@ -338,10 +338,10 @@ void set_borders(Array &array, float border_values, int buffer_sizes);
  * @param bbox          Domain bounding box {xmin, xmax, ymin, ymax}. Default is
  *                      {0.f, 1.f, 0.f, 1.f}.
  */
-void set_borders(Array    &array,
-                 float     border_values,
-                 float     buffer_sizes,
-                 glm::vec4 bbox = {0.f, 1.f, 0.f, 1.f});
+void set_borders(Array        &array,
+                 float         border_values,
+                 float         buffer_sizes,
+                 const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Fills the values at the domain borders using symmetry over a specified
@@ -403,6 +403,6 @@ void zeroed_edges(Array        &array,
                   glm::vec2            center = {0.5f, 0.5f},
                   float                radius = 0.5f,
                   const Array         *p_noise_r = nullptr,
-                  glm::vec4            bbox = {0.f, 1.f, 0.f, 1.f});
+                  const UvRect        &uv_rect = UvRect::unit());
 
 } // namespace hmap

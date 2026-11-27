@@ -26,7 +26,7 @@ Texture terrain_texture(const Array                &z,
                         const Array                *p_deposition,
                         const Array                *p_snow_depth,
                         const TerrainTextureParams &p,
-                        const glm::vec4            &bbox,
+                        const BBox2D               &bbox,
                         const Array                *p_noise,
                         ICommunicator              &comm)
 {
@@ -156,7 +156,7 @@ Texture terrain_texture(const Array                &z,
                                nullptr,
                                nullptr,
                                nullptr,
-                               bbox);
+                               UvRect::from_bbox2d(bbox));
       normalize_and_clip(a);
       return a;
     };
