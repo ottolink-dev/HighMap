@@ -2,10 +2,9 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
-#include <bit>
+#include <cmath>
 #include <cstdint>
 #include <limits>
-#include <cmath>
 #include <string>
 #include <vector>
 
@@ -15,6 +14,8 @@
 #include "highmap/internal/assert.hpp"
 #include "highmap/math/array.hpp"
 #include "highmap/range.hpp"
+
+#include <bit>
 
 namespace hmap
 {
@@ -73,7 +74,7 @@ bool assert_almost_equal(const Array       &a,
   double diff = 0.;
   double sum_a = 0.;
   double sum_b = 0.;
-  int   diff_count = 0;
+  int    diff_count = 0;
 
   {
     for (int j = 0; j < a.shape.y; ++j)

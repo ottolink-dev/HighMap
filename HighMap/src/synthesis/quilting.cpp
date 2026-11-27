@@ -31,16 +31,15 @@ Array quilting(const std::vector<const Array *> &p_arrays,
                bool                              patch_transpose,
                float                             filter_width_ratio)
 {
-  if (p_arrays.empty() || !validate_shape(patch_base_shape) || !validate_shape(tiling))
+  if (p_arrays.empty() || !validate_shape(patch_base_shape) ||
+      !validate_shape(tiling))
     return Array();
 
   for (const auto *p : p_arrays)
-    if (!p || !validate_non_empty(*p))
-      return Array();
+    if (!p || !validate_non_empty(*p)) return Array();
 
   for (const auto *p : secondary_arrays)
-    if (!p || !validate_non_empty(*p))
-      return Array();
+    if (!p || !validate_non_empty(*p)) return Array();
 
   // Replaying the guide's random extraction requires identical source bounds.
   // Validate before allocating outputs or modifying any aliased destinations.
@@ -78,7 +77,8 @@ Array quilting(const std::vector<const Array *> &p_arrays,
 
   // reserve outputs for secondary arrays transformed using primary
   // array(s) as guide(s)
-  std::vector<Array> secondary_arrays_output(secondary_arrays.size(), shape_output);
+  std::vector<Array> secondary_arrays_output(secondary_arrays.size(),
+                                             shape_output);
 
   // smoothing radius for the patch transitions
   int ir = (int)(noverlap.x * filter_width_ratio);
@@ -104,8 +104,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
     {
       int i1 = it * patch_base_shape.x;
       int array_idx = dis_a(gen);
-      if (!secondary_arrays.empty())
-        patch_generators.push_back(gen);
+      if (!secondary_arrays.empty()) patch_generators.push_back(gen);
 
       Array patch = get_random_patch(*p_arrays[array_idx],
                                      patch_shape,
@@ -129,8 +128,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
           for (int i = 0; i < noverlap.x; i++)
             patch(i, j) = lerp(array_strip(i1 + i, j), patch(i, j), mask(i, j));
 
-        if (!secondary_arrays.empty())
-          patch_masks[it] = std::move(mask);
+        if (!secondary_arrays.empty()) patch_masks[it] = std::move(mask);
       }
 
       for (int j = 0; j < patch_shape.y; j++)
@@ -195,7 +193,9 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         if (it > 0 && noverlap.x > 0)
           for (int j = 0; j < patch_shape.y; j++)
             for (int i = 0; i < noverlap.x; i++)
-              patch(i, j) = lerp(strip(i1 + i, j), patch(i, j), patch_masks[it](i, j));
+              patch(i, j) = lerp(strip(i1 + i, j),
+                                 patch(i, j),
+                                 patch_masks[it](i, j));
 
         for (int j = 0; j < patch_shape.y; j++)
           for (int i = 0; i < patch_shape.x; i++)
@@ -208,7 +208,9 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         for (int i = 0; i < shape_output.x; i++)
         {
           for (int j = 0; j < noverlap.y; j++)
-            output(i, j1 + j) = lerp(output(i, j1 + j), strip(i, j), row_mask(i, j));
+            output(i, j1 + j) = lerp(output(i, j1 + j),
+                                     strip(i, j),
+                                     row_mask(i, j));
           for (int j = noverlap.y; j < patch_shape.y; j++)
             output(i, j1 + j) = strip(i, j);
         }

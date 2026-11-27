@@ -1,8 +1,8 @@
+#include <cmath>
+
 #include "highmap/filters.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
-
-#include <cmath>
 
 #include <gtest/gtest.h>
 
@@ -27,13 +27,15 @@ TEST(SmoothCPulse, IdentityWhenRadiusZero)
     Array cpu = input;
     smooth_cpulse(cpu, 0, p_mask);
     EXPECT_EQ(cpu.vector, input.vector);
-    for (float value : cpu.vector) EXPECT_TRUE(std::isfinite(value));
+    for (float value : cpu.vector)
+      EXPECT_TRUE(std::isfinite(value));
 
     // The identity path does not require an OpenCL device or context.
     Array gpu = input;
     gpu::smooth_cpulse(gpu, 0, p_mask);
     EXPECT_EQ(gpu.vector, input.vector);
-    for (float value : gpu.vector) EXPECT_TRUE(std::isfinite(value));
+    for (float value : gpu.vector)
+      EXPECT_TRUE(std::isfinite(value));
   }
 }
 

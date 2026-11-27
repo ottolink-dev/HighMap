@@ -178,7 +178,7 @@ TEST(MatchHistogram, EmptyInputAndReferenceAreNoOps)
   match_histogram(empty, reference);
   EXPECT_TRUE(empty.vector.empty());
 
-  Array input{{4.f, -2.f, 9.f}};
+  Array      input{{4.f, -2.f, 9.f}};
   const auto before = input.vector;
   match_histogram(input, empty);
   EXPECT_EQ(input.vector, before);
