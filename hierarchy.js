@@ -25,7 +25,6 @@ var hierarchy =
     [ "hmap::CraterFunction", "classhmap_1_1CraterFunction.html", null ],
     [ "hmap::DeformationConstraint", "structhmap_1_1DeformationConstraint.html", null ],
     [ "hmap::DiskFunction", "classhmap_1_1DiskFunction.html", null ],
-    [ "hmap::DrainageBasin", "classhmap_1_1DrainageBasin.html", null ],
     [ "hmap::Edge", "structhmap_1_1Edge.html", null ],
     [ "hmap::TerrainTriMesh::Edge", "structhmap_1_1TerrainTriMesh_1_1Edge.html", null ],
     [ "hmap::TerrainTriMesh::EdgeHash", "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html", null ],

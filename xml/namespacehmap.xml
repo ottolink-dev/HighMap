@@ -74,7 +74,6 @@
     <innerclass refid="classhmap_1_1KDTree" prot="public">hmap::KDTree</innerclass>
     <innerclass refid="classhmap_1_1Path" prot="public">hmap::Path</innerclass>
     <innerclass refid="classhmap_1_1Point" prot="public">hmap::Point</innerclass>
-    <innerclass refid="classhmap_1_1DrainageBasin" prot="public">hmap::DrainageBasin</innerclass>
     <innerclass refid="structhmap_1_1FlowGraph" prot="public">hmap::FlowGraph</innerclass>
     <innerclass refid="structhmap_1_1AssertResults" prot="public">hmap::AssertResults</innerclass>
     <innerclass refid="structhmap_1_1RadixHeap" prot="public">hmap::RadixHeap</innerclass>
@@ -3753,9 +3752,9 @@
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{1024,<sp/>1024};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/>shape<sp/>=<sp/>{1024,<sp/>1024};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>sparse<sp/>contours:<sp/>a<sp/>main<sp/>hill<sp/>with<sp/>4<sp/>nested<sp/>levels,<sp/>a<sp/>small<sp/>basin<sp/>in</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>its<sp/>lowest<sp/>ring<sp/>and<sp/>a<sp/>second,<sp/>separate<sp/>hill</highlight><highlight class="normal"></highlight></codeline>
@@ -8043,14 +8042,19 @@
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/>shape,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(5,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(5,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>({1.1f,<sp/>1.9f,<sp/>-0.4f,<sp/>0.4f}));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a73ba305b4bddf744368a107525bb3c81" kindref="member">hmap::dijkstra</ref>(path,<sp/>z,<sp/>bbox,<sp/>0,<sp/>0.9f,<sp/>1.f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a73ba305b4bddf744368a107525bb3c81" kindref="member">hmap::dijkstra</ref>(path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref>(1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.9f,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z1<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a584e8b744dcfaddc8f161bc2fbc62bd1" kindref="member">to_array</ref>(z1,<sp/>bbox);</highlight></codeline>
@@ -8067,7 +8071,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decay,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flattening_radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>force_downhill,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref>(1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z3<sp/>=<sp/>z;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>force_downhill<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
@@ -8078,7 +8082,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>decay,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>flattening_radius,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>force_downhill,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref>(1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_dig_path.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z,<sp/>z1,<sp/>z2,<sp/>z3},</highlight></codeline>
@@ -14950,154 +14954,13 @@ additional_depth)</computeroutput>.</para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
-<bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;omp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8eb3b37f9c2d4832fa1e0645bc69ac22" kindref="member">hmap::init_openmp</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>erosion<sp/>of<sp/>an<sp/>heightmap</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.7f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a2f79d48265d4af608c9cb9ff078e7e01" kindref="member">hmap::bulkify</ref>(z0,<sp/><ref refid="namespacehmap_1a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961" kindref="member">hmap::PrimitiveType::PRIM_CONE_SMOOTH</ref>,<sp/>1.f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>control_points_count<sp/>=<sp/>10000;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>strength<sp/>=<sp/>0.5f;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>m_exp<sp/>=<sp/>0.8f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>uplift_rate<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tolerance<sp/>=<sp/>1e-3f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>max_iterations<sp/>=<sp/>1000;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>smin<sp/>=<sp/>0.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>smax<sp/>=<sp/>6.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/>scale_erodibility_with_z<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>erodibility_distrib_exp<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>noise_strength<sp/>=<sp/>0.25f;<sp/></highlight><highlight class="comment">//<sp/>stream<sp/>tree<sp/>structural<sp/>noise</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dx<sp/>=<sp/>0.03f<sp/>*<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">hmap::NoiseType::SIMPLEX2</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dy<sp/>=<sp/>0.03f<sp/>*<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">hmap::NoiseType::SIMPLEX2</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;hydraulic_saleve&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1ada51d6f53d06fa3a592223e5f6137e03" kindref="member">hmap::hydraulic_saleve</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z0,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>control_points_count,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uplift_rate,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tolerance,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>max_iterations,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>smin,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>smax,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>scale_erodibility_with_z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>erodibility_distrib_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>noise_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_slope_limiter<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>post_slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_smoothing<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278" kindref="member">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;hydraulic_saleve&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>mimic<sp/>deposition</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>deposition_ir<sp/>=<sp/>int(0.1f<sp/>*<sp/>shape.x);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>deposition_strength<sp/>=<sp/>0.5f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>iterations<sp/>=<sp/>2;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a8497e2fce595293ea07e68eac1e5bce2" kindref="member">hmap::gpu::deposition_fill_holes</ref>(z1,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_ir,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a5bc931885a549c561740f39cea91dd5f" kindref="member">hmap::Timer::Dump</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z1.<ref refid="classhmap_1_1Array_1a00b8f7462c1e22b1da8a67ec62d4c8c8" kindref="member">dump</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>export</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_saleve.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>virtual<sp/>array<sp/>version</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/><sp/>bbox{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>tile_shape{220,<sp/>312};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>32;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_RAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>storage_mode<sp/>=<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6ea43d13a1f504643c9e81cb01d4b5b2efc" kindref="member">hmap::StorageMode::VA_DISK_LRU_FULL</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_DISK_LRU_STREAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_DISK_LRU_STREAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>foreach_mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">hmap::ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>foreach_mode<sp/>=<sp/>hmap::ForEachMode::VA_SEQUENTIAL;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>foreach_mode<sp/>=<sp/>hmap::ForEachMode::VA_SINGLE_ARRAY;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">hmap::ComputeMode</ref><sp/>cm{.mode<sp/>=<sp/>foreach_mode,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.trim_storage<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.stride<sp/>=<sp/>1};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">hmap::VirtualArray</ref><sp/>z0_va(shape,<sp/>tile_shape,<sp/>halo,<sp/>storage_mode);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z0_va.from_array(z0,<sp/>cm);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ze_va<sp/>=<sp/><ref refid="namespacehmap_1_1va_1ac0d43b69e78ba45a62795d90f1f453fe" kindref="member">hmap::va::hydraulic_saleve</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z0_va,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>control_points_count,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uplift_rate,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tolerance,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_iterations,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>smin,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>smax,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scale_erodibility_with_z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>erodibility_distrib_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noise_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_slope_limiter<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>post_slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_smoothing<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278" kindref="member">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</ref>);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ze_va.to_array(cm).to_png(</highlight><highlight class="stringliteral">&quot;out_ze_va.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
+<bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"></programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_hydraulic_saleve.png"></image>
  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="27" column="6" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="27" bodyend="70" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="443" declcolumn="6"/>
+        <location file="HighMap/include/highmap/erosion/deprecated.hpp" line="443" column="6" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="443" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a437dbeb7f3349ea6b5622ffcf5d3b6a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -15318,154 +15181,13 @@ additional_depth)</computeroutput>.</para>
 </parameterlist>
 <simplesect kind="return"><para>Eroded heightmap.</para>
 </simplesect>
-<bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"><codeline><highlight class="preprocessor">#include<sp/>&quot;<ref refid="highmap_8hpp" kindref="compound">highmap.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="timer_8hpp" kindref="compound">highmap/internal/timer.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;omp.h&gt;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
-<codeline><highlight class="normal">{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1adb8336ed4d83c15500872185dee45d50" kindref="member">hmap::gpu::init_opencl</ref>();</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a8eb3b37f9c2d4832fa1e0645bc69ac22" kindref="member">hmap::init_openmp</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec2<sp/><sp/>kw<sp/>=<sp/>{4.f,<sp/>4.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>erosion<sp/>of<sp/>an<sp/>heightmap</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.7f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z0<sp/>=<sp/><ref refid="namespacehmap_1a2f79d48265d4af608c9cb9ff078e7e01" kindref="member">hmap::bulkify</ref>(z0,<sp/><ref refid="namespacehmap_1a55542a66f890ef9ecf5f82af2c23a0cfa71a3d57896b6c2d066433962e74e8961" kindref="member">hmap::PrimitiveType::PRIM_CONE_SMOOTH</ref>,<sp/>1.f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>control_points_count<sp/>=<sp/>10000;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>strength<sp/>=<sp/>0.5f;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>m_exp<sp/>=<sp/>0.8f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>uplift_rate<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>tolerance<sp/>=<sp/>1e-3f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>max_iterations<sp/>=<sp/>1000;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>smin<sp/>=<sp/>0.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>smax<sp/>=<sp/>6.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/>scale_erodibility_with_z<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>erodibility_distrib_exp<sp/>=<sp/>1.f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>noise_strength<sp/>=<sp/>0.25f;<sp/></highlight><highlight class="comment">//<sp/>stream<sp/>tree<sp/>structural<sp/>noise</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dx<sp/>=<sp/>0.03f<sp/>*<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">hmap::NoiseType::SIMPLEX2</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dy<sp/>=<sp/>0.03f<sp/>*<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195ac5113a637d69eb3c549e6d561da167ed" kindref="member">hmap::NoiseType::SIMPLEX2</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>kw,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>8,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;hydraulic_saleve&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z1<sp/>=<sp/><ref refid="namespacehmap_1ada51d6f53d06fa3a592223e5f6137e03" kindref="member">hmap::hydraulic_saleve</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z0,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>control_points_count,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>m_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uplift_rate,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>tolerance,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>max_iterations,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>smin,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>smax,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>scale_erodibility_with_z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>erodibility_distrib_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>noise_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_slope_limiter<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>post_slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_smoothing<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278" kindref="member">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dy);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;hydraulic_saleve&quot;</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>mimic<sp/>deposition</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>deposition_ir<sp/>=<sp/>int(0.1f<sp/>*<sp/>shape.x);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>deposition_strength<sp/>=<sp/>0.5f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>iterations<sp/>=<sp/>2;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1_1gpu_1a8497e2fce595293ea07e68eac1e5bce2" kindref="member">hmap::gpu::deposition_fill_holes</ref>(z1,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_ir,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>deposition_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>iterations);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a5bc931885a549c561740f39cea91dd5f" kindref="member">hmap::Timer::Dump</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>z1.<ref refid="classhmap_1_1Array_1a00b8f7462c1e22b1da8a67ec62d4c8c8" kindref="member">dump</ref>();</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>export</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_hydraulic_saleve.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{z0,<sp/>z1},</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>virtual<sp/>array<sp/>version</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>{</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::vec4<sp/><sp/>bbox{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>glm::ivec2<sp/>tile_shape{220,<sp/>312};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>halo<sp/>=<sp/>32;</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_RAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>storage_mode<sp/>=<sp/><ref refid="namespacehmap_1ad21b93a34c88a47d6b54f3a4d5b65e6ea43d13a1f504643c9e81cb01d4b5b2efc" kindref="member">hmap::StorageMode::VA_DISK_LRU_FULL</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_DISK_LRU_STREAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>storage_mode<sp/>=<sp/>hmap::StorageMode::VA_DISK_LRU_STREAM;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>foreach_mode<sp/>=<sp/><ref refid="namespacehmap_1ae383414b46ae8992e621c407f09ce7c5a5356cbfe824240ce4bd458109890b9d5" kindref="member">hmap::ForEachMode::VA_DISTRIBUTED</ref>;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>foreach_mode<sp/>=<sp/>hmap::ForEachMode::VA_SEQUENTIAL;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>const<sp/>auto<sp/>foreach_mode<sp/>=<sp/>hmap::ForEachMode::VA_SINGLE_ARRAY;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1ComputeMode" kindref="compound">hmap::ComputeMode</ref><sp/>cm{.mode<sp/>=<sp/>foreach_mode,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.trim_storage<sp/>=<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>.stride<sp/>=<sp/>1};</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1VirtualArray" kindref="compound">hmap::VirtualArray</ref><sp/>z0_va(shape,<sp/>tile_shape,<sp/>halo,<sp/>storage_mode);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>z0_va.from_array(z0,<sp/>cm);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>ze_va<sp/>=<sp/><ref refid="namespacehmap_1_1va_1ac0d43b69e78ba45a62795d90f1f453fe" kindref="member">hmap::va::hydraulic_saleve</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cm,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>z0_va,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>control_points_count,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>m_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uplift_rate,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>tolerance,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>max_iterations,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>smin,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>smax,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>scale_erodibility_with_z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>erodibility_distrib_exp,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>noise_strength,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_slope_limiter<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>post_slope_limit<sp/>*/</highlight><highlight class="normal"><sp/>0.f,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">/*<sp/>enable_post_smoothing<sp/>*/</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581abcf07b4df09d3208a73f833da6b7a278" kindref="member">hmap::InterpolationMethod2D::ITP2D_DELAUNAY_GRADIENT</ref>);</highlight></codeline>
-<codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>ze_va.to_array(cm).to_png(</highlight><highlight class="stringliteral">&quot;out_ze_va.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>}</highlight></codeline>
-<codeline><highlight class="normal">}</highlight></codeline>
-</programlisting></para>
+<bold>Example</bold> <programlisting filename="ex_hydraulic_saleve.cpp"></programlisting></para>
 <para><bold>Result</bold> <image type="html" name="ex_hydraulic_saleve.png"></image>
  </para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="72" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="72" bodyend="191" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="488" declcolumn="7"/>
+        <location file="HighMap/include/highmap/erosion/deprecated.hpp" line="488" column="7" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="488" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a5ec83fc1497f653486bc4cc22ecee87b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -15577,7 +15299,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_saleve.cpp" line="193" column="7" bodyfile="HighMap/src/erosion/hydraulic_saleve.cpp" bodystart="193" bodyend="243" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="512" declcolumn="7"/>
+        <location file="HighMap/include/highmap/erosion/deprecated.hpp" line="512" column="7" declfile="HighMap/include/highmap/erosion/deprecated.hpp" declline="512" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1acd80d481aca9a5027f7a6407fb59cbc4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -30264,21 +29986,25 @@ This function:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>1;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(5,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(5,<sp/>seed,<sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Open<sp/>path</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_sdf_open<sp/>=<sp/><ref refid="namespacehmap_1a3ce5cf9668610d03ae978255d9e08e65" kindref="member">hmap::path_sdf_to_array</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_bezier_open<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_bezier_open<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">hmap::UvRect::unit</ref>());</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>Closed<sp/>path</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_sdf_closed<sp/>=<sp/><ref refid="namespacehmap_1a3ce5cf9668610d03ae978255d9e08e65" kindref="member">hmap::path_sdf_to_array</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_bezier_closed<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z_bezier_closed<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">hmap::UvRect::unit</ref>());</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;ex_path_bezier.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
@@ -30654,8 +30380,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>3;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>30;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1ac22d0f4aad43d4eabaf88779f53ce7e3" kindref="member">hmap::fractalize</ref>(path,<sp/>1,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -30820,7 +30548,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>2;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>{-1.f,<sp/>2.f,<sp/>0.f,<sp/>5.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{-1.f,<sp/>2.f,<sp/>0.f,<sp/>5.f};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>---<sp/>generate<sp/>a<sp/>path<sp/>using<sp/>a<sp/>random<sp/>set<sp/>of<sp/>points</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -30949,8 +30677,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>6;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>10;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1ac22d0f4aad43d4eabaf88779f53ce7e3" kindref="member">hmap::fractalize</ref>(path,<sp/>2,<sp/>seed,<sp/>0.2f);</highlight></codeline>
@@ -31103,8 +30833,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>6;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>10;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a84e0832a3c3a4c9e1f9bcefdc6d32cd0" kindref="member">resample_uniform</ref>();</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -31586,8 +31318,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>6;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>10;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.05f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.05f,<sp/>0.95f,<sp/>0.05f,<sp/>0.95f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
@@ -31726,8 +31460,10 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed<sp/>=<sp/>6;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>10;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1ac22d0f4aad43d4eabaf88779f53ce7e3" kindref="member">hmap::fractalize</ref>(path,<sp/>4,<sp/>seed,<sp/>0.2f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a649a385315a3230c058d032b2171424a" kindref="member">resample_by_spacing</ref>(0.05f);</highlight></codeline>
@@ -31878,7 +31614,7 @@ See unit tests: <ref refid="test__splines_8cpp" kindref="compound">test_splines.
 <codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">)</highlight></codeline>
 <codeline><highlight class="normal">{</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::ivec2<sp/><sp/><sp/><sp/>shape<sp/>=<sp/>{256,<sp/>256};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/><sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>std::uint32_t<sp/>seed<sp/>=<sp/>42;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>1.<sp/>Initial<sp/>base<sp/>path<sp/>(open<sp/>polyline<sp/>traversing<sp/>domain)</highlight><highlight class="normal"></highlight></codeline>
@@ -35827,206 +35563,6 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
         </inbodydescription>
         <location file="HighMap/src/gradient/gradient.cpp" line="305" column="7" bodyfile="HighMap/src/gradient/gradient.cpp" bodystart="305" bodyend="312" declfile="HighMap/include/highmap/gradient.hpp" declline="431" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a330255b50cec60fc2ba713fb945e2fdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; size_t &gt;</type>
-        <definition>std::vector&lt; size_t &gt; hmap::find_border_minima</definition>
-        <argsstring>(const std::vector&lt; glm::vec3 &gt; &amp;xyz, float eps=1e-6f)</argsstring>
-        <name>find_border_minima</name>
-        <qualifiedname>hmap::find_border_minima</qualifiedname>
-        <param>
-          <type>const std::vector&lt; glm::vec3 &gt; &amp;</type>
-          <declname>xyz</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>eps</declname>
-          <defval>1e-6<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <briefdescription>
-<para>Find local minima along the border of a set of 3D coordinates. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>xyz</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of 3D points. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>eps</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Tolerance for coordinates comparison. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A vector of indices of the border minima. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/hydrology/drainage_basin.cpp" line="803" column="13" bodyfile="HighMap/src/hydrology/drainage_basin.cpp" bodystart="803" bodyend="860" declfile="HighMap/include/highmap/hydrology/drainage_basin.hpp" declline="281" declcolumn="13"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1ac92d13b60ba68e2a31afca15fcb5f82f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; size_t &gt;</type>
-        <definition>std::vector&lt; size_t &gt; hmap::find_border_sinks</definition>
-        <argsstring>(const TerrainTriMesh &amp;mesh, float eps=1e-6f)</argsstring>
-        <name>find_border_sinks</name>
-        <qualifiedname>hmap::find_border_sinks</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1TerrainTriMesh" kindref="compound">TerrainTriMesh</ref> &amp;</type>
-          <declname>mesh</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>eps</declname>
-          <defval>1e-6<ref refid="distance__transform_8cpp_1abcb9259cf91bfd25e92a72cdf18c285e" kindref="member">f</ref></defval>
-        </param>
-        <briefdescription>
-<para>Find sinks along the border of a terrain tri mesh. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>mesh</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input terrain triangular mesh. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>eps</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Tolerance for border coordinate comparison. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A vector of indices of the border sinks. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/hydrology/drainage_basin.cpp" line="862" column="13" bodyfile="HighMap/src/hydrology/drainage_basin.cpp" bodystart="862" bodyend="906" declfile="HighMap/include/highmap/hydrology/drainage_basin.hpp" declline="290" declcolumn="13"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a23ab6bc3fdc7d5c498f0b3c8bebdd4f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; glm::vec3 &gt;</type>
-        <definition>std::vector&lt; glm::vec3 &gt; hmap::heightmap_retopology</definition>
-        <argsstring>(const Array &amp;z, float max_error, int max_triangles=0, int max_points=0)</argsstring>
-        <name>heightmap_retopology</name>
-        <qualifiedname>hmap::heightmap_retopology</qualifiedname>
-        <param>
-          <type>const <ref refid="classhmap_1_1Array" kindref="compound">Array</ref> &amp;</type>
-          <declname>z</declname>
-        </param>
-        <param>
-          <type>float</type>
-          <declname>max_error</declname>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>max_triangles</declname>
-          <defval>0</defval>
-        </param>
-        <param>
-          <type>int</type>
-          <declname>max_points</declname>
-          <defval>0</defval>
-        </param>
-        <briefdescription>
-<para>Performs retopology of a heightmap to generate a 3D point cloud. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>z</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input 2D heightmap array. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_error</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum permitted elevation error. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_triangles</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum number of triangles to generate. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>max_points</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Maximum number of points to generate. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A vector of 3D coordinates representing the retopologized vertices. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/hydrology/drainage_basin.cpp" line="908" column="13" bodyfile="HighMap/src/hydrology/drainage_basin.cpp" bodystart="908" bodyend="936" declfile="HighMap/include/highmap/hydrology/drainage_basin.hpp" declline="302" declcolumn="13"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1abbc07969594bdb8632f96c9ec893872e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type>std::vector&lt; size_t &gt;</type>
-        <definition>std::vector&lt; size_t &gt; hmap::sample_border_points</definition>
-        <argsstring>(const std::vector&lt; glm::vec3 &gt; &amp;xyz, size_t nb)</argsstring>
-        <name>sample_border_points</name>
-        <qualifiedname>hmap::sample_border_points</qualifiedname>
-        <param>
-          <type>const std::vector&lt; glm::vec3 &gt; &amp;</type>
-          <declname>xyz</declname>
-        </param>
-        <param>
-          <type>size_t</type>
-          <declname>nb</declname>
-        </param>
-        <briefdescription>
-<para>Sample a specified number of points along the border. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>xyz</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Vector of 3D points. </para>
-</parameterdescription>
-</parameteritem>
-<parameteritem>
-<parameternamelist>
-<parametername>nb</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Number of border points to sample. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A vector of indices of the sampled border points. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/hydrology/drainage_basin.cpp" line="938" column="13" bodyfile="HighMap/src/hydrology/drainage_basin.cpp" bodystart="938" bodyend="996" declfile="HighMap/include/highmap/hydrology/drainage_basin.hpp" declline="313" declcolumn="13"/>
-      </memberdef>
       <memberdef kind="function" id="namespacehmap_1aab4bf155fbf1998bd707be00152650d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::basin_id</definition>
@@ -38716,7 +38252,9 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>visualize<sp/>graph<sp/>on<sp/>an<sp/>empty<sp/>grid</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox(0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_graph(shape,<sp/>0.f);</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>stream_graph.<ref refid="classhmap_1_1Graph_1a20244f878e3779ea165b43ad8f0e0dfe" kindref="member">to_array</ref>(z_graph,<sp/>bbox,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>stream_graph.<ref refid="classhmap_1_1Graph_1a20244f878e3779ea165b43ad8f0e0dfe" kindref="member">to_array</ref>(z_graph,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(bbox.x,<sp/>bbox.y,<sp/>bbox.z,<sp/>bbox.w),</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>carve<sp/>river<sp/>network<sp/>into<sp/>terrain<sp/>with<sp/>expand_talus<sp/>and<sp/>SDF<sp/>blending</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z_carved<sp/>=<sp/>z;</highlight></codeline>
@@ -39273,10 +38811,8 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(noise);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>base<sp/>path</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(4,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>0.2f,<sp/>-0.2f,<sp/>0.2f,<sp/>-0.2f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(4,<sp/>seed,<sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(1.2f,<sp/>1.8f,<sp/>-0.3f,<sp/>0.3f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1ac22d0f4aad43d4eabaf88779f53ce7e3" kindref="member">hmap::fractalize</ref>(path,<sp/>8,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(noise,<sp/>bbox);</highlight></codeline>
@@ -39284,7 +38820,9 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zp<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a584e8b744dcfaddc8f161bc2fbc62bd1" kindref="member">to_array</ref>(zp,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dz<sp/>=<sp/><ref refid="namespacehmap_1ad520fcdbb47fc012dfea450ed2e7fbe0" kindref="member">hmap::generate_riverbed</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>dz<sp/>=<sp/><ref refid="namespacehmap_1ad520fcdbb47fc012dfea450ed2e7fbe0" kindref="member">hmap::generate_riverbed</ref>(path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref>(1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(dz);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>dz.<ref refid="classhmap_1_1Array_1a6059ab180f26a5580f6b271b78836ce4" kindref="member">to_png_grayscale</ref>(</highlight><highlight class="stringliteral">&quot;out.png&quot;</highlight><highlight class="normal">,<sp/>CV_16U);</highlight></codeline>
@@ -41883,7 +41421,8 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>shape<sp/>=<sp/>{1024,<sp/>1024};</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>seed<sp/>=<sp/>0;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/>bbox<sp/>=<sp/>{-1.f,<sp/>0.f,<sp/>0.5f,<sp/>1.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{-1.f,<sp/>0.f,<sp/>0.5f,<sp/>1.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref><sp/>uv_rect<sp/>=<sp/>{-1.f,<sp/>0.f,<sp/>0.5f,<sp/>1.5f};</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(10,<sp/>seed,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>cloud.<ref refid="classhmap_1_1Cloud_1ae9b5c430e9ede5e8f1dedc23341d89ac" kindref="member">snap_points_to_bounding_box</ref>(bbox);</highlight></codeline>
@@ -41914,7 +41453,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581af445f527425b2d746556541adf5d3d29" kindref="member">hmap::InterpolationMethod2D::ITP2D_NEAREST</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_NEAREST&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_DELAUNAY&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -41926,7 +41465,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581a5fc536ff63a05f254ff7583cccac8a12" kindref="member">hmap::InterpolationMethod2D::ITP2D_DELAUNAY</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_DELAUNAY&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_IDW&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -41937,7 +41476,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581a4beec3d16f7dc0a1873bb04d85ea6eec" kindref="member">hmap::InterpolationMethod2D::ITP2D_IDW</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_IDW&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_GAUSSIAN&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -41949,7 +41488,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581ac183d7ac1fa5e71a2563ed3fe93bafea" kindref="member">hmap::InterpolationMethod2D::ITP2D_GAUSSIAN</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_GAUSSIAN&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_NNI&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -41960,7 +41499,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a5bfab5d68e822294ff90fde21b85f581a95b33e28ebad4905884242b69db8de0d" kindref="member">hmap::InterpolationMethod2D::ITP2D_NNI</ref>,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;dx,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_NNI&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1ae9248cf01bfd4d8f680a6c7d5b80f45b" kindref="member">hmap::Timer::Start</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_CT&quot;</highlight><highlight class="normal">);</highlight></codeline>
@@ -41972,7 +41511,7 @@ The output path consists of:<itemizedlist>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>hmap::InterpolationMethod2D::ITP2D_NNI,</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">nullptr</highlight><highlight class="normal">,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Timer_1a6054c197a10338a1bd48299be29593b5" kindref="member">hmap::Timer::Stop</ref>(</highlight><highlight class="stringliteral">&quot;ITP2D_CT&quot;</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_interpolate2d.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
@@ -66119,10 +65658,8 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(noise,<sp/>0.f,<sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>base<sp/>path</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(9,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>0.2f,<sp/>-0.2f,<sp/>0.2f,<sp/>-0.2f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(9,<sp/>seed,<sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(1.2f,<sp/>1.8f,<sp/>-0.3f,<sp/>0.3f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>path.fractalize(2,<sp/>seed);</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(noise,<sp/>bbox);</highlight></codeline>
@@ -66130,10 +65667,13 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>zp<sp/>=<sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref>(shape);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1a584e8b744dcfaddc8f161bc2fbc62bd1" kindref="member">to_array</ref>(zp,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>sdf_2d<sp/>=<sp/><ref refid="namespacehmap_1a536f3a29bebd2515afaf2e7aab5bffd4" kindref="member">hmap::sdf_2d_polyline</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1UvRect" kindref="compound">hmap::UvRect</ref><sp/>uv_rect<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/><sp/>sdf_2d<sp/>=<sp/><ref refid="namespacehmap_1a536f3a29bebd2515afaf2e7aab5bffd4" kindref="member">hmap::sdf_2d_polyline</ref>(path,<sp/>shape,<sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(sdf_2d);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>sdf_2d_bezier<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,<sp/>shape,<sp/>bbox);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>sdf_2d_bezier<sp/>=<sp/><ref refid="namespacehmap_1a1ea35988a3eba00e07e8d6a5d429e868" kindref="member">hmap::sdf_2d_polyline_bezier</ref>(path,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>shape,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>uv_rect);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(sdf_2d_bezier);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_sdf_polyline.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
@@ -68737,8 +68277,10 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/>shape,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(z);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,<sp/>seed,<sp/><ref refid="namespacehmap_1adc5300323fa35e021fd83b8b048ef3b1" kindref="member">hmap::adjust</ref>(bbox,<sp/>-0.1f));</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{0.f,<sp/>1.f,<sp/>0.f,<sp/>1.f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref><sp/><sp/><sp/>path<sp/>=<sp/><ref refid="classhmap_1_1Path" kindref="compound">hmap::Path</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>(0.1f,<sp/>0.9f,<sp/>0.1f,<sp/>0.9f));</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1aeb2890d2ffbbf4291baf255c621095de" kindref="member">set_closed</ref>(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Path_1ad68abaa80879402c3758e24626acfb53" kindref="member">reorder_nns</ref>();</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(z,<sp/>bbox);</highlight></codeline>
@@ -68748,7 +68290,7 @@ See unit tests: <ref refid="test__remap_8cpp" kindref="compound">test_remap.cpp<
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>after</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>edge_divisions<sp/>=<sp/>0;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a73ba305b4bddf744368a107525bb3c81" kindref="member">hmap::dijkstra</ref>(path,<sp/>z,<sp/>bbox,<sp/>edge_divisions,<sp/>0.9f);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/>path<sp/>=<sp/><ref refid="namespacehmap_1a73ba305b4bddf744368a107525bb3c81" kindref="member">hmap::dijkstra</ref>(path,<sp/>z,<sp/><ref refid="structhmap_1_1UvRect_1a031dbc2efbe88f08444b62fd0d841a28" kindref="member">hmap::UvRect::unit</ref>(),<sp/>edge_divisions,<sp/>0.9f);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>path.<ref refid="classhmap_1_1Cloud_1abf9cb5d7aae7b1e05c7812042ee70f00" kindref="member">set_values_from_array</ref>(z,<sp/>bbox);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>z2<sp/>=<sp/>path.<ref refid="classhmap_1_1Path_1a584e8b744dcfaddc8f161bc2fbc62bd1" kindref="member">to_array</ref>(shape,<sp/>bbox);</highlight></codeline>
@@ -77284,11 +76826,11 @@ See unit tests: <ref refid="test__variance_8cpp" kindref="compound">test_varianc
 <codeline><highlight class="normal"><sp/><sp/>z.<ref refid="classhmap_1_1Array_1a599c6c808e90fb9147454bb76975f466" kindref="member">to_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_generate_network_alpha_model0.png&quot;</highlight><highlight class="normal">,<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a6d093dbf3088c52a8acee413942545d9" kindref="member">hmap::Cmap::TERRAIN</ref>,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>&quot;cities&quot;</highlight><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>4;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy<sp/>=<sp/>50<sp/>*<sp/>50;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>0.8f;</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/>glm::vec4<sp/><sp/><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npoints,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>npoints<sp/>=<sp/>4;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ndummy<sp/>=<sp/>50<sp/>*<sp/>50;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>alpha<sp/>=<sp/>0.8f;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref><sp/>bbox<sp/>=<sp/>{1.f,<sp/>2.f,<sp/>-0.5f,<sp/>0.5f};</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref><sp/><sp/>cloud<sp/>=<sp/><ref refid="classhmap_1_1Cloud" kindref="compound">hmap::Cloud</ref>(npoints,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed,</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1BBox2D" kindref="compound">hmap::BBox2D</ref>({1.2f,<sp/>1.8f,<sp/>-0.4f,<sp/>0.4f}));</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>

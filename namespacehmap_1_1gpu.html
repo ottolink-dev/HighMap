@@ -12740,8 +12740,8 @@ Functions</h2></td></tr>
 <div class="line"> </div>
 <div class="line">  <span class="comment">// --- generate mask</span></div>
 <div class="line"> </div>
-<div class="line">  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};</div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path = <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a>(10, seed, <a class="code hl_function" href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">hmap::adjust</a>(bbox, -0.1f));</div>
+<div class="line">  <a class="code hl_struct" href="structhmap_1_1BBox2D.html">hmap::BBox2D</a> bbox = {0.f, 1.f, 0.f, 1.f};</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a> path = <a class="code hl_class" href="classhmap_1_1Path.html">hmap::Path</a>(10, seed, <a class="code hl_struct" href="structhmap_1_1BBox2D.html">hmap::BBox2D</a>(0.1f, 0.9f, 0.1f, 0.9f));</div>
 <div class="line">  path.<a class="code hl_function" href="classhmap_1_1Path.html#ad68abaa80879402c3758e24626acfb53">reorder_nns</a>();</div>
 <div class="line">  <span class="keyword">auto</span> mask = <a class="code hl_function" href="namespacehmap.html#ac39b5e32d90e0351f4124ea61334461d">hmap::bezier</a>(path).<a class="code hl_function" href="classhmap_1_1Path.html#a584e8b744dcfaddc8f161bc2fbc62bd1">to_array</a>(shape, bbox);</div>
 <div class="line">  <a class="code hl_function" href="namespacehmap.html#a2badbebec49b12d0d721970a18eb420d">hmap::clamp_min</a>(mask, 0.f);</div>
@@ -12763,7 +12763,7 @@ Functions</h2></td></tr>
 <div class="ttc" id="anamespacehmap_1_1gpu_html_a0020f712944fdb63ee2894c19eaa27ca"><div class="ttname"><a href="#a0020f712944fdb63ee2894c19eaa27ca">hmap::gpu::sparse_max_convolution</a></div><div class="ttdeci">Array sparse_max_convolution(const Array &amp;array, const Array &amp;kernel, bool scale_kernel_with_value=true, float k_smoothmax=0.f)</div><div class="ttdoc">Apply a sparse max-convolution.</div><div class="ttdef"><b>Definition</b> sparse_max_convolution.cpp:15</div></div>
 <div class="ttc" id="anamespacehmap_html_a2badbebec49b12d0d721970a18eb420d"><div class="ttname"><a href="namespacehmap.html#a2badbebec49b12d0d721970a18eb420d">hmap::clamp_min</a></div><div class="ttdeci">void clamp_min(Array &amp;array, float vmin)</div><div class="ttdoc">Clamp array values lower than a given bound.</div><div class="ttdef"><b>Definition</b> range.cpp:155</div></div>
 <div class="ttc" id="anamespacehmap_html_ac39b5e32d90e0351f4124ea61334461d"><div class="ttname"><a href="namespacehmap.html#ac39b5e32d90e0351f4124ea61334461d">hmap::bezier</a></div><div class="ttdeci">Path bezier(const Path &amp;path, float curvature_ratio=0.3f, int edge_divisions=10, Path::EdgeDivisionMode edm=Path::EdgeDivisionMode::EDM_PER_EDGE)</div><div class="ttdoc">Smooth the path using Bezier curves.</div><div class="ttdef"><b>Definition</b> path_functions.cpp:51</div></div>
-<div class="ttc" id="anamespacehmap_html_adc5300323fa35e021fd83b8b048ef3b1"><div class="ttname"><a href="namespacehmap.html#adc5300323fa35e021fd83b8b048ef3b1">hmap::adjust</a></div><div class="ttdeci">glm::vec4 adjust(const glm::vec4 &amp;v, float dx, float dy, float dz, float dw)</div><div class="ttdef"><b>Definition</b> algebra.hpp:68</div></div>
+<div class="ttc" id="astructhmap_1_1BBox2D_html"><div class="ttname"><a href="structhmap_1_1BBox2D.html">hmap::BBox2D</a></div><div class="ttdoc">Axis-aligned 2D bounding box in world coordinates.</div><div class="ttdef"><b>Definition</b> bbox2d.hpp:25</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_sparse_max_convolution.png" alt=""/>
 </div>

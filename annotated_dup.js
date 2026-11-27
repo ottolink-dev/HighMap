@@ -83,7 +83,6 @@ var annotated_dup =
       [ "KDTree", "classhmap_1_1KDTree.html", "classhmap_1_1KDTree" ],
       [ "Path", "classhmap_1_1Path.html", "classhmap_1_1Path" ],
       [ "Point", "classhmap_1_1Point.html", "classhmap_1_1Point" ],
-      [ "DrainageBasin", "classhmap_1_1DrainageBasin.html", "classhmap_1_1DrainageBasin" ],
       [ "FlowGraph", "structhmap_1_1FlowGraph.html", "structhmap_1_1FlowGraph" ],
       [ "AssertResults", "structhmap_1_1AssertResults.html", "structhmap_1_1AssertResults" ],
       [ "RadixHeap", "structhmap_1_1RadixHeap.html", "structhmap_1_1RadixHeap" ],

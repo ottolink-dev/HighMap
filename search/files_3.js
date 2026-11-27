@@ -23,7 +23,5 @@ var searchData=
   ['distance_5ftransform_2ecpp_20',['distance_transform.cpp',['../distance__transform_8cpp.html',1,'']]],
   ['distance_5ftransform_5fapprox_2ecpp_21',['distance_transform_approx.cpp',['../distance__transform__approx_8cpp.html',1,'']]],
   ['distance_5ftransform_5fjfa_2ecpp_22',['distance_transform_jfa.cpp',['../distance__transform__jfa_8cpp.html',1,'']]],
-  ['drainage_5fbasin_2ecpp_23',['drainage_basin.cpp',['../drainage__basin_8cpp.html',1,'']]],
-  ['drainage_5fbasin_2ehpp_24',['drainage_basin.hpp',['../drainage__basin_8hpp.html',1,'']]],
-  ['dump_5fvisual_5fcheck_2ecpp_25',['dump_visual_check.cpp',['../dump__visual__check_8cpp.html',1,'']]]
+  ['dump_5fvisual_5fcheck_2ecpp_23',['dump_visual_check.cpp',['../dump__visual__check_8cpp.html',1,'']]]
 ];

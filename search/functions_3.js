@@ -42,11 +42,10 @@ var searchData=
   ['disttodomainimpl_39',['DistToDomainImpl',['../classhmap_1_1ArrayControlFunction.html#a3c40696e8f26f0e6fbd66f0f97b83082',1,'hmap::ArrayControlFunction::DistToDomainImpl()'],['../classhmap_1_1XyControlFunction.html#a8f38798bd59177d4ab9dbe4f58250651',1,'hmap::XyControlFunction::DistToDomainImpl()']]],
   ['divergence_5ffrom_5fgradients_40',['divergence_from_gradients',['../namespacehmap.html#a27518ea42feb447ad4eb83147663c24d',1,'hmap']]],
   ['divide_41',['divide',['../classhmap_1_1Path.html#a8650db137a1b4ecccf05cfd0fd7d320b',1,'hmap::Path']]],
-  ['drainagebasin_42',['DrainageBasin',['../classhmap_1_1DrainageBasin.html#ac28ba57c1b2b1bd25353aeb7dc9ac54c',1,'hmap::DrainageBasin']]],
-  ['dummy_43',['dummy',['../structhmap_1_1UvTile.html#a3a8878fea7b8e8885ab62c31fcc0d4ac',1,'hmap::UvTile']]],
-  ['dump_44',['Dump',['../classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f',1,'hmap::Timer']]],
-  ['dump_45',['dump',['../classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8',1,'hmap::Array::dump()'],['../structhmap_1_1Recorder.html#ac5bd6628a256636229047bbc12ced680',1,'hmap::Recorder::dump()']]],
-  ['dump_5fhistogram_46',['dump_histogram',['../classhmap_1_1Array.html#a36fa8104b8fe789f5035a1ddfa5b1519',1,'hmap::Array']]],
-  ['dump_5fvisual_5fcheck_47',['dump_visual_check',['../namespacehmap.html#aa162bbea6fc85aa1403204af49364230',1,'hmap']]],
-  ['dumpdurations_48',['DumpDurations',['../classhmap_1_1Timer.html#a61eaa1759a0b195fe512c276cc253eb9',1,'hmap::Timer']]]
+  ['dummy_42',['dummy',['../structhmap_1_1UvTile.html#a3a8878fea7b8e8885ab62c31fcc0d4ac',1,'hmap::UvTile']]],
+  ['dump_43',['Dump',['../classhmap_1_1Timer.html#a5bc931885a549c561740f39cea91dd5f',1,'hmap::Timer']]],
+  ['dump_44',['dump',['../classhmap_1_1Array.html#a00b8f7462c1e22b1da8a67ec62d4c8c8',1,'hmap::Array::dump()'],['../structhmap_1_1Recorder.html#ac5bd6628a256636229047bbc12ced680',1,'hmap::Recorder::dump()']]],
+  ['dump_5fhistogram_45',['dump_histogram',['../classhmap_1_1Array.html#a36fa8104b8fe789f5035a1ddfa5b1519',1,'hmap::Array']]],
+  ['dump_5fvisual_5fcheck_46',['dump_visual_check',['../namespacehmap.html#aa162bbea6fc85aa1403204af49364230',1,'hmap']]],
+  ['dumpdurations_47',['DumpDurations',['../classhmap_1_1Timer.html#a61eaa1759a0b195fe512c276cc253eb9',1,'hmap::Timer']]]
 ];
