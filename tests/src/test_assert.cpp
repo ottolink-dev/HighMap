@@ -1,7 +1,7 @@
-#include "highmap/internal/assert.hpp"
-
 #include <cmath>
 #include <limits>
+
+#include "highmap/internal/assert.hpp"
 
 #include <gtest/gtest.h>
 
@@ -28,9 +28,11 @@ TEST(AssertAlmostEqual, RejectsNonfiniteOperandsInEitherOrder)
 TEST(AssertAlmostEqual, RejectsNonfiniteTolerance)
 {
   const Array input(glm::ivec2(2, 2), 1.f);
-  EXPECT_FALSE(assert_almost_equal(input, input,
+  EXPECT_FALSE(assert_almost_equal(input,
+                                   input,
                                    std::numeric_limits<float>::quiet_NaN()));
-  EXPECT_FALSE(assert_almost_equal(input, input,
+  EXPECT_FALSE(assert_almost_equal(input,
+                                   input,
                                    std::numeric_limits<float>::infinity()));
 }
 
@@ -47,8 +49,8 @@ TEST(AssertAlmostEqual, ZeroFieldComparisonIsSymmetric)
 
 TEST(AssertAlmostEqual, PreservesRelativeL1ErrorAndTolerance)
 {
-  const Array a = Array({{1.f, -3.f}, {0.f, 0.f}});
-  const Array b = Array({{1.f, -3.004f}, {0.f, 0.f}});
+  const Array   a = Array({{1.f, -3.f}, {0.f, 0.f}});
+  const Array   b = Array({{1.f, -3.004f}, {0.f, 0.f}});
   AssertResults result;
   EXPECT_FALSE(assert_almost_equal(a, b, 0.0005f, "", &result));
   EXPECT_NEAR(result.diff, 0.001f, 1e-7f);
@@ -74,8 +76,8 @@ TEST(AssertAlmostEqual, FiniteExtremesDoNotOverflowNormalization)
 
 TEST(AssertAlmostEqual, SuccessfulComparisonResetsReusedResults)
 {
-  const Array zero(glm::ivec2(2, 2));
-  const Array one(glm::ivec2(2, 2), 1.f);
+  const Array   zero(glm::ivec2(2, 2));
+  const Array   one(glm::ivec2(2, 2), 1.f);
   AssertResults result;
   EXPECT_FALSE(assert_almost_equal(zero, one, 1e-6f, "", &result));
   EXPECT_FALSE(result.ret);

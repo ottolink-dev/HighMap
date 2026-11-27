@@ -175,11 +175,13 @@ TEST(Quilting, SecondaryChannelsShareGuideSeamsAndTransforms)
     for (int flags = 0; flags < 8; ++flags)
       for (float overlap : {0.f, 0.5f, 0.9f})
       {
-        SCOPED_TRACE(::testing::Message() << shape.x << "x" << shape.y << " flags="
-                                          << flags << " overlap=" << overlap);
+        SCOPED_TRACE(::testing::Message()
+                     << shape.x << "x" << shape.y << " flags=" << flags
+                     << " overlap=" << overlap);
         Array      guide = make_sample_array(shape, 91);
         Array      source = make_sample_array(shape, 37);
-        glm::ivec2 patch = shape.x == shape.y ? glm::ivec2(12, 12) : glm::ivec2(12, 8);
+        glm::ivec2 patch = shape.x == shape.y ? glm::ivec2(12, 12)
+                                              : glm::ivec2(12, 8);
         // A separate one-channel call checks every secondary cell, including
         // horizontal and vertical seams, against a channel-count invariant.
         Array              expected = source;
@@ -258,8 +260,8 @@ TEST(Quilting, ExpandAndShufflePreserveSecondaryChannelAlignment)
     for (bool keep_shape : {false, true})
       for (float ratio : {1.5f, 2.f})
       {
-        SCOPED_TRACE(::testing::Message() << "expand=" << expand << " keep=" << keep_shape
-                                          << " ratio=" << ratio);
+        SCOPED_TRACE(::testing::Message() << "expand=" << expand << " keep="
+                                          << keep_shape << " ratio=" << ratio);
         Array                guide = make_sample_array({48, 32}, 91);
         std::vector<Array>   channels(4, guide);
         std::vector<Array *> pointers;
@@ -298,24 +300,30 @@ TEST(Quilting, ExpandAndShufflePreserveSecondaryChannelAlignment)
 
 TEST(Quilting, MismatchedSecondaryShapesReturnEmptyWithoutMutation)
 {
-  Array guide = make_sample_array({48, 32}, 91);
-  Array other_guide = make_sample_array({32, 32}, 92);
-  Array secondary = make_sample_array({48, 32}, 37);
-  Array small = make_sample_array({32, 32}, 38);
+  Array       guide = make_sample_array({48, 32}, 91);
+  Array       other_guide = make_sample_array({32, 32}, 92);
+  Array       secondary = make_sample_array({48, 32}, 37);
+  Array       small = make_sample_array({32, 32}, 38);
   const Array original_guide = guide;
   const Array original_secondary = secondary;
   const Array original_small = small;
 
-  EXPECT_TRUE(quilting({&guide}, {12, 8}, {3, 4}, 0.9f, 12,
-                       {&guide, &secondary, &small}).vector.empty());
+  EXPECT_TRUE(quilting({&guide},
+                       {12, 8},
+                       {3, 4},
+                       0.9f,
+                       12,
+                       {&guide, &secondary, &small})
+                  .vector.empty());
   EXPECT_EQ(guide.vector, original_guide.vector);
   EXPECT_EQ(secondary.vector, original_secondary.vector);
   EXPECT_EQ(small.vector, original_small.vector);
 
   // Reject a mismatch with any possible guide, rather than depending on which
   // guide a particular random seed selects first.
-  EXPECT_TRUE(quilting({&guide, &other_guide}, {12, 8}, {3, 4}, 0.9f, 12,
-                       {&secondary}).vector.empty());
+  EXPECT_TRUE(
+      quilting({&guide, &other_guide}, {12, 8}, {3, 4}, 0.9f, 12, {&secondary})
+          .vector.empty());
   EXPECT_EQ(secondary.vector, original_secondary.vector);
 }
 
@@ -324,17 +332,27 @@ TEST(Quilting, RandomPatchSecondaryOwnershipPreservesSources)
   for (glm::ivec2 patch_shape : {glm::ivec2(12, 12), glm::ivec2(12, 8)})
     for (int flags = 0; flags < 8; ++flags)
     {
-      Array guide = make_sample_array({48, 32}, 91);
-      Array source = make_sample_array({48, 32}, 37);
-      const Array original_source = source;
-      std::mt19937 gen(12);
+      Array                guide = make_sample_array({48, 32}, 91);
+      Array                source = make_sample_array({48, 32}, 37);
+      const Array          original_source = source;
+      std::mt19937         gen(12);
       std::vector<Array *> pointers(20, &source);
-      std::vector<Array> patches(1, guide);
-      get_random_patch(guide, patch_shape, gen, flags & 1, flags & 2,
-                       flags & 4, &pointers, &patches);
+      std::vector<Array>   patches(1, guide);
+      get_random_patch(guide,
+                       patch_shape,
+                       gen,
+                       flags & 1,
+                       flags & 2,
+                       flags & 4,
+                       &pointers,
+                       &patches);
       std::mt19937 reference_gen(12);
-      Array expected = get_random_patch(source, patch_shape, reference_gen,
-                                        flags & 1, flags & 2, flags & 4);
+      Array        expected = get_random_patch(source,
+                                        patch_shape,
+                                        reference_gen,
+                                        flags & 1,
+                                        flags & 2,
+                                        flags & 4);
       ASSERT_EQ(patches.size(), pointers.size());
       for (const auto &patch : patches)
       {
@@ -349,16 +367,27 @@ TEST(Quilting, SubpixelSmoothingRadiusProducesFiniteSeams)
 {
   for (float width : {0.f, 0.2f})
   {
-    Array guide = make_sample_array({48, 48}, 91);
-    std::vector<Array> channels(4, guide);
+    Array                guide = make_sample_array({48, 48}, 91);
+    std::vector<Array>   channels(4, guide);
     std::vector<Array *> pointers;
-    for (auto &channel : channels) pointers.push_back(&channel);
+    for (auto &channel : channels)
+      pointers.push_back(&channel);
     // Expansion gives a six-cell patch with three overlap cells. Both widths
     // round the smoothing radius to zero, so the cut mask stays unsmoothed.
-    Array output = quilting_expand(guide, 2.f, {12, 12}, 0.5f, 123,
-                                    pointers, true, false, false, false, width);
+    Array output = quilting_expand(guide,
+                                   2.f,
+                                   {12, 12},
+                                   0.5f,
+                                   123,
+                                   pointers,
+                                   true,
+                                   false,
+                                   false,
+                                   false,
+                                   width);
     ASSERT_EQ(output.shape, guide.shape);
-    for (float value : output.vector) EXPECT_TRUE(std::isfinite(value));
+    for (float value : output.vector)
+      EXPECT_TRUE(std::isfinite(value));
     for (const auto &channel : channels)
       EXPECT_EQ(channel.vector, output.vector);
   }

@@ -1,10 +1,10 @@
+#include <cstdint>
+
 #include "highmap/array.hpp"
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"
 
 #include <bit>
-#include <cstdint>
-
 #include <gtest/gtest.h>
 
 using namespace hmap;
@@ -259,6 +259,7 @@ TEST(RangeClampSmooth, ZeroWidthUsesHardBoundsForEveryOverload)
   clamp_smooth(a, 0.f, 1.f, 0.f);
   check(a, {0.f, 0.f, 0.5f, 1.f, 1.f});
   a = input;
-  for (auto &value : a.vector) value = clamp_min_smooth(value, 0.f, 0.f);
+  for (auto &value : a.vector)
+    value = clamp_min_smooth(value, 0.f, 0.f);
   check(a, {0.f, 0.f, 0.5f, 1.f, 2.f});
 }

@@ -564,7 +564,7 @@ void match_histogram(Array &array, const Array &array_reference)
   {
     // A singleton has no rank interval. Use the central reference quantile
     // rather than dividing by zero and converting NaN to an array index.
-    float t = n == 1 ? 0.5f * (nr - 1)
+    float  t = n == 1 ? 0.5f * (nr - 1)
                       : static_cast<float>(i) / (n - 1) * (nr - 1);
     size_t j0 = static_cast<size_t>(t);
     size_t j1 = std::min(j0 + 1, nr - 1);

@@ -1,11 +1,11 @@
+#include <algorithm>
+#include <cstdint>
+
 #include "highmap.hpp"
 #include "highmap/internal/assert.hpp"
 #include "highmap/internal/timer.hpp"
 
-#include <algorithm>
 #include <bit>
-#include <cstdint>
-
 #include <gtest/gtest.h>
 
 using namespace hmap;
@@ -15,10 +15,13 @@ namespace
 bool only_finite_values(const Array &array)
 {
   // These tests also run in release builds with fast-math enabled.
-  return std::all_of(array.vector.begin(), array.vector.end(), [](float value)
-  {
-    return (std::bit_cast<std::uint32_t>(value) & 0x7f800000u) != 0x7f800000u;
-  });
+  return std::all_of(array.vector.begin(),
+                     array.vector.end(),
+                     [](float value)
+                     {
+                       return (std::bit_cast<std::uint32_t>(value) &
+                               0x7f800000u) != 0x7f800000u;
+                     });
 }
 } // namespace
 
