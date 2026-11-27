@@ -82,7 +82,7 @@ TEST_P(SingleArraySnapshotTest, PreservesSnapshotsOptionalPortsAndOutputReads)
       access,
       [&](const std::vector<const Array *> &in,
           std::vector<Array *> &out,
-          const TileRegion &region)
+          const UvTile &region)
       {
         ++calls;
         EXPECT_EQ(region.shape, working);
@@ -153,7 +153,7 @@ TEST(SingleArrayComputeTest, OutputOnlyCommunicatorKeepsExistingValues)
   int calls = 0;
   for_each_tile(
       output,
-      [&](Array &array, const TileRegion &, ICommunicator &comm)
+      [&](Array &array, const UvTile &, ICommunicator &comm)
       {
         ++calls;
         EXPECT_EQ(comm.size(), 1);
@@ -177,7 +177,7 @@ TEST(SingleArrayComputeTest, DirectMixedShapesRetainLegacyResampling)
       TileAccess{{&input}, {&output}},
       [&](const std::vector<const Array *> &in,
           std::vector<Array *> &out,
-          const TileRegion &)
+          const UvTile &)
       {
         ++calls;
         expect_same(*in[0], expected_input);
