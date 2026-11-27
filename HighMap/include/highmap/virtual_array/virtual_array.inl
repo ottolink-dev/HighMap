@@ -481,15 +481,26 @@ void single_array_compute(const TileAccess &access, Func &&func, int stride = 1)
 
   {
     HMAP_PROFILE_ZONE("HighMap::single_array.gather");
-    // project
-    for (auto *va : access.inputs)
-      arrays_in.push_back(
-          va ? va->to_array(cm_local).resample_to_shape(shape_wrk) : Array());
+    auto gather = [&](const VirtualArray *va)
+    {
+      if (!va) return Array();
 
+      // to_array already owns its snapshot. Same-shape resampling would only
+      // copy that entire buffer before the temporary is discarded.
+      if (va->shape == shape_wrk) return va->to_array(cm_local);
+
+      // Keep Array's pixel-centered interpolation for reduced/mixed shapes:
+      // to_array(shape_wrk) uses different sampling coordinates and tile halos.
+      return va->to_array(cm_local).resample_to_shape(shape_wrk);
+    };
+
+    for (auto *va : access.inputs)
+      arrays_in.push_back(gather(va));
+
+    // Outputs are independent snapshots too: callbacks may read their existing
+    // values, and an output may alias an input or another output slot.
     for (auto *va : access.outputs)
-      // TODO remove to_array(), left for retor-fit but misusage
-      arrays_out.push_back(
-          va ? va->to_array(cm_local).resample_to_shape(shape_wrk) : Array());
+      arrays_out.push_back(gather(va));
   }
   // create pointer vector for user func
   std::vector<const Array *> in_tiles;
