@@ -1,6 +1,5 @@
 var NAVTREEINDEX24 =
 {
-"test__gpu__cpu_8cpp.html#a76ab52580641281ea9fbecc3ad4a0bc5":[18,0,2,0,40,6],
 "test__gpu__cpu_8cpp.html#ab68ec3acee0ee4fccee1960479be5e77":[18,0,2,0,40,1],
 "test__gpu__cpu_8cpp.html#ad972008e159a6b74d51d30ac0995127b":[18,0,2,0,40,3],
 "test__gpu__cpu_8cpp.html#aeb7c6d5a947cdca7495b44b3af2ff5df":[18,0,2,0,40,8],
@@ -249,5 +248,6 @@ var NAVTREEINDEX24 =
 "test__point_8cpp.html":[18,0,2,0,67],
 "test__point_8cpp.html#a093af842c42a8beceec9690ed2986abf":[18,0,2,0,67,4],
 "test__point_8cpp.html#a141cf0143b0f6cb9a21e0c991802dd04":[18,0,2,0,67,21],
-"test__point_8cpp.html#a14d34cf371d9e38f988ce5eb6fe98605":[18,0,2,0,67,30]
+"test__point_8cpp.html#a14d34cf371d9e38f988ce5eb6fe98605":[18,0,2,0,67,30],
+"test__point_8cpp.html#a14d69667ae35e6628b4b3b8be25944fa":[18,0,2,0,67,8]
 };

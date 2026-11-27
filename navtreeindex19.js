@@ -185,8 +185,6 @@ var NAVTREEINDEX19 =
 "structhmap_1_1MiseParams.html#a5b1461ef5054b07fc654a37f871061f9":[17,0,0,17,15],
 "structhmap_1_1MiseParams.html#a76f2e3d92b83e66dda72b6617c043c8e":[16,0,0,19,23],
 "structhmap_1_1MiseParams.html#a76f2e3d92b83e66dda72b6617c043c8e":[17,0,0,17,23],
-"structhmap_1_1MiseParams.html#a78f12931787f7d315b15f96ce63f3666":[16,0,0,19,27],
-"structhmap_1_1MiseParams.html#a78f12931787f7d315b15f96ce63f3666":[17,0,0,17,27],
 "structhmap_1_1MiseParams.html#a7999062c11a53ef1d5471784aac00801":[16,0,0,19,17],
 "structhmap_1_1MiseParams.html#a7999062c11a53ef1d5471784aac00801":[17,0,0,17,17],
 "structhmap_1_1MiseParams.html#a80e1dd3848305407a2fa533828fb86aa":[16,0,0,19,8],
@@ -201,8 +199,8 @@ var NAVTREEINDEX19 =
 "structhmap_1_1MiseParams.html#aa97f45a7f577cbe847da66dc83694d49":[17,0,0,17,10],
 "structhmap_1_1MiseParams.html#ac75a6d02146d2a22e1d3d8df6625c016":[16,0,0,19,14],
 "structhmap_1_1MiseParams.html#ac75a6d02146d2a22e1d3d8df6625c016":[17,0,0,17,14],
-"structhmap_1_1MiseParams.html#accfce1dfcc562443e04bd26bf1e85343":[16,0,0,19,28],
-"structhmap_1_1MiseParams.html#accfce1dfcc562443e04bd26bf1e85343":[17,0,0,17,28],
+"structhmap_1_1MiseParams.html#accfce1dfcc562443e04bd26bf1e85343":[16,0,0,19,27],
+"structhmap_1_1MiseParams.html#accfce1dfcc562443e04bd26bf1e85343":[17,0,0,17,27],
 "structhmap_1_1MiseParams.html#ad1ba2da17a0fa03a7378c068e594dc33":[16,0,0,19,4],
 "structhmap_1_1MiseParams.html#ad1ba2da17a0fa03a7378c068e594dc33":[17,0,0,17,4],
 "structhmap_1_1MiseParams.html#ad3df43a436e2f42796eb2e3012c26cc6":[16,0,0,19,24],
@@ -249,5 +247,7 @@ var NAVTREEINDEX19 =
 "structhmap_1_1PoiGenerationOptions.html":[17,0,0,24],
 "structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[16,0,0,26,5],
 "structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[17,0,0,24,5],
-"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[16,0,0,26,8]
+"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[16,0,0,26,8],
+"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[17,0,0,24,8],
+"structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5":[16,0,0,26,0]
 };

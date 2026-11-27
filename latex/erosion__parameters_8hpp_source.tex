@@ -64,79 +64,77 @@
 \DoxyCodeLine{00066\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1MiseParams_a07deef93010cdece3e422eb3997f3b24}{extrapolate\_border}}\ =\ \textcolor{keyword}{true};\ \textcolor{comment}{//\ extrapolate\ border\ cells\ from}}
 \DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ interior}}
 \DoxyCodeLine{00068\ \ \ std::uint32\_t\ \mbox{\hyperlink{structhmap_1_1MiseParams_a4f3cae5228f65e71f50f28ae09cfd3d1}{seed}}\ =\ 1;\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ random\ seed}}
-\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{int}\ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1MiseParams_a78f12931787f7d315b15f96ce63f3666}{threads}}\ =\ 0;\ \ \ \ \ \ \textcolor{comment}{//\ thread\ count\ (0\ =\ hardware}}
-\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ concurrency)}}
-\DoxyCodeLine{00071\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1MiseParams_accfce1dfcc562443e04bd26bf1e85343}{exact\_flood}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \textcolor{comment}{//\ exact\ priority\ queue\ instead\ of}}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ buckets}}
-\DoxyCodeLine{00073\ \};}
+\DoxyCodeLine{00069\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1MiseParams_accfce1dfcc562443e04bd26bf1e85343}{exact\_flood}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ \ \ \textcolor{comment}{//\ exact\ priority\ queue\ instead\ of}}
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ buckets}}
+\DoxyCodeLine{00071\ \};}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
 \DoxyCodeLine{00074\ }
-\DoxyCodeLine{00075\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
-\DoxyCodeLine{00076\ }
-\DoxyCodeLine{00077\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1gpu}{hmap::gpu}}}
-\DoxyCodeLine{00078\ \{}
-\DoxyCodeLine{00079\ }
-\DoxyCodeLine{00083\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams}{McDonaldParams}}}
-\DoxyCodeLine{00084\ \{}
-\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d}{strength}}\ =\ 0.5f;\ \ \ \ \ \textcolor{comment}{//\ overall\ erosion\ power\ (scales\ suspension\ \&}}
-\DoxyCodeLine{00086\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ thermal\ rates)}}
-\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_ade24cbf1c7e3dac028493914320f9a9f}{deposition}}\ =\ 0.5f;\ \ \ \textcolor{comment}{//\ sediment\ retention\ vs\ transport}}
-\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a15250e4ae46007787eadad79bad7f2d0}{crit\_slope}}\ =\ 0.57f;\ \ \textcolor{comment}{//\ critical\ slope\ [m/m]}}
-\DoxyCodeLine{00089\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a2d0dbf68b65cd73c703153fb2a25fd77}{meandering}}\ =\ 0.5f;\ \ \ \textcolor{comment}{//\ flow-\/coupling\ \&\ momentum\ inertia}}
-\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a26d29e62a57c78296be778046fbd4a79}{scale}}\ =\ 1.0f;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ domain\ extent\ multiplier\ (scales\ world\_extent\_km}}
-\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ base\ z\_scale\_km)}}
-\DoxyCodeLine{00092\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a37f6ecca05e08dd313553aa601023d08}{relief\_scale}}\ =\ 1.0f;\ \textcolor{comment}{//\ relative\ vertical\ relief\ scale\ multiplier}}
-\DoxyCodeLine{00093\ }
-\DoxyCodeLine{00094\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}}
-\DoxyCodeLine{00095\ \ \ \{}
-\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ac8c03c5ae496d676dd21d9c5b081e117}{world\_extent\_km}};}
-\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4cbc778efd4a5d60da6c60e14028f8a0}{z\_scale\_km}};}
-\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a41bca3370d3df9fe7b7e01cf345e5de3}{samples}};}
-\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4a58f6aa57d4f9bfa0fbaccbec73ed3e}{maxage}};}
-\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a9d7d3bf7812591411cbb92a28f30f540}{lrate}};}
-\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0128c4de587176f93a84e79ba0846319}{time\_step}};}
-\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a06dd77debc3c3a49b2a5d5a414660e3f}{rainfall}};}
-\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4fba36ac507bf1be4d121dd1d617fb56}{evap\_rate}};}
-\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae295be74dc93b1b5e8c0ab5eb0b83944}{gravity}};}
-\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6f1fa2015e39458d3c0465e5d08893c0}{viscosity}};}
-\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a95ca00549157d870b06c62d10efc65e2}{bed\_shear}};}
-\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0263976fe02450aa64b248927d359582}{crit\_slope}};}
-\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_af07072c0ff36e52d8ec9781f4318227f}{settle\_rate}};}
-\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae3b9e319ee4d335f7160ec0c288dc717}{thermal\_rate}};}
-\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0bb1f5db548cbbb733e1d49e2c958b89}{deposition\_rate}};}
-\DoxyCodeLine{00111\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6957f3c429e254be4d008b04377c9f8c}{suspension\_rate}};}
-\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a2aff26c3de97c9ef7bbf97ee07c72203}{exit\_slope}};}
-\DoxyCodeLine{00113\ \ \ \};}
-\DoxyCodeLine{00114\ }
-\DoxyCodeLine{00115\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a153ea9cbc50dcb176ecabad849eb4159}{to\_physical}}()\textcolor{keyword}{\ const}}
-\DoxyCodeLine{00116\ \textcolor{keyword}{\ \ }\{}
-\DoxyCodeLine{00117\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}\ p;}
-\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ s\ =\ std::max(1e-\/4f,\ this-\/>scale);}
-\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ r\ =\ std::max(1e-\/4f,\ this-\/>relief\_scale);}
-\DoxyCodeLine{00120\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ac8c03c5ae496d676dd21d9c5b081e117}{world\_extent\_km}}\ =\ 40.f\ *\ s;}
-\DoxyCodeLine{00121\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4cbc778efd4a5d60da6c60e14028f8a0}{z\_scale\_km}}\ =\ 4.f\ *\ s\ *\ r;}
-\DoxyCodeLine{00122\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a41bca3370d3df9fe7b7e01cf345e5de3}{samples}}\ =\ 8192;}
-\DoxyCodeLine{00123\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4a58f6aa57d4f9bfa0fbaccbec73ed3e}{maxage}}\ =\ 512;}
-\DoxyCodeLine{00124\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a9d7d3bf7812591411cbb92a28f30f540}{lrate}}\ =\ 0.1f\ +\ 0.8f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
-\DoxyCodeLine{00125\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0128c4de587176f93a84e79ba0846319}{time\_step}}\ =\ 10.f;}
-\DoxyCodeLine{00126\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a06dd77debc3c3a49b2a5d5a414660e3f}{rainfall}}\ =\ 1.f;}
-\DoxyCodeLine{00127\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4fba36ac507bf1be4d121dd1d617fb56}{evap\_rate}}\ =\ 1e-\/9f;}
-\DoxyCodeLine{00128\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae295be74dc93b1b5e8c0ab5eb0b83944}{gravity}}\ =\ 9.81f;}
-\DoxyCodeLine{00129\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6f1fa2015e39458d3c0465e5d08893c0}{viscosity}}\ =\ 0.01f\ +\ 0.03f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
-\DoxyCodeLine{00130\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a95ca00549157d870b06c62d10efc65e2}{bed\_shear}}\ =\ 0.02f\ -\/\ 0.015f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
-\DoxyCodeLine{00131\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0263976fe02450aa64b248927d359582}{crit\_slope}}\ =\ std::max(1e-\/4f,\ this-\/>crit\_slope);}
-\DoxyCodeLine{00132\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_af07072c0ff36e52d8ec9781f4318227f}{settle\_rate}}\ =\ 0.1f\ *}
-\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>deposition,\ 0.f,\ 1.f));}
-\DoxyCodeLine{00134\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae3b9e319ee4d335f7160ec0c288dc717}{thermal\_rate}}\ =\ 2.5e-\/3f\ *}
-\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>strength,\ 0.f,\ 1.f));}
-\DoxyCodeLine{00136\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0bb1f5db548cbbb733e1d49e2c958b89}{deposition\_rate}}\ =\ 5e-\/3f\ *}
-\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>deposition,\ 0.f,\ 1.f));}
-\DoxyCodeLine{00138\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6957f3c429e254be4d008b04377c9f8c}{suspension\_rate}}\ =\ 2.5e-\/4f\ *}
-\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>strength,\ 0.f,\ 1.f));}
-\DoxyCodeLine{00140\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a2aff26c3de97c9ef7bbf97ee07c72203}{exit\_slope}}\ =\ 0.01f;}
-\DoxyCodeLine{00141\ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
-\DoxyCodeLine{00142\ \ \ \}}
-\DoxyCodeLine{00143\ \};}
-\DoxyCodeLine{00144\ }
-\DoxyCodeLine{00145\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
+\DoxyCodeLine{00075\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap_1_1gpu}{hmap::gpu}}}
+\DoxyCodeLine{00076\ \{}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams}{McDonaldParams}}}
+\DoxyCodeLine{00082\ \{}
+\DoxyCodeLine{00083\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a3d202fa7479bc8acf4c421b5c1a7ca6d}{strength}}\ =\ 0.5f;\ \ \ \ \ \textcolor{comment}{//\ overall\ erosion\ power\ (scales\ suspension\ \&}}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ thermal\ rates)}}
+\DoxyCodeLine{00085\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_ade24cbf1c7e3dac028493914320f9a9f}{deposition}}\ =\ 0.5f;\ \ \ \textcolor{comment}{//\ sediment\ retention\ vs\ transport}}
+\DoxyCodeLine{00086\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a15250e4ae46007787eadad79bad7f2d0}{crit\_slope}}\ =\ 0.57f;\ \ \textcolor{comment}{//\ critical\ slope\ [m/m]}}
+\DoxyCodeLine{00087\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a2d0dbf68b65cd73c703153fb2a25fd77}{meandering}}\ =\ 0.5f;\ \ \ \textcolor{comment}{//\ flow-\/coupling\ \&\ momentum\ inertia}}
+\DoxyCodeLine{00088\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a26d29e62a57c78296be778046fbd4a79}{scale}}\ =\ 1.0f;\ \ \ \ \ \ \ \ \textcolor{comment}{//\ domain\ extent\ multiplier\ (scales\ world\_extent\_km}}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ and\ base\ z\_scale\_km)}}
+\DoxyCodeLine{00090\ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a37f6ecca05e08dd313553aa601023d08}{relief\_scale}}\ =\ 1.0f;\ \textcolor{comment}{//\ relative\ vertical\ relief\ scale\ multiplier}}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}}
+\DoxyCodeLine{00093\ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ac8c03c5ae496d676dd21d9c5b081e117}{world\_extent\_km}};}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4cbc778efd4a5d60da6c60e14028f8a0}{z\_scale\_km}};}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a41bca3370d3df9fe7b7e01cf345e5de3}{samples}};}
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{int}\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4a58f6aa57d4f9bfa0fbaccbec73ed3e}{maxage}};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a9d7d3bf7812591411cbb92a28f30f540}{lrate}};}
+\DoxyCodeLine{00099\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0128c4de587176f93a84e79ba0846319}{time\_step}};}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a06dd77debc3c3a49b2a5d5a414660e3f}{rainfall}};}
+\DoxyCodeLine{00101\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4fba36ac507bf1be4d121dd1d617fb56}{evap\_rate}};}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae295be74dc93b1b5e8c0ab5eb0b83944}{gravity}};}
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6f1fa2015e39458d3c0465e5d08893c0}{viscosity}};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a95ca00549157d870b06c62d10efc65e2}{bed\_shear}};}
+\DoxyCodeLine{00105\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0263976fe02450aa64b248927d359582}{crit\_slope}};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_af07072c0ff36e52d8ec9781f4318227f}{settle\_rate}};}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae3b9e319ee4d335f7160ec0c288dc717}{thermal\_rate}};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0bb1f5db548cbbb733e1d49e2c958b89}{deposition\_rate}};}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6957f3c429e254be4d008b04377c9f8c}{suspension\_rate}};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a2aff26c3de97c9ef7bbf97ee07c72203}{exit\_slope}};}
+\DoxyCodeLine{00111\ \ \ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}\ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_a153ea9cbc50dcb176ecabad849eb4159}{to\_physical}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00114\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00115\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams}{PhysicalParams}}\ p;}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ s\ =\ std::max(1e-\/4f,\ this-\/>scale);}
+\DoxyCodeLine{00117\ \ \ \ \ \textcolor{keywordtype}{float}\ \ \ \ \ \ \ \ \ \ r\ =\ std::max(1e-\/4f,\ this-\/>relief\_scale);}
+\DoxyCodeLine{00118\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ac8c03c5ae496d676dd21d9c5b081e117}{world\_extent\_km}}\ =\ 40.f\ *\ s;}
+\DoxyCodeLine{00119\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4cbc778efd4a5d60da6c60e14028f8a0}{z\_scale\_km}}\ =\ 4.f\ *\ s\ *\ r;}
+\DoxyCodeLine{00120\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a41bca3370d3df9fe7b7e01cf345e5de3}{samples}}\ =\ 8192;}
+\DoxyCodeLine{00121\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4a58f6aa57d4f9bfa0fbaccbec73ed3e}{maxage}}\ =\ 512;}
+\DoxyCodeLine{00122\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a9d7d3bf7812591411cbb92a28f30f540}{lrate}}\ =\ 0.1f\ +\ 0.8f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
+\DoxyCodeLine{00123\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0128c4de587176f93a84e79ba0846319}{time\_step}}\ =\ 10.f;}
+\DoxyCodeLine{00124\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a06dd77debc3c3a49b2a5d5a414660e3f}{rainfall}}\ =\ 1.f;}
+\DoxyCodeLine{00125\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a4fba36ac507bf1be4d121dd1d617fb56}{evap\_rate}}\ =\ 1e-\/9f;}
+\DoxyCodeLine{00126\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae295be74dc93b1b5e8c0ab5eb0b83944}{gravity}}\ =\ 9.81f;}
+\DoxyCodeLine{00127\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6f1fa2015e39458d3c0465e5d08893c0}{viscosity}}\ =\ 0.01f\ +\ 0.03f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
+\DoxyCodeLine{00128\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a95ca00549157d870b06c62d10efc65e2}{bed\_shear}}\ =\ 0.02f\ -\/\ 0.015f\ *\ std::clamp(this-\/>meandering,\ 0.f,\ 1.f);}
+\DoxyCodeLine{00129\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0263976fe02450aa64b248927d359582}{crit\_slope}}\ =\ std::max(1e-\/4f,\ this-\/>crit\_slope);}
+\DoxyCodeLine{00130\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_af07072c0ff36e52d8ec9781f4318227f}{settle\_rate}}\ =\ 0.1f\ *}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>deposition,\ 0.f,\ 1.f));}
+\DoxyCodeLine{00132\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_ae3b9e319ee4d335f7160ec0c288dc717}{thermal\_rate}}\ =\ 2.5e-\/3f\ *}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>strength,\ 0.f,\ 1.f));}
+\DoxyCodeLine{00134\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a0bb1f5db548cbbb733e1d49e2c958b89}{deposition\_rate}}\ =\ 5e-\/3f\ *}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>deposition,\ 0.f,\ 1.f));}
+\DoxyCodeLine{00136\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a6957f3c429e254be4d008b04377c9f8c}{suspension\_rate}}\ =\ 2.5e-\/4f\ *}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (0.2f\ +\ 1.6f\ *\ std::clamp(this-\/>strength,\ 0.f,\ 1.f));}
+\DoxyCodeLine{00138\ \ \ \ \ p.\mbox{\hyperlink{structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams_a2aff26c3de97c9ef7bbf97ee07c72203}{exit\_slope}}\ =\ 0.01f;}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordflow}{return}\ p;}
+\DoxyCodeLine{00140\ \ \ \}}
+\DoxyCodeLine{00141\ \};}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \}\ \textcolor{comment}{//\ namespace\ hmap::gpu}}
 
 \end{DoxyCode}

@@ -242,13 +242,13 @@ var NAVTREEINDEX =
 "namespacehmap_1_1gpu.html#ab2fe1c8cf35be5a9928dc84c7acec71a",
 "point__sampling_8hpp.html",
 "structhmap_1_1DeformationConstraint.html",
-"structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e",
-"structhmap_1_1TerrainTriMesh_1_1Edge.html#a929e0593ce70fabcac04c77ef18de2a0",
-"structhmap_1_1VirtualTextureStorage.html#a4f2d03a10a486427a4792228477c8d8c",
-"test__cloud_8cpp.html#afbb5b1c88e88a97044e5571bce02ddb0",
-"test__gpu__cpu_8cpp.html#a76ab52580641281ea9fbecc3ad4a0bc5",
-"test__point_8cpp.html#a14d69667ae35e6628b4b3b8be25944fa",
-"test__terrain__tri__mesh_8cpp.html#a7ed4aaa3369b261b9bca54beca54be9c"
+"structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5",
+"structhmap_1_1TerrainTriMesh_1_1EdgeHash.html",
+"structhmap_1_1VirtualTextureStorage.html#a518936a932a928a0b1b135f976491e8b",
+"test__cloud_8cpp.html#afef07475b5960e6b160236e888c19205",
+"test__gpu__cpu_8cpp.html#ab68ec3acee0ee4fccee1960479be5e77",
+"test__point_8cpp.html#a1897145540705f2ed8891169448f12f8",
+"test__terrain__tri__mesh_8cpp.html#a80979cd41d6bd6efef88bb25714c2bf8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

@@ -27,6 +27,5 @@ var structhmap_1_1MiseParams =
     [ "antialias", "structhmap_1_1MiseParams.html#ad3df43a436e2f42796eb2e3012c26cc6", null ],
     [ "extrapolate_border", "structhmap_1_1MiseParams.html#a07deef93010cdece3e422eb3997f3b24", null ],
     [ "seed", "structhmap_1_1MiseParams.html#a4f3cae5228f65e71f50f28ae09cfd3d1", null ],
-    [ "threads", "structhmap_1_1MiseParams.html#a78f12931787f7d315b15f96ce63f3666", null ],
     [ "exact_flood", "structhmap_1_1MiseParams.html#accfce1dfcc562443e04bd26bf1e85343", null ]
 ];
