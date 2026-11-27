@@ -245,10 +245,10 @@ var NAVTREEINDEX =
 "structhmap_1_1PoiGenerationOptions.html#a4a45da9f7a9133406b90de3e9ab2dfa5",
 "structhmap_1_1TerrainTriMesh_1_1EdgeHash.html",
 "structhmap_1_1VirtualTextureStorage.html#a518936a932a928a0b1b135f976491e8b",
-"test__cloud_8cpp.html#afef07475b5960e6b160236e888c19205",
-"test__gpu__cpu_8cpp.html#ab68ec3acee0ee4fccee1960479be5e77",
-"test__point_8cpp.html#a1897145540705f2ed8891169448f12f8",
-"test__terrain__tri__mesh_8cpp.html#a80979cd41d6bd6efef88bb25714c2bf8"
+"test__cloud_8cpp.html#ad2fb29c6c499be88712ced2359b13832",
+"test__forest__seeding_8cpp.html#afabf5d00e010448330689e5e82679843",
+"test__poi_8cpp.html#a5eb15bf795f425cf190c983ece52f6a8",
+"test__snow__simulation_8cpp.html#a1a919a8cbfebfca5ed4611a8494f81c1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

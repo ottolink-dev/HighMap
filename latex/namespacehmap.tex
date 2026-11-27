@@ -12167,7 +12167,7 @@ void hmap\+::match\+\_\+histogram (\begin{DoxyParamCaption}\item[{\mbox{\hyperli
 
 Transform the input array elevation to match the histogram of a reference array. 
 
-This function performs histogram matching on the input array to adjust its elevation values so that the resulting histogram closely matches the histogram of a reference array. This process is useful for aligning the statistical properties of the input data with those of the reference data.
+This function performs histogram matching on the input array to adjust its elevation values so that the resulting histogram closely matches the histogram of a reference array. This process is useful for aligning the statistical properties of the input data with those of the reference data. A single input sample maps to the reference median, interpolating between the two central reference values for an even sample count. Empty input or reference arrays leave the input unchanged.
 
 
 \begin{DoxyParams}{Parameters}
@@ -36844,6 +36844,8 @@ This function creates a new heightmap by stitching patches from a set of input h
 {\em overlap} & Overlap between patches, in the range \mbox{]}0, 1\mbox{[}. \\
 \hline
 {\em seed} & Random seed number for patch placement. \\
+\hline
+{\em secondary\+\_\+arrays} & Optional channels transformed using the guide\textquotesingle{}s patches and seams. Each must match every guide\textquotesingle{}s shape; otherwise an empty array is returned without modifying the channels. Pointers may repeat or alias a guide. \\
 \hline
 {\em patch\+\_\+flip} & Allow flipping of patches (up-\/down, left-\/right). \\
 \hline

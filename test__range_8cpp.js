@@ -19,5 +19,6 @@ var test__range_8cpp =
     [ "TEST", "test__range_8cpp.html#a417cfdc675fb702df39ada5ee6ec5352", null ],
     [ "TEST", "test__range_8cpp.html#a65d7a47c4c1a6dd7a415568ace456c85", null ],
     [ "TEST", "test__range_8cpp.html#a83800fe321e3ee89fc5891f1b405b727", null ],
-    [ "TEST", "test__range_8cpp.html#a777604b1fbc3e78370199c872c44fa8e", null ]
+    [ "TEST", "test__range_8cpp.html#a777604b1fbc3e78370199c872c44fa8e", null ],
+    [ "TEST", "test__range_8cpp.html#ad340867ffd9f7729edf3868aa7b1f3ce", null ]
 ];
