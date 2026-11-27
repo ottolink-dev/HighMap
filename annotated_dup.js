@@ -86,6 +86,7 @@ var annotated_dup =
       [ "DrainageBasin", "classhmap_1_1DrainageBasin.html", "classhmap_1_1DrainageBasin" ],
       [ "DrainageBasinCellBased", "classhmap_1_1DrainageBasinCellBased.html", "classhmap_1_1DrainageBasinCellBased" ],
       [ "AssertResults", "structhmap_1_1AssertResults.html", "structhmap_1_1AssertResults" ],
+      [ "RadixHeap", "structhmap_1_1RadixHeap.html", "structhmap_1_1RadixHeap" ],
       [ "Recorder", "structhmap_1_1Recorder.html", "structhmap_1_1Recorder" ],
       [ "Timer", "classhmap_1_1Timer.html", "classhmap_1_1Timer" ],
       [ "ScopedTimer", "structhmap_1_1ScopedTimer.html", "structhmap_1_1ScopedTimer" ],

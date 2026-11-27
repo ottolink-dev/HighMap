@@ -12,6 +12,7 @@ var searchData=
   ['bias_5fsin_9',['bias_sin',['../classhmap_1_1FbmSlopeFunction.html#aafa73fd45e67f66facaa42c3fe5b66f4',1,'hmap::FbmSlopeFunction']]],
   ['bias_5fstrength_10',['bias_strength',['../classhmap_1_1FbmSlopeFunction.html#a7834179863d11ed69457ec12264eacef',1,'hmap::FbmSlopeFunction']]],
   ['border_5fmargin_11',['border_margin',['../structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63',1,'hmap::PoiGenerationOptions']]],
-  ['bx_12',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
-  ['by_13',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
+  ['bucket_12',['bucket',['../structhmap_1_1RadixHeap.html#a4623a51ca639b9b65a58060522d27e55',1,'hmap::RadixHeap']]],
+  ['bx_13',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
+  ['by_14',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
 ];

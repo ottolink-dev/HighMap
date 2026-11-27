@@ -103,6 +103,7 @@ var hierarchy =
     [ "hmap::Point", "classhmap_1_1Point.html", null ],
     [ "hmap::PointOfInterest", "structhmap_1_1PointOfInterest.html", null ],
     [ "hmap::QuadSurfaceFunction", "classhmap_1_1QuadSurfaceFunction.html", null ],
+    [ "hmap::RadixHeap&lt; T &gt;", "structhmap_1_1RadixHeap.html", null ],
     [ "hmap::Recorder", "structhmap_1_1Recorder.html", null ],
     [ "hmap::RectangleFunction", "classhmap_1_1RectangleFunction.html", null ],
     [ "hmap::RiftFunction", "classhmap_1_1RiftFunction.html", null ],

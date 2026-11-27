@@ -19,7 +19,7 @@ var searchData=
   ['config_16',['config',['../structhmap_1_1BigTiffWriter_1_1Impl.html#a8bf913a264952038398bca582e956847',1,'hmap::BigTiffWriter::Impl::config'],['../structhmap_1_1OpenCVWriter_1_1Impl.html#ac849629dde1ec2d35b849704685027ef',1,'hmap::OpenCVWriter::Impl::config'],['../structhmap_1_1OpenEXRWriter_1_1Impl.html#aa052a4d977058befcbafdee5746321c5',1,'hmap::OpenEXRWriter::Impl::config']]],
   ['contrast_17',['contrast',['../structhmap_1_1ColorAdjust.html#a9d4b1c3d2a6af81d3d5c61491782a74d',1,'hmap::ColorAdjust']]],
   ['cos_5fa_18',['cos_a',['../classhmap_1_1GenericFractalFunction.html#aa76b12133e29ddea5c853083e53d1699',1,'hmap::GenericFractalFunction']]],
-  ['count_19',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults']]],
+  ['count_19',['count',['../structhmap_1_1AssertResults.html#a4c628df3519b0272201adac2607573a9',1,'hmap::AssertResults::count'],['../structhmap_1_1RadixHeap.html#a2a48e1c5aa4fbbf9a37952a54610e3b4',1,'hmap::RadixHeap::count']]],
   ['crit_5fslope_20',['crit_slope',['../structhmap_1_1gpu_1_1McDonaldParams.html#a15250e4ae46007787eadad79bad7f2d0',1,'hmap::gpu::McDonaldParams::crit_slope'],['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a0263976fe02450aa64b248927d359582',1,'hmap::gpu::McDonaldParams::PhysicalParams::crit_slope']]],
   ['cx_21',['cx',['../structhmap_1_1AffineTransform2D.html#a2dbdf74c170cc900b905b3a0f43e7114',1,'hmap::AffineTransform2D']]],
   ['cy_22',['cy',['../structhmap_1_1AffineTransform2D.html#a2388d285b5af7faacd16cb9c47273434',1,'hmap::AffineTransform2D']]]

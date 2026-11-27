@@ -1,0 +1,115 @@
+\doxysection{radix\+\_\+heap.\+hpp}
+\hypertarget{radix__heap_8hpp_source}{}\label{radix__heap_8hpp_source}\index{HighMap/include/highmap/internal/radix\_heap.hpp@{HighMap/include/highmap/internal/radix\_heap.hpp}}
+\mbox{\hyperlink{radix__heap_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ Copyright\ (c)\ 2023\ Otto\ Link.\ Distributed\ under\ the\ terms\ of\ the\ GNU\ General}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ Public\ License.\ The\ full\ license\ is\ in\ the\ file\ LICENSE,\ distributed\ with}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ this\ software.\ */}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ <bit>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ <cstdint>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ <cstring>}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ <utility>}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacehmap}{hmap}}}
+\DoxyCodeLine{00023\ \{}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ order-\/preserving\ mapping\ between\ IEEE-\/754\ float\ and\ uint32\_t\ for\ radix}}
+\DoxyCodeLine{00026\ \textcolor{comment}{//\ sorting}}
+\DoxyCodeLine{00027\ \textcolor{keyword}{inline}\ uint32\_t\ \mbox{\hyperlink{namespacehmap_a90fb3243b59c59c38bc18477b38bf3ca}{float\_key}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})}
+\DoxyCodeLine{00028\ \{}
+\DoxyCodeLine{00029\ \ \ uint32\_t\ u\ =\ 0;}
+\DoxyCodeLine{00030\ \ \ std::memcpy(\&u,\ \&\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},\ 4);}
+\DoxyCodeLine{00031\ \ \ \textcolor{keywordflow}{return}\ (u\ \&\ 0x80000000u)\ ?\ \string~u\ :\ (u\ |\ 0x80000000u);}
+\DoxyCodeLine{00032\ \}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a017cf38d6df0c6fb066b61fd54d3cb5a}{key\_float}}(uint32\_t\ k)}
+\DoxyCodeLine{00035\ \{}
+\DoxyCodeLine{00036\ \ \ uint32\_t\ u\ =\ (k\ \&\ 0x80000000u)\ ?\ (k\ \&\ 0x7fffffffu)\ :\ \string~k;}
+\DoxyCodeLine{00037\ \ \ \textcolor{keywordtype}{float}\ \ \ \ \mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}}\ =\ 0.f;}
+\DoxyCodeLine{00038\ \ \ std::memcpy(\&\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}},\ \&u,\ 4);}
+\DoxyCodeLine{00039\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}};}
+\DoxyCodeLine{00040\ \}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{keyword}{inline}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{namespacehmap_a6503b05d83425c53c99042301cdc41d2}{next\_up}}(\textcolor{keywordtype}{float}\ \mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})}
+\DoxyCodeLine{00043\ \{}
+\DoxyCodeLine{00044\ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{namespacehmap_a017cf38d6df0c6fb066b61fd54d3cb5a}{key\_float}}(\mbox{\hyperlink{namespacehmap_a90fb3243b59c59c38bc18477b38bf3ca}{float\_key}}(\mbox{\hyperlink{distance__transform_8cpp_abcb9259cf91bfd25e92a72cdf18c285e}{f}})\ +\ 1u);}
+\DoxyCodeLine{00045\ \}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ monotone\ priority\ queue\ (radix\ heap)\ for\ fast\ exact\ flood\ /\ Dijkstra}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ T\ =\ \textcolor{keywordtype}{int}>\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structhmap_1_1RadixHeap}{RadixHeap}}}
+\DoxyCodeLine{00049\ \{}
+\DoxyCodeLine{00050\ \ \ std::vector<std::pair<uint32\_t,\ T>>\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[33];}
+\DoxyCodeLine{00051\ \ \ uint32\_t\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}}\ =\ 0;}
+\DoxyCodeLine{00052\ \ \ \textcolor{keywordtype}{size\_t}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}}\ =\ 0;}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a408c680acfa418c64dc5318d53d1d949}{empty}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00055\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}}\ ==\ 0;}
+\DoxyCodeLine{00057\ \ \ \}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \ \ \textcolor{keywordtype}{size\_t}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a99165fe9a575fcb74774639f7805eceb}{size}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00060\ \textcolor{keyword}{\ \ }\{}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordflow}{return}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}};}
+\DoxyCodeLine{00062\ \ \ \}}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a6cb273ed552442813fcc0aaf80e441d4}{clear}}()}
+\DoxyCodeLine{00065\ \ \ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&b\ :\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}})}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ b.clear();}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}}\ =\ 0;}
+\DoxyCodeLine{00070\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}}\ =\ 0;}
+\DoxyCodeLine{00071\ \ \ \}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a2889ef20cebaa26104017172047a29cc}{slot}}(uint32\_t\ x)}
+\DoxyCodeLine{00074\ \ \ \{}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordflow}{return}\ (\textcolor{keywordtype}{int})std::bit\_width(x);}
+\DoxyCodeLine{00076\ \ \ \}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_aecbd0957ae2041f90db7b73925a9000e}{push}}(uint32\_t\ key,\ \textcolor{keyword}{const}\ T\ \&val)}
+\DoxyCodeLine{00079\ \ \ \{}
+\DoxyCodeLine{00080\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[\mbox{\hyperlink{structhmap_1_1RadixHeap_a2889ef20cebaa26104017172047a29cc}{slot}}(key\ \string^\ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}})].emplace\_back(key,\ val);}
+\DoxyCodeLine{00081\ \ \ \ \ ++\mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}};}
+\DoxyCodeLine{00082\ \ \ \}}
+\DoxyCodeLine{00083\ }
+\DoxyCodeLine{00084\ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structhmap_1_1RadixHeap_ae1bb7b356c1caba84edd4825835915e3}{push}}(uint32\_t\ key,\ T\ \&\&val)}
+\DoxyCodeLine{00085\ \ \ \{}
+\DoxyCodeLine{00086\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[\mbox{\hyperlink{structhmap_1_1RadixHeap_a2889ef20cebaa26104017172047a29cc}{slot}}(key\ \string^\ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}})].emplace\_back(key,\ std::move(val));}
+\DoxyCodeLine{00087\ \ \ \ \ ++\mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}};}
+\DoxyCodeLine{00088\ \ \ \}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ std::pair<uint32\_t,\ T>\ \mbox{\hyperlink{structhmap_1_1RadixHeap_afee660396ecb5819b1274443711de9b0}{pop}}()}
+\DoxyCodeLine{00091\ \ \ \{}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[0].\mbox{\hyperlink{structhmap_1_1RadixHeap_a408c680acfa418c64dc5318d53d1d949}{empty}}())}
+\DoxyCodeLine{00093\ \ \ \ \ \{}
+\DoxyCodeLine{00094\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ i\ =\ 1;}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[i].\mbox{\hyperlink{structhmap_1_1RadixHeap_a408c680acfa418c64dc5318d53d1d949}{empty}}())}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \ \ ++i;}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \ \ \ \ \ \ uint32\_t\ mn\ =\ 0xffffffffu;}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{const}\ \textcolor{keyword}{auto}\ \&e\ :\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[i])}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ mn\ =\ std::min(mn,\ e.first);}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}}\ =\ mn;}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keyword}{auto}\ \&e\ :\ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[i])}
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[\mbox{\hyperlink{structhmap_1_1RadixHeap_a2889ef20cebaa26104017172047a29cc}{slot}}(e.first\ \string^\ \mbox{\hyperlink{structhmap_1_1RadixHeap_aa617f543d25c80a3e296549141ec3b3e}{last}})].push\_back(std::move(e));}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[i].clear();}
+\DoxyCodeLine{00107\ \ \ \ \ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{auto}\ e\ =\ std::move(\mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[0].back());}
+\DoxyCodeLine{00110\ \ \ \ \ \mbox{\hyperlink{structhmap_1_1RadixHeap_a4623a51ca639b9b65a58060522d27e55}{bucket}}[0].pop\_back();}
+\DoxyCodeLine{00111\ \ \ \ \ -\/-\/\mbox{\hyperlink{structhmap_1_1RadixHeap_a2a48e1c5aa4fbbf9a37952a54610e3b4}{count}};}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{return}\ e;}
+\DoxyCodeLine{00113\ \ \ \}}
+\DoxyCodeLine{00114\ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \}\ \textcolor{comment}{//\ namespace\ hmap}}
+
+\end{DoxyCode}
