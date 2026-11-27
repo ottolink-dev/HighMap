@@ -9,5 +9,4 @@
  */
 #pragma once
 
-#include "highmap/hydrology/drainage_basin.hpp"
 #include "highmap/hydrology/hydrology.hpp"

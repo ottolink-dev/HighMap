@@ -9,8 +9,8 @@ int main(void)
 
   // --- generate mask
 
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Path path = hmap::Path(10, seed, hmap::adjust(bbox, -0.1f));
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::Path path = hmap::Path(10, seed, hmap::BBox2D(0.1f, 0.9f, 0.1f, 0.9f));
   path.reorder_nns();
   auto mask = hmap::bezier(path).to_array(shape, bbox);
   hmap::clamp_min(mask, 0.f);

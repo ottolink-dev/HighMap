@@ -5,7 +5,7 @@ int main(void)
   glm::ivec2 shape = {256, 256};
   int        seed = 2;
 
-  glm::vec4 bbox = {-1.f, 2.f, 0.f, 5.f};
+  hmap::BBox2D bbox = {-1.f, 2.f, 0.f, 5.f};
 
   // --- generate a path using a random set of points
 

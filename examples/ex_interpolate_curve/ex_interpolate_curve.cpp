@@ -5,10 +5,10 @@
 int main(void)
 {
   // generate points
-  int        npoints = 7;
-  int        seed = 1;
-  glm::vec4  bbox = {-1.f, 0.f, 0.5f, 1.5f};
-  hmap::Path path = hmap::Path(npoints, seed, bbox);
+  int          npoints = 7;
+  int          seed = 1;
+  hmap::BBox2D bbox = {-1.f, 0.f, 0.5f, 1.5f};
+  hmap::Path   path = hmap::Path(npoints, seed, bbox);
   path.reorder_nns();
 
   // interpolate

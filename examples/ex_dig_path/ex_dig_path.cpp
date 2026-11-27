@@ -8,14 +8,19 @@ int main(void)
   hmap::Array z = hmap::noise_fbm(hmap::NoiseType::PERLIN, shape, res, seed);
   hmap::remap(z);
 
-  glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(5,
+  hmap::BBox2D bbox = {1.f, 2.f, -0.5f, 0.5f};
+  hmap::Path   path = hmap::Path(5,
                                seed,
                                hmap::BBox2D({1.1f, 1.9f, -0.4f, 0.4f}));
   path.set_closed(false);
   path.reorder_nns();
 
-  path = hmap::dijkstra(path, z, bbox, 0, 0.9f, 1.f);
+  path = hmap::dijkstra(path,
+                        z,
+                        hmap::UvRect(1.f, 2.f, -0.5f, 0.5f),
+                        0,
+                        0.9f,
+                        1.f);
 
   auto z1 = hmap::Array(shape);
   path.to_array(z1, bbox);
@@ -32,7 +37,7 @@ int main(void)
                  decay,
                  flattening_radius,
                  force_downhill,
-                 bbox);
+                 hmap::UvRect(1.f, 2.f, -0.5f, 0.5f));
 
   auto z3 = z;
   force_downhill = true;
@@ -43,7 +48,7 @@ int main(void)
                  decay,
                  flattening_radius,
                  force_downhill,
-                 bbox);
+                 hmap::UvRect(1.f, 2.f, -0.5f, 0.5f));
 
   hmap::export_banner_png("ex_dig_path.png",
                           {z, z1, z2, z3},

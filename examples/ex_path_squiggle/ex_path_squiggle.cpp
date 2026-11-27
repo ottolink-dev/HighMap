@@ -3,7 +3,7 @@
 int main(void)
 {
   glm::ivec2    shape = {256, 256};
-  glm::vec4     bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::BBox2D  bbox = {0.f, 1.f, 0.f, 1.f};
   std::uint32_t seed = 42;
 
   // 1. Initial base path (open polyline traversing domain)

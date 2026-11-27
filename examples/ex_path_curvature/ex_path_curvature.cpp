@@ -6,8 +6,8 @@ int main(void)
   int        seed = 6;
   int        npoints = 5;
 
-  glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(npoints,
+  hmap::BBox2D bbox = {1.f, 2.f, -0.5f, 0.5f};
+  hmap::Path   path = hmap::Path(npoints,
                                seed,
                                hmap::BBox2D({1.3f, 1.7f, -0.2f, 0.2f}));
   path.reorder_nns();

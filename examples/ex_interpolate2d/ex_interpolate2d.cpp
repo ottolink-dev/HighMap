@@ -7,7 +7,8 @@ int main(void)
   // shape = {1024, 1024};
   int seed = 0;
 
-  glm::vec4 bbox = {-1.f, 0.f, 0.5f, 1.5f};
+  hmap::BBox2D bbox = {-1.f, 0.f, 0.5f, 1.5f};
+  hmap::UvRect uv_rect = {-1.f, 0.f, 0.5f, 1.5f};
 
   hmap::Cloud cloud = hmap::Cloud(10, seed, bbox);
   cloud.snap_points_to_bounding_box(bbox);
@@ -38,7 +39,7 @@ int main(void)
       hmap::InterpolationMethod2D::ITP2D_NEAREST,
       &dx,
       &dx,
-      bbox);
+      uv_rect);
   hmap::Timer::Stop("ITP2D_NEAREST");
 
   hmap::Timer::Start("ITP2D_DELAUNAY");
@@ -50,7 +51,7 @@ int main(void)
       hmap::InterpolationMethod2D::ITP2D_DELAUNAY,
       &dx,
       &dx,
-      bbox);
+      uv_rect);
   hmap::Timer::Stop("ITP2D_DELAUNAY");
 
   hmap::Timer::Start("ITP2D_IDW");
@@ -61,7 +62,7 @@ int main(void)
                                        hmap::InterpolationMethod2D::ITP2D_IDW,
                                        &dx,
                                        &dx,
-                                       bbox);
+                                       uv_rect);
   hmap::Timer::Stop("ITP2D_IDW");
 
   hmap::Timer::Start("ITP2D_GAUSSIAN");
@@ -73,7 +74,7 @@ int main(void)
       hmap::InterpolationMethod2D::ITP2D_GAUSSIAN,
       &dx,
       &dx,
-      bbox);
+      uv_rect);
   hmap::Timer::Stop("ITP2D_GAUSSIAN");
 
   hmap::Timer::Start("ITP2D_NNI");
@@ -84,7 +85,7 @@ int main(void)
                                        hmap::InterpolationMethod2D::ITP2D_NNI,
                                        &dx,
                                        &dx,
-                                       bbox);
+                                       uv_rect);
   hmap::Timer::Stop("ITP2D_NNI");
 
   hmap::Timer::Start("ITP2D_CT");
@@ -96,7 +97,7 @@ int main(void)
       // hmap::InterpolationMethod2D::ITP2D_NNI,
       nullptr,
       nullptr,
-      bbox);
+      uv_rect);
   hmap::Timer::Stop("ITP2D_CT");
 
   hmap::export_banner_png("ex_interpolate2d.png",

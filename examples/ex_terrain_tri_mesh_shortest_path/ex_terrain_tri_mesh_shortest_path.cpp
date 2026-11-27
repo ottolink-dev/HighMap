@@ -6,11 +6,11 @@ int main(void)
 {
   // --- parameters
 
-  glm::ivec2 shape = {1024, 1024};
-  glm::vec2  kw = {4.f, 4.f};
-  int        seed = 0;
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  size_t     count = 50000;
+  glm::ivec2   shape = {1024, 1024};
+  glm::vec2    kw = {4.f, 4.f};
+  int          seed = 0;
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  size_t       count = 50000;
 
   // --- generate sample points
 

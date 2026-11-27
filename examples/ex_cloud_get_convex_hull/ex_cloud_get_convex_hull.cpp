@@ -5,7 +5,7 @@ int main(void)
   glm::ivec2 shape = {256, 256};
   int        seed = 1;
 
-  glm::vec4 bbox = {-1.f, 0.f, 0.5f, 1.5f};
+  hmap::BBox2D bbox = {-1.f, 0.f, 0.5f, 1.5f};
 
   hmap::Cloud cloud = hmap::Cloud(10, seed, bbox);
 

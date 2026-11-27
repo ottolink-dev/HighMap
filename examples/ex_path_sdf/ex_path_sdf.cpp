@@ -5,8 +5,8 @@ int main(void)
   glm::ivec2    shape = {256, 256};
   std::uint32_t seed = 1;
 
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Path path = hmap::Path(15, seed, hmap::adjust(bbox, -0.1f));
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::Path path = hmap::Path(15, seed, hmap::BBox2D(0.1f, 0.9f, 0.1f, 0.9f));
   path.reorder_nns();
 
   auto z0 = path.to_array(shape, bbox);

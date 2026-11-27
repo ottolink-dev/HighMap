@@ -6,8 +6,10 @@ int main(void)
   int        seed = 6;
   int        npoints = 10;
 
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Path path = hmap::Path(npoints, seed, hmap::adjust(bbox, -0.1f));
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::Path   path = hmap::Path(npoints,
+                               seed,
+                               hmap::BBox2D(0.1f, 0.9f, 0.1f, 0.9f));
   path.reorder_nns();
   path.resample_uniform();
 

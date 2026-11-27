@@ -6,8 +6,8 @@ int main(void)
   std::vector<float> y = {0.2f, 0.1f, 0.5f, 0.6f};
 
   // generate 4 points
-  glm::vec4  bbox = {-1.f, 0.f, 0.5f, 1.5f};
-  hmap::Path path = hmap::Path(4, 2, bbox);
+  hmap::BBox2D bbox = {-1.f, 0.f, 0.5f, 1.5f};
+  hmap::Path   path = hmap::Path(4, 2, bbox);
   path.reorder_nns();
 
   path.print();

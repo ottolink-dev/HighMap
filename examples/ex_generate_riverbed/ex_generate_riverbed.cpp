@@ -15,10 +15,8 @@ int main(void)
   hmap::remap(noise);
 
   // base path
-  glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(4,
-                               seed,
-                               hmap::adjust(bbox, 0.2f, -0.2f, 0.2f, -0.2f));
+  hmap::BBox2D bbox = {1.f, 2.f, -0.5f, 0.5f};
+  hmap::Path path = hmap::Path(4, seed, hmap::BBox2D(1.2f, 1.8f, -0.3f, 0.3f));
   path.reorder_nns();
   path = hmap::fractalize(path, 8, seed);
   path.set_values_from_array(noise, bbox);
@@ -26,7 +24,9 @@ int main(void)
   auto zp = hmap::Array(shape);
   path.to_array(zp, bbox);
 
-  hmap::Array dz = hmap::generate_riverbed(path, shape, bbox);
+  hmap::Array dz = hmap::generate_riverbed(path,
+                                           shape,
+                                           hmap::UvRect(1.f, 2.f, -0.5f, 0.5f));
   hmap::remap(dz);
 
   dz.to_png_grayscale("out.png", CV_16U);

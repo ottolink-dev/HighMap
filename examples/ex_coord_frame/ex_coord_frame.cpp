@@ -19,10 +19,10 @@ int main(void)
 
   // --- tests
 
-  glm::vec4 bbox1 = frame1.compute_bounding_box();
-  glm::vec4 bbox2 = frame2.compute_bounding_box();
+  hmap::BBox2D bbox1 = frame1.compute_bounding_box();
+  hmap::BBox2D bbox2 = frame2.compute_bounding_box();
 
-  glm::vec4 bboxi = hmap::intersect_bounding_boxes(bbox1, bbox2);
+  hmap::BBox2D bboxi = hmap::intersect_bounding_boxes(bbox1, bbox2);
 
   glm::ivec2 shape2 = {1000, 1000};
 

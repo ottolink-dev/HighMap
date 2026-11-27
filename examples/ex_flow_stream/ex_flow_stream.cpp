@@ -61,7 +61,9 @@ int main(void)
   // visualize graph on an empty grid
   glm::vec4   bbox(0.f, 1.f, 0.f, 1.f);
   hmap::Array z_graph(shape, 0.f);
-  stream_graph.to_array(z_graph, bbox, false);
+  stream_graph.to_array(z_graph,
+                        hmap::BBox2D(bbox.x, bbox.y, bbox.z, bbox.w),
+                        false);
 
   // carve river network into terrain with expand_talus and SDF blending
   hmap::Array z_carved = z;

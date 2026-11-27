@@ -15,10 +15,8 @@ int main(void)
   hmap::remap(noise, 0.f, 1.f);
 
   // base path
-  glm::vec4  bbox = {1.f, 2.f, -0.5f, 0.5f};
-  hmap::Path path = hmap::Path(9,
-                               seed,
-                               hmap::adjust(bbox, 0.2f, -0.2f, 0.2f, -0.2f));
+  hmap::BBox2D bbox = {1.f, 2.f, -0.5f, 0.5f};
+  hmap::Path path = hmap::Path(9, seed, hmap::BBox2D(1.2f, 1.8f, -0.3f, 0.3f));
   path.reorder_nns();
   // path.fractalize(2, seed);
   path.set_values_from_array(noise, bbox);
@@ -26,10 +24,13 @@ int main(void)
   auto zp = hmap::Array(shape);
   path.to_array(zp, bbox);
 
-  hmap::Array sdf_2d = hmap::sdf_2d_polyline(path, shape, bbox);
+  hmap::UvRect uv_rect = {1.f, 2.f, -0.5f, 0.5f};
+  hmap::Array  sdf_2d = hmap::sdf_2d_polyline(path, shape, uv_rect);
   hmap::remap(sdf_2d);
 
-  hmap::Array sdf_2d_bezier = hmap::sdf_2d_polyline_bezier(path, shape, bbox);
+  hmap::Array sdf_2d_bezier = hmap::sdf_2d_polyline_bezier(path,
+                                                           shape,
+                                                           uv_rect);
   hmap::remap(sdf_2d_bezier);
 
   hmap::export_banner_png("ex_sdf_polyline.png",

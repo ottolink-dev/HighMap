@@ -4,8 +4,8 @@
 
 int main(void)
 {
-  int       seed = 1;
-  glm::vec4 bbox = {-1.f, 2.f, 0.f, 5.f};
+  int          seed = 1;
+  hmap::BBox2D bbox = {-1.f, 2.f, 0.f, 5.f};
 
   // create a cloud of points and convert it to a graph using Delaunay
   // triangulation

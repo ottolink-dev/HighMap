@@ -80,9 +80,9 @@ hmap::Array extract_contours_from_heightmap(const hmap::Array &heightmap,
 
 int main(void)
 {
-  glm::ivec2 shape = {1024, 1024};
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  int        seed = 1;
+  glm::ivec2   shape = {1024, 1024};
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  int          seed = 1;
 
   // --- sparse contours: a main hill with 4 nested levels, a small basin in
   // its lowest ring and a second, separate hill

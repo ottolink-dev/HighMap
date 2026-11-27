@@ -10,8 +10,10 @@ int main(void)
   hmap::Array z = hmap::noise_fbm(hmap::NoiseType::PERLIN, shape, res, seed);
   hmap::remap(z);
 
-  glm::vec4  bbox = {0.f, 1.f, 0.f, 1.f};
-  hmap::Path path = hmap::Path(npoints, seed, hmap::adjust(bbox, -0.1f));
+  hmap::BBox2D bbox = {0.f, 1.f, 0.f, 1.f};
+  hmap::Path   path = hmap::Path(npoints,
+                               seed,
+                               hmap::BBox2D(0.1f, 0.9f, 0.1f, 0.9f));
   path.set_closed(false);
   path.reorder_nns();
   path.set_values_from_array(z, bbox);
@@ -21,7 +23,7 @@ int main(void)
 
   // after
   int edge_divisions = 0;
-  path = hmap::dijkstra(path, z, bbox, edge_divisions, 0.9f);
+  path = hmap::dijkstra(path, z, hmap::UvRect::unit(), edge_divisions, 0.9f);
   path.set_values_from_array(z, bbox);
 
   auto z2 = path.to_array(shape, bbox);

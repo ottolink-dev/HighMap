@@ -1,2 +1,0 @@
-add_executable(ex_virtual_texture ex_virtual_texture.cpp)
-target_link_libraries(ex_virtual_texture highmap)

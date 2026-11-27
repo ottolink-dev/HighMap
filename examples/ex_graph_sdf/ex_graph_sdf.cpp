@@ -5,8 +5,8 @@ int main(void)
   glm::ivec2 shape = {256, 256};
   int        seed = 1;
 
-  glm::vec4 bbox = {0.2f, 0.8f, 0.2f, 0.8f};
-  glm::vec4 bbox_array = {0.f, 1.f, 0.f, 1.f};
+  hmap::BBox2D bbox = {0.2f, 0.8f, 0.2f, 0.8f};
+  hmap::BBox2D bbox_array = {0.f, 1.f, 0.f, 1.f};
 
   // create a cloud of points and convert it to a graph using Delaunay
   // triangulation
