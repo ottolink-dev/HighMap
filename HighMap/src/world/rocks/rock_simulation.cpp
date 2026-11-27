@@ -181,10 +181,12 @@ RockField simulate_rock_trajectories(const RockField &rocks,
   run_sim.bind_buffer<int>("grid_next", grid_next);
   run_sim.bind_buffer<int>("grid_step_tag", grid_step_tag);
 
+  glm::vec4 bbox_vec4(bbox.min.x, bbox.max.x, bbox.min.y, bbox.max.y);
+
   run_sim.bind_arguments(num_rocks,
                          shape.x,
                          shape.y,
-                         bbox,
+                         bbox_vec4,
                          options.time_step,
                          options.gravity,
                          options.soil_friction,
