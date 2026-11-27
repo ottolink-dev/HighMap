@@ -123,6 +123,11 @@ Array non_parametric_sampling(const Array  &array,
  * @param  tiling             Number of patches in each direction (x, y).
  * @param  overlap            Overlap between patches, in the range ]0, 1[.
  * @param  seed               Random seed number for patch placement.
+ * @param  secondary_arrays   Optional channels transformed using the guide's
+ *                            patches and seams. Each must match every guide's
+ *                            shape; otherwise an empty array is returned without
+ *                            modifying the channels. Pointers may repeat or
+ *                            alias a guide.
  * @param  patch_flip         Allow flipping of patches (up-down, left-right).
  * @param  patch_rotate       Allow 90-degree rotation of patches (for square
  *                            patches).

@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <random>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
@@ -30,15 +31,22 @@ Array quilting(const std::vector<const Array *> &p_arrays,
                bool                              patch_transpose,
                float                             filter_width_ratio)
 {
-  if (p_arrays.empty() || !validate_shape(patch_base_shape) ||
-      !validate_shape(tiling))
+  if (p_arrays.empty() || !validate_shape(patch_base_shape) || !validate_shape(tiling))
     return Array();
 
   for (const auto *p : p_arrays)
-    if (!p || !validate_non_empty(*p)) return Array();
+    if (!p || !validate_non_empty(*p))
+      return Array();
 
   for (const auto *p : secondary_arrays)
-    if (!p || !validate_non_empty(*p)) return Array();
+    if (!p || !validate_non_empty(*p))
+      return Array();
+
+  // Replaying the guide's random extraction requires identical source bounds.
+  // Validate before allocating outputs or modifying any aliased destinations.
+  for (const auto *secondary : secondary_arrays)
+    for (const auto *guide : p_arrays)
+      if (!validate_same_shape(*guide, *secondary)) return Array();
 
   std::mt19937 gen(seed);
 
@@ -70,8 +78,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
 
   // reserve outputs for secondary arrays transformed using primary
   // array(s) as guide(s)
-  std::vector<Array> secondary_arrays_output(secondary_arrays.size(),
-                                             shape_output);
+  std::vector<Array> secondary_arrays_output(secondary_arrays.size(), shape_output);
 
   // smoothing radius for the patch transitions
   int ir = (int)(noverlap.x * filter_width_ratio);
@@ -81,27 +88,31 @@ Array quilting(const std::vector<const Array *> &p_arrays,
     int   j1 = jt * patch_base_shape.y; // tile start
     Array array_strip = Array(glm::ivec2(array_out.shape.x, patch_shape.y));
 
-    std::vector<Array> secondary_arrays_strips(secondary_arrays_output.size(),
-                                               array_strip);
+    // Retain only this guide row's decisions. Secondary channels replay the
+    // random extraction from these states without advancing the guide RNG.
+    // This keeps one secondary strip/patch live instead of one per channel.
+    std::vector<std::mt19937> patch_generators;
+    std::vector<Array>        patch_masks;
+    if (!secondary_arrays.empty())
+    {
+      patch_generators.reserve(tiling.x);
+      patch_masks.resize(tiling.x);
+    }
 
-    // build up domain-wide horizontal strips
+    // build up the guide's domain-wide horizontal strip
     for (int it = 0; it < tiling.x; it++)
     {
       int i1 = it * patch_base_shape.x;
-
       int array_idx = dis_a(gen);
-
-      // used only if secondary_arrays is not empty
-      std::vector<Array> secondary_patches = {};
+      if (!secondary_arrays.empty())
+        patch_generators.push_back(gen);
 
       Array patch = get_random_patch(*p_arrays[array_idx],
                                      patch_shape,
                                      gen,
                                      patch_flip,
                                      patch_rotate,
-                                     patch_transpose,
-                                     &secondary_arrays,
-                                     &secondary_patches);
+                                     patch_transpose);
 
       if (it > 0 && noverlap.x > 0)
       {
@@ -110,44 +121,24 @@ Array quilting(const std::vector<const Array *> &p_arrays,
           for (int i = 0; i < noverlap.x; i++)
             error(i, j) = std::abs(array_strip(i1 + i, j) - patch(i, j));
 
-        // find cut path
         std::vector<int> cut_path_i;
         find_vertical_cut_path(error, cut_path_i);
-
-        // define lerp factor
         Array mask = generate_mask(error.shape, cut_path_i, ir);
 
-        // primary patches
         for (int j = 0; j < patch_shape.y; j++)
           for (int i = 0; i < noverlap.x; i++)
             patch(i, j) = lerp(array_strip(i1 + i, j), patch(i, j), mask(i, j));
 
-        // same for secondary patches
-        for (size_t k = 0; k < secondary_patches.size(); k++)
-        {
-          for (int j = 0; j < patch_shape.y; j++)
-            for (int i = 0; i < noverlap.x; i++)
-              secondary_patches[k](i, j) = lerp(
-                  secondary_arrays_strips[k](i1 + i, j),
-                  secondary_patches[k](i, j),
-                  mask(i, j));
-        }
+        if (!secondary_arrays.empty())
+          patch_masks[it] = std::move(mask);
       }
 
-      // primary array
       for (int j = 0; j < patch_shape.y; j++)
         for (int i = 0; i < patch_shape.x; i++)
           array_strip(i1 + i, j) = patch(i, j);
-
-      // apply the same patching to the secondary arrays
-      for (size_t k = 0; k < secondary_arrays_output.size(); k++)
-      {
-        for (int j = 0; j < patch_shape.y; j++)
-          for (int i = 0; i < patch_shape.x; i++)
-            secondary_arrays_strips[k](i1 + i, j) = secondary_patches[k](i, j);
-      }
     }
 
+    Array row_mask;
     // patch the horizontal stripes
     if (jt > 0 && noverlap.y > 0)
     {
@@ -157,7 +148,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         for (int i = 0; i < shape_output.x; i++)
           error(i, j) = std::abs(array_strip(i, j) - array_out(i, j1 + j));
 
-      Array mask = Array(error.shape);
+      row_mask = Array(error.shape);
       {
         Array            error_t = transpose(error);
         std::vector<int> cut_path_i;
@@ -165,7 +156,7 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         Array mask_t = generate_mask(error_t.shape,
                                      cut_path_i,
                                      (int)(noverlap.y * filter_width_ratio));
-        mask = transpose(mask_t);
+        row_mask = transpose(mask_t);
       }
 
       // primary array
@@ -174,28 +165,10 @@ Array quilting(const std::vector<const Array *> &p_arrays,
         for (int j = 0; j < noverlap.y; j++)
           array_out(i, j1 + j) = lerp(array_out(i, j1 + j),
                                       array_strip(i, j),
-                                      mask(i, j));
+                                      row_mask(i, j));
 
         for (int j = noverlap.y; j < patch_shape.y; j++)
           array_out(i, j1 + j) = array_strip(i, j);
-      }
-
-      // apply the same patching to the secondary arrays
-      for (size_t k = 0; k < secondary_arrays_output.size(); k++)
-      {
-        for (int i = 0; i < shape_output.x; i++)
-        {
-          for (int j = 0; j < noverlap.y; j++)
-            secondary_arrays_output[k](i, j1 + j) = lerp(
-                secondary_arrays_output[k](i, j1 + j),
-                secondary_arrays_strips[k](i, j),
-                mask(i, j));
-
-          for (int j = noverlap.y; j < patch_shape.y; j++)
-            secondary_arrays_output[k](i,
-                                       j1 + j) = secondary_arrays_strips[k](i,
-                                                                            j);
-        }
       }
     }
     else
@@ -204,22 +177,53 @@ Array quilting(const std::vector<const Array *> &p_arrays,
       for (int j = 0; j < patch_shape.y; j++)
         for (int i = 0; i < array_out.shape.x; i++)
           array_out(i, j1 + j) = array_strip(i, j);
+    }
 
-      // apply the same patching to the secondary arrays
-      for (size_t k = 0; k < secondary_arrays_output.size(); k++)
+    for (size_t k = 0; k < secondary_arrays_output.size(); k++)
+    {
+      Array strip(array_strip.shape);
+      for (int it = 0; it < tiling.x; it++)
       {
+        int          i1 = it * patch_base_shape.x;
+        std::mt19937 patch_gen = patch_generators[it];
+        Array        patch = get_random_patch(*secondary_arrays[k],
+                                       patch_shape,
+                                       patch_gen,
+                                       patch_flip,
+                                       patch_rotate,
+                                       patch_transpose);
+        if (it > 0 && noverlap.x > 0)
+          for (int j = 0; j < patch_shape.y; j++)
+            for (int i = 0; i < noverlap.x; i++)
+              patch(i, j) = lerp(strip(i1 + i, j), patch(i, j), patch_masks[it](i, j));
+
         for (int j = 0; j < patch_shape.y; j++)
-          for (int i = 0; i < array_out.shape.x; i++)
-            secondary_arrays_output[k](i,
-                                       j1 + j) = secondary_arrays_strips[k](i,
-                                                                            j);
+          for (int i = 0; i < patch_shape.x; i++)
+            strip(i1 + i, j) = patch(i, j);
       }
+
+      Array &output = secondary_arrays_output[k];
+      if (jt > 0 && noverlap.y > 0)
+      {
+        for (int i = 0; i < shape_output.x; i++)
+        {
+          for (int j = 0; j < noverlap.y; j++)
+            output(i, j1 + j) = lerp(output(i, j1 + j), strip(i, j), row_mask(i, j));
+          for (int j = noverlap.y; j < patch_shape.y; j++)
+            output(i, j1 + j) = strip(i, j);
+        }
+      }
+      else
+        for (int j = 0; j < patch_shape.y; j++)
+          for (int i = 0; i < shape_output.x; i++)
+            output(i, j1 + j) = strip(i, j);
     }
   }
 
-  // override content of input secondary arrays with output
+  // Defer writes until every source has been consumed: secondary pointers
+  // may repeat or alias a guide. Repeated destinations retain last-write wins.
   for (size_t k = 0; k < secondary_arrays_output.size(); k++)
-    *secondary_arrays[k] = secondary_arrays_output[k];
+    *secondary_arrays[k] = std::move(secondary_arrays_output[k]);
 
   return array_out;
 }

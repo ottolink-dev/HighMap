@@ -168,3 +168,179 @@ TEST(Quilting, ZeroOverlapQuilting)
   for (float v : out.vector)
     EXPECT_TRUE(std::isfinite(v));
 }
+
+TEST(Quilting, SecondaryChannelsShareGuideSeamsAndTransforms)
+{
+  for (glm::ivec2 shape : {glm::ivec2(48, 48), glm::ivec2(48, 32)})
+    for (int flags = 0; flags < 8; ++flags)
+      for (float overlap : {0.f, 0.5f, 0.9f})
+      {
+        SCOPED_TRACE(::testing::Message() << shape.x << "x" << shape.y << " flags="
+                                          << flags << " overlap=" << overlap);
+        Array      guide = make_sample_array(shape, 91);
+        Array      source = make_sample_array(shape, 37);
+        glm::ivec2 patch = shape.x == shape.y ? glm::ivec2(12, 12) : glm::ivec2(12, 8);
+        // A separate one-channel call checks every secondary cell, including
+        // horizontal and vertical seams, against a channel-count invariant.
+        Array              expected = source;
+        Array              expected_guide = quilting({&guide},
+                                        patch,
+                                                     {3, 4},
+                                        overlap,
+                                        12,
+                                                     {&expected},
+                                        flags & 1,
+                                        flags & 2,
+                                        flags & 4,
+                                        0.5f);
+        std::vector<Array> channels(20, source);
+        channels[0] = guide;
+        std::vector<Array *> pointers;
+        for (auto &channel : channels)
+          pointers.push_back(&channel);
+        Array actual = quilting({&guide},
+                                patch,
+                                {3, 4},
+                                overlap,
+                                12,
+                                pointers,
+                                flags & 1,
+                                flags & 2,
+                                flags & 4,
+                                0.5f);
+        EXPECT_EQ(actual.vector, expected_guide.vector);
+        EXPECT_EQ(channels[0].vector, actual.vector);
+        for (size_t k = 1; k < channels.size(); ++k)
+          EXPECT_EQ(channels[k].vector, expected.vector) << "channel " << k;
+      }
+}
+
+TEST(Quilting, SecondaryAliasesAreNotOverwrittenUntilAllSourcesAreConsumed)
+{
+  for (int flags = 0; flags < 8; ++flags)
+  {
+    SCOPED_TRACE(flags);
+    Array guide = make_sample_array({48, 32}, 91);
+    Array secondary = make_sample_array({48, 32}, 37);
+    Array expected_guide_channel = guide;
+    Array expected_secondary = secondary;
+    Array expected = quilting({&guide},
+                              {12, 8},
+                              {3, 4},
+                              0.9f,
+                              12,
+                              {&expected_guide_channel, &expected_secondary},
+                              flags & 1,
+                              flags & 2,
+                              flags & 4,
+                              0.5f);
+    // The guide itself is also a destination. Repeated secondary destinations
+    // must still read their original input, even after earlier rows finish.
+    Array actual = quilting({&guide},
+                            {12, 8},
+                            {3, 4},
+                            0.9f,
+                            12,
+                            {&secondary, &guide, &secondary, &guide},
+                            flags & 1,
+                            flags & 2,
+                            flags & 4,
+                            0.5f);
+    EXPECT_EQ(actual.vector, expected.vector);
+    EXPECT_EQ(guide.vector, expected_guide_channel.vector);
+    EXPECT_EQ(secondary.vector, expected_secondary.vector);
+  }
+}
+
+TEST(Quilting, ExpandAndShufflePreserveSecondaryChannelAlignment)
+{
+  for (bool expand : {false, true})
+    for (bool keep_shape : {false, true})
+      for (float ratio : {1.5f, 2.f})
+      {
+        SCOPED_TRACE(::testing::Message() << "expand=" << expand << " keep=" << keep_shape
+                                          << " ratio=" << ratio);
+        Array                guide = make_sample_array({48, 32}, 91);
+        std::vector<Array>   channels(4, guide);
+        std::vector<Array *> pointers;
+        for (auto &channel : channels)
+          pointers.push_back(&channel);
+        Array actual = expand ? quilting_expand(guide,
+                                                ratio,
+                                                {12, 8},
+                                                0.9f,
+                                                12,
+                                                pointers,
+                                                keep_shape,
+                                                true,
+                                                true,
+                                                true,
+                                                0.5f)
+                              : quilting_shuffle(guide,
+                                                 {12, 8},
+                                                 0.9f,
+                                                 12,
+                                                 pointers,
+                                                 true,
+                                                 true,
+                                                 true,
+                                                 0.5f);
+        ASSERT_FALSE(actual.vector.empty());
+        for (const auto &channel : channels)
+        {
+          EXPECT_EQ(channel.shape, actual.shape);
+          EXPECT_EQ(channel.vector, actual.vector);
+          for (float value : channel.vector)
+            EXPECT_TRUE(std::isfinite(value));
+        }
+      }
+}
+
+TEST(Quilting, MismatchedSecondaryShapesReturnEmptyWithoutMutation)
+{
+  Array guide = make_sample_array({48, 32}, 91);
+  Array other_guide = make_sample_array({32, 32}, 92);
+  Array secondary = make_sample_array({48, 32}, 37);
+  Array small = make_sample_array({32, 32}, 38);
+  const Array original_guide = guide;
+  const Array original_secondary = secondary;
+  const Array original_small = small;
+
+  EXPECT_TRUE(quilting({&guide}, {12, 8}, {3, 4}, 0.9f, 12,
+                       {&guide, &secondary, &small}).vector.empty());
+  EXPECT_EQ(guide.vector, original_guide.vector);
+  EXPECT_EQ(secondary.vector, original_secondary.vector);
+  EXPECT_EQ(small.vector, original_small.vector);
+
+  // Reject a mismatch with any possible guide, rather than depending on which
+  // guide a particular random seed selects first.
+  EXPECT_TRUE(quilting({&guide, &other_guide}, {12, 8}, {3, 4}, 0.9f, 12,
+                       {&secondary}).vector.empty());
+  EXPECT_EQ(secondary.vector, original_secondary.vector);
+}
+
+TEST(Quilting, RandomPatchSecondaryOwnershipPreservesSources)
+{
+  for (glm::ivec2 patch_shape : {glm::ivec2(12, 12), glm::ivec2(12, 8)})
+    for (int flags = 0; flags < 8; ++flags)
+    {
+      Array guide = make_sample_array({48, 32}, 91);
+      Array source = make_sample_array({48, 32}, 37);
+      const Array original_source = source;
+      std::mt19937 gen(12);
+      std::vector<Array *> pointers(20, &source);
+      std::vector<Array> patches(1, guide);
+      get_random_patch(guide, patch_shape, gen, flags & 1, flags & 2,
+                       flags & 4, &pointers, &patches);
+      std::mt19937 reference_gen(12);
+      Array expected = get_random_patch(source, patch_shape, reference_gen,
+                                        flags & 1, flags & 2, flags & 4);
+      ASSERT_EQ(patches.size(), pointers.size());
+      for (const auto &patch : patches)
+      {
+        EXPECT_EQ(patch.shape, expected.shape);
+        EXPECT_EQ(patch.vector, expected.vector);
+      }
+      EXPECT_EQ(source.vector, original_source.vector);
+    }
+}
