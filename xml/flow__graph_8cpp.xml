@@ -1,0 +1,334 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.15.0" xml:lang="en-US">
+  <compounddef id="flow__graph_8cpp" kind="file" language="C++">
+    <compoundname>flow_graph.cpp</compoundname>
+    <innernamespace refid="namespacehmap">hmap</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="comment">/*<sp/>Copyright<sp/>(c)<sp/>2023<sp/>Otto<sp/>Link.<sp/>Distributed<sp/>under<sp/>the<sp/>terms<sp/>of<sp/>the<sp/>GNU<sp/>General</highlight></codeline>
+<codeline lineno="2"><highlight class="comment"><sp/>*<sp/>Public<sp/>License.<sp/>The<sp/>full<sp/>license<sp/>is<sp/>in<sp/>the<sp/>file<sp/>LICENSE,<sp/>distributed<sp/>with</highlight></codeline>
+<codeline lineno="3"><highlight class="comment"><sp/>*<sp/>this<sp/>software.</highlight></codeline>
+<codeline lineno="4"><highlight class="comment"><sp/>*</highlight></codeline>
+<codeline lineno="5"><highlight class="comment"><sp/>*<sp/>Adapted<sp/>from<sp/>MISE<sp/>(Multiscale<sp/>Implicit<sp/>Stream-power<sp/>Erosion)<sp/>by<sp/>Leonhard</highlight></codeline>
+<codeline lineno="6"><highlight class="comment"><sp/>*<sp/>https://github.com/Leonhardmaster2<sp/>*/</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cmath&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstdint&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="hydrology_2hydrology_8hpp" kindref="compound">highmap/hydrology/hydrology.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="math_2array_8hpp" kindref="compound">highmap/math/array.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="random_8hpp" kindref="compound">highmap/random.hpp</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal"><ref refid="namespacehmap" kindref="compound">hmap</ref></highlight></codeline>
+<codeline lineno="18"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keyword">namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DX8[8]<sp/>=<sp/>{1,<sp/>1,<sp/>0,<sp/>-1,<sp/>-1,<sp/>-1,<sp/>0,<sp/>1};</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keyword">constexpr</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>DY8[8]<sp/>=<sp/>{0,<sp/>1,<sp/>1,<sp/>1,<sp/>0,<sp/>-1,<sp/>-1,<sp/>-1};</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1a86a57bde56a212980dfe6a8fdd5c9f58" kindref="member">FlowGraph::resize</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nx_,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>ny_)</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>=<sp/>nx_;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref><sp/>=<sp/>ny_;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref><sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>;</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a4d0ee8cee81fef6ce53cf2b631c8293c" kindref="member">zf</ref>.set_shape({<ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>,<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>});</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a5f20be2cd81bdeae1b36b1615f1eca2c" kindref="member">order</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a34441e15367b2c962286bb049d845fe7" kindref="member">rank</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a7aed44ede924a62d354b3a0f5e723e72" kindref="member">area</ref>.set_shape({<ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>,<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>});</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a0987095762d29b4e88aab6287a30139b" kindref="member">steep</ref>.set_shape({<ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>,<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>});</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a6806db212627116c5bbe59a382e5e1e3" kindref="member">lake</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a30fa27b29a94165f345a460f9a2bd4c7" kindref="member">pitq</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1aebfa2cd2a3f3215b494eceaec22c2702" kindref="member">FlowGraph::dist</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="45"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>d<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i]<sp/>&gt;<sp/>i<sp/>?<sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i]<sp/>-<sp/>i<sp/>:<sp/>i<sp/>-<sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i];</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(d<sp/>==<sp/>1<sp/>||<sp/>d<sp/>==<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>)<sp/>?<sp/>1.f<sp/>:<sp/>1.41421356f;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1ab2bbd3779d562de0bedb6638c67aa1c0" kindref="member">FlowGraph::submerged</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;z)</highlight><highlight class="keyword"><sp/>const</highlight></codeline>
+<codeline lineno="51"><highlight class="keyword"></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[i]<sp/>&amp;<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce" kindref="member">F_PIT</ref>)<sp/>&amp;&amp;<sp/><ref refid="structhmap_1_1FlowGraph_1a4d0ee8cee81fef6ce53cf2b631c8293c" kindref="member">zf</ref>.vector[i]<sp/>&gt;<sp/>z.vector[i];</highlight></codeline>
+<codeline lineno="53"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1afc3ebe201469e01898f8cd8959467163" kindref="member">FlowGraph::flood</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/><sp/><sp/>&amp;z_arr,</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>uint8_t<sp/>*outlet,</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fast,</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">bool</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>seed_borders)</highlight></codeline>
+<codeline lineno="59"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;z<sp/>=<sp/>z_arr.vector;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;zf_v<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a4d0ee8cee81fef6ce53cf2b631c8293c" kindref="member">zf</ref>.vector;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/>std::fill(<ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>.begin(),<sp/><ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>.end(),<sp/>(uint8_t)0);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/>std::fill(<ref refid="structhmap_1_1FlowGraph_1a6806db212627116c5bbe59a382e5e1e3" kindref="member">lake</ref>.begin(),<sp/><ref refid="structhmap_1_1FlowGraph_1a6806db212627116c5bbe59a382e5e1e3" kindref="member">lake</ref>.end(),<sp/>-1);</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a3c4484952259965012f7e9d08a1d6210" kindref="member">lake_outlet</ref>.clear();</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ac0abec748871b4f77fada59d01a63f6c" kindref="member">lake_root</ref>.clear();</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1aab24102f172c62f86052edcf605c9b81" kindref="member">lake_volume</ref>.clear();</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>configure<sp/>bucket<sp/>queue<sp/>(fast<sp/>approximate<sp/>flood)<sp/>or<sp/>radix<sp/>heap<sp/>(exact</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/></highlight><highlight class="comment">//<sp/>flood)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>nbuckets<sp/>=<sp/>1<sp/>&lt;&lt;<sp/>18;</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>zmin<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cur<sp/>=<sp/>nbuckets;</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>open<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fast)</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>zmax<sp/>=<sp/>-3.0e38f;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/>zmin<sp/>=<sp/>3.0e38f;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>;<sp/>++i)</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>zmin<sp/>=<sp/>std::min(zmin,<sp/>z[i]);</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>zmax<sp/>=<sp/>std::max(zmax,<sp/>z[i]);</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref><sp/>=<sp/>(zmax<sp/>&gt;<sp/>zmin)<sp/>?<sp/>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)(nbuckets<sp/>-<sp/>1)<sp/>/<sp/>(zmax<sp/>-<sp/>zmin)<sp/>:<sp/>0.f;</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>.assign(nbuckets,<sp/>-1);</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ad4fd881bf1fea60b8e56e3184d58a5b7" kindref="member">bnext</ref>.resize(<ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>);</highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ab3e3b226ef6b530085cfa2998a93e494" kindref="member">heap</ref>.clear();</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>push<sp/>=<sp/>[&amp;](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fast)</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>b<sp/>=<sp/>(int)((z[i]<sp/>-<sp/>zmin)<sp/>*<sp/><ref refid="namespacehmap_1a7e352e19687bc236a6360e56ec92251e" kindref="member">scale</ref>);</highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ad4fd881bf1fea60b8e56e3184d58a5b7" kindref="member">bnext</ref>[i]<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>[b];</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>[b]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cur<sp/>=<sp/>std::min(cur,<sp/>b);</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>++open;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ab3e3b226ef6b530085cfa2998a93e494" kindref="member">heap</ref>.push(<ref refid="namespacehmap_1a90fb3243b59c59c38bc18477b38bf3ca" kindref="member">float_key</ref>(z[i]),<sp/>i);</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"></highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>seed_cell<sp/>=<sp/>[&amp;](</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i)</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[i])<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[i]<sp/>=<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" kindref="member">F_CLOSED</ref><sp/>|<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a" kindref="member">F_OUTLET</ref>;</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>zf_v[i]<sp/>=<sp/>z[i];</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>push(i);</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/>};</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(seed_borders)</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>seed<sp/>domain<sp/>borders<sp/>as<sp/>outlets</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>;<sp/>++x)</highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed_cell(x);</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed_cell((<ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref><sp/>-<sp/>1)<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>+<sp/>x);</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>1;<sp/>y<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref><sp/>-<sp/>1;<sp/>++y)</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed_cell(y<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>);</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>seed_cell(y<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>+<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>-<sp/>1);</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"></highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(outlet)</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref>;<sp/>++i)</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(outlet[i])<sp/>seed_cell(i);</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>head<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">size_t</highlight><highlight class="normal"><sp/>tail<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>count<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/>cur_lake<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(head<sp/>&lt;<sp/>tail<sp/>||<sp/>(fast<sp/>?<sp/>open<sp/>&gt;<sp/>0<sp/>:<sp/><ref refid="structhmap_1_1FlowGraph_1ab3e3b226ef6b530085cfa2998a93e494" kindref="member">heap</ref>.count<sp/>&gt;<sp/>0))</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>c<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"></highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(head<sp/>&lt;<sp/>tail)</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a30fa27b29a94165f345a460f9a2bd4c7" kindref="member">pitq</ref>[head++];</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(fast)</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>[cur]<sp/>&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++cur;</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"></highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>[cur];</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a08d9c64a9158d301edb5e94c628102d1" kindref="member">bhead</ref>[cur]<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1ad4fd881bf1fea60b8e56e3184d58a5b7" kindref="member">bnext</ref>[c];</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>--open;</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>c<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1ab3e3b226ef6b530085cfa2998a93e494" kindref="member">heap</ref>.pop().second;</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"></highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>cur_lake<sp/>=<sp/>-1;</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"></highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a34441e15367b2c962286bb049d845fe7" kindref="member">rank</ref>[c]<sp/>=<sp/>count;</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a5f20be2cd81bdeae1b36b1615f1eca2c" kindref="member">order</ref>[count++]<sp/>=<sp/>c;</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>zc_eps<sp/>=<sp/><ref refid="namespacehmap_1a6503b05d83425c53c99042301cdc41d2" kindref="member">next_up</ref>(zf_v[c]);</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>cx<sp/>=<sp/>c<sp/>%<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>;</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>cy<sp/>=<sp/>c<sp/>/<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>;</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>8;<sp/>++k)</highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>cx<sp/>+<sp/>DX8[k];</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>cy<sp/>+<sp/>DY8[k];</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(x<sp/>&lt;<sp/>0<sp/>||<sp/>y<sp/>&lt;<sp/>0<sp/>||<sp/>x<sp/>&gt;=<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>||<sp/>y<sp/>&gt;=<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"></highlight></codeline>
+<codeline lineno="189"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>y<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>+<sp/>x;</highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[j]<sp/>&amp;<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" kindref="member">F_CLOSED</ref>)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="191"><highlight class="normal"></highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(z[j]<sp/>&lt;=<sp/>zc_eps)</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cell<sp/>is<sp/>inside<sp/>a<sp/>depression:<sp/>raise<sp/>to<sp/>spill<sp/>level<sp/>and<sp/>enqueue<sp/>in</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>pitq</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[j]<sp/>=<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" kindref="member">F_CLOSED</ref><sp/>|<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce" kindref="member">F_PIT</ref>;</highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>zf_v[j]<sp/>=<sp/>zc_eps;</highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a30fa27b29a94165f345a460f9a2bd4c7" kindref="member">pitq</ref>[tail++]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"></highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cur_lake<sp/>&lt;<sp/>0)</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cur_lake<sp/>=<sp/>(int)<ref refid="structhmap_1_1FlowGraph_1a3c4484952259965012f7e9d08a1d6210" kindref="member">lake_outlet</ref>.size();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a3c4484952259965012f7e9d08a1d6210" kindref="member">lake_outlet</ref>.push_back(c);</highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1ac0abec748871b4f77fada59d01a63f6c" kindref="member">lake_root</ref>.push_back(j);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1aab24102f172c62f86052edcf605c9b81" kindref="member">lake_volume</ref>.push_back(0.f);</highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"></highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a6806db212627116c5bbe59a382e5e1e3" kindref="member">lake</ref>[j]<sp/>=<sp/>cur_lake;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1aab24102f172c62f86052edcf605c9b81" kindref="member">lake_volume</ref>[cur_lake]<sp/>+=<sp/>zc_eps<sp/>-<sp/>z[j];</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[j]<sp/>=<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" kindref="member">F_CLOSED</ref>;</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>zf_v[j]<sp/>=<sp/>z[j];</highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>push(j);</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="217"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1aac80f02ab9262c10c94126408b645a85" kindref="member">pit_cells</ref><sp/>=<sp/>(int)tail;</highlight></codeline>
+<codeline lineno="221"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1a45db63b27a39463696a0497cea1cde6c" kindref="member">FlowGraph::receivers</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>p,<sp/>uint32_t<sp/>seed)</highlight></codeline>
+<codeline lineno="224"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;zf_v<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a4d0ee8cee81fef6ce53cf2b631c8293c" kindref="member">zf</ref>.vector;</highlight></codeline>
+<codeline lineno="226"><highlight class="normal"></highlight></codeline>
+<codeline lineno="227"><highlight class="normal"></highlight><highlight class="preprocessor">#pragma<sp/>omp<sp/>parallel<sp/>for<sp/>if<sp/>(ny<sp/>&gt;=<sp/>64)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>y<sp/>=<sp/>0;<sp/>y<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>;<sp/>++y)</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>x<sp/>=<sp/>0;<sp/>x<sp/>&lt;<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref>;<sp/>++x)</highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>y<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>+<sp/>x;</highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i]<sp/>=<sp/>i;</highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a0f1c4decef32b235046f7f53e0089f07" kindref="member">flag</ref>[i]<sp/>&amp;<sp/><ref refid="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a" kindref="member">F_OUTLET</ref>)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="235"><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>zi<sp/>=<sp/>zf_v[i];</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/>ri<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a34441e15367b2c962286bb049d845fe7" kindref="member">rank</ref>[i];</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cj[8];</highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw[8];</highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cnt<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"></highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>8;<sp/>++k)</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>xx<sp/>=<sp/>x<sp/>+<sp/>DX8[k];</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>yy<sp/>=<sp/>y<sp/>+<sp/>DY8[k];</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(xx<sp/>&lt;<sp/>0<sp/>||<sp/>yy<sp/>&lt;<sp/>0<sp/>||<sp/>xx<sp/>&gt;=<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>||<sp/>yy<sp/>&gt;=<sp/><ref refid="structhmap_1_1FlowGraph_1a193c9bdb7a7072815ab67d463550773a" kindref="member">ny</ref>)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="248"><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>yy<sp/>*<sp/><ref refid="structhmap_1_1FlowGraph_1adf81c4ba5945da940cfccafd3c1a9896" kindref="member">nx</ref><sp/>+<sp/>xx;</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="structhmap_1_1FlowGraph_1a34441e15367b2c962286bb049d845fe7" kindref="member">rank</ref>[j]<sp/>&lt;<sp/>ri<sp/>&amp;&amp;<sp/>zf_v[j]<sp/>&lt;<sp/>zi)</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>d<sp/>=<sp/>zi<sp/>-<sp/>zf_v[j];</highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>w<sp/>=<sp/>(p<sp/>==<sp/>1.f)<sp/>?<sp/>d</highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>:<sp/>((p<sp/>==<sp/>2.f)<sp/>?<sp/>d<sp/>*<sp/>d<sp/>:<sp/>std::<ref refid="namespacehmap_1a105e497c433e14b4235534ae6d2b87b9" kindref="member">pow</ref>(d,<sp/>p));</highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cj[cnt]<sp/>=<sp/>j;</highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>cw[cnt]<sp/>=<sp/>w;</highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sum<sp/>+=<sp/>w;</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>++cnt;</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"></highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cnt<sp/>==<sp/>0)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"></highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>pick<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(cnt<sp/>&gt;<sp/>1)</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>u<sp/>=<sp/><ref refid="namespacehmap_1aaa59c49ff09267625f6c671c50862b28" kindref="member">hash01</ref>((uint32_t)i,<sp/>seed)<sp/>*<sp/>sum;</highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>acc<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pick<sp/>=<sp/>cnt<sp/>-<sp/>1;</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"></highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>cnt;<sp/>++k)</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>acc<sp/>+=<sp/>cw[k];</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(u<sp/>&lt;<sp/>acc)</highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pick<sp/>=<sp/>k;</highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">break</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="281"><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i]<sp/>=<sp/>cj[pick];</highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="285"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"></highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="structhmap_1_1FlowGraph_1a8774cf352a07435d1a3ef1b60060720a" kindref="member">FlowGraph::accumulate</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>&amp;z_arr,</highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="classhmap_1_1Array" kindref="compound">Array</ref><sp/>*p_rain,</highlight></codeline>
+<codeline lineno="289"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>talus_cell)</highlight></codeline>
+<codeline lineno="290"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="291"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>&amp;z<sp/>=<sp/>z_arr.vector;</highlight></codeline>
+<codeline lineno="292"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;area_v<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a7aed44ede924a62d354b3a0f5e723e72" kindref="member">area</ref>.vector;</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>&amp;steep_v<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a0987095762d29b4e88aab6287a30139b" kindref="member">steep</ref>.vector;</highlight></codeline>
+<codeline lineno="294"><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(p_rain)</highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="structhmap_1_1FlowGraph_1a7aed44ede924a62d354b3a0f5e723e72" kindref="member">area</ref><sp/>=<sp/>*p_rain;</highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/>std::fill(area_v.begin(),<sp/>area_v.end(),<sp/>1.f);</highlight></codeline>
+<codeline lineno="299"><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/>std::fill(steep_v.begin(),<sp/>steep_v.end(),<sp/>0.f);</highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>inv<sp/>=<sp/>1.f<sp/>/<sp/>talus_cell;</highlight></codeline>
+<codeline lineno="302"><highlight class="normal"></highlight></codeline>
+<codeline lineno="303"><highlight class="normal"><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>o<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a9a3a8adcc4fc3ed84b92c17015d83a56" kindref="member">n</ref><sp/>-<sp/>1;<sp/>o<sp/>&gt;=<sp/>0;<sp/>--o)</highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/>{</highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1a5f20be2cd81bdeae1b36b1615f1eca2c" kindref="member">order</ref>[o];</highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>r<sp/>=<sp/><ref refid="structhmap_1_1FlowGraph_1abc841d0cbff5335d6e6e12974f9b92c7" kindref="member">rcv</ref>[i];</highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(r<sp/>==<sp/>i)<sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="308"><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!<ref refid="structhmap_1_1FlowGraph_1ab2bbd3779d562de0bedb6638c67aa1c0" kindref="member">submerged</ref>(i,<sp/>z_arr))</highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>s<sp/>=<sp/>(z[i]<sp/>-<sp/>z[r])<sp/>/<sp/><ref refid="structhmap_1_1FlowGraph_1aebfa2cd2a3f3215b494eceaec22c2702" kindref="member">dist</ref>(i);</highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(s<sp/>&gt;<sp/>talus_cell)<sp/>steep_v[i]<sp/>+=<sp/>(s<sp/>-<sp/>talus_cell)<sp/>*<sp/>inv;</highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="314"><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/>steep_v[r]<sp/>+=<sp/>steep_v[i];</highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/>area_v[r]<sp/>+=<sp/>area_v[i];</highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/>}</highlight></codeline>
+<codeline lineno="318"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="319"><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal">}<sp/></highlight><highlight class="comment">//<sp/>namespace<sp/>hmap</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="HighMap/src/hydrology/flow_graph.cpp"/>
+  </compounddef>
+</doxygen>

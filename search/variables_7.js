@@ -1,5 +1,6 @@
 var searchData=
 [
   ['half_5fpi_0',['half_pi',['../namespacehmap_1_1cte.html#a6655ba5083345d1372f1c93f4d0047cf',1,'hmap::cte']]],
-  ['halo_1',['halo',['../structhmap_1_1UvTile.html#adb05dab3a03abfa5af4167d827a3e05a',1,'hmap::UvTile::halo'],['../structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2',1,'hmap::VirtualArray::halo'],['../classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c',1,'hmap::VirtualTexture::halo']]]
+  ['halo_1',['halo',['../structhmap_1_1UvTile.html#adb05dab3a03abfa5af4167d827a3e05a',1,'hmap::UvTile::halo'],['../structhmap_1_1VirtualArray.html#a2b173300623c38c8083654ad095217f2',1,'hmap::VirtualArray::halo'],['../classhmap_1_1VirtualTexture.html#a086adf51b2d8005792bc505045a1974c',1,'hmap::VirtualTexture::halo']]],
+  ['heap_2',['heap',['../structhmap_1_1FlowGraph.html#ab3e3b226ef6b530085cfa2998a93e494',1,'hmap::FlowGraph']]]
 ];

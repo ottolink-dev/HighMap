@@ -75,7 +75,7 @@
     <innerclass refid="classhmap_1_1Path" prot="public">hmap::Path</innerclass>
     <innerclass refid="classhmap_1_1Point" prot="public">hmap::Point</innerclass>
     <innerclass refid="classhmap_1_1DrainageBasin" prot="public">hmap::DrainageBasin</innerclass>
-    <innerclass refid="classhmap_1_1DrainageBasinCellBased" prot="public">hmap::DrainageBasinCellBased</innerclass>
+    <innerclass refid="structhmap_1_1FlowGraph" prot="public">hmap::FlowGraph</innerclass>
     <innerclass refid="structhmap_1_1AssertResults" prot="public">hmap::AssertResults</innerclass>
     <innerclass refid="structhmap_1_1RadixHeap" prot="public">hmap::RadixHeap</innerclass>
     <innerclass refid="structhmap_1_1Recorder" prot="public">hmap::Recorder</innerclass>
@@ -1468,34 +1468,41 @@
         </inbodydescription>
         <location file="HighMap/include/highmap/geometry/point_sampling.hpp" line="33" column="1" bodyfile="HighMap/include/highmap/geometry/point_sampling.hpp" bodystart="34" bodyend="39"/>
       </memberdef>
-      <memberdef kind="enum" id="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2f" prot="public" static="no" strong="no">
-        <type>int</type>
-        <name>FlowDirectionMethod</name>
-        <qualifiedname>hmap::FlowDirectionMethod</qualifiedname>
-        <enumvalue id="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894" prot="public">
-          <name>FDM_D8</name>
+      <memberdef kind="enum" id="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606" prot="public" static="no" strong="no">
+        <type>uint8_t</type>
+        <name>FlowGraphFlag</name>
+        <qualifiedname>hmap::FlowGraphFlag</qualifiedname>
+        <enumvalue id="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" prot="public">
+          <name>F_CLOSED</name>
+          <initializer>= 1</initializer>
           <briefdescription>
-<para>Standard D8 flow direction algorithm. </para>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
-        <enumvalue id="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372" prot="public">
-          <name>FDM_PRIORITY_FLOOD</name>
+        <enumvalue id="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce" prot="public">
+          <name>F_PIT</name>
+          <initializer>= 2</initializer>
           <briefdescription>
-<para>Priority flood flow routing algorithm. </para>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespacehmap_1a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a" prot="public">
+          <name>F_OUTLET</name>
+          <initializer>= 4</initializer>
+          <briefdescription>
           </briefdescription>
           <detaileddescription>
           </detaileddescription>
         </enumvalue>
         <briefdescription>
-<para>Enumeration of available algorithms for computing flow directions. </para>
         </briefdescription>
         <detaileddescription>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/include/highmap/hydrology/drainage_basin_cell_based.hpp" line="26" column="1" bodyfile="HighMap/include/highmap/hydrology/drainage_basin_cell_based.hpp" bodystart="27" bodyend="30"/>
+        <location file="HighMap/include/highmap/hydrology/flow_graph.hpp" line="21" column="1" bodyfile="HighMap/include/highmap/hydrology/flow_graph.hpp" bodystart="22" bodyend="26"/>
       </memberdef>
       <memberdef kind="enum" id="namespacehmap_1a46291bb4766800deacc1ce9b45a9ea6b" prot="public" static="no" strong="no">
         <type>int</type>
@@ -15860,7 +15867,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/depression_filling_priority_flood.cpp" line="23" column="6" bodyfile="HighMap/src/erosion/depression_filling_priority_flood.cpp" bodystart="23" bodyend="140" declfile="HighMap/include/highmap/erosion/depression_filling.hpp" declline="60" declcolumn="6"/>
+        <location file="HighMap/src/erosion/depression_filling_priority_flood.cpp" line="23" column="6" bodyfile="HighMap/src/erosion/depression_filling_priority_flood.cpp" bodystart="23" bodyend="111" declfile="HighMap/include/highmap/erosion/depression_filling.hpp" declline="60" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1af91e2b8638aab2c4357ce37812b8a99c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -16344,7 +16351,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_mise.cpp" line="734" column="6" bodyfile="HighMap/src/erosion/hydraulic_mise.cpp" bodystart="734" bodyend="946" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="49" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_mise.cpp" line="415" column="6" bodyfile="HighMap/src/erosion/hydraulic_mise.cpp" bodystart="415" bodyend="627" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="49" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a7596adf5cfdf28ff37dbf1dcda09bb75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -16502,7 +16509,7 @@ additional_depth)</computeroutput>.</para>
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/erosion/hydraulic_mise.cpp" line="948" column="6" bodyfile="HighMap/src/erosion/hydraulic_mise.cpp" bodystart="948" bodyend="995" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="83" declcolumn="6"/>
+        <location file="HighMap/src/erosion/hydraulic_mise.cpp" line="629" column="6" bodyfile="HighMap/src/erosion/hydraulic_mise.cpp" bodystart="629" bodyend="676" declfile="HighMap/include/highmap/erosion/hydraulic_erosion.hpp" declline="83" declcolumn="6"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a33c845361a82a1863a6a8a65f8027573" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -36020,41 +36027,10 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
         </inbodydescription>
         <location file="HighMap/src/hydrology/drainage_basin.cpp" line="938" column="13" bodyfile="HighMap/src/hydrology/drainage_basin.cpp" bodystart="938" bodyend="996" declfile="HighMap/include/highmap/hydrology/drainage_basin.hpp" declline="313" declcolumn="13"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a6d5ae7cdae4d3db7507517699fb44ed7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
-        <type><ref refid="structhmap_1_1Mat" kindref="compound">Mat</ref>&lt; std::vector&lt; glm::ivec2 &gt; &gt;</type>
-        <definition>Mat&lt; std::vector&lt; glm::ivec2 &gt; &gt; hmap::invert_receiver_map</definition>
-        <argsstring>(const Mat&lt; glm::ivec2 &gt; &amp;receivers)</argsstring>
-        <name>invert_receiver_map</name>
-        <qualifiedname>hmap::invert_receiver_map</qualifiedname>
-        <param>
-          <type>const <ref refid="structhmap_1_1Mat" kindref="compound">Mat</ref>&lt; glm::ivec2 &gt; &amp;</type>
-          <declname>receivers</declname>
-        </param>
-        <briefdescription>
-<para>Invert the receiver map to build a map of children/downstream receivers. </para>
-        </briefdescription>
-        <detaileddescription>
-<para><parameterlist kind="param"><parameteritem>
-<parameternamelist>
-<parametername>receivers</parametername>
-</parameternamelist>
-<parameterdescription>
-<para>Input grid of receiver coordinates. </para>
-</parameterdescription>
-</parameteritem>
-</parameterlist>
-<simplesect kind="return"><para>A matrix of vectors representing children coordinates for each cell. </para>
-</simplesect>
-</para>
-        </detaileddescription>
-        <inbodydescription>
-        </inbodydescription>
-        <location file="HighMap/src/hydrology/drainage_basin_cell_based.cpp" line="561" column="5" bodyfile="HighMap/src/hydrology/drainage_basin_cell_based.cpp" bodystart="561" bodyend="583" declfile="HighMap/include/highmap/hydrology/drainage_basin_cell_based.hpp" declline="209" declcolumn="5"/>
-      </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a8284b00f1f460f1d5a406ee45587dcd9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aab4bf155fbf1998bd707be00152650d0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::basin_id</definition>
-        <argsstring>(const Array &amp;z, FlowDirectionMethod fd_method=FlowDirectionMethod::FDM_D8, bool remove_lakes=true)</argsstring>
+        <argsstring>(const Array &amp;z, bool fast_approx=false, bool remove_lakes=true)</argsstring>
         <name>basin_id</name>
         <qualifiedname>hmap::basin_id</qualifiedname>
         <param>
@@ -36062,9 +36038,9 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2f" kindref="member">FlowDirectionMethod</ref></type>
-          <declname>fd_method</declname>
-          <defval><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894" kindref="member">FlowDirectionMethod::FDM_D8</ref></defval>
+          <type>bool</type>
+          <declname>fast_approx</declname>
+          <defval>false</defval>
         </param>
         <param>
           <type>bool</type>
@@ -36099,12 +36075,10 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
 <codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a041b03657bcd71d20dcf2b95cd1618dd" kindref="member">hmap::noise_fbm</ref>(<ref refid="namespacehmap_1ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581" kindref="member">hmap::NoiseType::PERLIN</ref>,<sp/>shape,<sp/>res,<sp/>seed);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/>z<sp/>=<sp/><ref refid="namespacehmap_1a2f79d48265d4af608c9cb9ff078e7e01" kindref="member">hmap::bulkify</ref>(z,<sp/><ref refid="namespacehmap_1a55542a66f890ef9ecf5f82af2c23a0cfae2c78e075109f330e3109c52e9bf90ff" kindref="member">hmap::PrimitiveType::PRIM_CONE</ref>,<sp/>1.f);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>id1<sp/>=<sp/><ref refid="namespacehmap_1a8284b00f1f460f1d5a406ee45587dcd9" kindref="member">hmap::basin_id</ref>(</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>z,</highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372" kindref="member">hmap::FlowDirectionMethod::FDM_PRIORITY_FLOOD</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>id1<sp/>=<sp/><ref refid="namespacehmap_1aab4bf155fbf1998bd707be00152650d0" kindref="member">hmap::basin_id</ref>(z,<sp/></highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(id1);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>id2<sp/>=<sp/><ref refid="namespacehmap_1a8284b00f1f460f1d5a406ee45587dcd9" kindref="member">hmap::basin_id</ref>(z,<sp/><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894" kindref="member">hmap::FlowDirectionMethod::FDM_D8</ref>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><ref refid="classhmap_1_1Array" kindref="compound">hmap::Array</ref><sp/>id2<sp/>=<sp/><ref refid="namespacehmap_1aab4bf155fbf1998bd707be00152650d0" kindref="member">hmap::basin_id</ref>(z,<sp/></highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1a262e6495cb2d02598f36a2b46114b2b4" kindref="member">hmap::remap</ref>(id2);</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><ref refid="namespacehmap_1ac2452e568959bc21c9b7b09202e5977a" kindref="member">hmap::export_banner_png</ref>(</highlight><highlight class="stringliteral">&quot;ex_basin_id.png&quot;</highlight><highlight class="normal">,<sp/>{z,<sp/>id1,<sp/>id2},<sp/><ref refid="namespacehmap_1ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced" kindref="member">hmap::Cmap::JET</ref>);</highlight></codeline>
@@ -36115,7 +36089,7 @@ See unit tests: <ref refid="test__gradient_8cpp" kindref="compound">test_gradien
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/basin_id.cpp" line="15" column="7" bodyfile="HighMap/src/hydrology/basin_id.cpp" bodystart="15" bodyend="52" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="60" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/basin_id.cpp" line="14" column="7" bodyfile="HighMap/src/hydrology/basin_id.cpp" bodystart="14" bodyend="43" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="60" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a70e5aa1009c3de1d301e0a8994dd8b03" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
@@ -37772,12 +37746,12 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="29" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="29" bodyend="290" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="502" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="28" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="28" bodyend="289" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="502" declcolumn="7"/>
       </memberdef>
-      <memberdef kind="function" id="namespacehmap_1a62e937a8e394092689481bb392bc15cf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="namespacehmap_1aa2b32e5f722d0196c2384a5e3e418c17" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>
         <definition>Array hmap::flow_fixing_drainage_basin</definition>
-        <argsstring>(const Array &amp;z, FlowDirectionMethod fd_method=FlowDirectionMethod::FDM_D8, float riverbed_talus=1e-4f, int iterations=3, bool carve_riverbed=false, float talus_riverbank=0.01f, float merging_distance=8.f, std::uint32_t seed=0, float noise_strength=0.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
+        <argsstring>(const Array &amp;z, bool fast_approx=false, float riverbed_talus=1e-4f, int iterations=3, bool carve_riverbed=false, float talus_riverbank=0.01f, float merging_distance=8.f, std::uint32_t seed=0, float noise_strength=0.f, const Array *p_noise_x=nullptr, const Array *p_noise_y=nullptr)</argsstring>
         <name>flow_fixing_drainage_basin</name>
         <qualifiedname>hmap::flow_fixing_drainage_basin</qualifiedname>
         <param>
@@ -37785,9 +37759,9 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
           <declname>z</declname>
         </param>
         <param>
-          <type><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2f" kindref="member">FlowDirectionMethod</ref></type>
-          <declname>fd_method</declname>
-          <defval><ref refid="namespacehmap_1a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894" kindref="member">FlowDirectionMethod::FDM_D8</ref></defval>
+          <type>bool</type>
+          <declname>fast_approx</declname>
+          <defval>false</defval>
         </param>
         <param>
           <type>float</type>
@@ -37950,7 +37924,7 @@ Transport for Terrain Erosion Simulation&quot; (N. McDonald, G. Cordonnier), <ul
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="292" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="292" bodyend="368" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="543" declcolumn="7"/>
+        <location file="HighMap/src/hydrology/flow_fixing.cpp" line="291" column="7" bodyfile="HighMap/src/hydrology/flow_fixing.cpp" bodystart="291" bodyend="351" declfile="HighMap/include/highmap/hydrology/hydrology.hpp" declline="543" declcolumn="7"/>
       </memberdef>
       <memberdef kind="function" id="namespacehmap_1a20cb460ecf96e4608610b5ab9fe8f1b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type><ref refid="classhmap_1_1Array" kindref="compound">Array</ref></type>

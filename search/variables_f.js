@@ -10,8 +10,10 @@ var searchData=
   ['phase_5fshift_7',['phase_shift',['../classhmap_1_1WaveDuneFunction.html#abc24fb97142a7688cb1c14f1f67259c3',1,'hmap::WaveDuneFunction::phase_shift'],['../classhmap_1_1WaveSineFunction.html#afeb64dcd835089aca43509acd96d07e3',1,'hmap::WaveSineFunction::phase_shift'],['../classhmap_1_1WaveSquareFunction.html#acafda7056c558f5daf9090944ab43e47',1,'hmap::WaveSquareFunction::phase_shift'],['../classhmap_1_1WaveTriangularFunction.html#abf7528af6e80038e800596f70d863bdb',1,'hmap::WaveTriangularFunction::phase_shift']]],
   ['pi_8',['pi',['../namespacehmap_1_1cte.html#a9edce6cabd0187e5d9afc9f30caacbf3',1,'hmap::cte']]],
   ['pin_5fcount_9',['pin_count',['../structhmap_1_1LruTileEntry.html#a76d135c8f288db38c55e16c11992f5d0',1,'hmap::LruTileEntry']]],
-  ['points_10',['points',['../classhmap_1_1Cloud.html#aad75fb7bcfa7a2c3f139d2e3d3d6cc54',1,'hmap::Cloud']]],
-  ['position_11',['position',['../structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60',1,'hmap::PointOfInterest::position'],['../classhmap_1_1ScatterItem.html#a06e26e80e8403b235906da165ff5b74e',1,'hmap::ScatterItem::position']]],
-  ['power_5flaw_5falpha_12',['power_law_alpha',['../structhmap_1_1RockDistribution.html#ab2e3d233bcdad2b73f00aeb9b97ef914',1,'hmap::RockDistribution']]],
-  ['prominence_13',['prominence',['../structhmap_1_1PoiGenerationOptions.html#ab073c0dfaee027ff684bfbe1d93b48df',1,'hmap::PoiGenerationOptions']]]
+  ['pit_5fcells_10',['pit_cells',['../structhmap_1_1FlowGraph.html#aac80f02ab9262c10c94126408b645a85',1,'hmap::FlowGraph']]],
+  ['pitq_11',['pitq',['../structhmap_1_1FlowGraph.html#a30fa27b29a94165f345a460f9a2bd4c7',1,'hmap::FlowGraph']]],
+  ['points_12',['points',['../classhmap_1_1Cloud.html#aad75fb7bcfa7a2c3f139d2e3d3d6cc54',1,'hmap::Cloud']]],
+  ['position_13',['position',['../structhmap_1_1PointOfInterest.html#a7a4955625ad519be4d0072984552ed60',1,'hmap::PointOfInterest::position'],['../classhmap_1_1ScatterItem.html#a06e26e80e8403b235906da165ff5b74e',1,'hmap::ScatterItem::position']]],
+  ['power_5flaw_5falpha_14',['power_law_alpha',['../structhmap_1_1RockDistribution.html#ab2e3d233bcdad2b73f00aeb9b97ef914',1,'hmap::RockDistribution']]],
+  ['prominence_15',['prominence',['../structhmap_1_1PoiGenerationOptions.html#ab073c0dfaee027ff684bfbe1d93b48df',1,'hmap::PoiGenerationOptions']]]
 ];

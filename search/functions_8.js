@@ -41,7 +41,7 @@ var searchData=
   ['intersects_38',['intersects',['../classhmap_1_1CoordFrame.html#a6c80292ee841eb15b3725585139bc9e3',1,'hmap::CoordFrame']]],
   ['inverse_39',['inverse',['../structhmap_1_1VirtualArray.html#a277b4009dc26ec99a6f82157b899d8cd',1,'hmap::VirtualArray']]],
   ['inversesampler2d_40',['InverseSampler2D',['../classhmap_1_1InverseSampler2D.html#a954da8aa0eeb1a0309093f793a521ea5',1,'hmap::InverseSampler2D::InverseSampler2D()=default'],['../classhmap_1_1InverseSampler2D.html#a8ccb711b8bb54eb7790dd23e095cdfc1',1,'hmap::InverseSampler2D::InverseSampler2D(const Array &amp;density, std::uint32_t seed=0, const BBox2D &amp;bbox=BBox2D{})']]],
-  ['invert_5freceiver_5fmap_41',['invert_receiver_map',['../classhmap_1_1DrainageBasin.html#a32652e8b38b167fc611b3e723b4ee775',1,'hmap::DrainageBasin::invert_receiver_map()'],['../namespacehmap.html#a6d5ae7cdae4d3db7507517699fb44ed7',1,'hmap::invert_receiver_map()']]],
+  ['invert_5freceiver_5fmap_41',['invert_receiver_map',['../classhmap_1_1DrainageBasin.html#a32652e8b38b167fc611b3e723b4ee775',1,'hmap::DrainageBasin']]],
   ['is_5fbottom_5fborder_42',['is_bottom_border',['../structhmap_1_1UvTile.html#ab55c8b97474724b4697012143dbe358a',1,'hmap::UvTile']]],
   ['is_5fclosed_43',['is_closed',['../classhmap_1_1Path.html#a39ef1335efd434f12c92527f12933d9e',1,'hmap::Path']]],
   ['is_5fempty_44',['is_empty',['../structhmap_1_1UvTile.html#a40cc0962aa33c244253ad6d68ea282e2',1,'hmap::UvTile::is_empty()'],['../classhmap_1_1Texture.html#af2319e8977c56256c0b23a9f821ec1ad',1,'hmap::Texture::is_empty()']]],

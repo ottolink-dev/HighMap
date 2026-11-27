@@ -38,13 +38,14 @@ var searchData=
   ['spawn_5ffraction_35',['spawn_fraction',['../structhmap_1_1RockSimulationOptions.html#a1fb1c743da4dba12386b94c566b2d21f',1,'hmap::RockSimulationOptions']]],
   ['species_36',['species',['../structhmap_1_1ForestSeedingOptions.html#a9e4336ae1f61873d1126197bbe081c9b',1,'hmap::ForestSeedingOptions']]],
   ['sqrt2_37',['sqrt2',['../namespacehmap_1_1cte.html#a7b32214830443d8276a29fec101e5de6',1,'hmap::cte']]],
-  ['storage_38',['storage',['../structhmap_1_1VirtualArray.html#ac46202fbde3f529ab290f38e73b529d6',1,'hmap::VirtualArray']]],
-  ['strata_39',['strata',['../structhmap_1_1TerrainTextureParams.html#a68387d0b2d9932e4a537080a0fcfc5e6',1,'hmap::TerrainTextureParams']]],
-  ['streak_5flength_40',['streak_length',['../structhmap_1_1TerrainTextureParams.html#a57c88efeb2d42c603ea6904badcd183a',1,'hmap::TerrainTextureParams']]],
-  ['streaks_41',['streaks',['../structhmap_1_1TerrainTextureParams.html#a25f048b640e64d0d95d4c817b18017de',1,'hmap::TerrainTextureParams']]],
-  ['strength_42',['strength',['../structhmap_1_1MiseParams.html#a022506912199ad2fe033d6277097ba95',1,'hmap::MiseParams::strength'],['../structhmap_1_1gpu_1_1McDonaldParams.html#a3d202fa7479bc8acf4c421b5c1a7ca6d',1,'hmap::gpu::McDonaldParams::strength'],['../structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907',1,'hmap::ForestScaleSampler::strength']]],
-  ['stretch_43',['stretch',['../classhmap_1_1GenericFractalFunction.html#ac7301f9ccc07cc3d382610f6754d65e9',1,'hmap::GenericFractalFunction']]],
-  ['stretch_5fdecay_44',['stretch_decay',['../classhmap_1_1GenericFractalFunction.html#a0af17572a46e313fc345b8db36bf5e31',1,'hmap::GenericFractalFunction']]],
-  ['stride_45',['stride',['../structhmap_1_1ComputeMode.html#a764bfa4551a94b2006d2f76f7f1739ae',1,'hmap::ComputeMode']]],
-  ['suspension_5frate_46',['suspension_rate',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a6957f3c429e254be4d008b04377c9f8c',1,'hmap::gpu::McDonaldParams::PhysicalParams']]]
+  ['steep_38',['steep',['../structhmap_1_1FlowGraph.html#a0987095762d29b4e88aab6287a30139b',1,'hmap::FlowGraph']]],
+  ['storage_39',['storage',['../structhmap_1_1VirtualArray.html#ac46202fbde3f529ab290f38e73b529d6',1,'hmap::VirtualArray']]],
+  ['strata_40',['strata',['../structhmap_1_1TerrainTextureParams.html#a68387d0b2d9932e4a537080a0fcfc5e6',1,'hmap::TerrainTextureParams']]],
+  ['streak_5flength_41',['streak_length',['../structhmap_1_1TerrainTextureParams.html#a57c88efeb2d42c603ea6904badcd183a',1,'hmap::TerrainTextureParams']]],
+  ['streaks_42',['streaks',['../structhmap_1_1TerrainTextureParams.html#a25f048b640e64d0d95d4c817b18017de',1,'hmap::TerrainTextureParams']]],
+  ['strength_43',['strength',['../structhmap_1_1MiseParams.html#a022506912199ad2fe033d6277097ba95',1,'hmap::MiseParams::strength'],['../structhmap_1_1gpu_1_1McDonaldParams.html#a3d202fa7479bc8acf4c421b5c1a7ca6d',1,'hmap::gpu::McDonaldParams::strength'],['../structhmap_1_1ForestScaleSampler.html#a1df5b468312e12c0231a886268158907',1,'hmap::ForestScaleSampler::strength']]],
+  ['stretch_44',['stretch',['../classhmap_1_1GenericFractalFunction.html#ac7301f9ccc07cc3d382610f6754d65e9',1,'hmap::GenericFractalFunction']]],
+  ['stretch_5fdecay_45',['stretch_decay',['../classhmap_1_1GenericFractalFunction.html#a0af17572a46e313fc345b8db36bf5e31',1,'hmap::GenericFractalFunction']]],
+  ['stride_46',['stride',['../structhmap_1_1ComputeMode.html#a764bfa4551a94b2006d2f76f7f1739ae',1,'hmap::ComputeMode']]],
+  ['suspension_5frate_47',['suspension_rate',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a6957f3c429e254be4d008b04377c9f8c',1,'hmap::gpu::McDonaldParams::PhysicalParams']]]
 ];

@@ -7,12 +7,14 @@ var searchData=
   ['bbox_5fdx_4',['bbox_dx',['../structhmap_1_1ForestScaleSampler.html#a5b52199da1105ede4c35127216826394',1,'hmap::ForestScaleSampler']]],
   ['bbox_5fdy_5',['bbox_dy',['../structhmap_1_1ForestScaleSampler.html#a97788d3f9626dafe95907209d15f56b4',1,'hmap::ForestScaleSampler']]],
   ['bed_5fshear_6',['bed_shear',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a95ca00549157d870b06c62d10efc65e2',1,'hmap::gpu::McDonaldParams::PhysicalParams']]],
-  ['bias_5fangle_7',['bias_angle',['../classhmap_1_1FbmSlopeFunction.html#a2b32ad3f18ceaac9683275fd6121d56d',1,'hmap::FbmSlopeFunction']]],
-  ['bias_5fcos_8',['bias_cos',['../classhmap_1_1FbmSlopeFunction.html#a1cda80f0872df861eed67d8e129308cd',1,'hmap::FbmSlopeFunction']]],
-  ['bias_5fsin_9',['bias_sin',['../classhmap_1_1FbmSlopeFunction.html#aafa73fd45e67f66facaa42c3fe5b66f4',1,'hmap::FbmSlopeFunction']]],
-  ['bias_5fstrength_10',['bias_strength',['../classhmap_1_1FbmSlopeFunction.html#a7834179863d11ed69457ec12264eacef',1,'hmap::FbmSlopeFunction']]],
-  ['border_5fmargin_11',['border_margin',['../structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63',1,'hmap::PoiGenerationOptions']]],
-  ['bucket_12',['bucket',['../structhmap_1_1RadixHeap.html#a4623a51ca639b9b65a58060522d27e55',1,'hmap::RadixHeap']]],
-  ['bx_13',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
-  ['by_14',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
+  ['bhead_7',['bhead',['../structhmap_1_1FlowGraph.html#a08d9c64a9158d301edb5e94c628102d1',1,'hmap::FlowGraph']]],
+  ['bias_5fangle_8',['bias_angle',['../classhmap_1_1FbmSlopeFunction.html#a2b32ad3f18ceaac9683275fd6121d56d',1,'hmap::FbmSlopeFunction']]],
+  ['bias_5fcos_9',['bias_cos',['../classhmap_1_1FbmSlopeFunction.html#a1cda80f0872df861eed67d8e129308cd',1,'hmap::FbmSlopeFunction']]],
+  ['bias_5fsin_10',['bias_sin',['../classhmap_1_1FbmSlopeFunction.html#aafa73fd45e67f66facaa42c3fe5b66f4',1,'hmap::FbmSlopeFunction']]],
+  ['bias_5fstrength_11',['bias_strength',['../classhmap_1_1FbmSlopeFunction.html#a7834179863d11ed69457ec12264eacef',1,'hmap::FbmSlopeFunction']]],
+  ['bnext_12',['bnext',['../structhmap_1_1FlowGraph.html#ad4fd881bf1fea60b8e56e3184d58a5b7',1,'hmap::FlowGraph']]],
+  ['border_5fmargin_13',['border_margin',['../structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63',1,'hmap::PoiGenerationOptions']]],
+  ['bucket_14',['bucket',['../structhmap_1_1RadixHeap.html#a4623a51ca639b9b65a58060522d27e55',1,'hmap::RadixHeap']]],
+  ['bx_15',['bx',['../structhmap_1_1AffineTransform2D.html#a4fd538c2ae9fdff12a0090197210d4ca',1,'hmap::AffineTransform2D']]],
+  ['by_16',['by',['../structhmap_1_1AffineTransform2D.html#aec52985aaf0423c3b2b0224ad7f6b210',1,'hmap::AffineTransform2D']]]
 ];

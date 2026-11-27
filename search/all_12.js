@@ -105,7 +105,7 @@ var searchData=
   ['inverse_5fsampler_5f2d_2ecpp_102',['inverse_sampler_2d.cpp',['../inverse__sampler__2d_8cpp.html',1,'']]],
   ['inverse_5fsampler_5f2d_2ehpp_103',['inverse_sampler_2d.hpp',['../inverse__sampler__2d_8hpp.html',1,'']]],
   ['inversesampler2d_104',['InverseSampler2D',['../classhmap_1_1InverseSampler2D.html',1,'hmap::InverseSampler2D'],['../classhmap_1_1InverseSampler2D.html#a954da8aa0eeb1a0309093f793a521ea5',1,'hmap::InverseSampler2D::InverseSampler2D()=default'],['../classhmap_1_1InverseSampler2D.html#a8ccb711b8bb54eb7790dd23e095cdfc1',1,'hmap::InverseSampler2D::InverseSampler2D(const Array &amp;density, std::uint32_t seed=0, const BBox2D &amp;bbox=BBox2D{})']]],
-  ['invert_5freceiver_5fmap_105',['invert_receiver_map',['../classhmap_1_1DrainageBasin.html#a32652e8b38b167fc611b3e723b4ee775',1,'hmap::DrainageBasin::invert_receiver_map()'],['../namespacehmap.html#a6d5ae7cdae4d3db7507517699fb44ed7',1,'hmap::invert_receiver_map()']]],
+  ['invert_5freceiver_5fmap_105',['invert_receiver_map',['../classhmap_1_1DrainageBasin.html#a32652e8b38b167fc611b3e723b4ee775',1,'hmap::DrainageBasin']]],
   ['investigations_20and_20benchmarks_106',['5. Investigations and Benchmarks',['../md_docs_2content_2dev_2architecture.html#autotoc_md15',1,'']]],
   ['io_2ecpp_107',['io.cpp',['../io_8cpp.html',1,'']]],
   ['ir_108',['ir',['../structhmap_1_1GaussianPush.html#ab175ce3efeb574ba75f9d7e3f75c7b3a',1,'hmap::GaussianPush']]],

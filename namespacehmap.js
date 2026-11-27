@@ -93,7 +93,7 @@ var namespacehmap =
     [ "Path", "classhmap_1_1Path.html", "classhmap_1_1Path" ],
     [ "Point", "classhmap_1_1Point.html", "classhmap_1_1Point" ],
     [ "DrainageBasin", "classhmap_1_1DrainageBasin.html", "classhmap_1_1DrainageBasin" ],
-    [ "DrainageBasinCellBased", "classhmap_1_1DrainageBasinCellBased.html", "classhmap_1_1DrainageBasinCellBased" ],
+    [ "FlowGraph", "structhmap_1_1FlowGraph.html", "structhmap_1_1FlowGraph" ],
     [ "AssertResults", "structhmap_1_1AssertResults.html", "structhmap_1_1AssertResults" ],
     [ "RadixHeap", "structhmap_1_1RadixHeap.html", "structhmap_1_1RadixHeap" ],
     [ "Recorder", "structhmap_1_1Recorder.html", "structhmap_1_1Recorder" ],
@@ -322,9 +322,10 @@ var namespacehmap =
       [ "RND_HAMMERSLEY", "namespacehmap.html#aba758c4143b6e499ec6f4385467a6d77aeebf5714b383e3b3be100ceba46d8fe5", null ],
       [ "RND_LHS", "namespacehmap.html#aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957", null ]
     ] ],
-    [ "FlowDirectionMethod", "namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2f", [
-      [ "FDM_D8", "namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894", null ],
-      [ "FDM_PRIORITY_FLOOD", "namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372", null ]
+    [ "FlowGraphFlag", "namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606", [
+      [ "F_CLOSED", "namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325", null ],
+      [ "F_PIT", "namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce", null ],
+      [ "F_OUTLET", "namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a", null ]
     ] ],
     [ "InterpolationMethod1D", "namespacehmap.html#a46291bb4766800deacc1ce9b45a9ea6b", [
       [ "AKIMA", "namespacehmap.html#a46291bb4766800deacc1ce9b45a9ea6ba55d2df97f3e8f051fb84453093374c96", null ],
@@ -874,8 +875,7 @@ var namespacehmap =
     [ "find_border_sinks", "namespacehmap.html#ac92d13b60ba68e2a31afca15fcb5f82f", null ],
     [ "heightmap_retopology", "namespacehmap.html#a23ab6bc3fdc7d5c498f0b3c8bebdd4f9", null ],
     [ "sample_border_points", "namespacehmap.html#abbc07969594bdb8632f96c9ec893872e", null ],
-    [ "invert_receiver_map", "namespacehmap.html#a6d5ae7cdae4d3db7507517699fb44ed7", null ],
-    [ "basin_id", "namespacehmap.html#a8284b00f1f460f1d5a406ee45587dcd9", null ],
+    [ "basin_id", "namespacehmap.html#aab4bf155fbf1998bd707be00152650d0", null ],
     [ "carve_riverbed", "namespacehmap.html#a70e5aa1009c3de1d301e0a8994dd8b03", null ],
     [ "d8_compute_ndip", "namespacehmap.html#a2e0533063a77bfc047472d1d85f3f63c", null ],
     [ "find_flow_apex", "namespacehmap.html#a05b9777b63947937181d7b7406e4b50d", null ],
@@ -896,7 +896,7 @@ var namespacehmap =
     [ "flow_direction_dinf_flat", "namespacehmap.html#aa84fc9cbd0704c16abf21ef12c9c5fad", null ],
     [ "flow_direction_dinf_angle", "namespacehmap.html#ad1d77ab375dfcca54183bbb687c82e9d", null ],
     [ "flow_fixing", "namespacehmap.html#ab4a40ce8de82f97aeaa1dea7a36f94c6", null ],
-    [ "flow_fixing_drainage_basin", "namespacehmap.html#a62e937a8e394092689481bb392bc15cf", null ],
+    [ "flow_fixing_drainage_basin", "namespacehmap.html#aa2b32e5f722d0196c2384a5e3e418c17", null ],
     [ "flow_fixing_mst", "namespacehmap.html#a20cb460ecf96e4608610b5ab9fe8f1b0", null ],
     [ "flow_fixing_mst_paths", "namespacehmap.html#a397d5d081862e6eca1551acfe0198624", null ],
     [ "flow_fixing_mst_paths", "namespacehmap.html#ab0fe57b3afd4499d08c362d8acd5f6f9", null ],

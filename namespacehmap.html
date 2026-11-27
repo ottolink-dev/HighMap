@@ -243,8 +243,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A class to represent and manipulate 2D points that can carry a value.  <a href="classhmap_1_1Point.html#details">More...</a><br /></td></tr>
 <tr class="memitem:DrainageBasin" id="r_DrainageBasin"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1DrainageBasin.html">DrainageBasin</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a drainage basin network constructed on a 3D terrain mesh.  <a href="classhmap_1_1DrainageBasin.html#details">More...</a><br /></td></tr>
-<tr class="memitem:DrainageBasinCellBased" id="r_DrainageBasinCellBased"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1DrainageBasinCellBased.html">DrainageBasinCellBased</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a cell-based hydrology drainage basin network on a 2D heightmap grid.  <a href="classhmap_1_1DrainageBasinCellBased.html#details">More...</a><br /></td></tr>
+<tr class="memitem:FlowGraph" id="r_FlowGraph"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1FlowGraph.html">FlowGraph</a></td></tr>
 <tr class="memitem:AssertResults" id="r_AssertResults"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1AssertResults.html">AssertResults</a></td></tr>
 <tr class="memitem:RadixHeap" id="r_RadixHeap"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1RadixHeap.html">RadixHeap</a></td></tr>
 <tr class="memitem:Recorder" id="r_Recorder"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1Recorder.html">Recorder</a></td></tr>
@@ -543,10 +542,10 @@ Enumerations</h2></td></tr>
 , <a class="el" href="#aba758c4143b6e499ec6f4385467a6d77a8943dd2a2e3993c1e0cff37be3f65957">RND_LHS</a>
  }</td></tr>
 <tr class="memdesc:aba758c4143b6e499ec6f4385467a6d77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of point sampling methods.  <a href="#aba758c4143b6e499ec6f4385467a6d77">More...</a><br /></td></tr>
-<tr class="memitem:a0c714c7fa78e9384806de52a5d039f2f" id="r_a0c714c7fa78e9384806de52a5d039f2f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">FlowDirectionMethod</a> : int { <a class="el" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">FDM_D8</a>
-, <a class="el" href="#a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372">FDM_PRIORITY_FLOOD</a>
+<tr class="memitem:a1cae7ad40a92544fc0a6772e0a4db606" id="r_a1cae7ad40a92544fc0a6772e0a4db606"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cae7ad40a92544fc0a6772e0a4db606">FlowGraphFlag</a> : uint8_t { <a class="el" href="#a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325">F_CLOSED</a> = 1
+, <a class="el" href="#a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce">F_PIT</a> = 2
+, <a class="el" href="#a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a">F_OUTLET</a> = 4
  }</td></tr>
-<tr class="memdesc:a0c714c7fa78e9384806de52a5d039f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of available algorithms for computing flow directions.  <a href="#a0c714c7fa78e9384806de52a5d039f2f">More...</a><br /></td></tr>
 <tr class="memitem:a46291bb4766800deacc1ce9b45a9ea6b" id="r_a46291bb4766800deacc1ce9b45a9ea6b"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a46291bb4766800deacc1ce9b45a9ea6b">InterpolationMethod1D</a> : int { <br />
 &#160;&#160;<a class="el" href="#a46291bb4766800deacc1ce9b45a9ea6ba55d2df97f3e8f051fb84453093374c96">AKIMA</a>
 , <a class="el" href="#a46291bb4766800deacc1ce9b45a9ea6bac3c354b92a241b06cbe768faa834b85e">AKIMA_PERIODIC</a>
@@ -1497,10 +1496,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a23ab6bc3fdc7d5c498f0b3c8bebdd4f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs retopology of a heightmap to generate a 3D point cloud.  <br /></td></tr>
 <tr class="memitem:abbc07969594bdb8632f96c9ec893872e" id="r_abbc07969594bdb8632f96c9ec893872e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abbc07969594bdb8632f96c9ec893872e">sample_border_points</a> (const std::vector&lt; glm::vec3 &gt; &amp;xyz, size_t nb)</td></tr>
 <tr class="memdesc:abbc07969594bdb8632f96c9ec893872e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sample a specified number of points along the border.  <br /></td></tr>
-<tr class="memitem:a6d5ae7cdae4d3db7507517699fb44ed7" id="r_a6d5ae7cdae4d3db7507517699fb44ed7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; std::vector&lt; glm::ivec2 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d5ae7cdae4d3db7507517699fb44ed7">invert_receiver_map</a> (const <a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; glm::ivec2 &gt; &amp;receivers)</td></tr>
-<tr class="memdesc:a6d5ae7cdae4d3db7507517699fb44ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invert the receiver map to build a map of children/downstream receivers.  <br /></td></tr>
-<tr class="memitem:a8284b00f1f460f1d5a406ee45587dcd9" id="r_a8284b00f1f460f1d5a406ee45587dcd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8284b00f1f460f1d5a406ee45587dcd9">basin_id</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">FlowDirectionMethod</a> fd_method=<a class="el" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">FlowDirectionMethod::FDM_D8</a>, bool remove_lakes=true)</td></tr>
-<tr class="memdesc:a8284b00f1f460f1d5a406ee45587dcd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Label drainage basins using a priority-flood algorithm.  <br /></td></tr>
+<tr class="memitem:aab4bf155fbf1998bd707be00152650d0" id="r_aab4bf155fbf1998bd707be00152650d0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aab4bf155fbf1998bd707be00152650d0">basin_id</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, bool fast_approx=false, bool remove_lakes=true)</td></tr>
+<tr class="memdesc:aab4bf155fbf1998bd707be00152650d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Label drainage basins using a priority-flood algorithm.  <br /></td></tr>
 <tr class="memitem:a70e5aa1009c3de1d301e0a8994dd8b03" id="r_a70e5aa1009c3de1d301e0a8994dd8b03"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a70e5aa1009c3de1d301e0a8994dd8b03">carve_riverbed</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z_river, float talus_riverbank=0.01<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, bool smooth_river_bottom=true, float merging_distance=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0, float riverbank_noise_ratio=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr)</td></tr>
 <tr class="memdesc:a70e5aa1009c3de1d301e0a8994dd8b03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Blends and carves smooth riverbanks around modified riverbed profiles.  <br /></td></tr>
 <tr class="memitem:a2e0533063a77bfc047472d1d85f3f63c" id="r_a2e0533063a77bfc047472d1d85f3f63c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2e0533063a77bfc047472d1d85f3f63c">d8_compute_ndip</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;d8)</td></tr>
@@ -1539,8 +1536,8 @@ Functions</h2></td></tr>
 <tr class="memitem:ad1d77ab375dfcca54183bbb687c82e9d" id="r_ad1d77ab375dfcca54183bbb687c82e9d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1d77ab375dfcca54183bbb687c82e9d">flow_direction_dinf_angle</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, float talus_ref)</td></tr>
 <tr class="memdesc:ad1d77ab375dfcca54183bbb687c82e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Computes the flow direction using the Multiple Flow Direction (MFD) model.  <br /></td></tr>
 <tr class="memitem:ab4a40ce8de82f97aeaa1dea7a36f94c6" id="r_ab4a40ce8de82f97aeaa1dea7a36f94c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab4a40ce8de82f97aeaa1dea7a36f94c6">flow_fixing</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, float riverbed_talus=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int iterations=5, int prefilter_ir=8, bool <a class="el" href="#a70e5aa1009c3de1d301e0a8994dd8b03">carve_riverbed</a>=true, float merging_distance=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_r=nullptr)</td></tr>
-<tr class="memitem:a62e937a8e394092689481bb392bc15cf" id="r_a62e937a8e394092689481bb392bc15cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a62e937a8e394092689481bb392bc15cf">flow_fixing_drainage_basin</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, <a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">FlowDirectionMethod</a> fd_method=<a class="el" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">FlowDirectionMethod::FDM_D8</a>, float riverbed_talus=1e-4<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int iterations=3, bool <a class="el" href="#a70e5aa1009c3de1d301e0a8994dd8b03">carve_riverbed</a>=false, float talus_riverbank=0.01<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float merging_distance=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0, float noise_strength=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr)</td></tr>
-<tr class="memdesc:a62e937a8e394092689481bb392bc15cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixes flow paths and unwanted upslopes using a cell-based drainage basin tree network and elevation updates.  <br /></td></tr>
+<tr class="memitem:aa2b32e5f722d0196c2384a5e3e418c17" id="r_aa2b32e5f722d0196c2384a5e3e418c17"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2b32e5f722d0196c2384a5e3e418c17">flow_fixing_drainage_basin</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, bool fast_approx=false, float riverbed_talus=1e-4<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int iterations=3, bool <a class="el" href="#a70e5aa1009c3de1d301e0a8994dd8b03">carve_riverbed</a>=false, float talus_riverbank=0.01<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float merging_distance=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, std::uint32_t seed=0, float noise_strength=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_x=nullptr, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_y=nullptr)</td></tr>
+<tr class="memdesc:aa2b32e5f722d0196c2384a5e3e418c17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fixes flow paths and unwanted upslopes using a cell-based drainage basin tree network and elevation updates.  <br /></td></tr>
 <tr class="memitem:a20cb460ecf96e4608610b5ab9fe8f1b0" id="r_a20cb460ecf96e4608610b5ab9fe8f1b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classhmap_1_1Array.html">Array</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a20cb460ecf96e4608610b5ab9fe8f1b0">flow_fixing_mst</a> (const <a class="el" href="classhmap_1_1Array.html">Array</a> &amp;z, float riverbed_talus=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float elevation_ratio=0.95<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float valley_affinity=0.5<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, int prefilter_ir=8, float minimum_depth=1e-4<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, bool <a class="el" href="#a70e5aa1009c3de1d301e0a8994dd8b03">carve_riverbed</a>=true, float merging_distance=8.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, <a class="el" href="#a2affc745bc33b7555352665745741f90">RadialProfile</a> radial_profile=<a class="el" href="#a2affc745bc33b7555352665745741f90acedc11502bd1441e893fdc5a699b6d59">RadialProfile::RP_SMOOTHSTEP_UPPER</a>, float radial_profile_parameter=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, const <a class="el" href="classhmap_1_1Array.html">Array</a> *p_noise_r=nullptr, bool use_midpoint=false, float offset_ratio=0.2<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
 <tr class="memdesc:a20cb460ecf96e4608610b5ab9fe8f1b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding and a Minimum Spanning <a class="el" href="#a527656b2ec2ff9bbc343a996ea62070e" title="Represents a single tree instance.">Tree</a> (MST) over sinks and boundary outlets.  <br /></td></tr>
 <tr class="memitem:a397d5d081862e6eca1551acfe0198624" id="r_a397d5d081862e6eca1551acfe0198624"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classhmap_1_1Path.html">Path</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a397d5d081862e6eca1551acfe0198624">flow_fixing_mst_paths</a> (const <a class="el" href="classhmap_1_1TerrainTriMesh.html">TerrainTriMesh</a> &amp;mesh, float riverbed_talus=0.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float elevation_ratio=0.95<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float distance_exponent=2.<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float upward_penalization=0.1<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>, float minimum_depth=1e-4<a class="el" href="distance__transform_8cpp.html#abcb9259cf91bfd25e92a72cdf18c285e">f</a>)</td></tr>
@@ -3226,24 +3223,21 @@ requires requires(const T &amp;t) { { t.size() } -&gt; std::convertible_to&lt;si
 
 </div>
 </div>
-<a id="a0c714c7fa78e9384806de52a5d039f2f" name="a0c714c7fa78e9384806de52a5d039f2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c714c7fa78e9384806de52a5d039f2f">&#9670;&#160;</a></span>FlowDirectionMethod</h2>
+<a id="a1cae7ad40a92544fc0a6772e0a4db606" name="a1cae7ad40a92544fc0a6772e0a4db606"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1cae7ad40a92544fc0a6772e0a4db606">&#9670;&#160;</a></span>FlowGraphFlag</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">hmap::FlowDirectionMethod</a> : int</td>
+          <td class="memname">enum <a class="el" href="#a1cae7ad40a92544fc0a6772e0a4db606">hmap::FlowGraphFlag</a> : uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Enumeration of available algorithms for computing flow directions. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894" name="a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894"></a>FDM_D8&#160;</td><td class="fielddoc"><p>Standard D8 flow direction algorithm. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372" name="a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372"></a>FDM_PRIORITY_FLOOD&#160;</td><td class="fielddoc"><p>Priority flood flow routing algorithm. </p>
-</td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325" name="a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325"></a>F_CLOSED&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce" name="a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce"></a>F_PIT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a" name="a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a"></a>F_OUTLET&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -13738,7 +13732,7 @@ additional_depth)</span>.</li>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a7b0c1711fe9d99ae8bb573e099ddd5c8"><div class="ttname"><a href="#a7b0c1711fe9d99ae8bb573e099ddd5c8">hmap::hydraulic_mise</a></div><div class="ttdeci">void hydraulic_mise(Array &amp;z, const MiseParams &amp;params=MiseParams(), const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, const Array *p_outlet=nullptr, Array *p_sediment=nullptr, Array *p_flow=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr)</div><div class="ttdoc">Simulates multiscale implicit stream-power hydraulic erosion (MISE).</div><div class="ttdef"><b>Definition</b> hydraulic_mise.cpp:734</div></div>
+<div class="ttc" id="anamespacehmap_html_a7b0c1711fe9d99ae8bb573e099ddd5c8"><div class="ttname"><a href="#a7b0c1711fe9d99ae8bb573e099ddd5c8">hmap::hydraulic_mise</a></div><div class="ttdeci">void hydraulic_mise(Array &amp;z, const MiseParams &amp;params=MiseParams(), const Array *p_bedrock=nullptr, const Array *p_erodibility=nullptr, const Array *p_moisture_map=nullptr, const Array *p_outlet=nullptr, Array *p_sediment=nullptr, Array *p_flow=nullptr, Array *p_erosion_map=nullptr, Array *p_deposition_map=nullptr)</div><div class="ttdoc">Simulates multiscale implicit stream-power hydraulic erosion (MISE).</div><div class="ttdef"><b>Definition</b> hydraulic_mise.cpp:415</div></div>
 <div class="ttc" id="astructhmap_1_1MiseParams_html"><div class="ttname"><a href="structhmap_1_1MiseParams.html">hmap::MiseParams</a></div><div class="ttdoc">Parameters for the MISE (Multiscale Implicit Stream-power Erosion) solver.</div><div class="ttdef"><b>Definition</b> erosion_parameters.hpp:19</div></div>
 <div class="ttc" id="astructhmap_1_1MiseParams_html_a022506912199ad2fe033d6277097ba95"><div class="ttname"><a href="structhmap_1_1MiseParams.html#a022506912199ad2fe033d6277097ba95">hmap::MiseParams::strength</a></div><div class="ttdeci">float strength</div><div class="ttdef"><b>Definition</b> erosion_parameters.hpp:22</div></div>
 <div class="ttc" id="astructhmap_1_1MiseParams_html_a356f5adb117f44de2077df80a0b7aef7"><div class="ttname"><a href="structhmap_1_1MiseParams.html#a356f5adb117f44de2077df80a0b7aef7">hmap::MiseParams::area_exp</a></div><div class="ttdeci">float area_exp</div><div class="ttdef"><b>Definition</b> erosion_parameters.hpp:23</div></div>
@@ -28784,34 +28778,8 @@ h}{\partial y}
 
 </div>
 </div>
-<a id="a6d5ae7cdae4d3db7507517699fb44ed7" name="a6d5ae7cdae4d3db7507517699fb44ed7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d5ae7cdae4d3db7507517699fb44ed7">&#9670;&#160;</a></span>invert_receiver_map()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; std::vector&lt; glm::ivec2 &gt; &gt; hmap::invert_receiver_map </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; glm::ivec2 &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>receivers</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Invert the receiver map to build a map of children/downstream receivers. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">receivers</td><td>Input grid of receiver coordinates. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>A matrix of vectors representing children coordinates for each cell. </dd></dl>
-
-</div>
-</div>
-<a id="a8284b00f1f460f1d5a406ee45587dcd9" name="a8284b00f1f460f1d5a406ee45587dcd9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8284b00f1f460f1d5a406ee45587dcd9">&#9670;&#160;</a></span>basin_id()</h2>
+<a id="aab4bf155fbf1998bd707be00152650d0" name="aab4bf155fbf1998bd707be00152650d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab4bf155fbf1998bd707be00152650d0">&#9670;&#160;</a></span>basin_id()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -28824,7 +28792,7 @@ h}{\partial y}
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">FlowDirectionMethod</a></td>          <td class="paramname"><span class="paramname"><em>fd_method</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">FlowDirectionMethod::FDM_D8</a></span>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>fast_approx</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -28855,19 +28823,15 @@ h}{\partial y}
 <div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> z = <a class="code hl_function" href="#a041b03657bcd71d20dcf2b95cd1618dd">hmap::noise_fbm</a>(<a class="code hl_enumvalue" href="#ab8197c4c7a85dacb616fee7a7d0df195a87c6abee9c8e2441859223b28e9b4581">hmap::NoiseType::PERLIN</a>, shape, res, seed);</div>
 <div class="line">  z = <a class="code hl_function" href="#a2f79d48265d4af608c9cb9ff078e7e01">hmap::bulkify</a>(z, <a class="code hl_enumvalue" href="#a55542a66f890ef9ecf5f82af2c23a0cfae2c78e075109f330e3109c52e9bf90ff">hmap::PrimitiveType::PRIM_CONE</a>, 1.f);</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> id1 = <a class="code hl_function" href="#a8284b00f1f460f1d5a406ee45587dcd9">hmap::basin_id</a>(</div>
-<div class="line">      z,</div>
-<div class="line">      <a class="code hl_enumvalue" href="#a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372">hmap::FlowDirectionMethod::FDM_PRIORITY_FLOOD</a>);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> id1 = <a class="code hl_function" href="#aab4bf155fbf1998bd707be00152650d0">hmap::basin_id</a>(z, <span class="keyword">false</span>);</div>
 <div class="line">  <a class="code hl_function" href="#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(id1);</div>
 <div class="line"> </div>
-<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> id2 = <a class="code hl_function" href="#a8284b00f1f460f1d5a406ee45587dcd9">hmap::basin_id</a>(z, <a class="code hl_enumvalue" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">hmap::FlowDirectionMethod::FDM_D8</a>);</div>
+<div class="line">  <a class="code hl_class" href="classhmap_1_1Array.html">hmap::Array</a> id2 = <a class="code hl_function" href="#aab4bf155fbf1998bd707be00152650d0">hmap::basin_id</a>(z, <span class="keyword">true</span>);</div>
 <div class="line">  <a class="code hl_function" href="#a262e6495cb2d02598f36a2b46114b2b4">hmap::remap</a>(id2);</div>
 <div class="line"> </div>
 <div class="line">  <a class="code hl_function" href="#ac2452e568959bc21c9b7b09202e5977a">hmap::export_banner_png</a>(<span class="stringliteral">&quot;ex_basin_id.png&quot;</span>, {z, id1, id2}, <a class="code hl_enumvalue" href="#ac70fe3cbb32e0340d5dd3e15cdcf9369a65146260717d07e4773aec50520b9ced">hmap::Cmap::JET</a>);</div>
 <div class="line">}</div>
-<div class="ttc" id="anamespacehmap_html_a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372"><div class="ttname"><a href="#a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372">hmap::FDM_PRIORITY_FLOOD</a></div><div class="ttdeci">@ FDM_PRIORITY_FLOOD</div><div class="ttdoc">Priority flood flow routing algorithm.</div><div class="ttdef"><b>Definition</b> drainage_basin_cell_based.hpp:29</div></div>
-<div class="ttc" id="anamespacehmap_html_a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894"><div class="ttname"><a href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">hmap::FDM_D8</a></div><div class="ttdeci">@ FDM_D8</div><div class="ttdoc">Standard D8 flow direction algorithm.</div><div class="ttdef"><b>Definition</b> drainage_basin_cell_based.hpp:28</div></div>
-<div class="ttc" id="anamespacehmap_html_a8284b00f1f460f1d5a406ee45587dcd9"><div class="ttname"><a href="#a8284b00f1f460f1d5a406ee45587dcd9">hmap::basin_id</a></div><div class="ttdeci">Array basin_id(const Array &amp;z, FlowDirectionMethod fd_method=FlowDirectionMethod::FDM_D8, bool remove_lakes=true)</div><div class="ttdoc">Label drainage basins using a priority-flood algorithm.</div><div class="ttdef"><b>Definition</b> basin_id.cpp:15</div></div>
+<div class="ttc" id="anamespacehmap_html_aab4bf155fbf1998bd707be00152650d0"><div class="ttname"><a href="#aab4bf155fbf1998bd707be00152650d0">hmap::basin_id</a></div><div class="ttdeci">Array basin_id(const Array &amp;z, bool fast_approx=false, bool remove_lakes=true)</div><div class="ttdoc">Label drainage basins using a priority-flood algorithm.</div><div class="ttdef"><b>Definition</b> basin_id.cpp:14</div></div>
 </div><!-- fragment --><p><b>Result</b> </p><div class="image">
 <img src="ex_basin_id.png" alt=""/>
 </div>
@@ -30134,8 +30098,8 @@ Transport for Terrain Erosion Simulation" (N. McDonald, G. Cordonnier), <a href=
 
 </div>
 </div>
-<a id="a62e937a8e394092689481bb392bc15cf" name="a62e937a8e394092689481bb392bc15cf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62e937a8e394092689481bb392bc15cf">&#9670;&#160;</a></span>flow_fixing_drainage_basin()</h2>
+<a id="aa2b32e5f722d0196c2384a5e3e418c17" name="aa2b32e5f722d0196c2384a5e3e418c17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2b32e5f722d0196c2384a5e3e418c17">&#9670;&#160;</a></span>flow_fixing_drainage_basin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -30148,7 +30112,7 @@ Transport for Terrain Erosion Simulation" (N. McDonald, G. Cordonnier), <a href=
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="#a0c714c7fa78e9384806de52a5d039f2f">FlowDirectionMethod</a></td>          <td class="paramname"><span class="paramname"><em>fd_method</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">FlowDirectionMethod::FDM_D8</a></span>, </td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>fast_approx</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>

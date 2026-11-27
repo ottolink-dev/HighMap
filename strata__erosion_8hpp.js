@@ -16,6 +16,6 @@ var strata__erosion_8hpp =
     [ "hmap::gpu::strata_terrace", "namespacehmap_1_1gpu.html#af03f43be5c9956c3453cb655f777ca11", null ],
     [ "hmap::gpu::valley_fill", "namespacehmap_1_1gpu.html#ae8a8da3d95deb978d813ce782a1492bb", null ],
     [ "hmap::gpu::valley_fill", "namespacehmap_1_1gpu.html#aa7ce5c44914d54ec7fa0162c5ccbab86", null ],
-    [ "hmap::gpu::watershed_ridge", "namespacehmap_1_1gpu.html#a52a653b3b3be84e8ff2330f30a6b5bf3", null ],
-    [ "hmap::gpu::watershed_ridge", "namespacehmap_1_1gpu.html#a04047f16ece68b32c1c8e68b4780f0df", null ]
+    [ "hmap::gpu::watershed_ridge", "namespacehmap_1_1gpu.html#aff6638d12cb90195470f15175b59123c", null ],
+    [ "hmap::gpu::watershed_ridge", "namespacehmap_1_1gpu.html#a049b962c4e36f3a952ff7e606696b40e", null ]
 ];

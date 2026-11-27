@@ -9,8 +9,9 @@ var searchData=
   ['amplitude_6',['amplitude',['../structhmap_1_1GaussianPush.html#a340fa2affea7c89d8575a66d832ab42b',1,'hmap::GaussianPush']]],
   ['angle_7',['angle',['../classhmap_1_1RectangleFunction.html#a9ca3d0221d611a6ebcabcc5beec173a1',1,'hmap::RectangleFunction::angle'],['../classhmap_1_1RiftFunction.html#a1d454e1f4dc31108ee3d2131ed06f793',1,'hmap::RiftFunction::angle'],['../classhmap_1_1SlopeFunction.html#aecf4e2415541342003f4ca96b13df556',1,'hmap::SlopeFunction::angle'],['../classhmap_1_1StepFunction.html#a2efa383846e13460470ea6dcedf3b9f2',1,'hmap::StepFunction::angle'],['../classhmap_1_1WaveDuneFunction.html#a723f11d859d984fa5655e487e993235e',1,'hmap::WaveDuneFunction::angle'],['../classhmap_1_1WaveSineFunction.html#ad0496b0ee859ae3023efc51a0dc75577',1,'hmap::WaveSineFunction::angle'],['../classhmap_1_1WaveSquareFunction.html#af82dce648585f265eb2f3c9e50520e90',1,'hmap::WaveSquareFunction::angle'],['../classhmap_1_1WaveTriangularFunction.html#ab49a906dde5df326c1263724c2b477e6',1,'hmap::WaveTriangularFunction::angle'],['../classhmap_1_1GenericFractalFunction.html#a6a5fb46185456ce754680474f39bc09c',1,'hmap::GenericFractalFunction::angle']]],
   ['antialias_8',['antialias',['../structhmap_1_1MiseParams.html#ad3df43a436e2f42796eb2e3012c26cc6',1,'hmap::MiseParams']]],
-  ['area_5fexp_9',['area_exp',['../structhmap_1_1MiseParams.html#a356f5adb117f44de2077df80a0b7aef7',1,'hmap::MiseParams']]],
-  ['aspect_10',['aspect',['../structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc',1,'hmap::PointOfInterest']]],
-  ['ax_11',['ax',['../structhmap_1_1AffineTransform2D.html#af0e4c5b5bffa4f6a3f4ff8b746e9394e',1,'hmap::AffineTransform2D']]],
-  ['ay_12',['ay',['../structhmap_1_1AffineTransform2D.html#aee88f7d6309d07001cecdda29cb1e4e0',1,'hmap::AffineTransform2D']]]
+  ['area_9',['area',['../structhmap_1_1FlowGraph.html#a7aed44ede924a62d354b3a0f5e723e72',1,'hmap::FlowGraph']]],
+  ['area_5fexp_10',['area_exp',['../structhmap_1_1MiseParams.html#a356f5adb117f44de2077df80a0b7aef7',1,'hmap::MiseParams']]],
+  ['aspect_11',['aspect',['../structhmap_1_1PointOfInterest.html#a15c6c48b35856d881f6347a8e08f6acc',1,'hmap::PointOfInterest']]],
+  ['ax_12',['ax',['../structhmap_1_1AffineTransform2D.html#af0e4c5b5bffa4f6a3f4ff8b746e9394e',1,'hmap::AffineTransform2D']]],
+  ['ay_13',['ay',['../structhmap_1_1AffineTransform2D.html#aee88f7d6309d07001cecdda29cb1e4e0',1,'hmap::AffineTransform2D']]]
 ];

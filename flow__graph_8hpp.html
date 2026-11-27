@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.15.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>HighMap library (C++): HighMap/include/highmap/hydrology/drainage_basin_cell_based.hpp File Reference</title>
+<title>HighMap library (C++): HighMap/include/highmap/hydrology/flow_graph.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -69,7 +69,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('drainage__basin__cell__based_8hpp.html','',''); });
+$(function(){initNavTree('flow__graph_8hpp.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -95,19 +95,18 @@ $(function(){initNavTree('drainage__basin__cell__based_8hpp.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">drainage_basin_cell_based.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">flow_graph.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Header file for DrainageBasinCellBased class.  
+<p>Header file for FlowGraph structure.  
 <a href="#details">More...</a></p>
 
-<p><a href="drainage__basin__cell__based_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="flow__graph_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:hmap_3A_3ADrainageBasinCellBased" id="r_hmap_3A_3ADrainageBasinCellBased"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classhmap_1_1DrainageBasinCellBased.html">hmap::DrainageBasinCellBased</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a cell-based hydrology drainage basin network on a 2D heightmap grid.  <a href="classhmap_1_1DrainageBasinCellBased.html#details">More...</a><br /></td></tr>
+<tr class="memitem:hmap_3A_3AFlowGraph" id="r_hmap_3A_3AFlowGraph"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structhmap_1_1FlowGraph.html">hmap::FlowGraph</a></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -115,20 +114,15 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a0c714c7fa78e9384806de52a5d039f2f" id="r_a0c714c7fa78e9384806de52a5d039f2f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2f">hmap::FlowDirectionMethod</a> : int { <a class="el" href="namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2fab1d0e0d533e11bd2532fd9e2f1802894">hmap::FDM_D8</a>
-, <a class="el" href="namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2faaf8f41c39c71902022e1aec12f10d372">hmap::FDM_PRIORITY_FLOOD</a>
+<tr class="memitem:a1cae7ad40a92544fc0a6772e0a4db606" id="r_a1cae7ad40a92544fc0a6772e0a4db606"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606">hmap::FlowGraphFlag</a> : uint8_t { <a class="el" href="namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606afef920d9d1e1d716998fa87a9dfab325">hmap::F_CLOSED</a> = 1
+, <a class="el" href="namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606ab80cec5342c6b95d390617cee004b9ce">hmap::F_PIT</a> = 2
+, <a class="el" href="namespacehmap.html#a1cae7ad40a92544fc0a6772e0a4db606aa1c457a366a87f3b9338269de4d1ec6a">hmap::F_OUTLET</a> = 4
  }</td></tr>
-<tr class="memdesc:a0c714c7fa78e9384806de52a5d039f2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enumeration of available algorithms for computing flow directions.  <a href="namespacehmap.html#a0c714c7fa78e9384806de52a5d039f2f">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a6d5ae7cdae4d3db7507517699fb44ed7" id="r_a6d5ae7cdae4d3db7507517699fb44ed7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; std::vector&lt; glm::ivec2 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacehmap.html#a6d5ae7cdae4d3db7507517699fb44ed7">hmap::invert_receiver_map</a> (const <a class="el" href="structhmap_1_1Mat.html">Mat</a>&lt; glm::ivec2 &gt; &amp;receivers)</td></tr>
-<tr class="memdesc:a6d5ae7cdae4d3db7507517699fb44ed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Invert the receiver map to build a map of children/downstream receivers.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Header file for DrainageBasinCellBased class. </p>
+<div class="textblock"><p>Header file for FlowGraph structure. </p>
 <dl class="section author"><dt>Author</dt><dd>Otto Link (<a href="#" onclick="location.href='mai'+'lto:'+'ott'+'o.'+'lin'+'k.'+'bv@'+'gm'+'ail'+'.c'+'om'; return false;">otto.<span class="obfuscator">.nosp@m.</span>link<span class="obfuscator">.nosp@m.</span>.bv@g<span class="obfuscator">.nosp@m.</span>mail<span class="obfuscator">.nosp@m.</span>.com</a>) </dd></dl>
-<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2026 </dd></dl>
+<dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2023 Otto Link </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -142,7 +136,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_d1628ce034b494ec45a6557150a1be1b.html">HighMap</a></li><li class="navelem"><a href="dir_9eb7b0a77069b10e898f0f32875ff6f3.html">include</a></li><li class="navelem"><a href="dir_06646b66eb831be9a0698496dc1137c9.html">highmap</a></li><li class="navelem"><a href="dir_0c2217d67f0f45456a10a49c14bfb708.html">hydrology</a></li><li class="navelem"><a href="drainage__basin__cell__based_8hpp.html">drainage_basin_cell_based.hpp</a></li>
+    <li class="navelem"><a href="dir_d1628ce034b494ec45a6557150a1be1b.html">HighMap</a></li><li class="navelem"><a href="dir_9eb7b0a77069b10e898f0f32875ff6f3.html">include</a></li><li class="navelem"><a href="dir_06646b66eb831be9a0698496dc1137c9.html">highmap</a></li><li class="navelem"><a href="dir_0c2217d67f0f45456a10a49c14bfb708.html">hydrology</a></li><li class="navelem"><a href="flow__graph_8hpp.html">flow_graph.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.15.0 </li>
   </ul>
 </div>

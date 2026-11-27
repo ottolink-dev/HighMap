@@ -13,10 +13,9 @@ var searchData=
   ['time_5fstep_10',['time_step',['../structhmap_1_1gpu_1_1McDonaldParams_1_1PhysicalParams.html#a0128c4de587176f93a84e79ba0846319',1,'hmap::gpu::McDonaldParams::PhysicalParams::time_step'],['../structhmap_1_1RockSimulationOptions.html#aec5bedc2bdcbe70013a940b07089a166',1,'hmap::RockSimulationOptions::time_step']]],
   ['tolerance_11',['tolerance',['../structhmap_1_1AssertResults.html#ab0ed69d0f46cf150c4d025776f412ddf',1,'hmap::AssertResults']]],
   ['total_12',['total',['../structhmap_1_1Recorder.html#af6f300d4c80eabfbaf57fdbebde9062e',1,'hmap::Recorder']]],
-  ['traversals_13',['traversals',['../classhmap_1_1DrainageBasinCellBased.html#a468cf312e08a4057cab4d69440dc5521',1,'hmap::DrainageBasinCellBased']]],
-  ['trim_5fstorage_14',['trim_storage',['../structhmap_1_1ComputeMode.html#ae57651b6dc8b188e4781cf3aa6735253',1,'hmap::ComputeMode']]],
-  ['two_5fpi_15',['two_pi',['../namespacehmap_1_1cte.html#abef73d63f1dc0b6e90afae433150606b',1,'hmap::cte']]],
-  ['tx_16',['tx',['../structhmap_1_1TileKey.html#aa1b61a92a4562444455e7461cd65d642',1,'hmap::TileKey']]],
-  ['ty_17',['ty',['../structhmap_1_1TileKey.html#a0c2bad93215283eb8baedc5cbc2fa2f1',1,'hmap::TileKey']]],
-  ['type_18',['type',['../structhmap_1_1DeformationConstraint.html#a745bd7aee21aacf0ef756e777aa8df9d',1,'hmap::DeformationConstraint::type'],['../structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b',1,'hmap::PointOfInterest::type']]]
+  ['trim_5fstorage_13',['trim_storage',['../structhmap_1_1ComputeMode.html#ae57651b6dc8b188e4781cf3aa6735253',1,'hmap::ComputeMode']]],
+  ['two_5fpi_14',['two_pi',['../namespacehmap_1_1cte.html#abef73d63f1dc0b6e90afae433150606b',1,'hmap::cte']]],
+  ['tx_15',['tx',['../structhmap_1_1TileKey.html#aa1b61a92a4562444455e7461cd65d642',1,'hmap::TileKey']]],
+  ['ty_16',['ty',['../structhmap_1_1TileKey.html#a0c2bad93215283eb8baedc5cbc2fa2f1',1,'hmap::TileKey']]],
+  ['type_17',['type',['../structhmap_1_1DeformationConstraint.html#a745bd7aee21aacf0ef756e777aa8df9d',1,'hmap::DeformationConstraint::type'],['../structhmap_1_1PointOfInterest.html#a0eeafbeaa78b2a4c6cef90e59702f48b',1,'hmap::PointOfInterest::type']]]
 ];

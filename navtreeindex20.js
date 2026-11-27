@@ -1,5 +1,17 @@
 var NAVTREEINDEX20 =
 {
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#a5fb3df28a2336bde9b863271f6cc9308":[16,0,0,24,0,3],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#a5fb3df28a2336bde9b863271f6cc9308":[17,0,0,22,0,3],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8":[16,0,0,24,0,4],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#a8c7de7055e5343eb5ab2b52e7bc879e8":[17,0,0,22,0,4],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#aa052a4d977058befcbafdee5746321c5":[16,0,0,24,0,1],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#aa052a4d977058befcbafdee5746321c5":[17,0,0,22,0,1],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#ad86ddfe96befe0a4f017380b9075ef74":[16,0,0,24,0,0],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#ad86ddfe96befe0a4f017380b9075ef74":[17,0,0,22,0,0],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#af5717920eecc549da2f5343deb947de3":[16,0,0,24,0,2],
+"structhmap_1_1OpenEXRWriter_1_1Impl.html#af5717920eecc549da2f5343deb947de3":[17,0,0,22,0,2],
+"structhmap_1_1PoiGenerationOptions.html":[16,0,0,26],
+"structhmap_1_1PoiGenerationOptions.html":[17,0,0,24],
 "structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[16,0,0,26,5],
 "structhmap_1_1PoiGenerationOptions.html#a020d35a64ca1d7e39a196a75d9ed7a63":[17,0,0,24,5],
 "structhmap_1_1PoiGenerationOptions.html#a445411d91a15f36d8fb7edc81c91b13e":[16,0,0,26,8],
@@ -237,17 +249,5 @@ var NAVTREEINDEX20 =
 "structhmap_1_1TerrainTextureParams.html#a830428db3c65bba3528a07098e033f50":[16,0,0,14,20],
 "structhmap_1_1TerrainTextureParams.html#a830428db3c65bba3528a07098e033f50":[17,0,0,12,20],
 "structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb":[16,0,0,14,4],
-"structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb":[17,0,0,12,4],
-"structhmap_1_1TerrainTextureParams.html#a94e0e934fe0d305dc81b639ce6fb5308":[16,0,0,14,6],
-"structhmap_1_1TerrainTextureParams.html#a94e0e934fe0d305dc81b639ce6fb5308":[17,0,0,12,6],
-"structhmap_1_1TerrainTextureParams.html#a9e0e2f5bf0f9070be84d4d7f5d438f94":[16,0,0,14,17],
-"structhmap_1_1TerrainTextureParams.html#a9e0e2f5bf0f9070be84d4d7f5d438f94":[17,0,0,12,17],
-"structhmap_1_1TerrainTextureParams.html#aa990ff5af742f963e6b9703fe662ccd1":[16,0,0,14,18],
-"structhmap_1_1TerrainTextureParams.html#aa990ff5af742f963e6b9703fe662ccd1":[17,0,0,12,18],
-"structhmap_1_1TerrainTextureParams.html#aab8e4692d533eb420f32ca14e9f4167a":[16,0,0,14,22],
-"structhmap_1_1TerrainTextureParams.html#aab8e4692d533eb420f32ca14e9f4167a":[17,0,0,12,22],
-"structhmap_1_1TerrainTextureParams.html#aabe1b5e45535a0825aee57195be14aad":[16,0,0,14,12],
-"structhmap_1_1TerrainTextureParams.html#aabe1b5e45535a0825aee57195be14aad":[17,0,0,12,12],
-"structhmap_1_1TerrainTextureParams.html#aac4aa8df429c6b862ac6308ae9515d01":[16,0,0,14,14],
-"structhmap_1_1TerrainTextureParams.html#aac4aa8df429c6b862ac6308ae9515d01":[17,0,0,12,14]
+"structhmap_1_1TerrainTextureParams.html#a8fe287ffa2141604cd4cbc6fada163eb":[17,0,0,12,4]
 };
