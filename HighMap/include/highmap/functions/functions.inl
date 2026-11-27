@@ -499,7 +499,7 @@ decltype(auto) with_noise_function(NoiseType     noise_type,
   {
   case NoiseType::PERLIN: return fn(PerlinFunction(kw, seed));
   case NoiseType::PERLIN_BILLOW: return fn(PerlinBillowFunction(kw, seed));
-  case NoiseType::PERLIN_HALF: return fn(PerlinHalfFunction(kw, seed, 0.f));
+  case NoiseType::PERLIN_HALF: return fn(PerlinHalfFunction(kw, seed, 0.5f));
   case NoiseType::SIMPLEX2: return fn(Simplex2Function(kw, seed));
   case NoiseType::SIMPLEX2S: return fn(Simplex2SFunction(kw, seed));
   case NoiseType::VALUE: return fn(ValueNoiseFunction(kw, seed));

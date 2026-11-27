@@ -2,9 +2,25 @@
 #include "highmap/internal/assert.hpp"
 #include "highmap/internal/timer.hpp"
 
+#include <algorithm>
+#include <bit>
+#include <cstdint>
+
 #include <gtest/gtest.h>
 
 using namespace hmap;
+
+namespace
+{
+bool only_finite_values(const Array &array)
+{
+  // These tests also run in release builds with fast-math enabled.
+  return std::all_of(array.vector.begin(), array.vector.end(), [](float value)
+  {
+    return (std::bit_cast<std::uint32_t>(value) & 0x7f800000u) != 0x7f800000u;
+  });
+}
+} // namespace
 
 Array helper_generate_array()
 {
@@ -183,6 +199,8 @@ TEST(GpuCpu, Noise)
     Array zc = noise(type, shape, kw, seed, &nx, &ny);
     Array zg = gpu::noise(type, shape, kw, seed, &nx, &ny);
 
+    EXPECT_TRUE(only_finite_values(zc)) << "CPU NoiseType " << int(type);
+    EXPECT_TRUE(only_finite_values(zg)) << "GPU NoiseType " << int(type);
     EXPECT_TRUE(assert_almost_equal(zc, zg, tol))
         << "Mismatch for NoiseType " << static_cast<int>(type);
   }
@@ -241,6 +259,8 @@ TEST(GpuCpu, NoiseFbm)
                               &nx,
                               &ny);
 
+    EXPECT_TRUE(only_finite_values(zc)) << "CPU FBM NoiseType " << int(type);
+    EXPECT_TRUE(only_finite_values(zg)) << "GPU FBM NoiseType " << int(type);
     EXPECT_TRUE(assert_almost_equal(zc, zg, tol))
         << "Mismatch for FBM NoiseType " << static_cast<int>(type);
   }
