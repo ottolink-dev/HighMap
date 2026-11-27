@@ -426,6 +426,60 @@ TEST(HydraulicMise, Determinism)
   EXPECT_TRUE(assert_almost_equal(z1, z2));
 }
 
+TEST(HydraulicMise, RegressionOptions)
+{
+  glm::ivec2 shape = {64, 64};
+  glm::vec2  kw = {4.f, 4.f};
+  Array      z0 = noise_fbm(NoiseType::PERLIN, shape, kw, 42).remapped();
+  Array      z1 = z0;
+  Array      z2 = z0;
+
+  Array bedrock = z0 - 0.1f;
+  Array erodibility = constant(shape, 0.8f);
+  Array moisture = constant(shape, 1.2f);
+  Array outlet = constant(shape, 0.f);
+  for (int i = 0; i < shape.x; ++i)
+    outlet(i, 0) = 1.f;
+
+  Array sediment1, flow1, erosion1, deposition1;
+  Array sediment2, flow2, erosion2, deposition2;
+
+  MiseParams params;
+  params.base_res = 16;
+  params.strength = 0.6f;
+  params.antialias = 0.5f;
+  params.warp = 0.25f;
+  params.seed = 777;
+
+  hydraulic_mise(z1,
+                 params,
+                 &bedrock,
+                 &erodibility,
+                 &moisture,
+                 &outlet,
+                 &sediment1,
+                 &flow1,
+                 &erosion1,
+                 &deposition1);
+
+  hydraulic_mise(z2,
+                 params,
+                 &bedrock,
+                 &erodibility,
+                 &moisture,
+                 &outlet,
+                 &sediment2,
+                 &flow2,
+                 &erosion2,
+                 &deposition2);
+
+  EXPECT_TRUE(assert_almost_equal(z1, z2));
+  EXPECT_TRUE(assert_almost_equal(sediment1, sediment2));
+  EXPECT_TRUE(assert_almost_equal(flow1, flow2));
+  EXPECT_TRUE(assert_almost_equal(erosion1, erosion2));
+  EXPECT_TRUE(assert_almost_equal(deposition1, deposition2));
+}
+
 TEST(HydraulicMise, VirtualArrayComparison)
 {
   glm::ivec2 shape = {128, 128};
