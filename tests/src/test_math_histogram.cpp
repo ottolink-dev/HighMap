@@ -142,6 +142,44 @@ TEST(MatchHistogram, SingleValueInput)
 
   match_histogram(input, reference);
 
-  bool ret = assert_almost_equal(input, expected, 1e-6f);
-  EXPECT_TRUE(ret);
+  ASSERT_EQ(input.vector.size(), 1u);
+  EXPECT_FLOAT_EQ(input.vector.front(), expected.vector.front());
+}
+
+TEST(MatchHistogram, SingleInputUsesOddReferenceMedian)
+{
+  Array input{{42.f}};
+  Array reference{{9.f, 1.f, 5.f}};
+  match_histogram(input, reference);
+  EXPECT_FLOAT_EQ(input.vector.front(), 5.f);
+}
+
+TEST(MatchHistogram, SingleInputInterpolatesEvenReferenceMedian)
+{
+  Array input{{42.f}};
+  Array reference{{30.f, 0.f, 20.f, 10.f}};
+  match_histogram(input, reference);
+  EXPECT_FLOAT_EQ(input.vector.front(), 15.f);
+}
+
+TEST(MatchHistogram, SingleReferenceMapsEveryInput)
+{
+  Array input{{4.f, -2.f, 9.f}};
+  Array reference{{7.f}};
+  match_histogram(input, reference);
+  for (float value : input.vector)
+    EXPECT_FLOAT_EQ(value, 7.f);
+}
+
+TEST(MatchHistogram, EmptyInputAndReferenceAreNoOps)
+{
+  Array empty;
+  Array reference{{7.f}};
+  match_histogram(empty, reference);
+  EXPECT_TRUE(empty.vector.empty());
+
+  Array input{{4.f, -2.f, 9.f}};
+  const auto before = input.vector;
+  match_histogram(input, empty);
+  EXPECT_EQ(input.vector, before);
 }

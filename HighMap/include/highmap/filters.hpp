@@ -910,6 +910,9 @@ void make_binary(Array &array, float threshold = 0.f);
  * elevation values so that the resulting histogram closely matches the
  * histogram of a reference array. This process is useful for aligning the
  * statistical properties of the input data with those of the reference data.
+ * A single input sample maps to the reference median, interpolating between
+ * the two central reference values for an even sample count. Empty input or
+ * reference arrays leave the input unchanged.
  *
  * @param array           Input array whose elevation values are to be
  *                        transformed.
