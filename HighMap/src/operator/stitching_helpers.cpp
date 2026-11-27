@@ -5,6 +5,7 @@
 #include <cstdint>
 #include <limits>
 #include <random>
+#include <utility>
 #include <vector>
 
 #include "highmap/array.hpp"
@@ -215,7 +216,7 @@ Array get_random_patch(const Array          &array,
       Array sec_patch = pa->extract_slice(
           glm::ivec4(i_start, i_end, j_start, j_end));
       helper_flip_rot_transpose(sec_patch, do_flip, rot_steps, do_transpose);
-      p_secondary_patches->push_back(sec_patch);
+      p_secondary_patches->push_back(std::move(sec_patch));
     }
   }
 
