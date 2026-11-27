@@ -344,3 +344,22 @@ TEST(Quilting, RandomPatchSecondaryOwnershipPreservesSources)
       EXPECT_EQ(source.vector, original_source.vector);
     }
 }
+
+TEST(Quilting, SubpixelSmoothingRadiusProducesFiniteSeams)
+{
+  for (float width : {0.f, 0.2f})
+  {
+    Array guide = make_sample_array({48, 48}, 91);
+    std::vector<Array> channels(4, guide);
+    std::vector<Array *> pointers;
+    for (auto &channel : channels) pointers.push_back(&channel);
+    // Expansion gives a six-cell patch with three overlap cells. Both widths
+    // round the smoothing radius to zero, so the cut mask stays unsmoothed.
+    Array output = quilting_expand(guide, 2.f, {12, 12}, 0.5f, 123,
+                                    pointers, true, false, false, false, width);
+    ASSERT_EQ(output.shape, guide.shape);
+    for (float value : output.vector) EXPECT_TRUE(std::isfinite(value));
+    for (const auto &channel : channels)
+      EXPECT_EQ(channel.vector, output.vector);
+  }
+}

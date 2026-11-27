@@ -1003,6 +1003,10 @@ void smooth_cpulse(Array            &array,
   if (!validate_non_empty(array)) return;
   if (p_mask && !validate_same_shape(array, *p_mask)) return;
 
+  // A zero-width kernel is the identity. Avoid constructing its undefined
+  // exp(-0.5 * (0 / 0)^2) weight, including on the masked/GPU paths.
+  if (ir == 0) return;
+
   // define kernel
   const int          nk = 2 * ir + 1;
   std::vector<float> k1d(nk);
