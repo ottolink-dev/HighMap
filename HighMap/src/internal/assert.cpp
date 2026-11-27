@@ -2,6 +2,9 @@
  * Public License. The full license is in the file LICENSE, distributed with
  * this software. */
 #include <algorithm>
+#include <bit>
+#include <cstdint>
+#include <limits>
 #include <cmath>
 #include <string>
 #include <vector>
@@ -22,6 +25,27 @@ bool assert_almost_equal(const Array       &a,
                          const std::string &fname,
                          AssertResults     *p_results)
 {
+  // HighMap release builds use fast-math, which can fold std::isfinite to
+  // true. Inspect the IEEE-754 exponent bits instead of FP comparisons.
+  static_assert(sizeof(float) == sizeof(std::uint32_t) &&
+                std::numeric_limits<float>::is_iec559);
+  const auto finite = [](float value)
+  {
+    return (std::bit_cast<std::uint32_t>(value) & 0x7f800000u) != 0x7f800000u;
+  };
+  const auto invalid = [&](const char *message)
+  {
+    if (p_results)
+    {
+      p_results->msg = message;
+      p_results->ret = false;
+      p_results->diff = std::numeric_limits<float>::infinity();
+      p_results->tolerance = tolerance;
+    }
+    return false;
+  };
+  if (!finite(tolerance)) return invalid("non-finite tolerance");
+
   // --- check array shapes
 
   if (a.shape != b.shape)
@@ -44,29 +68,33 @@ bool assert_almost_equal(const Array       &a,
 
   // --- compare
 
-  float diff = 0.f;
-  float sum_a = 0.f;
-  float sum_b = 0.f;
+  // Accumulate in double: even finite float operands can overflow a float
+  // difference or sum and turn the final normalized error into NaN.
+  double diff = 0.;
+  double sum_a = 0.;
+  double sum_b = 0.;
   int   diff_count = 0;
 
   {
     for (int j = 0; j < a.shape.y; ++j)
       for (int i = 0; i < a.shape.x; ++i)
       {
-        float delta = std::abs(a(i, j) - b(i, j));
+        if (!finite(a(i, j)) || !finite(b(i, j)))
+          return invalid("non-finite input value");
+        double delta = std::abs((double)a(i, j) - (double)b(i, j));
 
         diff += delta;
-        sum_a += std::abs(a(i, j));
-        sum_b += std::abs(b(i, j));
+        sum_a += std::abs((double)a(i, j));
+        sum_b += std::abs((double)b(i, j));
 
         if (delta > tolerance) diff_count++;
       }
 
-    float sum = std::min(sum_a, sum_b);
+    double sum = std::min(sum_a, sum_b);
 
     // if we're comparing zeroes
     if (sum == 0.f)
-      diff = sum_a - sum_b;
+      diff = std::abs(sum_a - sum_b);
     else
       diff /= sum;
   }
@@ -104,6 +132,11 @@ bool assert_almost_equal(const Array       &a,
     return false;
   }
 
+  if (p_results)
+  {
+    p_results->ret = true;
+    p_results->msg.clear();
+  }
   return true;
 }
 
