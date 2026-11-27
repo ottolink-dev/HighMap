@@ -2,6 +2,8 @@
 #include "highmap/internal/assert.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
+#include <cmath>
+
 #include <gtest/gtest.h>
 
 using namespace hmap;
@@ -18,12 +20,21 @@ TEST(SmoothCPulse, ConstantFieldPreserved)
 
 TEST(SmoothCPulse, IdentityWhenRadiusZero)
 {
-  Array input = Array({{1, 2, 3}, {4, 5, 6}});
+  const Array input = Array({{1, 2, 3}, {4, 5, 6}});
+  const Array mask = Array({{0.f, 0.5f, 1.f}, {1.f, 0.5f, 0.f}});
+  for (const Array *p_mask : {static_cast<const Array *>(nullptr), &mask})
+  {
+    Array cpu = input;
+    smooth_cpulse(cpu, 0, p_mask);
+    EXPECT_EQ(cpu.vector, input.vector);
+    for (float value : cpu.vector) EXPECT_TRUE(std::isfinite(value));
 
-  Array cpu = input;
-  smooth_cpulse(cpu, 0);
-
-  EXPECT_TRUE(assert_almost_equal(cpu, input));
+    // The identity path does not require an OpenCL device or context.
+    Array gpu = input;
+    gpu::smooth_cpulse(gpu, 0, p_mask);
+    EXPECT_EQ(gpu.vector, input.vector);
+    for (float value : gpu.vector) EXPECT_TRUE(std::isfinite(value));
+  }
 }
 
 TEST(SmoothCPulse, SmoothingReducesContrast)
