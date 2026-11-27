@@ -407,14 +407,14 @@ struct FlowGraph
   }
 
   // upstream-to-downstream accumulation of drainage area and slope excess
-  void accumulate(const Array &z_arr, const float *rain, float talus_cell)
+  void accumulate(const Array &z_arr, const Array *p_rain, float talus_cell)
   {
     const auto &z = z_arr.vector;
     auto       &area_v = area.vector;
     auto       &steep_v = steep.vector;
 
-    if (rain)
-      std::copy(rain, rain + n, area_v.begin());
+    if (p_rain)
+      area = *p_rain;
     else
       std::fill(area_v.begin(), area_v.end(), 1.f);
 
@@ -444,9 +444,9 @@ struct Level
   int            nx = 0, ny = 0;
   Array         *z = nullptr;
   Array         *sed = nullptr;
-  const float   *erodibility = nullptr;
-  const float   *rain = nullptr;
-  const float   *bedrock = nullptr;
+  const Array   *p_erodibility = nullptr;
+  const Array   *p_rain = nullptr;
+  const Array   *p_bedrock = nullptr;
   const uint8_t *outlet = nullptr;
 };
 
@@ -480,7 +480,7 @@ void erode_pass(const Level      &L,
   const float cellA = dx * dx;
   const float m = P.area_exp;
 
-  const bool lut_ok = (L.rain == nullptr);
+  const bool lut_ok = (L.p_rain == nullptr);
   const int  lut_n = 2048;
 
   if (lut_ok)
@@ -506,7 +506,7 @@ void erode_pass(const Level      &L,
     const float am = (lut_ok && ac < (float)lut_n)
                          ? W.powlut.vector[(int)ac]
                          : std::pow(std::min(ac * cellA, P.downcutting), m);
-    const float ke = L.erodibility ? L.erodibility[i] : 1.f;
+    const float ke = L.p_erodibility ? L.p_erodibility->vector[i] : 1.f;
     const float soft = (sed[i] > 0.f) ? P.sediment_erodibility : 1.f;
 
     float rho = 1.f;
@@ -536,7 +536,7 @@ void erode_pass(const Level      &L,
 
     // clamp to max cliff slope and bedrock floor
     if (P.cliff > 0.f) zn = std::min(zn, zr + P.cliff * dd);
-    if (L.bedrock) zn = std::min(zi, std::max(zn, L.bedrock[i]));
+    if (L.p_bedrock) zn = std::min(zi, std::max(zn, L.p_bedrock->vector[i]));
 
     // record eroded volume and deplete loose sediment
     const float e = zi - zn;
@@ -764,9 +764,11 @@ void erode_level(const Level      &L,
   {
     G.flood(*L.z, L.outlet, !P.exact_flood);
     G.receivers(P.receiver_exp, seed);
-    G.accumulate(*L.z, L.rain, talus_cell);
+    G.accumulate(*L.z, L.p_rain, talus_cell);
+
     erode_pass(L, G, P, P.strength * dt, P.thermal * dt, P.debris * dt, W);
     sediment_pass(L, G, P, W);
+
     if (P.sediment_relax_iters > 0)
       relax_sediment(*L.z,
                      *L.sed,
@@ -783,7 +785,7 @@ void erode_level(const Level      &L,
 Array flow_map_impl(const Array   &z,
                     int            nx,
                     int            ny,
-                    const float   *rain,
+                    const Array   *p_rain,
                     const uint8_t *outlet,
                     uint32_t       seed)
 {
@@ -797,7 +799,7 @@ Array flow_map_impl(const Array   &z,
   G.resize(nx, ny);
   G.flood(z, outlet, false);
   G.receivers(4.f, seed);
-  G.accumulate(z, rain, 1.f);
+  G.accumulate(z, p_rain, 1.f);
 
   const float inv = 1.f / (float)flow.vector.size();
   flow = G.area * inv;
@@ -848,12 +850,6 @@ void hydraulic_mise(Array            &z,
     p_outlet_ptr = outlet_bytes.data();
   }
 
-  const float *p_erodibility_ptr = p_erodibility ? p_erodibility->vector.data()
-                                                 : nullptr;
-  const float *p_rain_ptr = p_moisture_map ? p_moisture_map->vector.data()
-                                           : nullptr;
-  const float *p_bedrock_ptr = p_bedrock ? p_bedrock->vector.data() : nullptr;
-
   const float ratio = (float)std::min(nx, ny) /
                       (float)std::max(params.base_res, 8);
   const int levels = 1 + std::min(9,
@@ -885,9 +881,9 @@ void hydraulic_mise(Array            &z,
               ny,
               &z,
               &sediment,
-              p_erodibility_ptr,
-              p_rain_ptr,
-              p_bedrock_ptr,
+              p_erodibility,
+              p_moisture_map,
+              p_bedrock,
               p_outlet_ptr};
       erode_level(L, params, share, it, seed, G, W);
 
@@ -912,9 +908,11 @@ void hydraulic_mise(Array            &z,
 
       Array                el, rl, bl;
       std::vector<uint8_t> ol;
+      
       if (p_erodibility) el = p_erodibility->resample_to_shape(coarse_shape);
       if (p_moisture_map) rl = p_moisture_map->resample_to_shape(coarse_shape);
       if (p_bedrock) bl = p_bedrock->resample_to_shape(coarse_shape);
+
       if (p_outlet)
       {
         const Array oc = p_outlet->resample_to_shape(coarse_shape);
@@ -928,9 +926,9 @@ void hydraulic_mise(Array            &z,
               ly,
               &zl,
               &sl,
-              p_erodibility_ptr ? el.vector.data() : nullptr,
-              p_rain_ptr ? rl.vector.data() : nullptr,
-              p_bedrock_ptr ? bl.vector.data() : nullptr,
+              p_erodibility ? &el : nullptr,
+              p_moisture_map ? &rl : nullptr,
+              p_bedrock ? &bl : nullptr,
               p_outlet_ptr ? ol.data() : nullptr};
       erode_level(L, params, share, it, seed, G, W);
 
@@ -1006,7 +1004,7 @@ void hydraulic_mise(Array            &z,
 
   if (p_flow)
   {
-    *p_flow = flow_map_impl(z, nx, ny, p_rain_ptr, p_outlet_ptr, params.seed);
+    *p_flow = flow_map_impl(z, nx, ny, p_moisture_map, p_outlet_ptr, params.seed);
   }
 
   if (p_erosion_map)
