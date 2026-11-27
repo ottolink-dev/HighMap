@@ -2,6 +2,9 @@
 #include "highmap/primitives.hpp"
 #include "highmap/range.hpp"
 
+#include <bit>
+#include <cstdint>
+
 #include <gtest/gtest.h>
 
 using namespace hmap;
@@ -226,4 +229,36 @@ TEST(RangeNormalizeAndClip, Range01)
     EXPECT_GE(a_raw(0, j), 0.f);
     EXPECT_LE(a_raw(0, j), 1.f);
   }
+}
+
+TEST(RangeClampSmooth, ZeroWidthUsesHardBoundsForEveryOverload)
+{
+  Array input(glm::ivec2(5, 1));
+  input.vector = {-1.f, 0.f, 0.5f, 1.f, 2.f};
+  Array bounds(input.shape);
+  bounds.vector = {-2.f, -0.5f, 0.5f, 1.5f, 3.f};
+  const auto check = [](const Array &actual, const std::vector<float> &expected)
+  {
+    EXPECT_EQ(actual.vector, expected);
+    for (float value : actual.vector)
+      EXPECT_NE(std::bit_cast<std::uint32_t>(value) & 0x7f800000u, 0x7f800000u);
+  };
+  Array a = input;
+  clamp_min_smooth(a, 0.f, 0.f);
+  check(a, {0.f, 0.f, 0.5f, 1.f, 2.f});
+  a = input;
+  clamp_max_smooth(a, 1.f, 0.f);
+  check(a, {-1.f, 0.f, 0.5f, 1.f, 1.f});
+  a = input;
+  clamp_min_smooth(a, bounds, 0.f);
+  check(a, {-1.f, 0.f, 0.5f, 1.5f, 3.f});
+  a = input;
+  clamp_max_smooth(a, bounds, 0.f);
+  check(a, {-2.f, -0.5f, 0.5f, 1.f, 2.f});
+  a = input;
+  clamp_smooth(a, 0.f, 1.f, 0.f);
+  check(a, {0.f, 0.f, 0.5f, 1.f, 1.f});
+  a = input;
+  for (auto &value : a.vector) value = clamp_min_smooth(value, 0.f, 0.f);
+  check(a, {0.f, 0.f, 0.5f, 1.f, 2.f});
 }

@@ -112,6 +112,11 @@ void clamp_max(Array &array, const Array &vmax)
 void clamp_max_smooth(Array &array, float vmax, float k)
 {
   if (!validate_non_empty(array)) return;
+  if (k == 0.f)
+  {
+    clamp_max(array, vmax);
+    return;
+  }
 
   auto lambda = [k, vmax](float x)
   {
@@ -128,6 +133,11 @@ void clamp_max_smooth(Array &array, float vmax, float k)
 void clamp_max_smooth(Array &array, const Array &vmax, float k)
 {
   if (!validate_non_empty(array) || !validate_same_shape(array, vmax)) return;
+  if (k == 0.f)
+  {
+    clamp_max(array, vmax);
+    return;
+  }
 
   auto lambda = [k](float x, float vmax)
   {
@@ -170,6 +180,11 @@ void clamp_min(Array &array, const Array &vmin)
 void clamp_min_smooth(Array &array, float vmin, float k)
 {
   if (!validate_non_empty(array)) return;
+  if (k == 0.f)
+  {
+    clamp_min(array, vmin);
+    return;
+  }
 
   auto lambda = [k, vmin](float x)
   {
@@ -186,6 +201,11 @@ void clamp_min_smooth(Array &array, float vmin, float k)
 void clamp_min_smooth(Array &array, const Array &vmin, float k)
 {
   if (!validate_non_empty(array) || !validate_same_shape(array, vmin)) return;
+  if (k == 0.f)
+  {
+    clamp_min(array, vmin);
+    return;
+  }
 
   auto lambda = [k](float x, float vmin)
   {
@@ -202,6 +222,7 @@ void clamp_min_smooth(Array &array, const Array &vmin, float k)
 
 float clamp_min_smooth(float x, float vmin, float k)
 {
+  if (k == 0.f) return std::max(x, vmin);
   float h = std::max(k - std::abs(x - vmin), 0.f) / k;
   return std::max(x, vmin) + h * h * h * k / 6.f;
 }
@@ -248,6 +269,11 @@ void clamp_oblique_plane(Array    &array,
 void clamp_smooth(Array &array, float vmin, float vmax, float k)
 {
   if (!validate_non_empty(array)) return;
+  if (k == 0.f)
+  {
+    clamp(array, vmin, vmax);
+    return;
+  }
 
   const float inv6k = k / 6.f;
 
