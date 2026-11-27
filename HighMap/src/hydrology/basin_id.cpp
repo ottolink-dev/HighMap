@@ -5,14 +5,13 @@
 #include <vector>
 
 #include "highmap/array.hpp"
-#include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 
 namespace hmap
 {
 
-Array basin_id(const Array &z, FlowDirectionMethod fd_method, bool remove_lakes)
+Array basin_id(const Array &z, bool fast_approx, bool remove_lakes)
 {
   if (!validate_non_empty(z)) return Array();
 
@@ -20,32 +19,24 @@ Array basin_id(const Array &z, FlowDirectionMethod fd_method, bool remove_lakes)
 
   // --- stream structure
 
-  auto db = DrainageBasinCellBased(z);
-
-  if (fd_method == FlowDirectionMethod::FDM_D8)
-  {
-    db.compute_receivers();
-    auto [subroots, has_lake] = db.find_subroots();
-    if (has_lake) db.remove_lakes(subroots);
-  }
-  else
-    db.compute_receivers_priority_flood();
-
-  db.update_traversals();
+  FlowGraph fg;
+  fg.resize(z.shape.x, z.shape.y);
+  fg.flood(z, nullptr, fast_approx);
+  fg.receivers(1.f, 0);
 
   // --- basin Ids
 
-  auto upstream_traversals = db.compute_upstream_traversals();
-  int  id_count = 0;
+  int id_count = 0;
 
-  for (const auto &indices : upstream_traversals)
+  for (int o = 0; o < fg.n; ++o)
   {
-    for (size_t k = 0; k < indices.size(); ++k)
-    {
-      const auto &i = indices[k];
-      ids(i) = id_count;
-    }
-    id_count++;
+    const int i = fg.order[o];
+    const int r = fg.rcv[i];
+
+    if (r == i)
+      ids.vector[i] = static_cast<float>(id_count++);
+    else
+      ids.vector[i] = ids.vector[r];
   }
 
   return ids;

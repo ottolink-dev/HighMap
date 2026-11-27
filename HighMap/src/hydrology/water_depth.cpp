@@ -293,8 +293,8 @@ Array water_depth_increase_with_flooding(const Array &water_depth,
       if (!in_bounds(i2, j2)) continue;
       const int flat_n = j2 * ni + i2;
       if (visited[flat_n]) continue;
-      if (z(i2, j2) < wse)      // terrain is below water surface
-        pq.push(key, flat_n);   // neighbor inherits the same WSE
+      if (z(i2, j2) < wse)    // terrain is below water surface
+        pq.push(key, flat_n); // neighbor inherits the same WSE
     }
   }
 

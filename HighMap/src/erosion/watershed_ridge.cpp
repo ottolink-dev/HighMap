@@ -8,7 +8,6 @@
 #include "highmap/array.hpp"
 #include "highmap/erosion/strata_erosion.hpp"
 #include "highmap/filters.hpp"
-#include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/array.hpp"
@@ -19,15 +18,15 @@
 namespace hmap::gpu
 {
 
-Array watershed_ridge(const Array        &z,
-                      float               amplitude,
-                      float               width,
-                      float               edt_exponent,
-                      int                 prefilter_ir,
-                      FlowDirectionMethod fd_method,
-                      const Array        *p_noise_x,
-                      const Array        *p_noise_y,
-                      const Array        *p_scaling)
+Array watershed_ridge(const Array &z,
+                      float        amplitude,
+                      float        width,
+                      float        edt_exponent,
+                      int          prefilter_ir,
+                      bool         fast_approx,
+                      const Array *p_noise_x,
+                      const Array *p_noise_y,
+                      const Array *p_scaling)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return Array();
@@ -44,27 +43,41 @@ Array watershed_ridge(const Array        &z,
 
   // --- stream structure
 
-  auto db = DrainageBasinCellBased(z);
-  db.set_outlets(find_flow_sinks_border(z));
+  FlowGraph fg;
+  fg.resize(shape.x, shape.y);
 
-  if (fd_method == FlowDirectionMethod::FDM_D8)
+  std::vector<uint8_t> outlets(fg.n, 0);
+  for (const auto &p : find_flow_sinks_border(z))
+    outlets[p.y * shape.x + p.x] = 1;
+
+  fg.flood(z, outlets.data(), fast_approx, false);
+  fg.receivers(1.f, 0);
+  fg.accumulate(z, nullptr, 1.f);
+
+  std::vector<int> best_child(fg.n, -1);
+  for (int i = 0; i < fg.n; ++i)
   {
-    db.compute_receivers();
-    auto [subroots, has_lake] = db.find_subroots();
-    if (has_lake) db.remove_lakes(subroots);
-  }
-  else
-    db.compute_receivers_priority_flood();
+    const int r = fg.rcv[i];
+    if (r == i) continue;
 
-  db.update_traversals();
-  auto mcs = db.get_main_channels();
+    if (best_child[r] < 0 || fg.area.vector[i] > fg.area.vector[best_child[r]])
+      best_child[r] = i;
+  }
 
   // distance transform to generate valley shape
   Array edt(shape);
 
-  for (const auto &vec : mcs)
-    for (const auto &p : vec)
-      edt(p) = 1.f;
+  for (int i = 0; i < fg.n; ++i)
+  {
+    if (fg.rcv[i] != i) continue;
+
+    int cur = i;
+    while (cur >= 0)
+    {
+      edt.vector[cur] = 1.f;
+      cur = best_child[cur];
+    }
+  }
 
   edt = distance_transform(edt);
 
@@ -87,16 +100,16 @@ Array watershed_ridge(const Array        &z,
   return out;
 }
 
-Array watershed_ridge(const Array        &z,
-                      const Array        *p_mask,
-                      float               amplitude,
-                      float               width,
-                      float               edt_exponent,
-                      int                 prefilter_ir,
-                      FlowDirectionMethod fd_method,
-                      const Array        *p_noise_x,
-                      const Array        *p_noise_y,
-                      const Array        *p_scaling)
+Array watershed_ridge(const Array &z,
+                      const Array *p_mask,
+                      float        amplitude,
+                      float        width,
+                      float        edt_exponent,
+                      int          prefilter_ir,
+                      bool         fast_approx,
+                      const Array *p_noise_x,
+                      const Array *p_noise_y,
+                      const Array *p_scaling)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_mask && !validate_same_shape(z, *p_mask)) return Array();
@@ -110,7 +123,7 @@ Array watershed_ridge(const Array        &z,
                            width,
                            edt_exponent,
                            prefilter_ir,
-                           fd_method,
+                           fast_approx,
                            p_noise_x,
                            p_noise_y,
                            p_scaling);
@@ -121,7 +134,7 @@ Array watershed_ridge(const Array        &z,
                                 width,
                                 edt_exponent,
                                 prefilter_ir,
-                                fd_method,
+                                fast_approx,
                                 p_noise_x,
                                 p_noise_y,
                                 p_scaling);

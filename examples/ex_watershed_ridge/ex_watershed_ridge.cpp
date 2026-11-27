@@ -31,15 +31,23 @@ int main(void)
                                        width,
                                        exponent,
                                        prefilter_ir,
-                                       hmap::FlowDirectionMethod::FDM_D8,
+                                       false,
                                        &dx,
                                        &dx,
                                        &scaling);
 
-  z1.dump("z.png");
+  auto z2 = hmap::gpu::watershed_ridge(z0,
+                                       amplitude,
+                                       width,
+                                       exponent,
+                                       prefilter_ir,
+                                       true,
+                                       &dx,
+                                       &dx,
+                                       &scaling);
 
   hmap::export_banner_png("ex_watershed_ridge.png",
-                          {z0, z1},
+                          {z0, z1, z2},
                           hmap::Cmap::TERRAIN,
                           true);
 }

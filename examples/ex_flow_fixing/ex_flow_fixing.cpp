@@ -14,7 +14,7 @@ int main(void)
   auto z1 = hmap::flow_fixing(z0, riverbed_talus);
 
   auto z2 = hmap::flow_fixing_drainage_basin(z0,
-                                             hmap::FlowDirectionMethod::FDM_D8,
+                                             false,
                                              riverbed_talus,
                                              50,
                                              true);

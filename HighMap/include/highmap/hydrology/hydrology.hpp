@@ -28,7 +28,7 @@
 #include "highmap/array.hpp"
 #include "highmap/geometry/grids.hpp"
 #include "highmap/geometry/path.hpp"
-#include "highmap/hydrology/drainage_basin_cell_based.hpp"
+#include "highmap/hydrology/flow_graph.hpp"
 #include "highmap/math/profiles.hpp"
 #include "highmap/virtual_array/virtual_array.hpp"
 
@@ -57,9 +57,9 @@ class TerrainTriMesh;
  * **Result**
  * @image html ex_basin_id.png
  */
-Array basin_id(const Array        &z,
-               FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
-               bool                remove_lakes = true);
+Array basin_id(const Array &z,
+               bool         fast_approx = false,
+               bool         remove_lakes = true);
 
 /**
  * @brief Blends and carves smooth riverbanks around modified riverbed profiles.
@@ -542,7 +542,7 @@ Array flow_fixing(const Array &z,
  */
 Array flow_fixing_drainage_basin(
     const Array        &z,
-    FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
+    bool         fast_approx = false,
     float               riverbed_talus = 1e-4f,
     int                 iterations = 3,
     bool                carve_riverbed = false,

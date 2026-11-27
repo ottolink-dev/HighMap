@@ -15,7 +15,6 @@
 #include "highmap/filters.hpp"
 #include "highmap/geometry/path.hpp"
 #include "highmap/geometry/point.hpp"
-#include "highmap/hydrology/drainage_basin_cell_based.hpp"
 #include "highmap/hydrology/hydrology.hpp"
 #include "highmap/internal/validation.hpp"
 #include "highmap/math/constants.hpp"
@@ -289,62 +288,46 @@ Array flow_fixing(const Array &z,
   return zb;
 }
 
-Array flow_fixing_drainage_basin(const Array        &z,
-                                 FlowDirectionMethod fd_method,
-                                 float               riverbed_talus,
-                                 int                 iterations,
-                                 bool                carve_riverbed,
-                                 float               talus_riverbank,
-                                 float               merging_distance,
-                                 std::uint32_t       seed,
-                                 float               noise_strength,
-                                 const Array        *p_noise_x,
-                                 const Array        *p_noise_y)
+Array flow_fixing_drainage_basin(const Array  &z,
+                                 bool          fast_approx,
+                                 float         riverbed_talus,
+                                 int           iterations,
+                                 bool          carve_riverbed,
+                                 float         talus_riverbank,
+                                 float         merging_distance,
+                                 std::uint32_t seed,
+                                 float         noise_strength,
+                                 const Array  *p_noise_x,
+                                 const Array  *p_noise_y)
 {
   if (!validate_non_empty(z)) return Array();
   if (p_noise_x && !validate_same_shape(z, *p_noise_x)) return Array();
   if (p_noise_y && !validate_same_shape(z, *p_noise_y)) return Array();
 
-  Array zb = z;
+  Array     zb = z;
+  FlowGraph fg;
+  fg.resize(zb.shape.x, zb.shape.y);
 
   for (int it = 0; it < iterations; ++it)
   {
-    DrainageBasinCellBased db(zb);
-
-    if (fd_method == FlowDirectionMethod::FDM_D8)
-    {
-      db.compute_receivers(seed + it, noise_strength);
-      auto [subroots, has_lake] = db.find_subroots();
-      if (has_lake) db.remove_lakes(subroots);
-    }
-    else
-    {
-      db.compute_receivers_priority_flood();
-    }
-
-    db.update_traversals();
+    fg.flood(zb, nullptr, fast_approx);
+    fg.receivers(1.f, seed + it);
 
     // Correct upslopes by moving downstream from the highest headwater cells to
-    // the outlets. Since db.traversals stores each outlet's tree in
-    // upstream->downstream order (nodes ordered from leaves to outlet),
-    // traversing in normal order visits every cell before its downstream
-    // receiver.
-    for (const auto &[outlet, traversal] : db.traversals)
+    // the outlets. Since fg.order stores receivers before donors, iterating in
+    // reverse visits every cell before its downstream receiver.
+    for (int o = fg.n - 1; o >= 0; --o)
     {
-      for (const glm::ivec2 &i : traversal)
-      {
-        const glm::ivec2 &j = db.receivers(i);
-        if (j == i) continue; // outlet cell
+      const int i = fg.order[o];
+      const int j = fg.rcv[i];
+      if (j == i) continue; // outlet cell
 
-        int   dx = i.x - j.x;
-        int   dy = i.y - j.y;
-        float dist = (dx != 0 && dy != 0) ? cte::sqrt2 : 1.f;
-        float max_receiver_z = zb(i) - riverbed_talus * dist;
+      float dist = fg.dist(i);
+      float max_receiver_z = zb.vector[i] - riverbed_talus * dist;
 
-        // If the downstream receiver is higher than the current node, carve the
-        // receiver down
-        if (zb(j) > max_receiver_z) zb(j) = max_receiver_z;
-      }
+      // If the downstream receiver is higher than the current node, carve the
+      // receiver down
+      if (zb.vector[j] > max_receiver_z) zb.vector[j] = max_receiver_z;
     }
   }
 

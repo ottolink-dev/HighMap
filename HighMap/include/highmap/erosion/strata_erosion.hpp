@@ -411,7 +411,7 @@ Array watershed_ridge(
     float               width = 32.f,
     float               edt_exponent = 0.5f,
     int                 prefilter_ir = 0,
-    FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
+    bool         fast_approx = false,
     const Array        *p_noise_x = nullptr,
     const Array        *p_noise_y = nullptr,
     const Array        *p_scaling = nullptr);
@@ -423,7 +423,7 @@ Array watershed_ridge(
     float               width = 32.f,
     float               edt_exponent = 0.5f,
     int                 prefilter_ir = 0,
-    FlowDirectionMethod fd_method = FlowDirectionMethod::FDM_D8,
+    bool         fast_approx = false,
     const Array        *p_noise_x = nullptr,
     const Array        *p_noise_y = nullptr,
     const Array        *p_scaling = nullptr);
