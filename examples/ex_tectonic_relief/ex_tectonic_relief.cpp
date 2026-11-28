@@ -3,6 +3,7 @@
 int main(void)
 {
   glm::ivec2 shape = {256, 256};
+  shape = {1024, 1024};
 
   int   plate_count = 32;
   uint  seed = 1;
@@ -13,6 +14,8 @@ int main(void)
   float relief_amp = 1.0f;
   float subduction_offset = 0.8f;
   float fault_amp = 0.4f;
+  float ripple_amp = 0.1f;
+  float ripple_kw = 96.0f;
   bool  underwater_interactions = false;
 
   hmap::Array ranges;
@@ -21,11 +24,9 @@ int main(void)
 
   glm::vec2   kw = {8.f, 8.f};
   hmap::Array noise = 1.5f * hmap::noise_fbm(hmap::NoiseType::PERLIN,
-                                            shape,
-                                            kw,
-                                            seed + 1,
-                                            8,
-                                            0.f);
+                                             shape,
+                                             kw,
+                                             seed + 1);
 
   hmap::Array z = hmap::tectonic_relief(shape,
                                         plate_count,
@@ -37,6 +38,8 @@ int main(void)
                                         relief_amp,
                                         subduction_offset,
                                         fault_amp,
+                                        ripple_amp,
+                                        ripple_kw,
                                         underwater_interactions,
                                         nullptr,
                                         nullptr,

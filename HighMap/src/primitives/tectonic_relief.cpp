@@ -82,6 +82,8 @@ void evaluate_pair_features(int                               idx0,
                             float                             relief_amp,
                             float                             subduction_offset,
                             float                             fault_amp,
+                            float                             ripple_amp,
+                            float                             ripple_kw,
                             bool   underwater_interactions,
                             float  craggy,
                             float &out_feature_h,
@@ -108,6 +110,8 @@ void evaluate_pair_features(int                               idx0,
   float     closing = glm::dot(rel_v, n);
   float     sliding = std::abs(cross2d(rel_v, n));
 
+  float range_val = 0.0f;
+
   if (closing > 0.0f)
   {
     float conv_strength = std::min(1.0f, closing);
@@ -115,7 +119,7 @@ void evaluate_pair_features(int                               idx0,
     if (cont0 && cont1)
     {
       float r = near_falloff * craggy * conv_strength;
-      out_range += r;
+      range_val += r;
       out_feature_h += r * relief_amp;
     }
     else if (cont0 != cont1)
@@ -128,14 +132,14 @@ void evaluate_pair_features(int                               idx0,
       float trench_falloff = std::exp(-trench_d * trench_d * 4.0f);
 
       float r = inland_falloff * craggy * conv_strength * 0.85f;
-      out_range += r;
+      range_val += r;
       out_feature_h += r * relief_amp;
       out_feature_h -= trench_falloff * 0.3f * relief_amp * conv_strength;
     }
     else
     {
       float r = near_falloff * craggy * conv_strength * 0.62f;
-      out_range += r;
+      range_val += r;
       out_feature_h += r * relief_amp;
     }
   }
@@ -153,6 +157,12 @@ void evaluate_pair_features(int                               idx0,
       out_feature_h += near_falloff * 0.2f * relief_amp * div_strength;
     }
   }
+
+  out_range += range_val;
+
+  if (ripple_amp != 0.0f && range_val > 0.0f)
+    out_feature_h += range_val * ripple_amp *
+                     std::cos(d * 6.28318530718f * ripple_kw);
 
   float fault_val = near_falloff * std::cos(d_norm * 3.0f) *
                     std::min(1.0f, sliding);
@@ -274,6 +284,8 @@ Array tectonic_relief(glm::ivec2                        shape,
                       float                             relief_amp,
                       float                             subduction_offset,
                       float                             fault_amp,
+                      float                             ripple_amp,
+                      float                             ripple_kw,
                       bool                              underwater_interactions,
                       const Array                      *p_dx,
                       const Array                      *p_dy,
@@ -319,11 +331,11 @@ Array tectonic_relief(glm::ivec2                        shape,
         height(i, j) = cont * 0.5f - (1.0f - cont) * 0.4f;
         if (p_continental_mask) (*p_continental_mask)(i, j) = cont;
 
-      if (p_angles)
-      {
-        glm::vec2 ab = plates[np.b].center - plates[np.a].center;
-        (*p_angles)(i, j) = std::atan2(ab.x, -ab.y);
-      }
+        if (p_angles)
+        {
+          glm::vec2 ab = plates[np.b].center - plates[np.a].center;
+          (*p_angles)(i, j) = std::atan2(ab.x, -ab.y);
+        }
         continue;
       }
 
@@ -382,6 +394,8 @@ Array tectonic_relief(glm::ivec2                        shape,
                              relief_amp,
                              subduction_offset,
                              fault_amp,
+                             ripple_amp,
+                             ripple_kw,
                              underwater_interactions,
                              craggy,
                              feature_h,
@@ -423,6 +437,8 @@ Array tectonic_relief(glm::ivec2    shape,
                       float         relief_amp,
                       float         subduction_offset,
                       float         fault_amp,
+                      float         ripple_amp,
+                      float         ripple_kw,
                       bool          underwater_interactions,
                       const Array  *p_dx,
                       const Array  *p_dy,
@@ -447,6 +463,8 @@ Array tectonic_relief(glm::ivec2    shape,
                          relief_amp,
                          subduction_offset,
                          fault_amp,
+                         ripple_amp,
+                         ripple_kw,
                          underwater_interactions,
                          p_dx,
                          p_dy,
