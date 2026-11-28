@@ -432,40 +432,6 @@ Array rift(glm::ivec2    shape,
            Array        *p_bottom_mask = nullptr);
 
 /**
- * @brief Generate a procedural natural valley head / valley incision
- * deformation heightmap.
- *
- * Creates a valley head incision that smoothly emerges at the origin and
- * progressively deepens and widens downstream following exponential saturation
- * laws and smooth lateral falloff.
- *
- * @param  shape             Output array shape.
- * @param  angle             Valley orientation angle in degrees.
- * @param  min_depth         Valley depth at the head.
- * @param  max_depth         Maximum incision depth at maturity.
- * @param  min_width         Valley width at the head.
- * @param  max_width         Mature valley width.
- * @param  depth_length      Distance scale over which depth develops.
- * @param  width_length      Distance scale over which width develops.
- * @param  development_power Exponent controlling how quickly the incision
- *                           emerges.
- * @param  profile_power     Cross-section exponent (1 = sharp V, > 1 = rounded
- *                           U-shape).
- * @param  p_noise_offset    Optional cross-section centerline offset noise.
- * @param  p_noise_r         Optional width / radial noise.
- * @param  center            Valley head position.
- * @param  bbox              Bounding box coordinates.
- * @param  p_mask            Optional output mask for incision intensity.
- * @return                   Generated valley head deformation array.
- *
- * **Example**
- * @include ex_valley_head.cpp
- *
- * **Result**
- * @image html ex_valley_head.png
- */
-
-/**
  * @brief Generate a procedural tectonic relief heightmap from explicit plates.
  *
  * @param  shape              Output array shape.
@@ -558,24 +524,37 @@ Array tectonic_relief(glm::ivec2    shape,
                       const UvRect &uv_rect = UvRect::unit());
 
 /**
- * @brief Generate a procedural valley head / amphitheatre-shaped depression.
+ * @brief Generate a procedural natural valley head / valley incision
+ * deformation heightmap.
+ *
+ * Creates a valley head incision that smoothly emerges at the origin and
+ * progressively deepens and widens downstream following exponential saturation
+ * laws and smooth lateral falloff.
  *
  * @param  shape             Output array shape.
- * @param  angle             Orientation angle in degrees.
- * @param  min_depth         Minimum valley depth.
- * @param  max_depth         Maximum valley depth.
- * @param  min_width         Minimum valley width.
- * @param  max_width         Maximum valley width.
- * @param  depth_length      Length scale of the depth transition.
- * @param  width_length      Length scale of the width transition.
- * @param  development_power Exponent controlling longitudinal development.
- * @param  profile_power     Exponent controlling cross-sectional profile.
- * @param  p_noise_offset    Optional axial noise offset.
- * @param  p_noise_r         Optional radial noise distortion.
- * @param  center            Center position in normalized domain coordinates.
- * @param  uv_rect           Parametric domain rectangle.
- * @param  p_mask            Optional output mask.
- * @return                   Generated valley head heightmap.
+ * @param  angle             Valley orientation angle in degrees.
+ * @param  min_depth         Valley depth at the head.
+ * @param  max_depth         Maximum incision depth at maturity.
+ * @param  min_width         Valley width at the head.
+ * @param  max_width         Mature valley width.
+ * @param  depth_length      Distance scale over which depth develops.
+ * @param  width_length      Distance scale over which width develops.
+ * @param  development_power Exponent controlling how quickly the incision
+ *                           emerges.
+ * @param  profile_power     Cross-section exponent (1 = sharp V, > 1 = rounded
+ *                           U-shape).
+ * @param  p_noise_offset    Optional cross-section centerline offset noise.
+ * @param  p_noise_r         Optional width / radial noise.
+ * @param  center            Valley head position.
+ * @param  bbox              Bounding box coordinates.
+ * @param  p_mask            Optional output mask for incision intensity.
+ * @return                   Generated valley head deformation array.
+ *
+ * **Example**
+ * @include ex_valley_head.cpp
+ *
+ * **Result**
+ * @image html ex_valley_head.png
  */
 Array valley_head(glm::ivec2    shape,
                   float         angle = 0.f,
