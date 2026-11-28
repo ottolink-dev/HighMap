@@ -156,7 +156,7 @@ void evaluate_pair_features(int                               idx0,
 
   float fault_val = near_falloff * std::cos(d_norm * 3.0f) *
                     std::min(1.0f, sliding);
-  out_feature_h += fault_val * fault_amp;
+  out_feature_h -= std::abs(fault_val) * fault_amp;
   out_fault += std::abs(fault_val);
 }
 

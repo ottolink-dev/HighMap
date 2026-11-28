@@ -12,15 +12,15 @@ int main(void)
   float boundary_width = 0.08f;
   float relief_amp = 1.0f;
   float subduction_offset = 0.8f;
-  float fault_amp = 0.15f;
+  float fault_amp = 0.4f;
   bool  underwater_interactions = false;
 
   hmap::Array ranges;
   hmap::Array faults;
   hmap::Array land;
 
-  glm::vec2   kw = {4.f, 4.f};
-  hmap::Array noise = 2.f * hmap::noise_fbm(hmap::NoiseType::PERLIN,
+  glm::vec2   kw = {8.f, 8.f};
+  hmap::Array noise = 1.5f * hmap::noise_fbm(hmap::NoiseType::PERLIN,
                                             shape,
                                             kw,
                                             seed + 1,
