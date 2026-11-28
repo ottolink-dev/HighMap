@@ -12,6 +12,7 @@
 
 #include "highmap/math/core.hpp"
 #include "highmap/primitives/geo.hpp"
+#include "highmap/range.hpp"
 
 namespace hmap
 {
@@ -340,24 +341,29 @@ Array tectonic_relief(glm::ivec2                        shape,
       }
 
       // 2. continuous continental mask from nearest continental vs oceanic
-      // plate
-      float c_val = p_coast_noise ? (*p_coast_noise)(i, j) : 0.0f;
-      float min_cont_dist = std::numeric_limits<float>::max();
-      float min_ocean_dist = std::numeric_limits<float>::max();
-      bool  has_cont = false;
-      bool  has_ocean = false;
+      // plate (using minimum_smooth for C1+ continuity across same-type
+      // Voronoi edges)
+      const float k_smooth = width * 0.25f;
+      float       c_val = p_coast_noise ? (*p_coast_noise)(i, j) : 0.0f;
+      float       min_cont_dist = std::numeric_limits<float>::max();
+      float       min_ocean_dist = std::numeric_limits<float>::max();
+      bool        has_cont = false;
+      bool        has_ocean = false;
 
       for (int k = 0; k < static_cast<int>(plates.size()); ++k)
       {
         float dk = glm::length(p - plates[k].center);
         if (plates[k].is_continental)
         {
-          min_cont_dist = std::min(min_cont_dist, dk);
+          min_cont_dist = has_cont ? minimum_smooth(min_cont_dist, dk, k_smooth)
+                                   : dk;
           has_cont = true;
         }
         else
         {
-          min_ocean_dist = std::min(min_ocean_dist, dk);
+          min_ocean_dist = has_ocean
+                               ? minimum_smooth(min_ocean_dist, dk, k_smooth)
+                               : dk;
           has_ocean = true;
         }
       }
@@ -405,7 +411,20 @@ Array tectonic_relief(glm::ivec2                        shape,
 
       if (plates.size() > 2)
       {
-        float t_tj = std::clamp((np.dc - np.db) / width, 0.0f, 1.0f);
+        float smax_ab = maximum_smooth(np.da, np.db, k_smooth);
+        float smin_other = 0.0f;
+        bool  has_other = false;
+
+        for (int k = 0; k < static_cast<int>(plates.size()); ++k)
+        {
+          if (k == np.a || k == np.b) continue;
+          float dk = glm::length(p - plates[k].center);
+          smin_other = has_other ? minimum_smooth(smin_other, dk, k_smooth)
+                                 : dk;
+          has_other = true;
+        }
+
+        float t_tj = std::clamp((smin_other - smax_ab) / width, 0.0f, 1.0f);
         float tj_fade = smoothstep5(t_tj);
         feature_h *= tj_fade;
         range_val *= tj_fade;

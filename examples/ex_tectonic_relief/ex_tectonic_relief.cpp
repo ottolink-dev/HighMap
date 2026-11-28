@@ -12,9 +12,9 @@ int main(void)
   float roughness = 1.f;
   float boundary_width = 0.08f;
   float relief_amp = 1.0f;
-  float subduction_offset = 0.8f;
+  float subduction_offset = 0.f;
   float fault_amp = 0.4f;
-  float ripple_amp = 0.1f;
+  float ripple_amp = 0.f;
   float ripple_kw = 96.0f;
   bool  underwater_interactions = false;
 
@@ -26,7 +26,9 @@ int main(void)
   hmap::Array noise = 1.5f * hmap::noise_fbm(hmap::NoiseType::PERLIN,
                                              shape,
                                              kw,
-                                             seed + 1);
+                                             seed + 1,
+                                             8,
+                                             0.5f);
 
   hmap::Array z = hmap::tectonic_relief(shape,
                                         plate_count,
@@ -50,8 +52,11 @@ int main(void)
                                         &land);
 
   z.dump();
+  ranges.dump("ranges.png");
 
   hmap::export_banner_png("ex_tectonic_relief.png",
                           {z, ranges, faults, land},
-                          hmap::Cmap::TERRAIN);
+                          hmap::Cmap::TERRAIN,
+                          true,
+                          true);
 }
