@@ -13,4 +13,3 @@
 #include "highmap/primitives/functions.hpp"
 #include "highmap/primitives/geo.hpp"
 #include "highmap/primitives/random.hpp"
-#include "highmap/primitives/tectonic_relief.hpp"

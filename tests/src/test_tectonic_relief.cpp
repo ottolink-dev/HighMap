@@ -2,17 +2,15 @@
    Public License. The full license is in the file LICENSE, distributed with
    this software. */
 
-#include "highmap/primitives/tectonic_relief.hpp"
+#include "highmap/primitives/geo.hpp"
 
 #include <gtest/gtest.h>
 
 TEST(TectonicRelief, ConvergenceVsDivergence)
 {
-  const glm::ivec2           shape = {64, 64};
-  hmap::TectonicReliefParams params;
-  params.seed = 42;
-  params.boundary_width = 0.15f;
-  params.relief_amp = 1.0f;
+  const glm::ivec2 shape = {64, 64};
+  const float      roughness = 0.5f;
+  const float      boundary_width = 0.15f;
 
   // two continental plates converging toward x = 0.5
   std::vector<hmap::TectonicPlate> conv_plates = {
@@ -23,7 +21,13 @@ TEST(TectonicRelief, ConvergenceVsDivergence)
   hmap::Array conv_ranges;
   hmap::Array conv_h = hmap::tectonic_relief(shape,
                                              conv_plates,
-                                             params,
+                                             roughness,
+                                             boundary_width,
+                                             1.0f,
+                                             0.8f,
+                                             0.15f,
+                                             nullptr,
+                                             nullptr,
                                              nullptr,
                                              nullptr,
                                              &conv_ranges);
@@ -37,7 +41,13 @@ TEST(TectonicRelief, ConvergenceVsDivergence)
   hmap::Array div_ranges;
   hmap::Array div_h = hmap::tectonic_relief(shape,
                                             div_plates,
-                                            params,
+                                            roughness,
+                                            boundary_width,
+                                            1.0f,
+                                            0.8f,
+                                            0.15f,
+                                            nullptr,
+                                            nullptr,
                                             nullptr,
                                             nullptr,
                                             &div_ranges);
@@ -52,13 +62,8 @@ TEST(TectonicRelief, ConvergenceVsDivergence)
 
 TEST(TectonicRelief, MultiPlateSeaLandBalance)
 {
-  const glm::ivec2           shape = {128, 128};
-  hmap::TectonicReliefParams params;
-  params.plate_count = 9;
-  params.seed = 1234;
-  params.continental_ratio = 0.42f;
-
-  hmap::Array h = hmap::tectonic_relief(shape, params);
+  const glm::ivec2 shape = {128, 128};
+  hmap::Array      h = hmap::tectonic_relief(shape, 9, 1234, 0.42f);
 
   int below_sea = 0;
   int total = shape.x * shape.y;
@@ -75,13 +80,10 @@ TEST(TectonicRelief, MultiPlateSeaLandBalance)
 
 TEST(TectonicRelief, TileConsistency)
 {
-  const glm::ivec2           full_shape = {64, 64};
-  const glm::ivec2           tile_shape = {32, 32};
-  hmap::TectonicReliefParams params;
-  params.plate_count = 9;
-  params.seed = 99;
+  const glm::ivec2 full_shape = {64, 64};
+  const glm::ivec2 tile_shape = {32, 32};
 
-  hmap::Array full_h = hmap::tectonic_relief(full_shape, params);
+  hmap::Array full_h = hmap::tectonic_relief(full_shape, 9, 99);
 
   // evaluate 2x2 tiles
   for (int ty = 0; ty < 2; ++ty)
@@ -90,7 +92,16 @@ TEST(TectonicRelief, TileConsistency)
     {
       hmap::UvRect rect(tx * 0.5f, (tx + 1) * 0.5f, ty * 0.5f, (ty + 1) * 0.5f);
       hmap::Array  tile_h = hmap::tectonic_relief(tile_shape,
-                                                 params,
+                                                 9,
+                                                 99,
+                                                 0.42f,
+                                                 0.5f,
+                                                 0.08f,
+                                                 1.0f,
+                                                 0.8f,
+                                                 0.15f,
+                                                 nullptr,
+                                                 nullptr,
                                                  nullptr,
                                                  nullptr,
                                                  nullptr,
