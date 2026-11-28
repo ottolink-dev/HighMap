@@ -1,0 +1,2 @@
+add_executable(ex_tectonic_relief ex_tectonic_relief.cpp)
+target_link_libraries(ex_tectonic_relief highmap)
