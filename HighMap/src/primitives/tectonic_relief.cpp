@@ -176,7 +176,8 @@ void evaluate_pair_features(int                               idx0,
 std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
                                                    uint  seed,
                                                    float continental_ratio,
-                                                   float smoothing_coherence)
+                                                   float smoothing_coherence,
+                                                   bool  force_border_ocean)
 {
   int count = std::max(1, plate_count);
   int g = static_cast<int>(std::ceil(std::sqrt(static_cast<float>(count))));
@@ -216,7 +217,13 @@ std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
     float angle = dist_angle(rng);
     float speed = dist_speed(rng);
     plate.velocity = {std::cos(angle) * speed, std::sin(angle) * speed};
-    plate.is_continental = (i == 0) ? true : (dist_01(rng) < continental_ratio);
+
+    bool is_border = (cx == 0 || cx == g - 1 || cy == 0 || cy == g - 1);
+    if (force_border_ocean && is_border)
+      plate.is_continental = false;
+    else
+      plate.is_continental = (i == 0) ? true
+                                      : (dist_01(rng) < continental_ratio);
 
     plates.push_back(plate);
     target_speeds.push_back(speed);
@@ -461,6 +468,7 @@ Array tectonic_relief(glm::ivec2    shape,
                       float         ripple_amp,
                       float         ripple_kw,
                       bool          underwater_interactions,
+                      bool          force_border_ocean,
                       const Array  *p_dx,
                       const Array  *p_dy,
                       const Array  *p_coast_noise,
@@ -475,7 +483,8 @@ Array tectonic_relief(glm::ivec2    shape,
       plate_count,
       seed,
       continental_ratio,
-      smoothing_coherence);
+      smoothing_coherence,
+      force_border_ocean);
 
   return tectonic_relief(shape,
                          plates,

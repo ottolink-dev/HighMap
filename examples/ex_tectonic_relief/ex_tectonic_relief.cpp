@@ -17,6 +17,7 @@ int main(void)
   float ripple_amp = 0.f;
   float ripple_kw = 96.0f;
   bool  underwater_interactions = false;
+  bool  force_border_ocean = false;
 
   hmap::Array ranges;
   hmap::Array faults;
@@ -43,6 +44,7 @@ int main(void)
                                         ripple_amp,
                                         ripple_kw,
                                         underwater_interactions,
+                                        force_border_ocean,
                                         nullptr,
                                         nullptr,
                                         &noise,

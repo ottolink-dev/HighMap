@@ -446,7 +446,12 @@ Array rift(glm::ivec2    shape,
  * @param  subduction_offset  Inland offset of subduction volcanic arcs (in
  *                            units of `boundary_width`).
  * @param  fault_amp          Amplitude of shear fault ripples.
- * @param  p_dx               Optional x domain warp array.
+ * @param  ripple_kw               Wavenumber for ripple noise.
+ * @param  underwater_interactions Whether to evaluate interactions between
+ *                                 oceanic plates.
+ * @param  force_border_ocean      Whether to force border tiles (domain limit)
+ *                                 to be oceanic plates.
+ * @param  p_dx                    Optional x domain warp array.
  * @param  p_dy               Optional y domain warp array.
  * @param  p_coast_noise      Optional coast noise array (generated if null).
  * @param  p_ridge_noise      Optional ridge noise array (generated if null).
@@ -499,7 +504,12 @@ Array tectonic_relief(glm::ivec2                        shape,
  * @param  subduction_offset  Inland offset of subduction volcanic arcs (in
  *                            units of `boundary_width`).
  * @param  fault_amp          Amplitude of shear fault ripples.
- * @param  p_dx               Optional x domain warp array.
+ * @param  ripple_kw               Wavenumber for ripple noise.
+ * @param  underwater_interactions Whether to evaluate interactions between
+ *                                 oceanic plates.
+ * @param  force_border_ocean      Whether to force border tiles (domain limit)
+ *                                 to be oceanic plates.
+ * @param  p_dx                    Optional x domain warp array.
  * @param  p_dy               Optional y domain warp array.
  * @param  p_coast_noise      Optional coast noise array (generated if null).
  * @param  p_ridge_noise      Optional ridge noise array (generated if null).
@@ -526,6 +536,7 @@ Array tectonic_relief(glm::ivec2    shape,
                       float         ripple_amp = 0.0f,
                       float         ripple_kw = 24.0f,
                       bool          underwater_interactions = false,
+                      bool          force_border_ocean = false,
                       const Array  *p_dx = nullptr,
                       const Array  *p_dy = nullptr,
                       const Array  *p_coast_noise = nullptr,
