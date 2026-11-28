@@ -282,6 +282,7 @@ Array tectonic_relief(glm::ivec2                        shape,
                       Array                            *p_ranges,
                       Array                            *p_faults,
                       Array                            *p_continental_mask,
+                      Array                            *p_angles,
                       const UvRect                     &uv_rect)
 {
   Array height(shape);
@@ -289,6 +290,7 @@ Array tectonic_relief(glm::ivec2                        shape,
   if (p_ranges) *p_ranges = Array(shape);
   if (p_faults) *p_faults = Array(shape);
   if (p_continental_mask) *p_continental_mask = Array(shape);
+  if (p_angles) *p_angles = Array(shape);
 
   if (plates.empty()) return height;
 
@@ -316,6 +318,12 @@ Array tectonic_relief(glm::ivec2                        shape,
         float cont = plates[0].is_continental ? 1.0f : 0.0f;
         height(i, j) = cont * 0.5f - (1.0f - cont) * 0.4f;
         if (p_continental_mask) (*p_continental_mask)(i, j) = cont;
+
+      if (p_angles)
+      {
+        glm::vec2 ab = plates[np.b].center - plates[np.a].center;
+        (*p_angles)(i, j) = std::atan2(ab.x, -ab.y);
+      }
         continue;
       }
 
@@ -393,6 +401,12 @@ Array tectonic_relief(glm::ivec2                        shape,
       if (p_ranges) (*p_ranges)(i, j) = range_val;
       if (p_faults) (*p_faults)(i, j) = fault_val;
       if (p_continental_mask) (*p_continental_mask)(i, j) = cont;
+
+      if (p_angles)
+      {
+        glm::vec2 ab = plates[np.b].center - plates[np.a].center;
+        (*p_angles)(i, j) = std::atan2(ab.x, -ab.y);
+      }
     }
   }
 
@@ -417,6 +431,7 @@ Array tectonic_relief(glm::ivec2    shape,
                       Array        *p_ranges,
                       Array        *p_faults,
                       Array        *p_continental_mask,
+                      Array        *p_angles,
                       const UvRect &uv_rect)
 {
   std::vector<TectonicPlate> plates = scatter_tectonic_plates(
@@ -440,6 +455,7 @@ Array tectonic_relief(glm::ivec2    shape,
                          p_ranges,
                          p_faults,
                          p_continental_mask,
+                         p_angles,
                          uv_rect);
 }
 

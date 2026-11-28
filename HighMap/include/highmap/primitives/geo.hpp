@@ -454,6 +454,8 @@ Array rift(glm::ivec2    shape,
  * @param  p_faults           Optional output mask for shear fault ripples.
  * @param  p_continental_mask Optional output mask for continental land (`[0,
  *                            1]`).
+ * @param  p_angles           Optional output field for local boundary strike
+ *                            angles in radians.
  * @param  uv_rect            Parametric domain rectangle for tile-consistent
  *                            evaluation.
  * @return                    Generated tectonic relief heightmap.
@@ -473,6 +475,7 @@ Array tectonic_relief(glm::ivec2                        shape,
                       Array        *p_ranges = nullptr,
                       Array        *p_faults = nullptr,
                       Array        *p_continental_mask = nullptr,
+                      Array        *p_angles = nullptr,
                       const UvRect &uv_rect = UvRect::unit());
 
 /**
@@ -502,6 +505,8 @@ Array tectonic_relief(glm::ivec2                        shape,
  * @param  p_faults           Optional output mask for shear fault ripples.
  * @param  p_continental_mask Optional output mask for continental land (`[0,
  *                            1]`).
+ * @param  p_angles           Optional output field for local boundary strike
+ *                            angles in radians.
  * @param  uv_rect            Parametric domain rectangle for tile-consistent
  *                            evaluation.
  * @return                    Generated tectonic relief heightmap.
@@ -524,6 +529,7 @@ Array tectonic_relief(glm::ivec2    shape,
                       Array        *p_ranges = nullptr,
                       Array        *p_faults = nullptr,
                       Array        *p_continental_mask = nullptr,
+                      Array        *p_angles = nullptr,
                       const UvRect &uv_rect = UvRect::unit());
 
 /**
