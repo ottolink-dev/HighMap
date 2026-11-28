@@ -405,27 +405,25 @@ void valley_fill(Array       &z,
  * **Result**
  * @image html ex_watershed_ridge.png
  */
-Array watershed_ridge(
-    const Array        &z,
-    float               amplitude = 0.2f,
-    float               width = 32.f,
-    float               edt_exponent = 0.5f,
-    int                 prefilter_ir = 0,
-    bool         fast_approx = false,
-    const Array        *p_noise_x = nullptr,
-    const Array        *p_noise_y = nullptr,
-    const Array        *p_scaling = nullptr);
+Array watershed_ridge(const Array &z,
+                      float        amplitude = 0.2f,
+                      float        width = 32.f,
+                      float        edt_exponent = 0.5f,
+                      int          prefilter_ir = 0,
+                      bool         fast_approx = false,
+                      const Array *p_noise_x = nullptr,
+                      const Array *p_noise_y = nullptr,
+                      const Array *p_scaling = nullptr);
 
-Array watershed_ridge(
-    const Array        &z,
-    const Array        *p_mask,
-    float               amplitude = 0.2f,
-    float               width = 32.f,
-    float               edt_exponent = 0.5f,
-    int                 prefilter_ir = 0,
-    bool         fast_approx = false,
-    const Array        *p_noise_x = nullptr,
-    const Array        *p_noise_y = nullptr,
-    const Array        *p_scaling = nullptr);
+Array watershed_ridge(const Array &z,
+                      const Array *p_mask,
+                      float        amplitude = 0.2f,
+                      float        width = 32.f,
+                      float        edt_exponent = 0.5f,
+                      int          prefilter_ir = 0,
+                      bool         fast_approx = false,
+                      const Array *p_noise_x = nullptr,
+                      const Array *p_noise_y = nullptr,
+                      const Array *p_scaling = nullptr);
 
 } // namespace hmap::gpu
