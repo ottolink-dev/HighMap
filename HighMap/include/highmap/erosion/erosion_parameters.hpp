@@ -63,11 +63,11 @@ struct MiseParams
   float warp = 0.35f;        // domain warp when upsampling
   float antialias = 0.5f;    // binomial blur factor at full resolution
 
-  bool extrapolate_border = true; // extrapolate border cells from
-                                  // interior
-  std::uint32_t seed = 1;         // random seed
-  bool exact_flood = false;       // exact priority queue instead of
-                                  // buckets
+  bool extrapolate_border = true;    // extrapolate border cells from
+                                     // interior
+  std::uint32_t seed = 1;            // random seed
+  bool          exact_flood = false; // exact priority queue instead of
+                                     // buckets
 };
 
 } // namespace hmap

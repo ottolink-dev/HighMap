@@ -540,18 +540,17 @@ Array flow_fixing(const Array &z,
  *                          Y.
  * @return                  Array with unbroken flow paths.
  */
-Array flow_fixing_drainage_basin(
-    const Array        &z,
-    bool         fast_approx = false,
-    float               riverbed_talus = 1e-4f,
-    int                 iterations = 3,
-    bool                carve_riverbed = false,
-    float               talus_riverbank = 0.01f,
-    float               merging_distance = 8.f,
-    std::uint32_t       seed = 0,
-    float               noise_strength = 0.f,
-    const Array        *p_noise_x = nullptr,
-    const Array        *p_noise_y = nullptr);
+Array flow_fixing_drainage_basin(const Array  &z,
+                                 bool          fast_approx = false,
+                                 float         riverbed_talus = 1e-4f,
+                                 int           iterations = 3,
+                                 bool          carve_riverbed = false,
+                                 float         talus_riverbank = 0.01f,
+                                 float         merging_distance = 8.f,
+                                 std::uint32_t seed = 0,
+                                 float         noise_strength = 0.f,
+                                 const Array  *p_noise_x = nullptr,
+                                 const Array  *p_noise_y = nullptr);
 
 /**
  * @brief Resolves flow sinks and unwanted upslopes using Dijkstra pathfinding

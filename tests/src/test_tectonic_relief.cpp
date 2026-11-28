@@ -106,6 +106,7 @@ TEST(TectonicRelief, TileConsistency)
                                                  nullptr,
                                                  nullptr,
                                                  nullptr,
+                                                 nullptr,
                                                  rect);
 
       for (int j = 0; j < tile_shape.y; ++j)

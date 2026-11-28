@@ -14,6 +14,8 @@ int main(void)
 
   hmap::Array ranges;
   hmap::Array faults;
+  hmap::Array land;
+
   hmap::Array z = hmap::tectonic_relief(shape,
                                         plate_count,
                                         seed,
@@ -28,12 +30,10 @@ int main(void)
                                         nullptr,
                                         nullptr,
                                         &ranges,
-                                        &faults);
-
-  auto ze = z;
-  hmap::hydraulic_mise(ze);
+                                        &faults,
+                                        &land);
 
   hmap::export_banner_png("ex_tectonic_relief.png",
-                          {z, ranges, faults, ze},
+                          {z, ranges, faults, land},
                           hmap::Cmap::TERRAIN);
 }

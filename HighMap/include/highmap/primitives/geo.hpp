@@ -468,42 +468,45 @@ Array rift(glm::ivec2    shape,
 /**
  * @brief Generate a procedural tectonic relief heightmap from explicit plates.
  *
- * @param  shape             Output array shape.
- * @param  plates            Pre-scattered tectonic plates.
- * @param  seed              Random seed (used when fallback noise is
- *                           generated).
- * @param  roughness         Coastline and base-elevation roughness.
- * @param  boundary_width    Characteristic plate boundary width.
- * @param  coast_kw          Wavenumber for fallback coast noise.
- * @param  ridge_kw          Wavenumber for fallback ridge noise.
- * @param  relief_amp        Amplitude of mountain ranges, trenches, and rifts.
- * @param  subduction_offset Inland offset of subduction volcanic arcs (in
- *                           units of `boundary_width`).
- * @param  fault_amp         Amplitude of shear fault ripples.
- * @param  p_dx              Optional x domain warp array.
- * @param  p_dy              Optional y domain warp array.
- * @param  p_coast_noise     Optional coast noise array (generated if null).
- * @param  p_ridge_noise     Optional ridge noise array (generated if null).
- * @param  p_ranges          Optional output mask for mountain ranges / arcs.
- * @param  p_faults          Optional output mask for shear fault ripples.
- * @param  uv_rect           Parametric domain rectangle for tile-consistent
- *                           evaluation.
- * @return                   Generated tectonic relief heightmap.
+ * @param  shape              Output array shape.
+ * @param  plates             Pre-scattered tectonic plates.
+ * @param  seed               Random seed (used when fallback noise is
+ *                            generated).
+ * @param  roughness          Coastline and base-elevation roughness.
+ * @param  boundary_width     Characteristic plate boundary width.
+ * @param  coast_kw           Wavenumber for fallback coast noise.
+ * @param  ridge_kw           Wavenumber for fallback ridge noise.
+ * @param  relief_amp         Amplitude of mountain ranges, trenches, and rifts.
+ * @param  subduction_offset  Inland offset of subduction volcanic arcs (in
+ *                            units of `boundary_width`).
+ * @param  fault_amp          Amplitude of shear fault ripples.
+ * @param  p_dx               Optional x domain warp array.
+ * @param  p_dy               Optional y domain warp array.
+ * @param  p_coast_noise      Optional coast noise array (generated if null).
+ * @param  p_ridge_noise      Optional ridge noise array (generated if null).
+ * @param  p_ranges           Optional output mask for mountain ranges / arcs.
+ * @param  p_faults           Optional output mask for shear fault ripples.
+ * @param  p_continental_mask Optional output mask for continental land (`[0,
+ *                            1]`).
+ * @param  uv_rect            Parametric domain rectangle for tile-consistent
+ *                            evaluation.
+ * @return                    Generated tectonic relief heightmap.
  */
-Array tectonic_relief(glm::ivec2                       shape,
+Array tectonic_relief(glm::ivec2                        shape,
                       const std::vector<TectonicPlate> &plates,
                       float                             roughness = 0.5f,
                       float                             boundary_width = 0.08f,
                       float                             relief_amp = 1.0f,
-                      float                             subduction_offset = 0.8f,
-                      float                             fault_amp = 0.15f,
-                      const Array                      *p_dx = nullptr,
-                      const Array                      *p_dy = nullptr,
-                      const Array                      *p_coast_noise = nullptr,
-                      const Array                      *p_ridge_noise = nullptr,
-                      Array                            *p_ranges = nullptr,
-                      Array                            *p_faults = nullptr,
-                      const UvRect                     &uv_rect = UvRect::unit());
+                      float         subduction_offset = 0.8f,
+                      float         fault_amp = 0.15f,
+                      const Array  *p_dx = nullptr,
+                      const Array  *p_dy = nullptr,
+                      const Array  *p_coast_noise = nullptr,
+                      const Array  *p_ridge_noise = nullptr,
+                      Array        *p_ranges = nullptr,
+                      Array        *p_faults = nullptr,
+                      Array        *p_continental_mask = nullptr,
+                      const UvRect &uv_rect = UvRect::unit());
 
 /**
  * @brief Generate a procedural tectonic relief heightmap.
@@ -511,28 +514,30 @@ Array tectonic_relief(glm::ivec2                       shape,
  * Scatters `plate_count` plates deterministically from `seed` and evaluates
  * plate boundaries, subduction zones, rift valleys, and shear faults.
  *
- * @param  shape             Output array shape.
- * @param  plate_count       Number of tectonic plates.
- * @param  seed              Random seed.
- * @param  continental_ratio Probability that each plate (after plate 0) is
- *                           continental.
- * @param  roughness         Coastline and base-elevation roughness.
- * @param  boundary_width    Characteristic plate boundary width.
- * @param  coast_kw          Wavenumber for fallback coast noise.
- * @param  ridge_kw          Wavenumber for fallback ridge noise.
- * @param  relief_amp        Amplitude of mountain ranges, trenches, and rifts.
- * @param  subduction_offset Inland offset of subduction volcanic arcs (in
- *                           units of `boundary_width`).
- * @param  fault_amp         Amplitude of shear fault ripples.
- * @param  p_dx              Optional x domain warp array.
- * @param  p_dy              Optional y domain warp array.
- * @param  p_coast_noise     Optional coast noise array (generated if null).
- * @param  p_ridge_noise     Optional ridge noise array (generated if null).
- * @param  p_ranges          Optional output mask for mountain ranges / arcs.
- * @param  p_faults          Optional output mask for shear fault ripples.
- * @param  uv_rect           Parametric domain rectangle for tile-consistent
- *                           evaluation.
- * @return                   Generated tectonic relief heightmap.
+ * @param  shape              Output array shape.
+ * @param  plate_count        Number of tectonic plates.
+ * @param  seed               Random seed.
+ * @param  continental_ratio  Probability that each plate (after plate 0) is
+ *                            continental.
+ * @param  roughness          Coastline and base-elevation roughness.
+ * @param  boundary_width     Characteristic plate boundary width.
+ * @param  coast_kw           Wavenumber for fallback coast noise.
+ * @param  ridge_kw           Wavenumber for fallback ridge noise.
+ * @param  relief_amp         Amplitude of mountain ranges, trenches, and rifts.
+ * @param  subduction_offset  Inland offset of subduction volcanic arcs (in
+ *                            units of `boundary_width`).
+ * @param  fault_amp          Amplitude of shear fault ripples.
+ * @param  p_dx               Optional x domain warp array.
+ * @param  p_dy               Optional y domain warp array.
+ * @param  p_coast_noise      Optional coast noise array (generated if null).
+ * @param  p_ridge_noise      Optional ridge noise array (generated if null).
+ * @param  p_ranges           Optional output mask for mountain ranges / arcs.
+ * @param  p_faults           Optional output mask for shear fault ripples.
+ * @param  p_continental_mask Optional output mask for continental land (`[0,
+ *                            1]`).
+ * @param  uv_rect            Parametric domain rectangle for tile-consistent
+ *                            evaluation.
+ * @return                    Generated tectonic relief heightmap.
  */
 Array tectonic_relief(glm::ivec2    shape,
                       int           plate_count = 12,
@@ -549,8 +554,29 @@ Array tectonic_relief(glm::ivec2    shape,
                       const Array  *p_ridge_noise = nullptr,
                       Array        *p_ranges = nullptr,
                       Array        *p_faults = nullptr,
+                      Array        *p_continental_mask = nullptr,
                       const UvRect &uv_rect = UvRect::unit());
 
+/**
+ * @brief Generate a procedural valley head / amphitheatre-shaped depression.
+ *
+ * @param  shape             Output array shape.
+ * @param  angle             Orientation angle in degrees.
+ * @param  min_depth         Minimum valley depth.
+ * @param  max_depth         Maximum valley depth.
+ * @param  min_width         Minimum valley width.
+ * @param  max_width         Maximum valley width.
+ * @param  depth_length      Length scale of the depth transition.
+ * @param  width_length      Length scale of the width transition.
+ * @param  development_power Exponent controlling longitudinal development.
+ * @param  profile_power     Exponent controlling cross-sectional profile.
+ * @param  p_noise_offset    Optional axial noise offset.
+ * @param  p_noise_r         Optional radial noise distortion.
+ * @param  center            Center position in normalized domain coordinates.
+ * @param  uv_rect           Parametric domain rectangle.
+ * @param  p_mask            Optional output mask.
+ * @return                   Generated valley head heightmap.
+ */
 Array valley_head(glm::ivec2    shape,
                   float         angle = 0.f,
                   float         min_depth = 0.f,

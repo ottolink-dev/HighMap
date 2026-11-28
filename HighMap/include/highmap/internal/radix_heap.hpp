@@ -12,12 +12,13 @@
 #pragma once
 
 #include <algorithm>
-#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <utility>
 #include <vector>
+
+#include <bit>
 
 namespace hmap
 {
