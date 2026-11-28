@@ -11,7 +11,6 @@
 #include <glm/geometric.hpp>
 
 #include "highmap/math/core.hpp"
-#include "highmap/primitives/coherent_noise.hpp"
 #include "highmap/primitives/geo.hpp"
 
 namespace hmap
@@ -83,15 +82,16 @@ void evaluate_pair_features(int                               idx0,
                             float                             relief_amp,
                             float                             subduction_offset,
                             float                             fault_amp,
-                            float                             craggy,
-                            float                            &out_feature_h,
-                            float                            &out_range,
-                            float                            &out_fault)
+                            bool   underwater_interactions,
+                            float  craggy,
+                            float &out_feature_h,
+                            float &out_range,
+                            float &out_fault)
 {
   bool cont0 = plates[idx0].is_continental;
   bool cont1 = plates[idx1].is_continental;
 
-  if (!cont0 && !cont1) return;
+  if (!cont0 && !cont1 && !underwater_interactions) return;
 
   glm::vec2 c0 = plates[idx0].center;
   glm::vec2 c1 = plates[idx1].center;
@@ -118,7 +118,7 @@ void evaluate_pair_features(int                               idx0,
       out_range += r;
       out_feature_h += r * relief_amp;
     }
-    else
+    else if (cont0 != cont1)
     {
       float d_cont = cont0 ? d : -d;
       float range_d = (d_cont - subduction_offset * width) / width;
@@ -131,6 +131,12 @@ void evaluate_pair_features(int                               idx0,
       out_range += r;
       out_feature_h += r * relief_amp;
       out_feature_h -= trench_falloff * 0.3f * relief_amp * conv_strength;
+    }
+    else
+    {
+      float r = near_falloff * craggy * conv_strength * 0.62f;
+      out_range += r;
+      out_feature_h += r * relief_amp;
     }
   }
   else
@@ -158,7 +164,8 @@ void evaluate_pair_features(int                               idx0,
 
 std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
                                                    uint  seed,
-                                                   float continental_ratio)
+                                                   float continental_ratio,
+                                                   float smoothing_coherence)
 {
   int count = std::max(1, plate_count);
   int g = static_cast<int>(std::ceil(std::sqrt(static_cast<float>(count))));
@@ -175,8 +182,13 @@ std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
   std::uniform_real_distribution<float> dist_speed(0.4f, 1.0f);
   std::uniform_real_distribution<float> dist_angle(0.0f, 6.28318530718f);
 
+  float s_coh = std::clamp(smoothing_coherence, 0.0f, 1.0f);
+
   std::vector<TectonicPlate> plates;
+  std::vector<float> target_speeds;
+
   plates.reserve(count);
+  target_speeds.reserve(count);
 
   float cell_size = 1.0f / static_cast<float>(g);
 
@@ -193,10 +205,59 @@ std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
     float angle = dist_angle(rng);
     float speed = dist_speed(rng);
     plate.velocity = {std::cos(angle) * speed, std::sin(angle) * speed};
-
     plate.is_continental = (i == 0) ? true : (dist_01(rng) < continental_ratio);
 
     plates.push_back(plate);
+    target_speeds.push_back(speed);
+  }
+
+  // relax velocities between neighboring plates of the same crust type
+  if (s_coh > 0.0f && count > 1)
+  {
+    float     sigma = 1.5f * cell_size;
+    float     inv_sigma2 = 1.0f / (sigma * sigma);
+    float     lambda = 0.5f * s_coh;
+    const int iterations = 10;
+
+    std::vector<glm::vec2> next_vel(count);
+
+    for (int it = 0; it < iterations; ++it)
+    {
+      for (int i = 0; i < count; ++i)
+      {
+        glm::vec2 avg_v(0.0f, 0.0f);
+        float     w_sum = 0.0f;
+
+        for (int j = 0; j < count; ++j)
+        {
+          if (i == j || plates[i].is_continental != plates[j].is_continental)
+            continue;
+
+          glm::vec2 diff = plates[i].center - plates[j].center;
+          float     d2 = glm::dot(diff, diff);
+          float     w = std::exp(-d2 * inv_sigma2);
+          avg_v += w * plates[j].velocity;
+          w_sum += w;
+        }
+
+        if (w_sum > 1e-6f)
+          next_vel[i] = (1.0f - lambda) * plates[i].velocity +
+                        lambda * (avg_v / w_sum);
+        else
+          next_vel[i] = plates[i].velocity;
+      }
+
+      for (int i = 0; i < count; ++i)
+        plates[i].velocity = next_vel[i];
+    }
+
+    // re-normalize speeds to preserve target speed range
+    for (int i = 0; i < count; ++i)
+    {
+      float len = glm::length(plates[i].velocity);
+      if (len > 1e-6f)
+        plates[i].velocity = (plates[i].velocity / len) * target_speeds[i];
+    }
   }
 
   return plates;
@@ -213,6 +274,7 @@ Array tectonic_relief(glm::ivec2                        shape,
                       float                             relief_amp,
                       float                             subduction_offset,
                       float                             fault_amp,
+                      bool                              underwater_interactions,
                       const Array                      *p_dx,
                       const Array                      *p_dy,
                       const Array                      *p_coast_noise,
@@ -312,6 +374,7 @@ Array tectonic_relief(glm::ivec2                        shape,
                              relief_amp,
                              subduction_offset,
                              fault_amp,
+                             underwater_interactions,
                              craggy,
                              feature_h,
                              range_val,
@@ -340,11 +403,13 @@ Array tectonic_relief(glm::ivec2    shape,
                       int           plate_count,
                       uint          seed,
                       float         continental_ratio,
+                      float         smoothing_coherence,
                       float         roughness,
                       float         boundary_width,
                       float         relief_amp,
                       float         subduction_offset,
                       float         fault_amp,
+                      bool          underwater_interactions,
                       const Array  *p_dx,
                       const Array  *p_dy,
                       const Array  *p_coast_noise,
@@ -357,7 +422,8 @@ Array tectonic_relief(glm::ivec2    shape,
   std::vector<TectonicPlate> plates = scatter_tectonic_plates(
       plate_count,
       seed,
-      continental_ratio);
+      continental_ratio,
+      smoothing_coherence);
 
   return tectonic_relief(shape,
                          plates,
@@ -366,6 +432,7 @@ Array tectonic_relief(glm::ivec2    shape,
                          relief_amp,
                          subduction_offset,
                          fault_amp,
+                         underwater_interactions,
                          p_dx,
                          p_dy,
                          p_coast_noise,
