@@ -164,10 +164,10 @@ void evaluate_pair_features(int                               idx0,
     out_feature_h += range_val * ripple_amp *
                      std::cos(d * 6.28318530718f * ripple_kw);
 
-  float fault_val = near_falloff * std::cos(d_norm * 3.0f) *
-                    std::min(1.0f, sliding);
-  out_feature_h -= std::abs(fault_val) * fault_amp;
-  out_fault += std::abs(fault_val);
+  float cos_f = std::cos(d_norm * 3.0f);
+  float fault_val = near_falloff * cos_f * cos_f * std::min(1.0f, sliding);
+  out_feature_h -= fault_val * fault_amp;
+  out_fault += fault_val;
 }
 
 // --- Plate scattering
@@ -371,7 +371,8 @@ Array tectonic_relief(glm::ivec2                        shape,
       {
         float margin = (min_ocean_dist - min_cont_dist) * 0.5f;
         float perturbed = margin + c_val * roughness * width * 0.6f;
-        cont = smoothstep3(perturbed, -width * 0.5f, width * 0.5f);
+        float t = std::clamp((perturbed + width * 0.5f) / width, 0.0f, 1.0f);
+        cont = smoothstep5(t);
       }
 
       // base elevation: continents above 0, oceans below 0
@@ -404,7 +405,8 @@ Array tectonic_relief(glm::ivec2                        shape,
 
       if (plates.size() > 2)
       {
-        float tj_fade = smoothstep3((np.dc - np.db) * 0.5f, 0.0f, width * 0.5f);
+        float t_tj = std::clamp((np.dc - np.db) / width, 0.0f, 1.0f);
+        float tj_fade = smoothstep5(t_tj);
         feature_h *= tj_fade;
         range_val *= tj_fade;
         fault_val *= tj_fade;
