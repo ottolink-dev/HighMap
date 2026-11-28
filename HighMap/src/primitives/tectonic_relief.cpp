@@ -185,7 +185,7 @@ std::vector<TectonicPlate> scatter_tectonic_plates(int   plate_count,
   float s_coh = std::clamp(smoothing_coherence, 0.0f, 1.0f);
 
   std::vector<TectonicPlate> plates;
-  std::vector<float> target_speeds;
+  std::vector<float>         target_speeds;
 
   plates.reserve(count);
   target_speeds.reserve(count);

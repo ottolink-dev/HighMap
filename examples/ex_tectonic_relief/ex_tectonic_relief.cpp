@@ -3,20 +3,29 @@
 int main(void)
 {
   glm::ivec2 shape = {256, 256};
-  int        plate_count = 32;
-  uint       seed = 1;
-  float      continental_ratio = 0.2f;
-  float      smoothing_coherence = 0.05f;
-  float      roughness = 0.1f;
-  float      boundary_width = 0.08f;
-  float      relief_amp = 1.0f;
-  float      subduction_offset = 0.8f;
-  float      fault_amp = 0.15f;
-  bool       underwater_interactions = false;
+
+  int   plate_count = 32;
+  uint  seed = 1;
+  float continental_ratio = 0.2f;
+  float smoothing_coherence = 0.05f;
+  float roughness = 1.f;
+  float boundary_width = 0.08f;
+  float relief_amp = 1.0f;
+  float subduction_offset = 0.8f;
+  float fault_amp = 0.15f;
+  bool  underwater_interactions = false;
 
   hmap::Array ranges;
   hmap::Array faults;
   hmap::Array land;
+
+  glm::vec2   kw = {4.f, 4.f};
+  hmap::Array noise = 2.f * hmap::noise_fbm(hmap::NoiseType::PERLIN,
+                                            shape,
+                                            kw,
+                                            seed + 1,
+                                            8,
+                                            0.f);
 
   hmap::Array z = hmap::tectonic_relief(shape,
                                         plate_count,
@@ -31,11 +40,13 @@ int main(void)
                                         underwater_interactions,
                                         nullptr,
                                         nullptr,
-                                        nullptr,
-                                        nullptr,
+                                        &noise,
+                                        &noise,
                                         &ranges,
                                         &faults,
                                         &land);
+
+  z.dump();
 
   hmap::export_banner_png("ex_tectonic_relief.png",
                           {z, ranges, faults, land},
